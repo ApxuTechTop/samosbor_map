@@ -14414,7 +14414,7 @@ var $;
             Blocks: $hyoo_crus_list_ref_to(() => $apxutechtop_samosbor_map_block_data),
         }) {
             static global() {
-                const storage = $hyoo_crus_glob.Node($hyoo_crus_ref("rIuXD13u_MIkær61B"), Gigacluster);
+                const storage = $hyoo_crus_glob.Node($hyoo_crus_ref("6H1qbbnb_3nEGhBiI"), Gigacluster);
                 return storage;
             }
             static create_block() {
