@@ -14,10 +14,10 @@ jobs:
       with:
         token: ${{ secrets.GH_PAT }}
         package: 'samosbor'
-        modules: map
+        modules: samosbor_map
     - name: Deploy on GitHub Pages
       if: github.ref == 'refs/heads/master'
       uses: alex-page/blazing-fast-gh-pages-deploy@v1.1.0
       with:
         repo-token: ${{ secrets.GH_PAT }}
-        site-directory: 'samosbor/map/-'
+        site-directory: 'samosbor/samosbor_map/-'
