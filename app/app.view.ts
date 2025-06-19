@@ -237,16 +237,16 @@ namespace $.$$ {
 		@$mol_mem
 		direction_value( next?: DirectionType ) {
 			if( next?.length == 0 ) {
-				return this.selected_block()?.block_direction()
+				return this.selected_block()?.block_direction() ?? ""
 			}
-			return this.selected_block()?.block_direction( next )
+			return this.selected_block()?.block_direction( next ) ?? ""
 		}
 		@$mol_mem
 		block_type_value( next?: string ) {
 			if( next?.length == 0 ) {
-				return this.selected_block()?.block_type()
+				return this.selected_block()?.block_type() ?? ""
 			}
-			return this.selected_block()?.block_type( next )
+			return this.selected_block()?.block_type( next ) ?? ""
 		}
 		@$mol_mem
 		up_flight_value( next?: boolean ): boolean {
