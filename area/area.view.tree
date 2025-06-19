@@ -1,0 +1,19 @@
+$apxutechtop_samosbor_map_area $mol_view
+	zoom 1
+	attr *
+		dragging <= isDragging? false
+	event *
+		wheel? <=> event_wheel? null
+		keypress? <=> event_key? null
+		mousedown? <=> event_mouse_down? null
+		mousemove? <=> event_mouse_move? null
+		mouseup? <=> event_mouse_up? null
+	sub /$mol_view
+		<= Plane $mol_view
+			minimal_width 0
+			minimal_height 0
+			style *
+				translate <= position_style \
+				scale <= scale_style \
+			sub /
+				^ items /

@@ -29,7 +29,7 @@ $apxutechtop_samosbor_map_block $mol_view
 	on_connection_select? null
 	attr *
 		direction <= block_direction? \up
-		visible <= visible
+		visible <= visible true
 		selected <= selected? false
 		editing <= edit_mode
 		color <= color_letter \b
