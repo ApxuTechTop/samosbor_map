@@ -23,12 +23,6 @@ $apxutechtop_samosbor_map_app $mol_view
 		pos_x <= cluster_pos_x*? 0
 		pos_y <= cluster_pos_y*? 0
 	floor_lines*? /
-	- Floor* $apxutechtop_samosbor_map_app_floor
-		floor_direction <=> floor_direction* \up
-		pos_x <= pos_x*? 0
-		pos_y <= pos_y*? 0
-		block_name <=> block_name* \А-00
-		lines <= floor_lines*? /
 	Line* $mol_view
 		event *
 			mousedown? <=> event_key*? null
@@ -58,7 +52,7 @@ $apxutechtop_samosbor_map_app $mol_view
 		<= Control_Panel $mol_card
 			sub /
 				<= Control_Switch $mol_switch
-					value? <=> control_type?
+					value? <=> control_type? \
 					options *
 						create \Create Block
 						connect \Connect Blocks
@@ -67,12 +61,12 @@ $apxutechtop_samosbor_map_app $mol_view
 			sub /
 				<= name_setting $mol_view
 					sub / <= name_input $mol_string
-						value? <=> selected_block_name?
+						value? <=> selected_block_name? \
 						hint \Block name
 				<= type_setting $mol_labeler
 					title \Тип блока
 					content / <= block_type_switch $mol_switch
-						value? <=> block_type_value?
+						value? <=> block_type_value? \residential
 						options *
 							residential \Жилой
 							destroyed \Разрушенный
@@ -82,27 +76,27 @@ $apxutechtop_samosbor_map_app $mol_view
 				<= min_floor_setting $mol_labeler
 					title \Min floor
 					content / <= min_setting_number $mol_number
-						value? <=> min_floor?
+						value? <=> min_floor? 0
 				<= max_floor_setting $mol_labeler
 					title \Max floor
 					content / <= max_setting_number $mol_number
-						value? <=> max_floor?
+						value? <=> max_floor? 0
 				<= layer_setting $mol_labeler
 					title \Zero floor height
 					content / <= layer_setting_number $mol_number
-						value? <=> layer_value?
+						value? <=> layer_value? 0
 				<= pos_x_setting $mol_labeler
 					title \Position X
 					content / <= pos_x_setting_number $mol_number
-						value? <=> pos_x_value?
+						value? <=> pos_x_value? 0
 				<= pos_y_setting $mol_labeler
 					title \Position Y
 					content / <= pos_y_setting_number $mol_number
-						value? <=> pos_y_value?
+						value? <=> pos_y_value? 0
 				<= direction_setting $mol_labeler
 					title \Direction
 					content / <= direction_switch $mol_switch
-						value? <=> direction_value?
+						value? <=> direction_value? \up
 						options *
 							up \Up
 							right \Right
@@ -116,7 +110,7 @@ $apxutechtop_samosbor_map_app $mol_view
 					checked? <=> down_flight_value? false
 				<= delete_block_button $mol_button_minor
 					title \Delete block
-					click? <=> delete_block?
+					click? <=> delete_block? null
 		<= Layer_Bar $mol_number
 			value? <=> current_layer? 0
 		<= Searcher $mol_view
