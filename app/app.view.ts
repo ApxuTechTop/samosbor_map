@@ -41,10 +41,10 @@ namespace $.$$ {
 	} ) {
 		@$mol_mem
 		static global() {
-			const storage = $hyoo_crus_glob.home( Gigacluster ) // home для каждого юзера свой
-			const ref = storage.ref().description
-			console.log( "global ref:", ref )
-			// const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( "rIuXD13u_MIkær61B" ), Gigacluster ) // используем мой home
+			// const storage = $hyoo_crus_glob.home( Gigacluster ) // home для каждого юзера свой
+			// const ref = storage.ref().description
+			// console.log( "global ref:", ref )
+			const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( "rIuXD13u_MIkær61B" ), Gigacluster ) // используем мой home
 			return storage
 		}
 		@$mol_action
