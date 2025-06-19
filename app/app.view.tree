@@ -33,7 +33,7 @@ $apxutechtop_samosbor_map_app $mol_view
 		event *
 			mousedown? <=> event_key*? null
 	Block* $apxutechtop_samosbor_map_block
-		block_data? <= block* $apxutechtop_samosbor_map_block_data
+		block_data? <= block* null
 		current_layer? <= current_layer? 0
 		onclick? <=> block_clicked*? null
 		on_connection_select? <=> connection_selected*? null
