@@ -1,0 +1,174 @@
+$apxutechtop_samosbor_map_block_row $mol_view
+	sub / null
+
+$apxutechtop_samosbor_map_block_part $mol_view
+	sub /
+		<= content null
+
+$apxutechtop_samosbor_map_block_flight $apxutechtop_samosbor_map_block_part
+
+$apxutechtop_samosbor_map_block_passage $mol_view
+	sub /
+		<= content null
+
+$apxutechtop_samosbor_map_block_middle_flight $mol_view
+
+$apxutechtop_samosbor_map_block $mol_view
+	edit_mode? false
+	create_mode? false
+	connect_mode? false
+	block_data? null
+	block_layer? 0
+	current_layer? 0
+	min_floor? 0
+	max_floor? 0
+	pos_x? 0
+	pos_y? 0
+	is_up_flight? false
+	is_down_flight? false
+	on_connection_select? null
+	attr *
+		direction <= block_direction? \up
+		visible <= visible
+		selected <= selected? false
+		editing <= edit_mode
+		color <= color_letter \b
+		block-type <= block_type? \destroyed
+	style *
+		left <= left? 0
+		top <= top? 0
+	event *
+		click? <=> onclick? null
+	Connection* $mol_view
+		attr *
+			hidden <= connection_hidden* false
+			highlight <= connection_highlight* false
+		style *
+			left <= connection_left* 0
+			top <= connection_top* 0
+		event *
+			click? <=> connection_click*? null
+	Transition* $mol_view
+		attr *
+			hidden <= transition_hidden* false
+			direction <= transition_direction* \vertical
+		style *
+			left <= transition_left* 0
+			top <= transition_top* 0
+	show_connections? false
+	flight_icons* *
+		stairs <= stairs_icon* $apxutechtop_samosbor_map_icon_stairs
+		elevator <= elevator_icon* $apxutechtop_samosbor_map_icon_elevator
+		ladder_elevator <= ladder_elevator* $mol_view
+			sub /
+				<= ladder_icon* $apxutechtop_samosbor_map_icon_ladder
+				<= elevator_icon* $apxutechtop_samosbor_map_icon_elevator
+	up_middle_passage $apxutechtop_samosbor_map_block_passage
+		event *
+			click? <=> up_middle_passage_click? null
+		attr *
+			type <= up_middle_passage_type \noway
+			up true
+	down_middle_passage $apxutechtop_samosbor_map_block_passage
+		event *
+			click? <=> down_middle_passage_click? null
+		attr *
+			type <= down_middle_passage_type \noway
+			down true
+	up_flight $apxutechtop_samosbor_map_block_middle_flight
+		sub /
+			<= up_flight_icon $apxutechtop_samosbor_map_icon_stairs
+	down_flight $apxutechtop_samosbor_map_block_middle_flight
+		sub /
+			<= down_flight_icon $apxutechtop_samosbor_map_icon_stairs
+	sub /
+		<= content $mol_view
+			sub /
+				^ connections_list <= connections /
+				^ transitions_list <= transitions /
+				<= up_row $apxutechtop_samosbor_map_block_row
+					sub /
+						<= left_flight $apxutechtop_samosbor_map_block_flight
+							event *
+								click? <=> left_flight_click? null
+							sub /
+								<= left_flight_icon
+						<= up_left_passage $apxutechtop_samosbor_map_block_passage
+							event *
+								click? <=> up_left_passage_click? null
+							attr *
+								type <= up_left_passage_type \noway
+								up true
+								left true
+						<= up_left_part $apxutechtop_samosbor_map_block_part
+							sub /
+								<= BlockName $mol_view sub / <= block_name? \А-00
+								<= CurrentFloor $mol_view 
+									sub / 
+										\Эт. 
+										<= display_floor \?
+						<= up_passage_or_flight $mol_view
+						<= up_right_part $apxutechtop_samosbor_map_block_part
+						<= up_right_passage $apxutechtop_samosbor_map_block_passage
+							event *
+								click? <=> up_right_passage_click? null
+							attr *
+								type <= up_right_passage_type \noway
+								up true
+								right true
+						<= right_flight $apxutechtop_samosbor_map_block_flight
+							event *
+								click? <=> right_flight_click? null
+							sub /
+								<= right_flight_icon
+				<= middle_row $mol_view
+					sub /
+						<= left_passage $apxutechtop_samosbor_map_block_passage
+							event *
+								click? <=> left_passage_click? null
+							attr *
+								type <= left_passage_type \normal
+								left true
+						<= left_hallway $mol_view
+						<= fence $mol_view
+						<= right_hallway $mol_view
+						<= right_passage $apxutechtop_samosbor_map_block_passage
+							event *
+								click? <=> right_passage_click? null
+							attr *
+								type <= right_passage_type \normal
+								right true
+						- <= hallway $mol_view
+				<= down_row $apxutechtop_samosbor_map_block_row
+					sub /
+						<= floor_part $apxutechtop_samosbor_map_block_part
+							sub /
+								<= max_floor_view $mol_view
+									sub /
+										<= max_floor_icon $apxutechtop_samosbor_map_icon_max_floor
+										<= max_floor_value $mol_view
+											sub / <= max_floor 0
+								<= min_floor_view $mol_view
+									sub /
+										<= min_floor_icon $apxutechtop_samosbor_map_icon_min_floor
+										<= min_floor_value $mol_view
+											sub / <= min_floor 0
+						<= down_left_passage $apxutechtop_samosbor_map_block_passage
+							event *
+								click? <=> down_left_passage_click? null
+							attr *
+								type <= down_left_passage_type \noway
+								down true
+								left true
+						<= down_left_part $apxutechtop_samosbor_map_block_part
+						<= down_passage_or_flight $mol_view
+						<= down_right_part $apxutechtop_samosbor_map_block_part
+						<= down_right_passage $apxutechtop_samosbor_map_block_passage
+							event *
+								click? <=> down_right_passage_click? null
+							attr *
+								type <= down_right_passage_type \noway
+								down true
+								right true
+						<= block_effects_part $apxutechtop_samosbor_map_block_part
+				

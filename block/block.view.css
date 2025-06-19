@@ -1,0 +1,667 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');
+
+@font-face {
+	font-family: "Roboto";
+	src: url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap");
+	font-weight: 700;
+	font-style: normal;
+}
+
+@keyframes blink-edit {
+
+	0%,
+	100% {
+		outline-color: black;
+		/* Цвет обводки в начале и конце цикла */
+	}
+
+	50% {
+		outline-color: transparent;
+		/* Обводка исчезает посередине цикла */
+	}
+}
+
+[apxutechtop_samosbor_map_cluster]>*,
+[apxutechtop_samosbor_map_block] {
+	--block-type-stroke-color: #00000000;
+
+	&[block-type=residential] {}
+
+	&[block-type=destroyed] {
+		--block-type-stroke-color: black;
+	}
+
+	&[block-type=infected] {
+		--block-type-stroke-color: red;
+	}
+
+	&[block-type=abandoned] {
+		--block-type-stroke-color: yellow;
+	}
+
+	&[block-type=frozen] {
+		--block-type-stroke-color: blue;
+	}
+
+	padding: calc(var(--transition-length) / 2);
+
+	&:not([visible]) {
+		[apxutechtop_samosbor_map_block_content] {
+			opacity: 0.2;
+		}
+	}
+
+	&[selected] {
+		outline: 5px solid rgb(14, 211, 237);
+		/* Размер и цвет границы */
+		animation: blink-border 2s infinite;
+		/* Запуск анимации бесконечно */
+	}
+
+	top: 0px;
+	left: 0px;
+	position: absolute;
+
+	[apxutechtop_samosbor_map_block_transition] {
+		--transition-width: 50px;
+		--transition-height: 50px;
+		box-sizing: content-box;
+
+		&[hidden] {
+			display: none;
+		}
+
+		&[direction=vertical] {
+			height: var(--transition-width);
+			width: var(--transition-length);
+
+			border-bottom: 10px solid white;
+			border-top: 10px solid white;
+			translate: 0px -10px;
+		}
+
+		&[direction=horizontal] {
+			height: var(--transition-length);
+			width: var(--transition-width);
+			border-left: 10px solid white;
+			border-right: 10px solid white;
+			translate: -10px;
+		}
+
+		position: absolute;
+		/* transform: translate(-50%, -50%); */
+		/* border: 5px solid white; */
+		background-color: #FFFFFF80;
+		z-index: 100;
+	}
+
+	[apxutechtop_samosbor_map_block_part] {
+		width: var(--part-width);
+		height: var(--part-width);
+
+		&::before {
+			background-color: var(--main);
+		}
+	}
+
+	[apxutechtop_samosbor_map_block_floor_part] {
+		padding: 10px;
+		display: flex;
+		gap: 10px;
+		flex-direction: column;
+		flex-wrap: wrap;
+
+		&>* {
+			z-index: 10;
+			font-family: "Roboto";
+			font-weight: 700;
+			font-size: 32px;
+			line-height: 20px;
+			letter-spacing: 0;
+			text-align: center;
+			color: white;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			flex-wrap: wrap;
+			align-self: stretch;
+			justify-items: stretch;
+
+			&>* {
+				width: 34px;
+				height: 34px;
+				display: flex;
+				align-items: center;
+			}
+
+		}
+	}
+
+	[apxutechtop_samosbor_map_block_flight] {
+		[mol_icon] {
+			width: var(--duo-icon-size);
+			height: var(--duo-icon-size);
+
+			&:only-child {
+				width: var(--solo-icon-size);
+				height: var(--solo-icon-size);
+			}
+
+			fill: white;
+		}
+	}
+
+	&[editing] {
+
+		[apxutechtop_samosbor_map_block_flight],
+		[apxutechtop_samosbor_map_block_passage] {
+			z-index: 2000;
+
+			&::after {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				outline: 3px solid black;
+				animation: blink-edit 2s infinite;
+			}
+
+		}
+	}
+
+	[apxutechtop_samosbor_map_block_passage] {
+		&::before {
+			background-color: var(--main);
+		}
+
+		&[type=normal] {
+			&::before {
+				background-color: var(--bg);
+			}
+		}
+	}
+
+	[apxutechtop_samosbor_map_block_middle_flight] {
+		&::before {
+			background-color: var(--main);
+		}
+
+	}
+
+	[apxutechtop_samosbor_map_block_blockname] {
+		z-index: 10;
+		align-items: center;
+	}
+
+	[apxutechtop_samosbor_map_block_currentfloor] {
+		z-index: 10;
+		align-items: center;
+	}
+
+
+	[apxutechtop_samosbor_map_block_content] {
+		--stroke-length-left: 85px;
+		/* Длина штриха ВЕРТИКАЛЬНЫХ линий */
+		--empty-length-left: 85px;
+		/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */
+		--stroke-length-top: 90px;
+		/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */
+		--empty-length-top: 90px;
+		/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */
+		box-sizing: border-box;
+		background-color: white;
+		cursor: pointer;
+		user-select: none;
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+		color: black;
+		font-size: 40px;
+		display: flex;
+		position: relative;
+		padding: 10px;
+		--stroke-color: var(--block-type-stroke-color);
+		border-radius: 10px;
+
+		&::after {
+			position: absolute;
+			inset: 0px;
+			content: "";
+			z-index: 100;
+			/* Разные значения для вертикальных/горизонтальных линий */
+			/* --stroke-length-vertical: 85px;
+			--empty-length-vertical: 85px;
+			--stroke-length-horizontal: 90px;
+			--empty-length-horizontal: 90px; */
+			--stroke-width: 10px;
+			border-radius: 10px;
+
+			/* Толщина линии */
+
+			width: calc(100% - 0px);
+			height: calc(100% - 0px);
+
+			/* Рассчитываем половины значений */
+			--half-dash-h: calc(var(--stroke-length-horizontal) / 2);
+			--half-dash-v: calc(var(--stroke-length-vertical) / 2);
+
+			background:
+				/* Верхняя граница (горизонтальная) */
+				linear-gradient(90deg,
+					var(--stroke-color) 0 var(--half-dash-h),
+					transparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),
+					var(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 0 / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,
+
+				/* Правая граница (вертикальная) */
+				linear-gradient(180deg,
+					var(--stroke-color) 0 var(--half-dash-v),
+					transparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),
+					var(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 100% 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y,
+
+				/* Нижняя граница (горизонтальная) */
+				linear-gradient(270deg,
+					var(--stroke-color) 0 var(--half-dash-h),
+					transparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),
+					var(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 100% / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,
+
+				/* Левая граница (вертикальная) */
+				linear-gradient(0deg,
+					var(--stroke-color) 0 var(--half-dash-v),
+					transparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),
+					var(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 0 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y;
+			background: unset;
+			/* border: 10px solid var(--stroke-color); */
+			box-shadow: 0 0 20px 20px var(--stroke-color);
+			/* blur = 20px, spread = 5px */
+
+		}
+
+		/* filter: drop-shadow(0 0 20px var(--stroke-color)); */
+
+
+	}
+
+	[apxutechtop_samosbor_map_block_middle_row] {
+		display: flex;
+
+		[apxutechtop_samosbor_map_block_hallway] {
+			background-color: var(--bg);
+		}
+
+		&>* {
+			background-color: var(--bg);
+		}
+
+		[apxutechtop_samosbor_map_block_passage] {
+			position: relative;
+
+			&::before {
+				box-sizing: border-box;
+				content: "";
+				width: 100% !important;
+				height: 100% !important;
+				background-color: var(--bg);
+				position: absolute;
+				/* background-color: var(--main); */
+			}
+		}
+
+	}
+
+	[apxutechtop_samosbor_map_block_row] {
+		display: flex;
+		gap: 10px;
+
+		&>* {
+			justify-content: center;
+			align-items: center;
+			background-color: unset !important;
+			position: relative;
+
+			&::before {
+				box-sizing: border-box;
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				/* background-color: var(--main); */
+			}
+		}
+	}
+
+	[apxutechtop_samosbor_map_block_left_flight] {
+		[mol_icon] {
+			width: var(--duo-icon-size);
+			height: var(--duo-icon-size);
+
+			&:only-child {
+				width: var(--solo-icon-size);
+				height: var(--solo-icon-size);
+			}
+
+			fill: white;
+		}
+	}
+
+	[apxutechtop_samosbor_map_block_up_left_part] {
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+
+		&>* {
+			height: 50%;
+			width: 100%;
+			text-align: center;
+			vertical-align: middle;
+			line-height: 100%;
+			display: flex;
+			justify-content: center;
+			color: white;
+			font-family: "Roboto";
+			font-weight: 700;
+			font-size: 28px;
+			line-height: 100%;
+			letter-spacing: 0;
+			text-align: center;
+		}
+	}
+
+	&[direction=up],
+	&[direction=down] {
+		[apxutechtop_samosbor_map_block_row] {
+			width: 100%;
+			height: var(--part-width);
+		}
+
+		[apxutechtop_samosbor_map_block_content] {
+			width: var(--width);
+			height: var(--height);
+
+
+
+			--stroke-length-vertical: var(--stroke-length-left);
+			/* Длина штриха ВЕРТИКАЛЬНЫХ линий */
+			--empty-length-vertical: var(--empty-length-left);
+			/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */
+			--stroke-length-horizontal: var(--stroke-length-top);
+			/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */
+			--empty-length-horizontal: var(--empty-length-top);
+			/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */
+
+		}
+
+		;
+
+		[apxutechtop_samosbor_map_block_hallway] {
+			width: 100%;
+			height: var(--passage-width);
+		}
+
+		[apxutechtop_samosbor_map_block_passage] {
+			width: var(--passage-width);
+			height: var(--part-width);
+
+			&[type=normal] {
+				&::before {
+					height: calc(var(--part-width) + 25px);
+				}
+			}
+
+			&[type=noway] {
+				&::before {
+					width: calc(var(--passage-width) + 25px);
+				}
+			}
+		}
+
+		[apxutechtop_samosbor_map_block_middle_flight] {
+			width: var(--passage-width);
+			height: var(--part-width);
+		}
+
+		[apxutechtop_samosbor_map_block_middle_row] {
+			[apxutechtop_samosbor_map_block_passage] {
+				width: var(--part-width);
+				height: var(--passage-width);
+			}
+
+			[apxutechtop_samosbor_map_block_left_hallway],
+			[apxutechtop_samosbor_map_block_right_hallway] {
+				width: calc((100% - 2 * var(--part-width)) / 2);
+			}
+		}
+	}
+
+	;
+
+	&[direction=left],
+	&[direction=right] {
+		[apxutechtop_samosbor_map_block_row] {
+			width: var(--part-width);
+			height: 100%;
+		}
+
+		[apxutechtop_samosbor_map_block_content] {
+			width: var(--height);
+			height: var(--width);
+
+			--stroke-length-vertical: var(--stroke-length-top);
+			/* Длина штриха ВЕРТИКАЛЬНЫХ линий */
+			--empty-length-vertical: var(--empty-length-top);
+			/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */
+			--stroke-length-horizontal: var(--stroke-length-left);
+			/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */
+			--empty-length-horizontal: var(--empty-length-left);
+			/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */
+		}
+
+		;
+
+		[apxutechtop_samosbor_map_block_hallway] {
+			width: var(--passage-width);
+			height: 100%;
+		}
+
+		[apxutechtop_samosbor_map_block_passage] {
+			width: var(--part-width);
+			height: var(--passage-width);
+
+			&[type=normal] {
+				&::before {
+					width: calc(var(--part-width) + 25px);
+				}
+			}
+
+			&[type=noway] {
+				&::before {
+					height: calc(var(--passage-width) + 25px);
+				}
+			}
+		}
+
+		[apxutechtop_samosbor_map_block_middle_flight] {
+			height: var(--passage-width);
+			width: var(--part-width);
+		}
+
+		[apxutechtop_samosbor_map_block_middle_row] {
+			[apxutechtop_samosbor_map_block_passage] {
+				height: var(--part-width);
+				width: var(--passage-width);
+			}
+
+			[apxutechtop_samosbor_map_block_left_hallway],
+			[apxutechtop_samosbor_map_block_right_hallway] {
+				height: calc((100% - 2 * var(--part-width)) / 2);
+			}
+		}
+	}
+
+	&[direction=up] {
+		[apxutechtop_samosbor_map_block_content] {
+			flex-direction: column;
+		}
+
+		[apxutechtop_samosbor_map_block_row] {
+			flex-direction: row;
+			/* left: 0px;
+			top: 0px; */
+		}
+
+		[apxutechtop_samosbor_map_block_passage] {
+			&[left] {
+				&::before {
+					left: 0px;
+				}
+			}
+
+			&[right] {
+				&::before {
+					right: 0px;
+				}
+			}
+
+			&[up] {
+				&::before {
+					top: 0px;
+				}
+			}
+
+			&[down] {
+				&::before {
+					bottom: 0px;
+				}
+			}
+		}
+
+		[apxutechtop_samosbor_map_block_up_left_part] {
+			left: var(--pos);
+			top: 0px;
+		}
+
+		[apxutechtop_samosbor_map_block_middle_row] {
+			flex-direction: row;
+		}
+	}
+
+	&[direction=down] {
+		[apxutechtop_samosbor_map_block_content] {
+			flex-direction: column-reverse;
+		}
+
+		[apxutechtop_samosbor_map_block_row] {
+			flex-direction: row-reverse;
+		}
+
+		[apxutechtop_samosbor_map_block_passage] {
+			&[left] {
+				&::before {
+					right: 0px;
+				}
+			}
+
+			&[right] {
+				&::before {
+					left: 0px;
+				}
+			}
+
+			&[up] {
+				&::before {
+					bottom: 0px;
+				}
+			}
+
+			&[down] {
+				&::before {
+					top: 0px;
+				}
+			}
+		}
+
+		[apxutechtop_samosbor_map_block_middle_row] {
+			flex-direction: row-reverse;
+		}
+	}
+
+	&[direction=left] {
+		[apxutechtop_samosbor_map_block_content] {
+			flex-direction: row;
+		}
+
+		[apxutechtop_samosbor_map_block_row] {
+			flex-direction: column-reverse;
+		}
+
+		[apxutechtop_samosbor_map_block_passage] {
+			&[left] {
+				&::before {
+					bottom: 0px;
+				}
+			}
+
+			&[right] {
+				&::before {
+					top: 0px;
+				}
+			}
+
+			&[up] {
+				&::before {
+					left: 0px;
+				}
+			}
+
+			&[down] {
+				&::before {
+					right: 0px;
+				}
+			}
+		}
+
+		[apxutechtop_samosbor_map_block_middle_row] {
+			flex-direction: column-reverse;
+		}
+	}
+
+	&[direction=right] {
+		[apxutechtop_samosbor_map_block_content] {
+			flex-direction: row-reverse;
+		}
+
+		[apxutechtop_samosbor_map_block_row] {
+			flex-direction: column;
+		}
+
+		[apxutechtop_samosbor_map_block_passage] {
+			&[left] {
+				&::before {
+					top: 0px;
+				}
+			}
+
+			&[right] {
+				&::before {
+					bottom: 0px;
+				}
+			}
+
+			&[up] {
+				&::before {
+					right: 0px;
+				}
+			}
+
+			&[down] {
+				&::before {
+					left: 0px;
+				}
+			}
+		}
+
+		[apxutechtop_samosbor_map_block_middle_row] {
+			flex-direction: column;
+		}
+	}
+}

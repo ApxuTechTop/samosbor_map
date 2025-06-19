@@ -1,0 +1,319 @@
+[apxutechtop_samosbor_map_app] {
+	--bg: #6E6E6E;
+	--main: #585858;
+
+	[color=a] {
+		--bg: #BD9EFF;
+		--main: #9A76E7;
+	}
+
+	[color=b] {
+		--bg: #FF9E9E;
+		--main: #EB6B6B;
+	}
+
+	[color=v] {
+		--bg: #EAB27F;
+		--main: #C1844D;
+	}
+
+	[color=g] {
+		--bg: #BDC9E6;
+		--main: #889DCF;
+	}
+
+	[color=d] {
+		--bg: #8A609D;
+		--main: #64367A;
+	}
+
+	[color=e] {
+		--bg: #E4C1AD;
+		--main: #CB9B7F;
+	}
+
+	[color=j] {
+		--bg: #79C0B4;
+		--main: #4EAD9D;
+	}
+
+	[color=z] {
+		--bg: #9EE2FF;
+		--main: #6AC3E9;
+	}
+
+	[color=i] {
+		--bg: #968F66;
+		--main: #7D7843;
+	}
+
+	[color=k] {
+		--bg: #FA9B48;
+		--main: #E3861B;
+	}
+
+	[color=l] {
+		--bg: #9EA2FF;
+		--main: #8388F4;
+	}
+
+	[color=m] {
+		--bg: #E69EFF;
+		--main: #CD73ED;
+	}
+
+	[color=n] {
+		--bg: #FF9ED8;
+		--main: #E96EB7;
+	}
+
+	[color=o] {
+		--bg: #C09786;
+		--main: #AA7762;
+	}
+
+	[color=p] {
+		--bg: #6F6F6F;
+		--main: #585858;
+	}
+
+	[color=r] {
+		--bg: #93AF6E;
+		--main: #789A4E;
+	}
+
+	[color=s] {
+		--bg: #575FA8;
+		--main: #353E87;
+	}
+
+	[color=t] {
+		--bg: #6D949C;
+		--main: #457681;
+	}
+
+	[color=u] {
+		--bg: #B5C35D;
+		--main: #95A62D;
+	}
+
+	[color=f] {
+		--bg: #D4BACA;
+		--main: #C696B3;
+	}
+
+	[color=h] {
+		--bg: #D74851;
+		--main: #BE2630;
+	}
+
+	[color=c] {
+		--bg: #65BD9D;
+		--main: #43A682;
+	}
+
+	[color=ch] {
+		--bg: #D99A4F;
+		--main: #C38030;
+	}
+
+	[color=sh] {
+		--bg: #A37A55;
+		--main: #926237;
+	}
+
+	[color=shch] {
+		--bg: #31D02E;
+		--main: #07B903;
+	}
+
+	[color=y] {
+		--bg: #6C58BB;
+		--main: #4832A1;
+	}
+
+	[color=yu] {
+		--bg: #CD6597;
+		--main: #B53974;
+	}
+
+	[color=je] {
+		--bg: #689666;
+		--main: #527D43;
+	}
+
+	[color=ya] {
+		--bg: #966666;
+		--main: #7D4343;
+	}
+}
+
+[apxutechtop_samosbor_map_app] {
+	background-color: #1E1E1E;
+}
+
+[apxutechtop_samosbor_map_app_canvas] {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	/* scale: 0.5; */
+	/* background-color: #504d4c; */
+}
+
+[apxutechtop_samosbor_map_cluster] {
+	position: absolute;
+}
+
+[apxutechtop_samosbor_map_app_block_connection] {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	background-color: rgb(31, 233, 58);
+	z-index: 2000;
+	transform: translate(calc(var(--transition-length) * (-1 / 2) - 50%), calc(var(--transition-length) * (-1 / 2) - 50%));
+	cursor: pointer;
+	border: 4px inset black;
+	border-radius: 10px;
+
+	&[hidden] {
+		display: none;
+		background-color: red;
+	}
+
+	&[highlight] {
+		outline: 5px solid blue;
+	}
+}
+
+[apxutechtop_samosbor_map_app_transition] {
+	--transition-width: 50px;
+	--transition-height: 50px;
+	box-sizing: content-box;
+
+	&[direction=vertical] {
+		height: var(--transition-width);
+		width: var(--transition-length);
+
+		border-bottom: 10px solid white;
+		border-top: 10px solid white;
+	}
+
+	&[direction=horizontal] {
+		height: var(--transition-length);
+		width: var(--transition-width);
+		border-left: 10px solid white;
+		border-right: 10px solid white;
+	}
+
+	position: absolute;
+	transform: translate(-50%, -50%);
+	/* border: 5px solid white; */
+	background-color: #FFFFFF80;
+}
+
+[apxutechtop_samosbor_map_app_name_setting] {
+	height: 40px !important;
+}
+
+@keyframes blink-border {
+
+	0%,
+	100% {
+		outline-color: rgb(14, 211, 237);
+		/* Цвет обводки в начале и конце цикла */
+	}
+
+	50% {
+		outline-color: transparent;
+		/* Обводка исчезает посередине цикла */
+	}
+}
+
+[mol_view_root] {
+	--t: 25px;
+	/* ширина внутреннего перехода */
+	--p: 50px;
+	/* ширина угловой части */
+	--x: 150px;
+	/* ширина информационной части */
+	--fullWidth: 720px;
+	--fullHeight: 360px;
+	--height: 330px;
+	/* высота блока */
+	--width: 710px;
+	/* ширина блока */
+	--l: 50px;
+	/* ширина внешнего перехода */
+
+	--vertical-transition-width: 49px;
+	--vertical-transition-height: 54px;
+	--horizontal-transition-width: 54px;
+	--horizontal-transition-height: 49px;
+
+	--border-width: 10px;
+	--part-width: 120px;
+	--calc-part-width: calc(var(--part-width) + var(--border-width));
+	--passage-width: 50px;
+	--calc-passage-width: calc(var(--passage-width) + var(--border-width));
+	--solo-icon-size: 40px;
+	--duo-icon-size: 30px;
+	--block-width: calc((var(--part-width) + var(--border-width)) * 4 + (var(--passage-width) + var(--border-width)) * 3);
+	--transition-width: var(--passage-width);
+	--calc-transition-width: var(--calc-passage-width);
+	--transition-length: calc(var(--passage-width));
+	--calc-transition-length: calc(var(--transition-length) + var(--border-width));
+
+
+	/* Colors */
+	--border-color: #FFFFFF;
+	--text-color: #FFFFFF;
+}
+
+[apxutechtop_samosbor_map_app_layer_bar] {
+	/* width: 20px;
+	height: 80%; */
+	position: fixed;
+	/* right: 10px; */
+	justify-self: anchor-center;
+	bottom: 10px;
+	/* top: 10%; */
+	/* background-color: aqua; */
+	border-radius: 3px;
+	z-index: 10;
+}
+
+[apxutechtop_samosbor_map_app_block_form] {
+	align-self: anchor-center;
+	right: 10px;
+	/* width: 200px;
+	height: 500px; */
+	position: fixed;
+	z-index: 10;
+	max-height: 100%;
+	overflow: scroll;
+
+	[apxutechtop_samosbor_map_app_block_type_switch] {
+		flex-wrap: wrap;
+		flex-direction: column;
+	}
+}
+
+[apxutechtop_samosbor_map_app_control_panel] {
+	justify-self: anchor-center;
+	top: 10px;
+	position: fixed;
+	z-index: 10;
+}
+
+[apxutechtop_samosbor_map_app_access_panel] {
+	/* align-self: anchor-center; */
+	width: 200px;
+	top: 10px;
+	left: 10px;
+	position: fixed;
+	z-index: 10;
+
+	[apxutechtop_samosbor_map_app_my_key] {
+		word-break: break-all;
+	}
+}

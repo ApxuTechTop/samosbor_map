@@ -1,0 +1,131 @@
+$apxutechtop_samosbor_map_cluster $mol_view
+	style *
+		left <= pos_x? 0
+		top <= pos_y? 0
+	floors? /
+	sub /
+		^ floors /
+
+$apxutechtop_samosbor_map_app_floor $mol_view
+	attr *
+		direction <= floor_direction \up
+	style *
+		left <= pos_x? 0
+		top <= pos_y? 0
+	sub /
+		^ line <= lines /
+			<= test $mol_view
+		<= block_name \!-00
+		
+
+$apxutechtop_samosbor_map_app $mol_view
+	Cluster* $apxutechtop_samosbor_map_cluster
+		pos_x <= cluster_pos_x*? 0
+		pos_y <= cluster_pos_y*? 0
+	floor_lines*? /
+	- Floor* $apxutechtop_samosbor_map_app_floor
+		floor_direction <=> floor_direction* \up
+		pos_x <= pos_x*? 0
+		pos_y <= pos_y*? 0
+		block_name <=> block_name* \А-00
+		lines <= floor_lines*? /
+	Line* $mol_view
+		event *
+			mousedown? <=> event_key*? null
+	Block* $apxutechtop_samosbor_map_block
+		block_data? <= block*
+		current_layer? <= current_layer? 0
+		onclick? <=> block_clicked*? null
+		on_connection_select? <=> connection_selected*? null
+		show_connections true
+		create_mode? <= is_create_mode false
+		edit_mode? <= is_configure_mode false
+		connect_mode? <= is_connect_mode false
+	Transition* $mol_view
+		attr *
+			direction <= transition_direction* \vertical
+		style *
+			left <= transition_left* 0
+			top <= transition_top* 0
+	sub /
+		- <= Access_Panel $mol_card
+			sub /
+				<= my_key $mol_text_code
+					sidebar_showed true
+					text <= person_key \
+				<= map_rights $hyoo_crus_land_rights
+					land <= map_land
+		<= Control_Panel $mol_card
+			sub /
+				<= Control_Switch $mol_switch
+					value? <=> control_type?
+					options *
+						create \Create Block
+						connect \Connect Blocks
+						configure \Configure Block
+		<= Block_Form $mol_card
+			sub /
+				<= name_setting $mol_view
+					sub / <= name_input $mol_string
+						value? <=> selected_block_name?
+						hint \Block name
+				<= type_setting $mol_labeler
+					title \Тип блока
+					content / <= block_type_switch $mol_switch
+						value? <=> block_type_value?
+						options *
+							residential \Жилой
+							destroyed \Разрушенный
+							frozen \Замороженный
+							abandoned \Заброшенный
+							infected \Зараженный
+				<= min_floor_setting $mol_labeler
+					title \Min floor
+					content / <= min_setting_number $mol_number
+						value? <=> min_floor?
+				<= max_floor_setting $mol_labeler
+					title \Max floor
+					content / <= max_setting_number $mol_number
+						value? <=> max_floor?
+				<= layer_setting $mol_labeler
+					title \Zero floor height
+					content / <= layer_setting_number $mol_number
+						value? <=> layer_value?
+				<= pos_x_setting $mol_labeler
+					title \Position X
+					content / <= pos_x_setting_number $mol_number
+						value? <=> pos_x_value?
+				<= pos_y_setting $mol_labeler
+					title \Position Y
+					content / <= pos_y_setting_number $mol_number
+						value? <=> pos_y_value?
+				<= direction_setting $mol_labeler
+					title \Direction
+					content / <= direction_switch $mol_switch
+						value? <=> direction_value?
+						options *
+							up \Up
+							right \Right
+							down \Down
+							left \Left
+				<= up_flight_setting $mol_check_box
+					title \Верхний пролет по середине
+					checked? <=> up_flight_value? false
+				<= down_flight_setting $mol_check_box
+					title \Нижний пролет по середине
+					checked? <=> down_flight_value? false
+				<= delete_block_button $mol_button_minor
+					title \Delete block
+					click? <=> delete_block?
+		<= Layer_Bar $mol_number
+			value? <=> current_layer? 0
+		<= Searcher $mol_view
+		<= Canvas $mol_view
+			sub /
+				<= Area $mol_area
+					style *
+						width \100%
+						height \100%
+					items /
+						^ blocks /
+						- ^ transitions /
