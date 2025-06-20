@@ -1,30 +1,8 @@
 namespace $.$$ {
 
 	type DirectionType = "up" | "right" | "down" | "left"
-	type TransitionPosition = "up_left" | "up_right" | "right" | "down_right" | "down_left" | "left"
-	const TransitionPositions: TransitionPosition[] = [ "up_left", "up_right", "right", "down_right", "down_left", "left" ]
-	interface TransitionFloor {
-		floor: number,
-		position: TransitionPosition,
-		type: string,
-		block: {
-			name: string,
-			position: TransitionPosition,
-			floor: number,
-		},
-	}
-	interface Transition {
-		from: {
-			block_name: string,
-			floor: number,
-			position: TransitionPosition
-		},
-		to: {
-			block_name: string,
-			floor: number,
-			position: TransitionPosition
-		}
-	}
+	export type TransitionPosition = "up_left" | "up_middle" | "up_right" | "right" | "down_right" | "down_middle" | "down_left" | "left"
+	export const TransitionPositions: TransitionPosition[] = [ "up_left", "up_middle", "up_right", "right", "down_right", "down_middle", "down_left", "left" ]
 	interface Block {
 		name: string,
 		direction: "up" | "right" | "down" | "left",
@@ -36,7 +14,7 @@ namespace $.$$ {
 	}
 
 	export class BlockDirection extends $hyoo_crus_atom_enum( [ "up", "right", "down", "left" ] ) {}
-	export class TransitionPositionData extends $hyoo_crus_atom_enum( [ "up_left", "up_right", "right", "down_right", "down_left", "left" ] ) {}
+	export class TransitionPositionData extends $hyoo_crus_atom_enum( TransitionPositions ) {}
 	export class TransitionPort extends $hyoo_crus_dict.with( {
 		Block: $hyoo_crus_atom_ref_to( () => $apxutechtop_samosbor_map_block_data ),
 		Floor: $hyoo_crus_atom_int,
@@ -84,7 +62,7 @@ namespace $.$$ {
 		Status: PassageStatus,
 	} ) {}
 
-	export class FloorData extends $hyoo_crus_dict.with( {
+	const PassageDirections = {
 		UpLeftPassage: PassageData,
 		UpMiddlePassage: PassageData,
 		UpRightPassage: PassageData,
@@ -93,18 +71,42 @@ namespace $.$$ {
 		DownLeftPassage: PassageData,
 		DownMiddlePassage: PassageData,
 		DownRightPassage: PassageData,
-	} ) {
+	}
+
+	export class FloorData extends $hyoo_crus_dict.with( PassageDirections ) {
+		static readonly positions_map: { [ pos in TransitionPosition ]: keyof typeof PassageDirections } = {
+			up_left: "UpLeftPassage",
+			up_middle: "UpMiddlePassage",
+			up_right: "UpRightPassage",
+			right: "RightPassage",
+			down_right: "DownRightPassage",
+			down_middle: "DownMiddlePassage",
+			down_left: "DownLeftPassage",
+			left: "LeftPassage"
+		}
+
+		@$mol_mem_key
+		get_passage_type( transition: TransitionPosition ): typeof PassageType.options[ number ] {
+			if( transition === "right" || transition === "left" ) {
+				return "normal"
+			}
+			const property_name = FloorData.positions_map[ transition ]
+			const passage_type = this[ property_name ]( null )?.Type( null )?.val()
+			return passage_type ?? "normal"
+		}
+
 		@$mol_mem_key
 		is_passage_free( transition: TransitionPosition ) {
-			const get_type: { [ t in TransitionPosition ]: typeof PassageType.options[ number ] | undefined | null } = {
-				up_left: this.UpLeftPassage( null )?.Type( null )?.val(),
-				up_right: this.UpRightPassage( null )?.Type( null )?.val(),
-				right: this.RightPassage( null )?.Type( null )?.val() ?? "normal",
-				down_right: this.DownRightPassage( null )?.Type( null )?.val(),
-				down_left: this.DownLeftPassage( null )?.Type( null )?.val(),
-				left: this.LeftPassage( null )?.Type( null )?.val() ?? "normal",
-			}
-			const passage_type = get_type[ transition ]
+
+			// const get_type: { [ t in TransitionPosition ]: typeof PassageType.options[ number ] | undefined | null } = {
+			// 	up_left: this.UpLeftPassage( null )?.Type( null )?.val(),
+			// 	up_right: this.UpRightPassage( null )?.Type( null )?.val(),
+			// 	right: this.RightPassage( null )?.Type( null )?.val() ?? "normal",
+			// 	down_right: this.DownRightPassage( null )?.Type( null )?.val(),
+			// 	down_left: this.DownLeftPassage( null )?.Type( null )?.val(),
+			// 	left: this.LeftPassage( null )?.Type( null )?.val() ?? "normal",
+			// }
+			const passage_type = this.get_passage_type( transition )
 			if( !passage_type ) return false
 			if( passage_type === "noway" ) return false
 			return true
@@ -134,7 +136,7 @@ namespace $.$$ {
 	} ) {
 		@$mol_mem
 		name( next?: string ) {
-			return this.Name( null )?.val( next ) ?? "n-00"
+			return this.Name( null )?.val( next ) ?? "N-00"
 		}
 		@$mol_mem
 		direction( next?: DirectionType ) {
@@ -232,6 +234,11 @@ namespace $.$$ {
 		@$mol_mem_key
 		down_right_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
 			return this.FloorsData( null )?.key( floor, null ).DownRightPassage( null )?.Type( null )?.val( next ) ?? "noway"
+		}
+
+		@$mol_mem_key
+		get_passage_type( floor: number, position: TransitionPosition ) {
+
 		}
 
 	}
@@ -414,7 +421,7 @@ namespace $.$$ {
 			const node = $hyoo_crus_glob.Node( ref, TransitionData )
 			const transition_floor = Number( node.From( null )?.Floor( null )?.val() )
 			const current_floor = this.current_floor()
-			console.log( transition_floor, current_floor )
+			this.block_data().FloorsData( null )
 			return transition_floor !== current_floor
 		}
 
