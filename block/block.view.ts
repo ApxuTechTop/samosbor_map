@@ -267,6 +267,24 @@ namespace $.$$ {
 		"Э": "je",
 		"Я": "ya",
 	}
+	export class $apxutechtop_samosbor_map_block_passage extends $.$apxutechtop_samosbor_map_block_passage {
+		floor_inc_value(): string {
+			if( this.type() === "stairs_up" ) {
+				return "+1"
+			}
+			if( this.type() === "stairs_down" ) {
+				return "-1"
+			}
+			return "0"
+		}
+		@$mol_mem
+		is_interfloor() {
+			return this.type() === "stairs_up" || this.type() === "stairs_down"
+		}
+		content() {
+			return this.is_interfloor() ? this.InterFloor() : null
+		}
+	}
 	export class $apxutechtop_samosbor_map_block extends $.$apxutechtop_samosbor_map_block {
 		// @$mol_mem
 		// block_name(next?: string) {
@@ -623,6 +641,7 @@ namespace $.$$ {
 			}
 			const new_block_node = Gigacluster.create_block()
 			if( !new_block_node ) return
+			new_block_node.up_left_passage_type( 0, "normal" )
 			this.block_data().connect( this.current_floor(), position, new_block_node, 0, "up_left" )
 			new_block_node.name( new_block_name )
 			new_block_node.direction( new_block_direction )
