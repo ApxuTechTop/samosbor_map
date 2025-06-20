@@ -394,6 +394,13 @@ $apxutechtop_samosbor_map_block $mol_view
 	down_flight $apxutechtop_samosbor_map_block_middle_flight
 		sub /
 			<= down_flight_icon $apxutechtop_samosbor_map_icon_stairs
+	name_part $apxutechtop_samosbor_map_block_part
+		sub /
+			<= BlockName $mol_view sub / <= block_name? \А-00
+			<= CurrentFloor $mol_view 
+				sub / 
+					\Эт. 
+					<= display_floor \?
 	sub /
 		<= content $mol_view
 			sub /
@@ -412,13 +419,7 @@ $apxutechtop_samosbor_map_block $mol_view
 								click? <=> up_left_passage_click? null
 							up true
 							left true
-						<= up_left_part $apxutechtop_samosbor_map_block_part
-							sub /
-								<= BlockName $mol_view sub / <= block_name? \А-00
-								<= CurrentFloor $mol_view 
-									sub / 
-										\Эт. 
-										<= display_floor \?
+						<= up_left_part <= name_part
 						<= up_passage_or_flight $mol_view
 						<= up_right_part $apxutechtop_samosbor_map_block_part
 						<= up_right_passage $apxutechtop_samosbor_map_block_passage
