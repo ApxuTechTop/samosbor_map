@@ -4962,13 +4962,65 @@ var $;
 	};
 	($.$apxutechtop_samosbor_map_block_flight) = class $apxutechtop_samosbor_map_block_flight extends ($.$apxutechtop_samosbor_map_block_part) {};
 	($.$apxutechtop_samosbor_map_block_passage) = class $apxutechtop_samosbor_map_block_passage extends ($.$mol_view) {
+		type(next){
+			if(next !== undefined) return next;
+			return "normal";
+		}
+		flex_direction(){
+			return "column";
+		}
+		floor_inc_value(){
+			return "0";
+		}
+		floor_inc(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.floor_inc_value())]);
+			return obj;
+		}
+		stairs(){
+			const obj = new this.$.$apxutechtop_samosbor_map_icon_stairs();
+			return obj;
+		}
 		content(){
 			return null;
+		}
+		up(){
+			return false;
+		}
+		right(){
+			return false;
+		}
+		down(){
+			return false;
+		}
+		left(){
+			return false;
+		}
+		attr(){
+			return {
+				"type": (this.type()), 
+				"up": (this.up()), 
+				"right": (this.right()), 
+				"down": (this.down()), 
+				"left": (this.left())
+			};
+		}
+		style(){
+			return {"flex-direction": (this.flex_direction())};
+		}
+		InterFloor(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.floor_inc()), (this.stairs())]);
+			return obj;
 		}
 		sub(){
 			return [(this.content())];
 		}
 	};
+	($mol_mem(($.$apxutechtop_samosbor_map_block_passage.prototype), "type"));
+	($mol_mem(($.$apxutechtop_samosbor_map_block_passage.prototype), "floor_inc"));
+	($mol_mem(($.$apxutechtop_samosbor_map_block_passage.prototype), "stairs"));
+	($mol_mem(($.$apxutechtop_samosbor_map_block_passage.prototype), "InterFloor"));
 	($.$apxutechtop_samosbor_map_block_middle_flight) = class $apxutechtop_samosbor_map_block_middle_flight extends ($.$mol_view) {};
 	($.$apxutechtop_samosbor_map_block) = class $apxutechtop_samosbor_map_block extends ($.$mol_view) {
 		block_direction(next){
@@ -5046,19 +5098,19 @@ var $;
 			(obj.sub) = () => ([(this.ladder_icon(id)), (this.elevator_icon(id))]);
 			return obj;
 		}
-		up_middle_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
 		up_middle_passage_type(){
 			return "noway";
 		}
-		down_middle_passage_click(next){
+		up_middle_passage_click(next){
 			if(next !== undefined) return next;
 			return null;
 		}
 		down_middle_passage_type(){
 			return "noway";
+		}
+		down_middle_passage_click(next){
+			if(next !== undefined) return next;
+			return null;
 		}
 		up_flight_icon(){
 			const obj = new this.$.$apxutechtop_samosbor_map_icon_stairs();
@@ -5090,21 +5142,19 @@ var $;
 			(obj.sub) = () => ([(this.left_flight_icon())]);
 			return obj;
 		}
+		up_left_passage_type(){
+			return "noway";
+		}
 		up_left_passage_click(next){
 			if(next !== undefined) return next;
 			return null;
 		}
-		up_left_passage_type(){
-			return "noway";
-		}
 		up_left_passage(){
 			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			(obj.type) = (next) => ((this.up_left_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.up_left_passage_click(next))});
-			(obj.attr) = () => ({
-				"type": (this.up_left_passage_type()), 
-				"up": true, 
-				"left": true
-			});
+			(obj.up) = () => (true);
+			(obj.left) = () => (true);
 			return obj;
 		}
 		block_name(next){
@@ -5137,21 +5187,19 @@ var $;
 			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
 			return obj;
 		}
+		up_right_passage_type(){
+			return "noway";
+		}
 		up_right_passage_click(next){
 			if(next !== undefined) return next;
 			return null;
 		}
-		up_right_passage_type(){
-			return "noway";
-		}
 		up_right_passage(){
 			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			(obj.type) = () => ((this.up_right_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.up_right_passage_click(next))});
-			(obj.attr) = () => ({
-				"type": (this.up_right_passage_type()), 
-				"up": true, 
-				"right": true
-			});
+			(obj.up) = () => (true);
+			(obj.right) = () => (true);
 			return obj;
 		}
 		right_flight_click(next){
@@ -5177,17 +5225,18 @@ var $;
 			]);
 			return obj;
 		}
+		left_passage_type(){
+			return "normal";
+		}
 		left_passage_click(next){
 			if(next !== undefined) return next;
 			return null;
 		}
-		left_passage_type(){
-			return "normal";
-		}
 		left_passage(){
 			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			(obj.type) = () => ((this.left_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.left_passage_click(next))});
-			(obj.attr) = () => ({"type": (this.left_passage_type()), "left": true});
+			(obj.left) = () => (true);
 			return obj;
 		}
 		left_hallway(){
@@ -5202,17 +5251,18 @@ var $;
 			const obj = new this.$.$mol_view();
 			return obj;
 		}
+		right_passage_type(){
+			return "normal";
+		}
 		right_passage_click(next){
 			if(next !== undefined) return next;
 			return null;
 		}
-		right_passage_type(){
-			return "normal";
-		}
 		right_passage(){
 			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			(obj.type) = () => ((this.right_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.right_passage_click(next))});
-			(obj.attr) = () => ({"type": (this.right_passage_type()), "right": true});
+			(obj.right) = () => (true);
 			return obj;
 		}
 		middle_row(){
@@ -5267,21 +5317,19 @@ var $;
 			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
 			return obj;
 		}
+		down_left_passage_type(){
+			return "noway";
+		}
 		down_left_passage_click(next){
 			if(next !== undefined) return next;
 			return null;
 		}
-		down_left_passage_type(){
-			return "noway";
-		}
 		down_left_passage(){
 			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			(obj.type) = () => ((this.down_left_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.down_left_passage_click(next))});
-			(obj.attr) = () => ({
-				"type": (this.down_left_passage_type()), 
-				"down": true, 
-				"left": true
-			});
+			(obj.down) = () => (true);
+			(obj.left) = () => (true);
 			return obj;
 		}
 		down_left_part(){
@@ -5296,21 +5344,19 @@ var $;
 			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
 			return obj;
 		}
+		down_right_passage_type(){
+			return "noway";
+		}
 		down_right_passage_click(next){
 			if(next !== undefined) return next;
 			return null;
 		}
-		down_right_passage_type(){
-			return "noway";
-		}
 		down_right_passage(){
 			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			(obj.type) = () => ((this.down_right_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.down_right_passage_click(next))});
-			(obj.attr) = () => ({
-				"type": (this.down_right_passage_type()), 
-				"down": true, 
-				"right": true
-			});
+			(obj.down) = () => (true);
+			(obj.right) = () => (true);
 			return obj;
 		}
 		block_effects_part(){
@@ -5427,14 +5473,16 @@ var $;
 		}
 		up_middle_passage(){
 			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			(obj.type) = (next) => ((this.up_middle_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.up_middle_passage_click(next))});
-			(obj.attr) = () => ({"type": (this.up_middle_passage_type()), "up": true});
+			(obj.up) = () => (true);
 			return obj;
 		}
 		down_middle_passage(){
 			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			(obj.type) = (next) => ((this.down_middle_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.down_middle_passage_click(next))});
-			(obj.attr) = () => ({"type": (this.down_middle_passage_type()), "down": true});
+			(obj.down) = () => (true);
 			return obj;
 		}
 		up_flight(){
@@ -12569,6 +12617,27 @@ var $;
             "Э": "je",
             "Я": "ya",
         };
+        class $apxutechtop_samosbor_map_block_passage extends $.$apxutechtop_samosbor_map_block_passage {
+            floor_inc_value() {
+                if (this.type() === "stairs_up") {
+                    return "+1";
+                }
+                if (this.type() === "stairs_down") {
+                    return "-1";
+                }
+                return "0";
+            }
+            is_interfloor() {
+                return this.type() === "stairs_up" || this.type() === "stairs_down";
+            }
+            content() {
+                return this.is_interfloor() ? this.InterFloor() : null;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block_passage.prototype, "is_interfloor", null);
+        $$.$apxutechtop_samosbor_map_block_passage = $apxutechtop_samosbor_map_block_passage;
         class $apxutechtop_samosbor_map_block extends $.$apxutechtop_samosbor_map_block {
             block_ref(next) {
                 return next;
@@ -12842,6 +12911,7 @@ var $;
                 const new_block_node = Gigacluster.create_block();
                 if (!new_block_node)
                     return;
+                new_block_node.up_left_passage_type(0, "normal");
                 this.block_data().connect(this.current_floor(), position, new_block_node, 0, "up_left");
                 new_block_node.name(new_block_name);
                 new_block_node.direction(new_block_direction);
@@ -13163,7 +13233,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxutechtop/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxutechtop_samosbor_map_cluster]>*,\n[apxutechtop_samosbor_map_block] {\n\t[mol_icon] {\n\t\tfill: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=residential] {}\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: black;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: red;\n\t}\n\n\t&[block-type=abandoned] {\n\t\t--block-type-stroke-color: yellow;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: blue;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t&:not([visible]) {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\topacity: 0.2;\n\t\t}\n\t}\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t\t/* Размер и цвет границы */\n\t\tanimation: blink-border 2s infinite;\n\t\t/* Запуск анимации бесконечно */\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxutechtop_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\t\tposition: absolute;\n\t\t/* transform: translate(-50%, -50%); */\n\t\t/* border: 5px solid white; */\n\t\tbackground-color: #FFFFFF80;\n\t\tz-index: 100;\n\t}\n\n\t[apxutechtop_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxutechtop_samosbor_map_block_flight],\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\t--stroke-length-left: 85px;\n\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t--empty-length-left: 85px;\n\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t--stroke-length-top: 90px;\n\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t--empty-length-top: 90px;\n\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\t/* Разные значения для вертикальных/горизонтальных линий */\n\t\t\t/* --stroke-length-vertical: 85px;\n\t\t\t--empty-length-vertical: 85px;\n\t\t\t--stroke-length-horizontal: 90px;\n\t\t\t--empty-length-horizontal: 90px; */\n\t\t\t--stroke-width: 10px;\n\t\t\tborder-radius: 10px;\n\n\t\t\t/* Толщина линии */\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* Рассчитываем половины значений */\n\t\t\t--half-dash-h: calc(var(--stroke-length-horizontal) / 2);\n\t\t\t--half-dash-v: calc(var(--stroke-length-vertical) / 2);\n\n\t\t\tbackground:\n\t\t\t\t/* Верхняя граница (горизонтальная) */\n\t\t\t\tlinear-gradient(90deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-h),\n\t\t\t\t\ttransparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 0 / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,\n\n\t\t\t\t/* Правая граница (вертикальная) */\n\t\t\t\tlinear-gradient(180deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-v),\n\t\t\t\t\ttransparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 100% 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y,\n\n\t\t\t\t/* Нижняя граница (горизонтальная) */\n\t\t\t\tlinear-gradient(270deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-h),\n\t\t\t\t\ttransparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 100% / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,\n\n\t\t\t\t/* Левая граница (вертикальная) */\n\t\t\t\tlinear-gradient(0deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-v),\n\t\t\t\t\ttransparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 0 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y;\n\t\t\tbackground: unset;\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 20px 20px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\n\t\t/* filter: drop-shadow(0 0 20px var(--stroke-color)); */\n\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100% !important;\n\t\t\t\theight: 100% !important;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_up_left_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxutechtop_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\n\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-left);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-left);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-top);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-top);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: calc((100% - 2 * var(--part-width)) / 2);\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\theight: calc((100% - 2 * var(--part-width)) / 2);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t\t/* left: 0px;\n\t\t\ttop: 0px; */\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_up_left_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
+    $mol_style_attach("apxutechtop/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxutechtop_samosbor_map_cluster]>*,\n[apxutechtop_samosbor_map_block] {\n\t[mol_icon] {\n\t\tfill: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=residential] {}\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: black;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: red;\n\t}\n\n\t&[block-type=abandoned] {\n\t\t--block-type-stroke-color: yellow;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: blue;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t&:not([visible]) {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\topacity: 0.2;\n\t\t}\n\t}\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t\t/* Размер и цвет границы */\n\t\tanimation: blink-border 2s infinite;\n\t\t/* Запуск анимации бесконечно */\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxutechtop_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\t\tposition: absolute;\n\t\t/* transform: translate(-50%, -50%); */\n\t\t/* border: 5px solid white; */\n\t\tbackground-color: #FFFFFF80;\n\t\tz-index: 100;\n\t}\n\n\t[apxutechtop_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxutechtop_samosbor_map_block_flight],\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\t--stroke-length-left: 85px;\n\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t--empty-length-left: 85px;\n\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t--stroke-length-top: 90px;\n\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t--empty-length-top: 90px;\n\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\t/* Разные значения для вертикальных/горизонтальных линий */\n\t\t\t/* --stroke-length-vertical: 85px;\n\t\t\t--empty-length-vertical: 85px;\n\t\t\t--stroke-length-horizontal: 90px;\n\t\t\t--empty-length-horizontal: 90px; */\n\t\t\t--stroke-width: 10px;\n\t\t\tborder-radius: 10px;\n\n\t\t\t/* Толщина линии */\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* Рассчитываем половины значений */\n\t\t\t--half-dash-h: calc(var(--stroke-length-horizontal) / 2);\n\t\t\t--half-dash-v: calc(var(--stroke-length-vertical) / 2);\n\n\t\t\tbackground:\n\t\t\t\t/* Верхняя граница (горизонтальная) */\n\t\t\t\tlinear-gradient(90deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-h),\n\t\t\t\t\ttransparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 0 / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,\n\n\t\t\t\t/* Правая граница (вертикальная) */\n\t\t\t\tlinear-gradient(180deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-v),\n\t\t\t\t\ttransparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 100% 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y,\n\n\t\t\t\t/* Нижняя граница (горизонтальная) */\n\t\t\t\tlinear-gradient(270deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-h),\n\t\t\t\t\ttransparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 100% / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,\n\n\t\t\t\t/* Левая граница (вертикальная) */\n\t\t\t\tlinear-gradient(0deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-v),\n\t\t\t\t\ttransparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 0 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y;\n\t\t\tbackground: unset;\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 20px 20px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\n\t\t/* filter: drop-shadow(0 0 20px var(--stroke-color)); */\n\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100% !important;\n\t\t\t\theight: 100% !important;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_up_left_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxutechtop_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\n\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-left);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-left);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-top);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-top);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: calc((100% - 2 * var(--part-width)) / 2);\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\theight: calc((100% - 2 * var(--part-width)) / 2);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t\t/* left: 0px;\n\t\t\ttop: 0px; */\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_up_left_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\tflex-direction: inherit;\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
 })($ || ($ = {}));
 
 ;
