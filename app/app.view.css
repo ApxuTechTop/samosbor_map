@@ -255,8 +255,8 @@
 	--calc-part-width: calc(var(--part-width) + var(--border-width));
 	--passage-width: 50px;
 	--calc-passage-width: calc(var(--passage-width) + var(--border-width));
-	--solo-icon-size: 40px;
-	--duo-icon-size: 30px;
+	--solo-icon-size: 50px;
+	--duo-icon-size: 40px;
 	--block-width: calc((var(--part-width) + var(--border-width)) * 4 + (var(--passage-width) + var(--border-width)) * 3);
 	--transition-width: var(--passage-width);
 	--calc-transition-width: var(--calc-passage-width);
