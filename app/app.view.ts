@@ -403,11 +403,11 @@ namespace $.$$ {
 			const new_direction = rotate_map[ transition.to.position ] ? this.rotate_block( transition.to.block_name ) : this.direction( transition.to.block_name )
 			const rotate_offset: { [ pos in TransitionPosition ]: { x: number, y: number } } = {
 				up_left: { x: -1, y: 0 },
-				up_middle: { x: 0, y: 0 },
+				up_middle: { x: 1, y: 0 },
 				up_right: { x: 1, y: 0 },
 				right: { x: 0, y: 0 },
 				down_right: { x: -1, y: 0 },
-				down_middle: { x: 0, y: 0 },
+				down_middle: { x: 1, y: 0 },
 				down_left: { x: 1, y: 0 },
 				left: { x: 0, y: 0 },
 			}

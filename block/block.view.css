@@ -24,6 +24,11 @@
 
 [apxutechtop_samosbor_map_cluster]>*,
 [apxutechtop_samosbor_map_block] {
+
+	[mol_view] {
+		transition: none;
+	}
+
 	[mol_icon] {
 		fill: white;
 		filter: unset;
@@ -379,7 +384,7 @@
 		}
 	}
 
-	[apxutechtop_samosbor_map_block_up_left_part] {
+	[apxutechtop_samosbor_map_block_name_part] {
 		padding-top: 50px;
 		padding-right: 11px;
 		padding-bottom: 50px;
@@ -611,7 +616,7 @@
 
 		}
 
-		[apxutechtop_samosbor_map_block_up_left_part] {
+		[apxutechtop_samosbor_map_block_name_part] {
 			left: var(--pos);
 			top: 0px;
 		}

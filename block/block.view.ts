@@ -92,7 +92,7 @@ namespace $.$$ {
 			}
 			const property_name = FloorData.positions_map[ transition ]
 			const passage_type = this[ property_name ]( null )?.Type( null )?.val()
-			return passage_type ?? "normal"
+			return passage_type ?? "noway"
 		}
 
 		@$mol_mem_key
