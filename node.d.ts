@@ -5998,7 +5998,8 @@ declare namespace $ {
 //# sourceMappingURL=block.view.tree.d.ts.map
 declare namespace $.$$ {
     type DirectionType = "up" | "right" | "down" | "left";
-    type TransitionPosition = "up_left" | "up_right" | "right" | "down_right" | "down_left" | "left";
+    export type TransitionPosition = "up_left" | "up_middle" | "up_right" | "right" | "down_right" | "down_middle" | "down_left" | "left";
+    export const TransitionPositions: TransitionPosition[];
     const BlockDirection_base: (abstract new () => {
         val(next?: "left" | "right" | "up" | "down" | undefined): "left" | "right" | "up" | "down" | null;
         val_of(peer: string | null, next?: "left" | "right" | "up" | "down" | undefined): "left" | "right" | "up" | "down" | null;
@@ -6045,8 +6046,8 @@ declare namespace $.$$ {
     export class BlockDirection extends BlockDirection_base {
     }
     const TransitionPositionData_base: (abstract new () => {
-        val(next?: "left" | "right" | "up_left" | "up_right" | "down_right" | "down_left" | undefined): "left" | "right" | "up_left" | "up_right" | "down_right" | "down_left" | null;
-        val_of(peer: string | null, next?: "left" | "right" | "up_left" | "up_right" | "down_right" | "down_left" | undefined): "left" | "right" | "up_left" | "up_right" | "down_right" | "down_left" | null;
+        val(next?: TransitionPosition | undefined): TransitionPosition | null;
+        val_of(peer: string | null, next?: TransitionPosition | undefined): TransitionPosition | null;
         pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
         vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
         vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
@@ -6077,7 +6078,7 @@ declare namespace $.$$ {
         [Symbol.toStringTag]: string;
         [$mol_ambient_ref]: $;
     }) & {
-        options: readonly ["up_left", "up_right", "right", "down_right", "down_left", "left"];
+        options: TransitionPosition[];
         toString(): any;
         tag: keyof typeof $hyoo_crus_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
@@ -6440,6 +6441,16 @@ declare namespace $.$$ {
     };
     export class PassageData extends PassageData_base {
     }
+    const PassageDirections: {
+        UpLeftPassage: typeof PassageData;
+        UpMiddlePassage: typeof PassageData;
+        UpRightPassage: typeof PassageData;
+        LeftPassage: typeof PassageData;
+        RightPassage: typeof PassageData;
+        DownLeftPassage: typeof PassageData;
+        DownMiddlePassage: typeof PassageData;
+        DownRightPassage: typeof PassageData;
+    };
     const FloorData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
         readonly UpLeftPassage: (auto?: any) => PassageData | null;
         readonly UpMiddlePassage: (auto?: any) => PassageData | null;
@@ -6453,17 +6464,21 @@ declare namespace $.$$ {
         schema: {
             [x: string]: typeof $hyoo_crus_node;
         } & {
-            readonly UpLeftPassage: typeof PassageData;
-            readonly UpMiddlePassage: typeof PassageData;
-            readonly UpRightPassage: typeof PassageData;
-            readonly LeftPassage: typeof PassageData;
-            readonly RightPassage: typeof PassageData;
-            readonly DownLeftPassage: typeof PassageData;
-            readonly DownMiddlePassage: typeof PassageData;
-            readonly DownRightPassage: typeof PassageData;
+            UpLeftPassage: typeof PassageData;
+            UpMiddlePassage: typeof PassageData;
+            UpRightPassage: typeof PassageData;
+            LeftPassage: typeof PassageData;
+            RightPassage: typeof PassageData;
+            DownLeftPassage: typeof PassageData;
+            DownMiddlePassage: typeof PassageData;
+            DownRightPassage: typeof PassageData;
         };
     };
     export class FloorData extends FloorData_base {
+        static readonly positions_map: {
+            [pos in TransitionPosition]: keyof typeof PassageDirections;
+        };
+        get_passage_type(transition: TransitionPosition): typeof PassageType.options[number];
         is_passage_free(transition: TransitionPosition): boolean;
     }
     const FloorsData_base: {
@@ -6735,6 +6750,7 @@ declare namespace $.$$ {
         down_left_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
         down_middle_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
         down_right_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
+        get_passage_type(floor: number, position: TransitionPosition): void;
     }
     export const ru_to_eng: {
         [ru: string]: string;
@@ -7208,7 +7224,6 @@ declare namespace $ {
 //# sourceMappingURL=app.view.tree.d.ts.map
 declare namespace $.$$ {
     type DirectionType = "up" | "right" | "down" | "left";
-    type TransitionPosition = "up_left" | "up_right" | "right" | "down_right" | "down_left" | "left";
     interface Transition {
         from: {
             block_name: string;
@@ -7432,7 +7447,7 @@ declare namespace $.$$ {
         static direction(block_name: string, next?: DirectionType): DirectionType;
         floor_direction(floorId: string): DirectionType;
         floor_cluster(floorId: string, cluster?: any): void;
-        static getOffset(pos: string, dir: string): {
+        static getOffset(pos: TransitionPosition, dir: string): {
             x: number;
             y: number;
         };

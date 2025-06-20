@@ -13124,11 +13124,11 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        const TransitionPositions = ["up_left", "up_right", "right", "down_right", "down_left", "left"];
+        $$.TransitionPositions = ["up_left", "up_middle", "up_right", "right", "down_right", "down_middle", "down_left", "left"];
         class BlockDirection extends $hyoo_crus_atom_enum(["up", "right", "down", "left"]) {
         }
         $$.BlockDirection = BlockDirection;
-        class TransitionPositionData extends $hyoo_crus_atom_enum(["up_left", "up_right", "right", "down_right", "down_left", "left"]) {
+        class TransitionPositionData extends $hyoo_crus_atom_enum($$.TransitionPositions) {
         }
         $$.TransitionPositionData = TransitionPositionData;
         class TransitionPort extends $hyoo_crus_dict.with({
@@ -13191,7 +13191,7 @@ var $;
         }) {
         }
         $$.PassageData = PassageData;
-        class FloorData extends $hyoo_crus_dict.with({
+        const PassageDirections = {
             UpLeftPassage: PassageData,
             UpMiddlePassage: PassageData,
             UpRightPassage: PassageData,
@@ -13200,17 +13200,28 @@ var $;
             DownLeftPassage: PassageData,
             DownMiddlePassage: PassageData,
             DownRightPassage: PassageData,
-        }) {
+        };
+        class FloorData extends $hyoo_crus_dict.with(PassageDirections) {
+            static positions_map = {
+                up_left: "UpLeftPassage",
+                up_middle: "UpMiddlePassage",
+                up_right: "UpRightPassage",
+                right: "RightPassage",
+                down_right: "DownRightPassage",
+                down_middle: "DownMiddlePassage",
+                down_left: "DownLeftPassage",
+                left: "LeftPassage"
+            };
+            get_passage_type(transition) {
+                if (transition === "right" || transition === "left") {
+                    return "normal";
+                }
+                const property_name = FloorData.positions_map[transition];
+                const passage_type = this[property_name](null)?.Type(null)?.val();
+                return passage_type ?? "normal";
+            }
             is_passage_free(transition) {
-                const get_type = {
-                    up_left: this.UpLeftPassage(null)?.Type(null)?.val(),
-                    up_right: this.UpRightPassage(null)?.Type(null)?.val(),
-                    right: this.RightPassage(null)?.Type(null)?.val() ?? "normal",
-                    down_right: this.DownRightPassage(null)?.Type(null)?.val(),
-                    down_left: this.DownLeftPassage(null)?.Type(null)?.val(),
-                    left: this.LeftPassage(null)?.Type(null)?.val() ?? "normal",
-                };
-                const passage_type = get_type[transition];
+                const passage_type = this.get_passage_type(transition);
                 if (!passage_type)
                     return false;
                 if (passage_type === "noway")
@@ -13218,6 +13229,9 @@ var $;
                 return true;
             }
         }
+        __decorate([
+            $mol_mem_key
+        ], FloorData.prototype, "get_passage_type", null);
         __decorate([
             $mol_mem_key
         ], FloorData.prototype, "is_passage_free", null);
@@ -13245,7 +13259,7 @@ var $;
             DownMiddleFlight: $hyoo_crus_atom_bool,
         }) {
             name(next) {
-                return this.Name(null)?.val(next) ?? "n-00";
+                return this.Name(null)?.val(next) ?? "N-00";
             }
             direction(next) {
                 return this.Direction(null)?.val(next) ?? "up";
@@ -13320,6 +13334,8 @@ var $;
             down_right_passage_type(floor, next) {
                 return this.FloorsData(null)?.key(floor, null).DownRightPassage(null)?.Type(null)?.val(next) ?? "noway";
             }
+            get_passage_type(floor, position) {
+            }
         }
         __decorate([
             $mol_mem
@@ -13384,6 +13400,9 @@ var $;
         __decorate([
             $mol_mem_key
         ], $apxutechtop_samosbor_map_block_data.prototype, "down_right_passage_type", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxutechtop_samosbor_map_block_data.prototype, "get_passage_type", null);
         $$.$apxutechtop_samosbor_map_block_data = $apxutechtop_samosbor_map_block_data;
         const block_full_cell = 380;
         $$.ru_to_eng = {
@@ -13534,7 +13553,7 @@ var $;
                 const node = $hyoo_crus_glob.Node(ref, TransitionData);
                 const transition_floor = Number(node.From(null)?.Floor(null)?.val());
                 const current_floor = this.current_floor();
-                console.log(transition_floor, current_floor);
+                this.block_data().FloorsData(null);
                 return transition_floor !== current_floor;
             }
             transition_left(ref) {
@@ -13556,7 +13575,7 @@ var $;
                     return [];
                 }
                 const connections = [];
-                for (const position of TransitionPositions) {
+                for (const position of $$.TransitionPositions) {
                     const connection = this.Connection(position);
                     connections.push(connection);
                 }
@@ -14807,9 +14826,11 @@ var $;
                 const new_direction = rotate_map[transition.to.position] ? this.rotate_block(transition.to.block_name) : this.direction(transition.to.block_name);
                 const rotate_offset = {
                     up_left: { x: -1, y: 0 },
+                    up_middle: { x: 0, y: 0 },
                     up_right: { x: 1, y: 0 },
                     right: { x: 0, y: 0 },
                     down_right: { x: -1, y: 0 },
+                    down_middle: { x: 0, y: 0 },
                     down_left: { x: 1, y: 0 },
                     left: { x: 0, y: 0 },
                 };
@@ -14859,15 +14880,17 @@ var $;
                 const w = 760;
                 const h = 380;
                 const slotOffset = () => {
-                    switch (pos) {
-                        case "up_left": return { x: w / 4, y: 0 };
-                        case "up_right": return { x: w - w / 4, y: 0 };
-                        case "right": return { x: w, y: h / 2 };
-                        case "down_right": return { x: w - w / 4, y: h };
-                        case "down_left": return { x: w / 4, y: h };
-                        case "left": return { x: 0, y: h / 2 };
-                        default: throw new Error("Invalid position");
-                    }
+                    const pos_map = {
+                        up_left: { x: w / 4, y: 0 },
+                        up_middle: { x: w / 2, y: 0 },
+                        up_right: { x: w - w / 4, y: 0 },
+                        right: { x: w, y: h / 2 },
+                        down_right: { x: w - w / 4, y: h },
+                        down_middle: { x: w / 2, y: h },
+                        down_left: { x: w / 4, y: h },
+                        left: { x: 0, y: h / 2 },
+                    };
+                    return pos_map[pos];
                 };
                 const rotateOffset = ({ x, y }, dir) => {
                     const angle = { up: 0, right: 90, down: 180, left: 270 }[dir];
@@ -14899,9 +14922,11 @@ var $;
             static getPositionOffset(pos, dir) {
                 const offsets = {
                     up_left: { x: 0, y: 0 },
+                    up_middle: { x: 0.5, y: 0 },
                     up_right: { x: 1, y: 0 },
                     right: { x: 2, y: 0 },
                     down_right: { x: 1, y: 1 },
+                    down_middle: { x: 0.5, y: 1 },
                     down_left: { x: 0, y: 1 },
                     left: { x: -1, y: 0 },
                 };
@@ -15010,8 +15035,8 @@ var $;
             static absolute_direction(direction, position) {
                 const dirMap = { up: 0, right: 1, down: 2, left: 3 };
                 const posMap = {
-                    "up_left": 0, "up_right": 0, "right": 1,
-                    "down_right": 2, "down_left": 2, "left": 3
+                    "up_left": 0, "up_middle": 0, "up_right": 0, "right": 1,
+                    "down_right": 2, "down_middle": 2, "down_left": 2, "left": 3
                 };
                 const directions = ["up", "right", "down", "left"];
                 return directions[(posMap[position] + dirMap[direction]) % 4];
