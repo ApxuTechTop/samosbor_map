@@ -57,9 +57,14 @@
 
 	padding: calc(var(--transition-length) / 2);
 
+	[apxutechtop_samosbor_map_block_content] {
+		z-index: 501;
+	}
+
 	&:not([visible]) {
 		[apxutechtop_samosbor_map_block_content] {
 			opacity: 0.2;
+			z-index: 500;
 		}
 	}
 
