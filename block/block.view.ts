@@ -117,6 +117,18 @@ namespace $.$$ {
 
 	export class BlockType extends $hyoo_crus_atom_enum( [ "residential", "abandoned", "frozen", "infected", "destroyed" ] ) {}
 
+	export class ProfessionType extends $hyoo_crus_atom_enum( [ "luquidator", "repairman", "cleaner", "plumber" ] ) {}
+	export class ProfessionData extends $hyoo_crus_dict.with( {
+		Type: ProfessionType,
+		Floor: $hyoo_crus_atom_int,
+	} ) {}
+
+	export class PlaceType extends $hyoo_crus_atom_enum( [ "theatre", "hospital", "party", "warehouse" ] ) {}
+	export class PlaceData extends $hyoo_crus_dict.with( {
+		Type: PlaceType,
+		Floor: $hyoo_crus_atom_int,
+	} ) {}
+
 	export class $apxutechtop_samosbor_map_block_data extends $hyoo_crus_entity.with( {
 		Name: $hyoo_crus_atom_str,
 		Direction: BlockDirection,
@@ -125,6 +137,7 @@ namespace $.$$ {
 		PositionX: $hyoo_crus_atom_int,
 		PositionY: $hyoo_crus_atom_int,
 		Layer: $hyoo_crus_atom_int,
+		Generator: $hyoo_crus_atom_int,
 		MinFloor: $hyoo_crus_atom_int,
 		MaxFloor: $hyoo_crus_atom_int,
 		LeftFlight: FlightData,
@@ -132,6 +145,8 @@ namespace $.$$ {
 		FloorsData: FloorsData,
 		UpMiddleFlight: $hyoo_crus_atom_bool,
 		DownMiddleFlight: $hyoo_crus_atom_bool,
+
+		Professions: $hyoo_crus_list_ref_to( () => ProfessionData ),
 
 	} ) {
 		@$mol_mem
@@ -192,6 +207,10 @@ namespace $.$$ {
 		@$mol_mem
 		max_floor( next?: number ) {
 			return Number( this.MaxFloor( null )?.val( next !== undefined ? BigInt( next ) : undefined ) ?? 0 )
+		}
+		@$mol_mem
+		generator_floor( next?: number ) {
+			return Number( this.Generator( null )?.val( next !== undefined ? BigInt( next ) : undefined ) ?? 0 )
 		}
 		@$mol_mem
 		left_flight_status( next?: typeof FlightStatus.options[ number ] ) {
@@ -340,6 +359,10 @@ namespace $.$$ {
 		@$mol_mem
 		display_floor(): string {
 			return ( this.current_floor() <= this.max_floor() && this.current_floor() >= this.min_floor() ) ? `${ this.current_floor() }` : "?"
+		}
+		@$mol_mem
+		generator_floor_value( next?: number ) {
+			return this.block_data().generator_floor( next )
 		}
 		@$mol_mem
 		block_layer( next?: number ): number {

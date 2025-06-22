@@ -51,3 +51,7 @@ $apxutechtop_samosbor_map_icon_min_floor $mol_icon
 $apxutechtop_samosbor_map_icon_max_floor $apxutechtop_samosbor_map_icon_min_floor
 	style *
 		transform \rotate(180deg)
+
+$apxutechtop_samosbor_map_icon_generator $mol_icon
+	path \M7 36.5L8.75 23.9H0L15.75 0.5H19.25L17.5 14.9H28L10.5 36.5H7Z
+	view_box \0 0 28 37

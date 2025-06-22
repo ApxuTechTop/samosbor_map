@@ -104,6 +104,13 @@ $apxutechtop_samosbor_map_block $mol_view
 				sub / 
 					\Эт. 
 					<= display_floor \?
+	info_part $apxutechtop_samosbor_map_block_part
+		sub /
+			<= Generator $mol_view
+				sub /
+					<= gen_icon $apxutechtop_samosbor_map_icon_generator
+					<= generator_floor $mol_view
+						sub / <= generator_floor_value? 0
 	sub /
 		<= content $mol_view
 			sub /
@@ -124,7 +131,7 @@ $apxutechtop_samosbor_map_block $mol_view
 							left true
 						<= up_left_part <= name_part
 						<= up_passage_or_flight $mol_view
-						<= up_right_part $apxutechtop_samosbor_map_block_part
+						<= up_right_part <= info_part
 						<= up_right_passage $apxutechtop_samosbor_map_block_passage
 							type <= up_right_passage_type \noway
 							event *

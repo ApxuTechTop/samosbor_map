@@ -208,10 +208,11 @@ namespace $.$$ {
 				this.selected_block()?.selected( true )
 			}
 		}
-		// @$mol_mem_key
-		// min_floor(block_name: string, next?: number): number {
-		// 	return 
-		// }
+
+		@$mol_mem
+		gen_floor( next?: number ) {
+			return this.selected_block()?.generator_floor_value( next ) ?? 0
+		}
 
 		@$mol_mem
 		min_floor( next?: number ): number {

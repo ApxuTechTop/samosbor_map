@@ -78,6 +78,7 @@
 		--transition-width: 50px;
 		--transition-height: 50px;
 		box-sizing: content-box;
+		z-index: 4000;
 
 		&[hidden] {
 			display: none;
@@ -312,7 +313,7 @@
 					var(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 0 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y;
 			background: unset;
 			/* border: 10px solid var(--stroke-color); */
-			box-shadow: 0 0 20px 20px var(--stroke-color);
+			box-shadow: 0 0 10px 10px var(--stroke-color);
 			/* blur = 20px, spread = 5px */
 
 		}
@@ -423,6 +424,45 @@
 			line-height: 100%;
 			display: flex;
 			justify-content: center;
+		}
+	}
+
+	[apxutechtop_samosbor_map_block_info_part] {
+		padding-top: 50px;
+		padding-right: 11px;
+		padding-bottom: 50px;
+		padding-left: 11px;
+		gap: 15px;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: center;
+
+		&>* {
+			gap: 10px;
+			display: flex;
+			justify-content: center;
+			width: 100%;
+			text-align: center;
+			vertical-align: middle;
+			line-height: 100%;
+		}
+
+		[apxutechtop_samosbor_map_block_gen_icon] {
+			width: 28px;
+			height: 36px;
+		}
+
+		[apxutechtop_samosbor_map_block_generator_floor] {
+			z-index: 1000;
+			color: white;
+			font-family: "Roboto";
+			font-weight: 700;
+			font-size: 28px;
+			line-height: 100%;
+			letter-spacing: 0;
+			text-align: center;
+			align-items: center;
 		}
 	}
 

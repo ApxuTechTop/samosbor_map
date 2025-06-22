@@ -73,6 +73,10 @@ $apxutechtop_samosbor_map_app $mol_view
 							frozen \Замороженный
 							abandoned \Заброшенный
 							infected \Зараженный
+				<= gen_floor_setting $mol_labeler
+					title \Этаж генератора
+					content / <= gen_setting_number $mol_number
+						value? <=> gen_floor? 0
 				<= min_floor_setting $mol_labeler
 					title \Min floor
 					content / <= min_setting_number $mol_number
