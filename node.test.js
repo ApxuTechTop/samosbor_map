@@ -14870,7 +14870,7 @@ var $;
 
 ;
 "use strict";
-let $apxutechtop_samosbor_map_gigacluster_ref = "6H1qbbnb_3nEGhBiI";
+let $apxutechtop_samosbor_map_gigacluster_ref = "";
 
 ;
 "use strict";
