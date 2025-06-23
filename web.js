@@ -12987,12 +12987,6 @@ var $;
                 console.log(offset);
                 const pos_x = Math.round((this.pos_x() + offset.x - new_offset.x));
                 const pos_y = Math.round((this.pos_y() + offset.y - new_offset.y));
-                const new_block = {
-                    name: new_block_name,
-                    direction: new_block_direction,
-                    pos_x: pos_x,
-                    pos_y: pos_y,
-                };
                 const new_block_node = Gigacluster.create_block();
                 if (!new_block_node)
                     return;
@@ -14076,7 +14070,7 @@ var $;
 
 ;
 "use strict";
-let $apxutechtop_samosbor_map_gigacluster_ref = "";
+let $apxutechtop_samosbor_map_gigacluster_ref = "6H1qbbnb_3nEGhBiI";
 
 
 //# sourceMappingURL=web.js.map
