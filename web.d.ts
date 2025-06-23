@@ -5884,7 +5884,7 @@ declare namespace $ {
 
 //# sourceMappingURL=block.view.tree.d.ts.map
 declare namespace $.$$ {
-    type DirectionType = "up" | "right" | "down" | "left";
+    export type DirectionType = "up" | "right" | "down" | "left";
     export type TransitionPosition = "up_left" | "up_middle" | "up_right" | "right" | "down_right" | "down_middle" | "down_left" | "left";
     export const TransitionPositions: TransitionPosition[];
     const BlockDirection_base: (abstract new () => {
@@ -6864,6 +6864,7 @@ declare namespace $.$$ {
         down_right_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
         get_passage_type(floor: number, position: TransitionPosition): void;
     }
+    export const block_full_cell = 380;
     export const ru_to_eng: {
         [ru: string]: string;
     };
@@ -6952,35 +6953,6 @@ declare namespace $ {
 
 declare namespace $ {
 
-	export class $apxutechtop_samosbor_map_cluster extends $mol_view {
-		pos_x( next?: number ): number
-		pos_y( next?: number ): number
-		floors( next?: readonly(any)[] ): readonly(any)[]
-		style( ): ({ 
-			'left': ReturnType< $apxutechtop_samosbor_map_cluster['pos_x'] >,
-			'top': ReturnType< $apxutechtop_samosbor_map_cluster['pos_y'] >,
-		}) 
-		sub( ): readonly(any)[]
-	}
-	
-	export class $apxutechtop_samosbor_map_app_floor extends $mol_view {
-		floor_direction( ): string
-		pos_x( next?: number ): number
-		pos_y( next?: number ): number
-		test( ): $mol_view
-		lines( ): readonly(any)[]
-		line( ): ReturnType< $apxutechtop_samosbor_map_app_floor['lines'] >
-		block_name( ): string
-		attr( ): ({ 
-			'direction': ReturnType< $apxutechtop_samosbor_map_app_floor['floor_direction'] >,
-		}) 
-		style( ): ({ 
-			'left': ReturnType< $apxutechtop_samosbor_map_app_floor['pos_x'] >,
-			'top': ReturnType< $apxutechtop_samosbor_map_app_floor['pos_y'] >,
-		}) 
-		sub( ): readonly(any)[]
-	}
-	
 	type $mol_switch__value_apxutechtop_samosbor_map_app_1 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_app['control_type'] >
 		,
@@ -7214,71 +7186,54 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxutechtop_samosbor_map_cluster__pos_x_apxutechtop_samosbor_map_app_44 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['cluster_pos_x'] >
-		,
-		ReturnType< $apxutechtop_samosbor_map_cluster['pos_x'] >
-	>
-	type $apxutechtop_samosbor_map_cluster__pos_y_apxutechtop_samosbor_map_app_45 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['cluster_pos_y'] >
-		,
-		ReturnType< $apxutechtop_samosbor_map_cluster['pos_y'] >
-	>
-	type $mol_view__event_apxutechtop_samosbor_map_app_46 = $mol_type_enforce<
-		({ 
-			mousedown( next?: ReturnType< $apxutechtop_samosbor_map_app['event_key'] > ): ReturnType< $apxutechtop_samosbor_map_app['event_key'] >,
-		}) 
-		,
-		ReturnType< $mol_view['event'] >
-	>
-	type $apxutechtop_samosbor_map_block__block_data_apxutechtop_samosbor_map_app_47 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block__block_data_apxutechtop_samosbor_map_app_44 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_app['block'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block['block_data'] >
 	>
-	type $apxutechtop_samosbor_map_block__current_layer_apxutechtop_samosbor_map_app_48 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block__current_layer_apxutechtop_samosbor_map_app_45 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_app['current_layer'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block['current_layer'] >
 	>
-	type $apxutechtop_samosbor_map_block__onclick_apxutechtop_samosbor_map_app_49 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block__onclick_apxutechtop_samosbor_map_app_46 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_app['block_clicked'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block['onclick'] >
 	>
-	type $apxutechtop_samosbor_map_block__on_connection_select_apxutechtop_samosbor_map_app_50 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block__on_connection_select_apxutechtop_samosbor_map_app_47 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_app['connection_selected'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block['on_connection_select'] >
 	>
-	type $apxutechtop_samosbor_map_block__show_connections_apxutechtop_samosbor_map_app_51 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block__show_connections_apxutechtop_samosbor_map_app_48 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block['show_connections'] >
 	>
-	type $apxutechtop_samosbor_map_block__create_mode_apxutechtop_samosbor_map_app_52 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block__create_mode_apxutechtop_samosbor_map_app_49 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_app['is_create_mode'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block['create_mode'] >
 	>
-	type $apxutechtop_samosbor_map_block__edit_mode_apxutechtop_samosbor_map_app_53 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block__edit_mode_apxutechtop_samosbor_map_app_50 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_app['is_configure_mode'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block['edit_mode'] >
 	>
-	type $apxutechtop_samosbor_map_block__connect_mode_apxutechtop_samosbor_map_app_54 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block__connect_mode_apxutechtop_samosbor_map_app_51 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_app['is_connect_mode'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block['connect_mode'] >
 	>
-	type $mol_view__attr_apxutechtop_samosbor_map_app_55 = $mol_type_enforce<
+	type $mol_view__attr_apxutechtop_samosbor_map_app_52 = $mol_type_enforce<
 		({ 
 			'direction': ReturnType< $apxutechtop_samosbor_map_app['transition_direction'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxutechtop_samosbor_map_app_56 = $mol_type_enforce<
+	type $mol_view__style_apxutechtop_samosbor_map_app_53 = $mol_type_enforce<
 		({ 
 			'left': ReturnType< $apxutechtop_samosbor_map_app['transition_left'] >,
 			'top': ReturnType< $apxutechtop_samosbor_map_app['transition_top'] >,
@@ -7287,9 +7242,6 @@ declare namespace $ {
 		ReturnType< $mol_view['style'] >
 	>
 	export class $apxutechtop_samosbor_map_app extends $mol_view {
-		cluster_pos_x( id: any, next?: number ): number
-		cluster_pos_y( id: any, next?: number ): number
-		event_key( id: any, next?: any ): any
 		block( id: any): any
 		current_layer( next?: number ): number
 		block_clicked( id: any, next?: any ): any
@@ -7342,9 +7294,6 @@ declare namespace $ {
 		blocks( ): readonly(any)[]
 		Area( ): $apxutechtop_samosbor_map_area
 		Canvas( ): $mol_view
-		Cluster( id: any): $apxutechtop_samosbor_map_cluster
-		floor_lines( id: any, next?: readonly(any)[] ): readonly(any)[]
-		Line( id: any): $mol_view
 		Block( id: any): $apxutechtop_samosbor_map_block
 		Transition( id: any): $mol_view
 		sub( ): readonly(any)[]
@@ -7354,28 +7303,6 @@ declare namespace $ {
 
 //# sourceMappingURL=app.view.tree.d.ts.map
 declare namespace $.$$ {
-    type DirectionType = "up" | "right" | "down" | "left";
-    interface Transition {
-        from: {
-            block_name: string;
-            floor: number;
-            position: TransitionPosition;
-        };
-        to: {
-            block_name: string;
-            floor: number;
-            position: TransitionPosition;
-        };
-    }
-    interface Block {
-        name: string;
-        direction: "up" | "right" | "down" | "left";
-        pos_x?: number;
-        pos_y?: number;
-        layer?: number;
-        min_floor?: number;
-        max_floor?: number;
-    }
     const Gigacluster_base: Omit<typeof $hyoo_crus_home, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_home, {
         readonly Blocks: (auto?: any) => {
             remote_list(next?: readonly $apxutechtop_samosbor_map_block_data[] | undefined): readonly $apxutechtop_samosbor_map_block_data[];
@@ -7495,25 +7422,11 @@ declare namespace $.$$ {
         static delete_block(ref: any): void;
         static delete_all_blocks(): void;
         static blocks(): readonly $apxutechtop_samosbor_map_block_data[] | undefined;
-        static block(block_name: string): $apxutechtop_samosbor_map_block_data | undefined;
+        static block_by_name(block_name: string): $apxutechtop_samosbor_map_block_data | undefined;
         static transition(block_name: string, floor: number, position: TransitionPosition): TransitionData | undefined;
-    }
-    export class $apxutechtop_samosbor_map_storage extends $mol_object {
-        static data(next?: {
-            blocks: Block[];
-            transitions: Transition[];
-        }): {
-            blocks: Block[];
-            transitions: Transition[];
-        };
-        static blocks(next?: Block[]): Block[];
-        static block(block_name: string, next?: Block): void;
-        static block_direction(block_name: string): void;
-        static transitions(next?: Transition[]): Transition[];
     }
     export class $apxutechtop_samosbor_map_app extends $.$apxutechtop_samosbor_map_app {
         map_land(): $hyoo_crus_land;
-        static blocks_data(next?: Block[]): Block[];
         selected_block(next?: $.$apxutechtop_samosbor_map_block | null): $.$apxutechtop_samosbor_map_block | null | undefined;
         block_clicked(ref: any, event: any): void;
         gen_floor(next?: number): number;
@@ -7528,22 +7441,9 @@ declare namespace $.$$ {
         down_flight_value(next?: boolean): boolean;
         delete_block(): void;
         selected_block_name(next?: string): string;
-        static block(name: string, next?: Block): $apxutechtop_samosbor_map_block_data | Block | undefined;
-        block(ref: any, next?: Block): $apxutechtop_samosbor_map_block_data;
-        block_transitions(block_name: string): {
-            from: {
-                block_name: string;
-                floor: number;
-                position: TransitionPosition;
-            };
-            to: {
-                block_name: string;
-                floor: number;
-                position: TransitionPosition;
-            };
-        }[];
-        static all_transitions(next?: Transition[]): Transition[];
-        static transition(trans_id: string, next?: Transition): Transition | undefined;
+        static block_by_name(name: string): $apxutechtop_samosbor_map_block_data | undefined;
+        static block(ref: any): $apxutechtop_samosbor_map_block_data;
+        block(ref: any): $apxutechtop_samosbor_map_block_data;
         transitions(): $mol_view[];
         transition_direction(ref: any): string;
         transition_left(ref: any): number;
@@ -7556,29 +7456,6 @@ declare namespace $.$$ {
         is_create_mode(): boolean;
         is_configure_mode(): boolean;
         is_connect_mode(): boolean;
-        static rotate_block(block_name: string): DirectionType;
-        static rotate_transition(transition: Transition): {
-            transition: Transition;
-            direction: DirectionType;
-            offset: {
-                x: number;
-                y: number;
-            };
-        };
-        parseFloor(floorId: string): {
-            block_name: string;
-            floor_num: number;
-        } | null;
-        static parseTrans(transId: string): {
-            block_name: string;
-            floor_num: number;
-            position: TransitionPosition;
-        } | null;
-        block_name(floorId: string): string;
-        floor_num(floorId: string): number;
-        static direction(block_name: string, next?: DirectionType): DirectionType;
-        floor_direction(floorId: string): DirectionType;
-        floor_cluster(floorId: string, cluster?: any): void;
         static getOffset(pos: TransitionPosition, dir: string): {
             x: number;
             y: number;
@@ -7594,31 +7471,6 @@ declare namespace $.$$ {
             x: number;
             y: number;
         };
-        calculateOffset(transition: Transition, floor_direction: string): {
-            x: number;
-            y: number;
-        };
-        set_position(view: $mol_view, pos: {
-            left: number;
-            top: number;
-        }): void;
-        set_size(view: $mol_view, width: number, height: number): void;
-        get_size(cluster: $mol_view): {
-            width: number;
-            height: number;
-            left: number;
-            right: number;
-            top: number;
-            bottom: number;
-        } | null;
-        event_key(transId: string, event: any): void;
-        floor_lines(floorId: any, next?: readonly (any)[]): readonly (any)[];
-        get_floor_id(block_name: string, floor_num: number): string;
-        static get_trans_id({ block_name, floor, position }: {
-            block_name?: string | undefined;
-            floor?: number | undefined;
-            position?: string | undefined;
-        }): string;
         static absolute_direction(direction: DirectionType, position: TransitionPosition): DirectionType;
         blocks(): $mol_view[];
     }
@@ -7627,6 +7479,8 @@ declare namespace $.$$ {
 
 declare namespace $ {
 }
+
+declare let $apxutechtop_samosbor_map_gigacluster_ref: string;
 
 export = $;
 //# sourceMappingURL=web.d.ts.map

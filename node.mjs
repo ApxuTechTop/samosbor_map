@@ -13199,9 +13199,9 @@ var $;
             }
             remove_transition() {
                 const from_block_ref = this.From(null)?.Block(null)?.val();
-                const from_block = from_block_ref && $hyoo_crus_glob.Node(from_block_ref, $apxutechtop_samosbor_map_block_data);
+                const from_block = from_block_ref && $apxutechtop_samosbor_map_app.block(from_block_ref);
                 const to_block_ref = this.To(null)?.Block(null)?.val();
-                const to_block = to_block_ref && $hyoo_crus_glob.Node(to_block_ref, $apxutechtop_samosbor_map_block_data);
+                const to_block = to_block_ref && $apxutechtop_samosbor_map_app.block(to_block_ref);
                 to_block?.Transitions(null)?.cut(this.ref());
                 from_block?.Transitions(null)?.cut(this.ref());
             }
@@ -13476,7 +13476,7 @@ var $;
             $mol_mem_key
         ], $apxutechtop_samosbor_map_block_data.prototype, "get_passage_type", null);
         $$.$apxutechtop_samosbor_map_block_data = $apxutechtop_samosbor_map_block_data;
-        const block_full_cell = 380;
+        $$.block_full_cell = 380;
         $$.ru_to_eng = {
             "А": "a",
             "Б": "b",
@@ -13546,10 +13546,10 @@ var $;
                 return this.block_data().pos_y(next) ?? 0;
             }
             left() {
-                return this.pos_x() * block_full_cell;
+                return this.pos_x() * $$.block_full_cell;
             }
             top() {
-                return this.pos_y() * block_full_cell;
+                return this.pos_y() * $$.block_full_cell;
             }
             block_name(next) {
                 return this.block_data().name(next) ?? "";
@@ -14130,84 +14130,11 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxutechtop/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxutechtop_samosbor_map_cluster]>*,\n[apxutechtop_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tfill: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=residential] {}\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: black;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: red;\n\t}\n\n\t&[block-type=abandoned] {\n\t\t--block-type-stroke-color: yellow;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: blue;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t&:not([visible]) {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\topacity: 0.2;\n\t\t}\n\t}\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t\t/* Размер и цвет границы */\n\t\tanimation: blink-border 2s infinite;\n\t\t/* Запуск анимации бесконечно */\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxutechtop_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\t\tposition: absolute;\n\t\t/* transform: translate(-50%, -50%); */\n\t\t/* border: 5px solid white; */\n\t\tbackground-color: #FFFFFF80;\n\t\tz-index: 100;\n\t}\n\n\t[apxutechtop_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxutechtop_samosbor_map_block_flight],\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\t--stroke-length-left: 85px;\n\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t--empty-length-left: 85px;\n\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t--stroke-length-top: 90px;\n\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t--empty-length-top: 90px;\n\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\t/* Разные значения для вертикальных/горизонтальных линий */\n\t\t\t/* --stroke-length-vertical: 85px;\n\t\t\t--empty-length-vertical: 85px;\n\t\t\t--stroke-length-horizontal: 90px;\n\t\t\t--empty-length-horizontal: 90px; */\n\t\t\t--stroke-width: 10px;\n\t\t\tborder-radius: 10px;\n\n\t\t\t/* Толщина линии */\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* Рассчитываем половины значений */\n\t\t\t--half-dash-h: calc(var(--stroke-length-horizontal) / 2);\n\t\t\t--half-dash-v: calc(var(--stroke-length-vertical) / 2);\n\n\t\t\tbackground:\n\t\t\t\t/* Верхняя граница (горизонтальная) */\n\t\t\t\tlinear-gradient(90deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-h),\n\t\t\t\t\ttransparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 0 / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,\n\n\t\t\t\t/* Правая граница (вертикальная) */\n\t\t\t\tlinear-gradient(180deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-v),\n\t\t\t\t\ttransparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 100% 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y,\n\n\t\t\t\t/* Нижняя граница (горизонтальная) */\n\t\t\t\tlinear-gradient(270deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-h),\n\t\t\t\t\ttransparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 100% / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,\n\n\t\t\t\t/* Левая граница (вертикальная) */\n\t\t\t\tlinear-gradient(0deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-v),\n\t\t\t\t\ttransparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 0 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y;\n\t\t\tbackground: unset;\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 10px 10px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\n\t\t/* filter: drop-shadow(0 0 20px var(--stroke-color)); */\n\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100% !important;\n\t\t\t\theight: 100% !important;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxutechtop_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_info_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_generator_floor] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\n\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-left);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-left);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-top);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-top);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: calc((100% - 2 * var(--part-width)) / 2);\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\theight: calc((100% - 2 * var(--part-width)) / 2);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t\t/* left: 0px;\n\t\t\ttop: 0px; */\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\tflex-direction: inherit;\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
+    $mol_style_attach("apxutechtop/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxutechtop_samosbor_map_cluster]>*,\n[apxutechtop_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tfill: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=residential] {}\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: black;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: red;\n\t}\n\n\t&[block-type=abandoned] {\n\t\t--block-type-stroke-color: yellow;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: blue;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\topacity: 0.2;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t\t/* Размер и цвет границы */\n\t\tanimation: blink-border 2s infinite;\n\t\t/* Запуск анимации бесконечно */\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxutechtop_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\t\tposition: absolute;\n\t\t/* transform: translate(-50%, -50%); */\n\t\t/* border: 5px solid white; */\n\t\tbackground-color: #FFFFFF80;\n\t\tz-index: 100;\n\t}\n\n\t[apxutechtop_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxutechtop_samosbor_map_block_flight],\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\t--stroke-length-left: 85px;\n\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t--empty-length-left: 85px;\n\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t--stroke-length-top: 90px;\n\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t--empty-length-top: 90px;\n\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\t/* Разные значения для вертикальных/горизонтальных линий */\n\t\t\t/* --stroke-length-vertical: 85px;\n\t\t\t--empty-length-vertical: 85px;\n\t\t\t--stroke-length-horizontal: 90px;\n\t\t\t--empty-length-horizontal: 90px; */\n\t\t\t--stroke-width: 10px;\n\t\t\tborder-radius: 10px;\n\n\t\t\t/* Толщина линии */\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* Рассчитываем половины значений */\n\t\t\t--half-dash-h: calc(var(--stroke-length-horizontal) / 2);\n\t\t\t--half-dash-v: calc(var(--stroke-length-vertical) / 2);\n\n\t\t\tbackground:\n\t\t\t\t/* Верхняя граница (горизонтальная) */\n\t\t\t\tlinear-gradient(90deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-h),\n\t\t\t\t\ttransparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 0 / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,\n\n\t\t\t\t/* Правая граница (вертикальная) */\n\t\t\t\tlinear-gradient(180deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-v),\n\t\t\t\t\ttransparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 100% 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y,\n\n\t\t\t\t/* Нижняя граница (горизонтальная) */\n\t\t\t\tlinear-gradient(270deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-h),\n\t\t\t\t\ttransparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 100% / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,\n\n\t\t\t\t/* Левая граница (вертикальная) */\n\t\t\t\tlinear-gradient(0deg,\n\t\t\t\t\tvar(--stroke-color) 0 var(--half-dash-v),\n\t\t\t\t\ttransparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),\n\t\t\t\t\tvar(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 0 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y;\n\t\t\tbackground: unset;\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 10px 10px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\n\t\t/* filter: drop-shadow(0 0 20px var(--stroke-color)); */\n\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100% !important;\n\t\t\t\theight: 100% !important;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxutechtop_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_info_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_generator_floor] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\n\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-left);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-left);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-top);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-top);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: calc((100% - 2 * var(--part-width)) / 2);\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\theight: calc((100% - 2 * var(--part-width)) / 2);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t\t/* left: 0px;\n\t\t\ttop: 0px; */\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\tflex-direction: inherit;\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
 })($ || ($ = {}));
 
 ;
-	($.$apxutechtop_samosbor_map_cluster) = class $apxutechtop_samosbor_map_cluster extends ($.$mol_view) {
-		pos_x(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		pos_y(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		floors(next){
-			if(next !== undefined) return next;
-			return [];
-		}
-		style(){
-			return {"left": (this.pos_x()), "top": (this.pos_y())};
-		}
-		sub(){
-			return [...(this.floors())];
-		}
-	};
-	($mol_mem(($.$apxutechtop_samosbor_map_cluster.prototype), "pos_x"));
-	($mol_mem(($.$apxutechtop_samosbor_map_cluster.prototype), "pos_y"));
-	($mol_mem(($.$apxutechtop_samosbor_map_cluster.prototype), "floors"));
-	($.$apxutechtop_samosbor_map_app_floor) = class $apxutechtop_samosbor_map_app_floor extends ($.$mol_view) {
-		floor_direction(){
-			return "up";
-		}
-		pos_x(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		pos_y(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		test(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		lines(){
-			return [(this.test())];
-		}
-		line(){
-			return (this.lines());
-		}
-		block_name(){
-			return "!-00";
-		}
-		attr(){
-			return {"direction": (this.floor_direction())};
-		}
-		style(){
-			return {"left": (this.pos_x()), "top": (this.pos_y())};
-		}
-		sub(){
-			return [...(this.line()), (this.block_name())];
-		}
-	};
-	($mol_mem(($.$apxutechtop_samosbor_map_app_floor.prototype), "pos_x"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app_floor.prototype), "pos_y"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app_floor.prototype), "test"));
 	($.$apxutechtop_samosbor_map_app) = class $apxutechtop_samosbor_map_app extends ($.$mol_view) {
-		cluster_pos_x(id, next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		cluster_pos_y(id, next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		event_key(id, next){
-			if(next !== undefined) return next;
-			return null;
-		}
 		block(id){
 			return null;
 		}
@@ -14479,21 +14406,6 @@ var $;
 			(obj.sub) = () => ([(this.Area())]);
 			return obj;
 		}
-		Cluster(id){
-			const obj = new this.$.$apxutechtop_samosbor_map_cluster();
-			(obj.pos_x) = () => ((this.cluster_pos_x(id)));
-			(obj.pos_y) = () => ((this.cluster_pos_y(id)));
-			return obj;
-		}
-		floor_lines(id, next){
-			if(next !== undefined) return next;
-			return [];
-		}
-		Line(id){
-			const obj = new this.$.$mol_view();
-			(obj.event) = () => ({"mousedown": (next) => (this.event_key(id, next))});
-			return obj;
-		}
 		Block(id){
 			const obj = new this.$.$apxutechtop_samosbor_map_block();
 			(obj.block_data) = (next) => ((this.block(id)));
@@ -14522,9 +14434,6 @@ var $;
 			];
 		}
 	};
-	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "cluster_pos_x"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "cluster_pos_y"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "event_key"));
 	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "current_layer"));
 	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "block_clicked"));
 	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "connection_selected"));
@@ -14569,9 +14478,6 @@ var $;
 	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Searcher"));
 	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Area"));
 	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Canvas"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "Cluster"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "floor_lines"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "Line"));
 	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "Block"));
 	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "Transition"));
 
@@ -14585,13 +14491,12 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        const TransitionPositions = ["up_left", "up_right", "right", "down_right", "down_left", "left"];
-        const block_full_cell = 380;
         class Gigacluster extends $hyoo_crus_home.with({
             Blocks: $hyoo_crus_list_ref_to(() => $apxutechtop_samosbor_map_block_data),
         }) {
             static global() {
-                const storage = $hyoo_crus_glob.Node($hyoo_crus_ref("6H1qbbnb_3nEGhBiI"), Gigacluster);
+                console.log($apxutechtop_samosbor_map_gigacluster_ref);
+                const storage = $hyoo_crus_glob.Node($hyoo_crus_ref($apxutechtop_samosbor_map_gigacluster_ref), Gigacluster);
                 return storage;
             }
             static create_block() {
@@ -14620,11 +14525,11 @@ var $;
             static blocks() {
                 return this.global().Blocks(null)?.remote_list();
             }
-            static block(block_name) {
+            static block_by_name(block_name) {
                 return this.global().Blocks(null)?.remote_list().find((block) => block.name() === block_name);
             }
             static transition(block_name, floor, position) {
-                return this.block(block_name)?.transitions()?.find((trans) => {
+                return this.block_by_name(block_name)?.transitions()?.find((trans) => {
                     const check = (port) => {
                         if (!port)
                             return;
@@ -14659,96 +14564,11 @@ var $;
         ], Gigacluster, "blocks", null);
         __decorate([
             $mol_mem_key
-        ], Gigacluster, "block", null);
+        ], Gigacluster, "block_by_name", null);
         $$.Gigacluster = Gigacluster;
-        class $apxutechtop_samosbor_map_storage extends $mol_object {
-            static data(next) {
-                const data = {
-                    blocks: [{
-                            name: "Л-96",
-                            direction: "up",
-                        }, {
-                            name: "Л-81",
-                            direction: "right",
-                            pos_x: 2,
-                        }, {
-                            name: "Ф-76",
-                            direction: "left",
-                            pos_x: -1,
-                        }, {
-                            name: "А-21",
-                            direction: "up",
-                            pos_x: -1,
-                            pos_y: -1,
-                            layer: 3,
-                            min_floor: -4,
-                            max_floor: 6,
-                        }],
-                    transitions: [
-                        {
-                            from: {
-                                block_name: "Л-96",
-                                floor: 1,
-                                position: "right",
-                            },
-                            to: {
-                                block_name: "Л-81",
-                                floor: 0,
-                                position: "down_left",
-                            }
-                        },
-                        {
-                            from: {
-                                block_name: "Л-96",
-                                floor: 2,
-                                position: "left"
-                            },
-                            to: {
-                                block_name: "Ф-76",
-                                floor: 0,
-                                position: "down_right",
-                            }
-                        },
-                        {
-                            from: {
-                                block_name: "Л-96",
-                                floor: 1,
-                                position: "up_left"
-                            },
-                            to: {
-                                block_name: "А-21",
-                                floor: 0,
-                                position: "down_right"
-                            }
-                        }
-                    ],
-                };
-                return next ?? data;
-            }
-            static blocks(next) {
-                const blocks = next ?? this.data().blocks;
-                this.data({ blocks, transitions: this.transitions() });
-                return blocks;
-            }
-            static block(block_name, next) { }
-            static block_direction(block_name) { }
-            static transitions(next) {
-                const transitions = next ?? this.data().transitions;
-                this.data({ blocks: this.blocks(), transitions: transitions });
-                return transitions;
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_storage, "data", null);
-        $$.$apxutechtop_samosbor_map_storage = $apxutechtop_samosbor_map_storage;
         class $apxutechtop_samosbor_map_app extends $.$apxutechtop_samosbor_map_app {
             map_land() {
                 return Gigacluster.global().land();
-            }
-            static blocks_data(next) {
-                console.log("blocks_data");
-                return next ? $apxutechtop_samosbor_map_storage.data({ blocks: next, transitions: $apxutechtop_samosbor_map_storage.data().transitions }).blocks : $apxutechtop_samosbor_map_storage.data().blocks;
             }
             selected_block(next) {
                 return next;
@@ -14806,39 +14626,15 @@ var $;
             selected_block_name(next) {
                 return this.selected_block()?.block_name(next) ?? "";
             }
-            static block(name, next) {
-                return Gigacluster.block(name);
-                return next ?? this.blocks_data().find((block) => block.name === name);
+            static block_by_name(name) {
+                return Gigacluster.block_by_name(name);
             }
-            block(ref, next) {
+            static block(ref) {
                 const block_node = $hyoo_crus_glob.Node(ref, $apxutechtop_samosbor_map_block_data);
-                console.log(block_node);
                 return block_node;
             }
-            block_transitions(block_name) {
-                return $apxutechtop_samosbor_map_app.all_transitions().filter(({ from, to }) => {
-                    const check = (t) => {
-                        return t.block_name === block_name;
-                    };
-                    return check(from) || check(to);
-                }).map(({ from, to }) => from.block_name === block_name ? { from, to } : { from: to, to: from });
-            }
-            static all_transitions(next) {
-                console.log(next);
-                return $apxutechtop_samosbor_map_storage.transitions(next);
-            }
-            static transition(trans_id, next) {
-                const { block_name, floor_num, position } = this.parseTrans(trans_id);
-                console.log(this.all_transitions());
-                const transition = this.all_transitions().find(({ from, to }) => {
-                    const check = (t) => {
-                        console.log(t);
-                        return t.block_name === block_name && t.floor === floor_num && t.position === position;
-                    };
-                    return check(from) || check(to);
-                });
-                console.log(trans_id, transition);
-                return next ?? transition;
+            block(ref) {
+                return $apxutechtop_samosbor_map_app.block(ref);
             }
             transitions() {
                 const transitions = [];
@@ -14910,72 +14706,6 @@ var $;
             is_connect_mode() {
                 return this.control_type() === "connect";
             }
-            static rotate_block(block_name) {
-                console.log("rotate");
-                const block_data = this.block(block_name);
-                const new_direction = this.prev_direction(this.direction(block_name));
-                return new_direction;
-            }
-            static rotate_transition(transition) {
-                const rotate_map = {
-                    up_right: true,
-                    right: true,
-                    down_left: true,
-                    left: true,
-                };
-                const new_direction = rotate_map[transition.to.position] ? this.rotate_block(transition.to.block_name) : this.direction(transition.to.block_name);
-                const rotate_offset = {
-                    up_left: { x: -1, y: 0 },
-                    up_middle: { x: 1, y: 0 },
-                    up_right: { x: 1, y: 0 },
-                    right: { x: 0, y: 0 },
-                    down_right: { x: -1, y: 0 },
-                    down_middle: { x: 1, y: 0 },
-                    down_left: { x: 1, y: 0 },
-                    left: { x: 0, y: 0 },
-                };
-                const rotated_offset = this.rotateOffset(rotate_offset[transition.to.position], this.direction(transition.to.block_name));
-                const block = this.block(transition.to.block_name);
-                transition.to.position = this.next_position(transition.to.position);
-                return { transition, direction: new_direction, offset: rotated_offset };
-            }
-            parseFloor(floorId) {
-                const regex = /^([^_]+)_(\d+)$/;
-                const match = floorId.match(regex);
-                if (match) {
-                    const [_, block_name, floor_num_str] = match;
-                    const floor_num = parseInt(floor_num_str, 10);
-                    return { block_name, floor_num };
-                }
-                return null;
-            }
-            static parseTrans(transId) {
-                console.log(transId);
-                const regex = /^([^_]+)_(-?\d+)_(.+)$/;
-                const match = transId.match(regex);
-                console.log(match);
-                if (match) {
-                    const [_, block_name, floor_num_str, position] = match;
-                    const floor_num = parseInt(floor_num_str, 10);
-                    return { block_name, floor_num, position: position };
-                }
-                return null;
-            }
-            block_name(floorId) {
-                return this.parseFloor(floorId)?.block_name;
-            }
-            floor_num(floorId) {
-                return this.parseFloor(floorId)?.floor_num;
-            }
-            static direction(block_name, next) {
-                console.log(block_name);
-                return "up";
-            }
-            floor_direction(floorId) {
-                return $apxutechtop_samosbor_map_app.direction(this.block_name(floorId));
-            }
-            floor_cluster(floorId, cluster) {
-            }
             static getOffset(pos, dir) {
                 const w = 760;
                 const h = 380;
@@ -15037,100 +14767,6 @@ var $;
                 const directionOffset = dirOffset(dir);
                 const rotatedOffset = this.rotateOffset(offsets[pos], dir);
                 return { x: rotatedOffset.x + directionOffset.x, y: rotatedOffset.y + directionOffset.y };
-            }
-            calculateOffset(transition, floor_direction) {
-                const currentOffset = $apxutechtop_samosbor_map_app.getOffset(transition.from.position, floor_direction);
-                const anotherOffset = $apxutechtop_samosbor_map_app.getOffset(transition.to.position, $apxutechtop_samosbor_map_app.direction(transition.to.block_name));
-                return { x: currentOffset.x - anotherOffset.x, y: currentOffset.y - anotherOffset.y };
-            }
-            set_position(view, pos) {
-                const prev = view.dom_node().getAttribute("style");
-                view.style().top = `${pos.top}px`;
-                view.style().left = pos.left + "px";
-                view.dom_node().setAttribute("style", `${""} top: ${`${pos.top}px`}; left: ${`${pos.left}px`};`);
-            }
-            set_size(view, width, height) {
-                const prev = view.dom_node().getAttribute("style");
-                view.dom_node().setAttribute("style", `${prev} width: ${width}; height: ${height};`);
-            }
-            get_size(cluster) {
-                return cluster.view_rect();
-            }
-            event_key(transId, event) {
-                const { block_name, floor_num, position } = $apxutechtop_samosbor_map_app.parseTrans(transId);
-                const floorId = this.get_floor_id(block_name, floor_num);
-                const block = $apxutechtop_samosbor_map_app.block(block_name);
-                if (!block) {
-                    throw new Error(`Not find block: ${block_name}`);
-                }
-                const rotateBlock = ({ name, position, floor }, trans) => {
-                    const block = $apxutechtop_samosbor_map_app.block(name);
-                    console.log("rotating");
-                    trans.position = TransitionPositions[(TransitionPositions.indexOf(trans.position) + 1) % (TransitionPositions.length - 1)];
-                };
-                let trans = $apxutechtop_samosbor_map_app.transition(transId);
-                const index = $apxutechtop_samosbor_map_app.all_transitions().findIndex((t) => trans);
-                console.log(transId, trans);
-                if (trans) {
-                    const all_transitions = $apxutechtop_samosbor_map_app.all_transitions();
-                    console.log("before", all_transitions.map((v) => v.to.position));
-                    const { transition: rotated_transition } = $apxutechtop_samosbor_map_app.rotate_transition(trans);
-                    all_transitions[index] = rotated_transition;
-                    console.log("after", all_transitions.map((v) => v.to.position));
-                    $apxutechtop_samosbor_map_app.all_transitions(all_transitions);
-                }
-                else {
-                    const new_block_name = `new-${Math.floor(Math.random() * 100)}`;
-                    const new_transition = {
-                        from: {
-                            block_name,
-                            floor: floor_num,
-                            position: position
-                        },
-                        to: {
-                            block_name: new_block_name,
-                            position: "up_left",
-                            floor: 0,
-                        }
-                    };
-                    const new_block = {
-                        name: new_block_name,
-                        direction: $apxutechtop_samosbor_map_app.next_direction($apxutechtop_samosbor_map_app.next_direction($apxutechtop_samosbor_map_app.absolute_direction($apxutechtop_samosbor_map_app.direction(block_name), position))),
-                    };
-                    $apxutechtop_samosbor_map_app.all_transitions([...$apxutechtop_samosbor_map_app.all_transitions(), new_transition]);
-                    console.log($apxutechtop_samosbor_map_app.blocks_data([...$apxutechtop_samosbor_map_app.blocks_data(), new_block]));
-                }
-                console.log(floorId, position, event);
-            }
-            floor_lines(floorId, next) {
-                console.log("floor_lines");
-                const lines = [];
-                const padding = 25;
-                const adjustments = {
-                    up: { x: 0, y: padding },
-                    down: { x: 0, y: -padding },
-                    left: { x: padding, y: 0 },
-                    right: { x: -padding, y: 0 },
-                };
-                for (const position of TransitionPositions) {
-                    const lineOffset = $apxutechtop_samosbor_map_app.getOffset(position, this.floor_direction(floorId));
-                    const line = this.Line(floorId + "_" + position);
-                    const abs_dir = $apxutechtop_samosbor_map_app.absolute_direction($apxutechtop_samosbor_map_app.direction(this.block_name(floorId)), position);
-                    const adjustment = adjustments[abs_dir] ?? { x: 0, y: 0 };
-                    const adjustedOffset = {
-                        x: lineOffset.x + adjustment.x,
-                        y: lineOffset.y + adjustment.y
-                    };
-                    this.set_position(line, { left: adjustedOffset.x, top: adjustedOffset.y });
-                    lines.push(line);
-                }
-                return lines;
-            }
-            get_floor_id(block_name, floor_num) {
-                return `${block_name}_${floor_num}`;
-            }
-            static get_trans_id({ block_name = "", floor = 0, position = "" }) {
-                return `${block_name}_${floor}_${position}`;
             }
             static absolute_direction(direction, position) {
                 const dirMap = { up: 0, right: 1, down: 2, left: 3 };
@@ -15201,9 +14837,6 @@ var $;
             $mol_mem_key
         ], $apxutechtop_samosbor_map_app.prototype, "block", null);
         __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "block_transitions", null);
-        __decorate([
             $mol_mem
         ], $apxutechtop_samosbor_map_app.prototype, "transitions", null);
         __decorate([
@@ -15231,62 +14864,14 @@ var $;
             $mol_mem
         ], $apxutechtop_samosbor_map_app.prototype, "is_connect_mode", null);
         __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "parseFloor", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "block_name", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "floor_num", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "floor_direction", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "floor_cluster", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "calculateOffset", null);
-        __decorate([
-            $mol_action
-        ], $apxutechtop_samosbor_map_app.prototype, "set_position", null);
-        __decorate([
-            $mol_action
-        ], $apxutechtop_samosbor_map_app.prototype, "set_size", null);
-        __decorate([
-            $mol_action
-        ], $apxutechtop_samosbor_map_app.prototype, "event_key", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "floor_lines", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "get_floor_id", null);
-        __decorate([
             $mol_mem
         ], $apxutechtop_samosbor_map_app.prototype, "blocks", null);
         __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app, "blocks_data", null);
+            $mol_mem_key
+        ], $apxutechtop_samosbor_map_app, "block_by_name", null);
         __decorate([
             $mol_mem_key
         ], $apxutechtop_samosbor_map_app, "block", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app, "all_transitions", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app, "transition", null);
-        __decorate([
-            $mol_action
-        ], $apxutechtop_samosbor_map_app, "rotate_block", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app, "parseTrans", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app, "direction", null);
         $$.$apxutechtop_samosbor_map_app = $apxutechtop_samosbor_map_app;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -15297,6 +14882,10 @@ var $;
 (function ($) {
     $mol_style_attach("apxutechtop/samosbor/map/app/app.view.css", "[apxutechtop_samosbor_map_app] {\n\t--bg: #6E6E6E;\n\t--main: #585858;\n\n\t[color=a] {\n\t\t--bg: #BD9EFF;\n\t\t--main: #9A76E7;\n\t}\n\n\t[color=b] {\n\t\t--bg: #FF9E9E;\n\t\t--main: #EB6B6B;\n\t}\n\n\t[color=v] {\n\t\t--bg: #EAB27F;\n\t\t--main: #C1844D;\n\t}\n\n\t[color=g] {\n\t\t--bg: #BDC9E6;\n\t\t--main: #889DCF;\n\t}\n\n\t[color=d] {\n\t\t--bg: #8A609D;\n\t\t--main: #64367A;\n\t}\n\n\t[color=e] {\n\t\t--bg: #E4C1AD;\n\t\t--main: #CB9B7F;\n\t}\n\n\t[color=j] {\n\t\t--bg: #79C0B4;\n\t\t--main: #4EAD9D;\n\t}\n\n\t[color=z] {\n\t\t--bg: #9EE2FF;\n\t\t--main: #6AC3E9;\n\t}\n\n\t[color=i] {\n\t\t--bg: #968F66;\n\t\t--main: #7D7843;\n\t}\n\n\t[color=k] {\n\t\t--bg: #FA9B48;\n\t\t--main: #E3861B;\n\t}\n\n\t[color=l] {\n\t\t--bg: #9EA2FF;\n\t\t--main: #8388F4;\n\t}\n\n\t[color=m] {\n\t\t--bg: #E69EFF;\n\t\t--main: #CD73ED;\n\t}\n\n\t[color=n] {\n\t\t--bg: #FF9ED8;\n\t\t--main: #E96EB7;\n\t}\n\n\t[color=o] {\n\t\t--bg: #C09786;\n\t\t--main: #AA7762;\n\t}\n\n\t[color=p] {\n\t\t--bg: #6F6F6F;\n\t\t--main: #585858;\n\t}\n\n\t[color=r] {\n\t\t--bg: #93AF6E;\n\t\t--main: #789A4E;\n\t}\n\n\t[color=s] {\n\t\t--bg: #575FA8;\n\t\t--main: #353E87;\n\t}\n\n\t[color=t] {\n\t\t--bg: #6D949C;\n\t\t--main: #457681;\n\t}\n\n\t[color=u] {\n\t\t--bg: #B5C35D;\n\t\t--main: #95A62D;\n\t}\n\n\t[color=f] {\n\t\t--bg: #D4BACA;\n\t\t--main: #C696B3;\n\t}\n\n\t[color=h] {\n\t\t--bg: #D74851;\n\t\t--main: #BE2630;\n\t}\n\n\t[color=c] {\n\t\t--bg: #65BD9D;\n\t\t--main: #43A682;\n\t}\n\n\t[color=ch] {\n\t\t--bg: #D99A4F;\n\t\t--main: #C38030;\n\t}\n\n\t[color=sh] {\n\t\t--bg: #A37A55;\n\t\t--main: #926237;\n\t}\n\n\t[color=shch] {\n\t\t--bg: #31D02E;\n\t\t--main: #07B903;\n\t}\n\n\t[color=y] {\n\t\t--bg: #6C58BB;\n\t\t--main: #4832A1;\n\t}\n\n\t[color=yu] {\n\t\t--bg: #CD6597;\n\t\t--main: #B53974;\n\t}\n\n\t[color=je] {\n\t\t--bg: #689666;\n\t\t--main: #527D43;\n\t}\n\n\t[color=ya] {\n\t\t--bg: #966666;\n\t\t--main: #7D4343;\n\t}\n}\n\n[apxutechtop_samosbor_map_app] {\n\tbackground-color: #1E1E1E;\n}\n\n[apxutechtop_samosbor_map_app_canvas] {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\t/* scale: 0.5; */\n\t/* background-color: #504d4c; */\n}\n\n[apxutechtop_samosbor_map_cluster] {\n\tposition: absolute;\n}\n\n[apxutechtop_samosbor_map_app_block_connection] {\n\tposition: absolute;\n\twidth: 40px;\n\theight: 40px;\n\tbackground-color: rgb(31, 233, 58);\n\tz-index: 2000;\n\ttransform: translate(calc(var(--transition-length) * (-1 / 2) - 50%), calc(var(--transition-length) * (-1 / 2) - 50%));\n\tcursor: pointer;\n\tborder: 4px inset black;\n\tborder-radius: 10px;\n\n\t&[hidden] {\n\t\tdisplay: none;\n\t\tbackground-color: red;\n\t}\n\n\t&[highlight] {\n\t\toutline: 5px solid blue;\n\t}\n}\n\n[apxutechtop_samosbor_map_app_transition] {\n\t--transition-width: 50px;\n\t--transition-height: 50px;\n\tbox-sizing: content-box;\n\n\t&[direction=vertical] {\n\t\theight: var(--transition-width);\n\t\twidth: var(--transition-length);\n\n\t\tborder-bottom: 10px solid white;\n\t\tborder-top: 10px solid white;\n\t}\n\n\t&[direction=horizontal] {\n\t\theight: var(--transition-length);\n\t\twidth: var(--transition-width);\n\t\tborder-left: 10px solid white;\n\t\tborder-right: 10px solid white;\n\t}\n\n\tposition: absolute;\n\ttransform: translate(-50%, -50%);\n\t/* border: 5px solid white; */\n\tbackground-color: #FFFFFF80;\n}\n\n[apxutechtop_samosbor_map_app_name_setting] {\n\theight: 40px !important;\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[mol_view_root] {\n\t--t: 25px;\n\t/* ширина внутреннего перехода */\n\t--p: 50px;\n\t/* ширина угловой части */\n\t--x: 150px;\n\t/* ширина информационной части */\n\t--fullWidth: 720px;\n\t--fullHeight: 360px;\n\t--height: 330px;\n\t/* высота блока */\n\t--width: 710px;\n\t/* ширина блока */\n\t--l: 50px;\n\t/* ширина внешнего перехода */\n\n\t--vertical-transition-width: 49px;\n\t--vertical-transition-height: 54px;\n\t--horizontal-transition-width: 54px;\n\t--horizontal-transition-height: 49px;\n\n\t--border-width: 10px;\n\t--part-width: 120px;\n\t--calc-part-width: calc(var(--part-width) + var(--border-width));\n\t--passage-width: 50px;\n\t--calc-passage-width: calc(var(--passage-width) + var(--border-width));\n\t--solo-icon-size: 50px;\n\t--duo-icon-size: 40px;\n\t--block-width: calc((var(--part-width) + var(--border-width)) * 4 + (var(--passage-width) + var(--border-width)) * 3);\n\t--transition-width: var(--passage-width);\n\t--calc-transition-width: var(--calc-passage-width);\n\t--transition-length: calc(var(--passage-width));\n\t--calc-transition-length: calc(var(--transition-length) + var(--border-width));\n\n\n\t/* Colors */\n\t--border-color: #FFFFFF;\n\t--text-color: #FFFFFF;\n}\n\n[apxutechtop_samosbor_map_app_layer_bar] {\n\t/* width: 20px;\n\theight: 80%; */\n\tposition: fixed;\n\t/* right: 10px; */\n\tjustify-self: anchor-center;\n\tbottom: 10px;\n\t/* top: 10%; */\n\t/* background-color: aqua; */\n\tborder-radius: 3px;\n\tz-index: 10;\n}\n\n[apxutechtop_samosbor_map_app_block_form] {\n\talign-self: anchor-center;\n\tright: 10px;\n\t/* width: 200px;\n\theight: 500px; */\n\tposition: fixed;\n\tz-index: 10;\n\tmax-height: 100%;\n\toverflow: scroll;\n\n\t[apxutechtop_samosbor_map_app_block_type_switch] {\n\t\tflex-wrap: wrap;\n\t\tflex-direction: column;\n\t}\n}\n\n[apxutechtop_samosbor_map_app_control_panel] {\n\tjustify-self: anchor-center;\n\ttop: 10px;\n\tposition: fixed;\n\tz-index: 10;\n}\n\n[apxutechtop_samosbor_map_app_access_panel] {\n\t/* align-self: anchor-center; */\n\twidth: 200px;\n\ttop: 10px;\n\tleft: 10px;\n\tposition: fixed;\n\tz-index: 10;\n\n\t[apxutechtop_samosbor_map_app_my_key] {\n\t\tword-break: break-all;\n\t}\n}\n");
 })($ || ($ = {}));
+
+;
+"use strict";
+let $apxutechtop_samosbor_map_gigacluster_ref = "";
 
 
 export default $

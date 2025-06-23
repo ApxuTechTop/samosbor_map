@@ -82,3 +82,5 @@
 	pack home git \https://github.com/hyoo-ru/hyoo.ru.git
 	pack idea git \https://github.com/hyoo-ru/idea.hyoo.ru.git
 	pack intern git \https://github.com/hyoo-ru/intern.hyoo.ru.git
+\/apxutechtop/samosbor/map/app
+	build $apxutechtop_samosbor_map_gigacluster_ref \echo $GIGACLUSTER_REF
