@@ -5,11 +5,12 @@ on:
   push:
     branches: ["main"]
 
+env:
+    GIGACLUSTER_REF: 6H1qbbnb_3nEGhBiI
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      GIGACLUSTER_REF: ${{ vars.GIGACLUSTER_REF }}
     steps:
     - name: Build app
       uses: hyoo-ru/mam_build@master2
