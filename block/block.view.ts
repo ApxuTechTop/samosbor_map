@@ -671,9 +671,6 @@ namespace $.$$ {
 			new_block_node.direction( new_block_direction )
 			new_block_node.pos_x( pos_x )
 			new_block_node.pos_y( pos_y )
-
-			// $apxutechtop_samosbor_map_app.blocks_data([...$apxutechtop_samosbor_map_app.blocks_data(), new_block])
-			// $apxutechtop_samosbor_map_app.all_transitions( [ ...$apxutechtop_samosbor_map_app.all_transitions(), new_transition ] )
 			return event
 		}
 
