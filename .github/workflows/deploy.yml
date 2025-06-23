@@ -6,7 +6,7 @@ on:
     branches: ["main"]
 
 env:
-    GIGACLUSTER_REF: 6H1qbbnb_3nEGhBiI
+    GIGACLUSTER_REF: ${{ vars.GIGACLUSTER_REF }}
 
 jobs:
   build:
