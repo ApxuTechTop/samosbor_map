@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	type DirectionType = "up" | "right" | "down" | "left"
+	export type DirectionType = "up" | "right" | "down" | "left"
 	export type TransitionPosition = "up_left" | "up_middle" | "up_right" | "right" | "down_right" | "down_middle" | "down_left" | "left"
 	export const TransitionPositions: TransitionPosition[] = [ "up_left", "up_middle", "up_right", "right", "down_right", "down_middle", "down_left", "left" ]
 	interface Block {
@@ -40,9 +40,10 @@ namespace $.$$ {
 		@$mol_action
 		remove_transition() {
 			const from_block_ref = this.From( null )?.Block( null )?.val()
-			const from_block = from_block_ref && $hyoo_crus_glob.Node( from_block_ref, $apxutechtop_samosbor_map_block_data )
+
+			const from_block = from_block_ref && $apxutechtop_samosbor_map_app.block( from_block_ref )
 			const to_block_ref = this.To( null )?.Block( null )?.val()
-			const to_block = to_block_ref && $hyoo_crus_glob.Node( to_block_ref, $apxutechtop_samosbor_map_block_data )
+			const to_block = to_block_ref && $apxutechtop_samosbor_map_app.block( to_block_ref )
 			to_block?.Transitions( null )?.cut( this.ref() )
 			from_block?.Transitions( null )?.cut( this.ref() )
 		}
@@ -261,7 +262,7 @@ namespace $.$$ {
 		}
 
 	}
-	const block_full_cell = 380
+	export const block_full_cell = 380
 	export const ru_to_eng: { [ ru: string ]: string } = {
 		"А": "a",
 		"Б": "b",
