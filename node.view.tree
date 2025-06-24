@@ -383,12 +383,12 @@ $apxutechtop_samosbor_map_block $mol_view
 				<= ladder_icon* $apxutechtop_samosbor_map_icon_ladder
 				<= elevator_icon* $apxutechtop_samosbor_map_icon_elevator
 	up_middle_passage $apxutechtop_samosbor_map_block_passage
-		type? <= up_middle_passage_type \noway
+		type? \noway
 		event *
 			click? <=> up_middle_passage_click? null
 		up true
 	down_middle_passage $apxutechtop_samosbor_map_block_passage
-		type? <= down_middle_passage_type \noway
+		type? \noway
 		event *
 			click? <=> down_middle_passage_click? null
 		down true
@@ -467,6 +467,10 @@ $apxutechtop_samosbor_map_block $mol_view
 						<= left_crossroad $mol_view
 						<= left_hallway $mol_view
 						<= fence $mol_view
+							attr *
+								type <= fence_type? \hole
+							event *
+								click? <=> fence_click? null
 						<= right_hallway $mol_view
 						<= right_crossroad $mol_view
 						<= right_passage $apxutechtop_samosbor_map_block_passage
