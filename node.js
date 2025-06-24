@@ -5834,29 +5834,25 @@ var $;
 			(obj.sub) = () => ([(this.gen_icon()), (this.generator_floor())]);
 			return obj;
 		}
-		liquidator_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_liquidator();
-			return obj;
+		liquidator_profession(){
+			return null;
 		}
-		repairman_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_repairman();
-			return obj;
+		repairman_profession(){
+			return null;
 		}
-		cleaner_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_cleaner();
-			return obj;
+		cleaner_profession(){
+			return null;
 		}
-		factory_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_factory();
-			return obj;
+		plumber_profession(){
+			return null;
 		}
 		wrapper(){
 			const obj = new this.$.$mol_view();
 			(obj.sub) = () => ([
-				(this.liquidator_icon()), 
-				(this.repairman_icon()), 
-				(this.cleaner_icon()), 
-				(this.factory_icon())
+				(this.liquidator_profession()), 
+				(this.repairman_profession()), 
+				(this.cleaner_profession()), 
+				(this.plumber_profession())
 			]);
 			return obj;
 		}
@@ -6233,6 +6229,22 @@ var $;
 			(obj.sub) = () => ([(this.Generator())]);
 			return obj;
 		}
+		liquidator_icon(){
+			const obj = new this.$.$apxutechtop_samosbor_map_icon_liquidator();
+			return obj;
+		}
+		repairman_icon(){
+			const obj = new this.$.$apxutechtop_samosbor_map_icon_repairman();
+			return obj;
+		}
+		cleaner_icon(){
+			const obj = new this.$.$apxutechtop_samosbor_map_icon_cleaner();
+			return obj;
+		}
+		factory_icon(){
+			const obj = new this.$.$apxutechtop_samosbor_map_icon_factory();
+			return obj;
+		}
 		profession_part(){
 			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
 			(obj.sub) = () => ([(this.wrapper())]);
@@ -6268,10 +6280,6 @@ var $;
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "generator_floor_value"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "generator_floor"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "Generator"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "liquidator_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "repairman_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "cleaner_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "factory_icon"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "wrapper"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "left_flight_click"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "left_flight"));
@@ -6330,6 +6338,10 @@ var $;
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_flight"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "name_part"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "info_part"));
+	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "liquidator_icon"));
+	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "repairman_icon"));
+	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "cleaner_icon"));
+	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "factory_icon"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "profession_part"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "places_part"));
 
@@ -14022,6 +14034,30 @@ var $;
                 const shift = (this.dir_shift[this.block_direction()] + 3) % 4;
                 return this.parts[shift];
             }
+            has_liquidator_profession() {
+                return Math.random() < 0.5;
+            }
+            has_repairman_profession() {
+                return Math.random() < 0.5;
+            }
+            has_cleaner_profession() {
+                return Math.random() < 0.5;
+            }
+            has_plumber_profession() {
+                return Math.random() < 0.5;
+            }
+            liquidator_profession() {
+                return this.has_liquidator_profession() ? this.liquidator_icon() : null;
+            }
+            repairman_profession() {
+                return this.has_repairman_profession() ? this.repairman_icon() : null;
+            }
+            cleaner_profession() {
+                return this.has_cleaner_profession() ? this.cleaner_icon() : null;
+            }
+            plumber_profession() {
+                return this.has_plumber_profession() ? this.factory_icon() : null;
+            }
         }
         __decorate([
             $mol_mem
@@ -14197,6 +14233,30 @@ var $;
         __decorate([
             $mol_mem
         ], $apxutechtop_samosbor_map_block.prototype, "down_left_part", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "has_liquidator_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "has_repairman_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "has_cleaner_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "has_plumber_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "liquidator_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "repairman_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "cleaner_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "plumber_profession", null);
         __decorate([
             $mol_mem
         ], $apxutechtop_samosbor_map_block, "first_port", null);

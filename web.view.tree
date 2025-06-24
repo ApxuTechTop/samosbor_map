@@ -412,14 +412,18 @@ $apxutechtop_samosbor_map_block $mol_view
 					<= gen_icon $apxutechtop_samosbor_map_icon_generator
 					<= generator_floor $mol_view
 						sub / <= generator_floor_value? 0
+	liquidator_icon $apxutechtop_samosbor_map_icon_liquidator
+	repairman_icon $apxutechtop_samosbor_map_icon_repairman
+	cleaner_icon $apxutechtop_samosbor_map_icon_cleaner
+	factory_icon $apxutechtop_samosbor_map_icon_factory
 	profession_part $apxutechtop_samosbor_map_block_part
 		sub /
 			<= wrapper $mol_view
 				sub /
-					<= liquidator_icon $apxutechtop_samosbor_map_icon_liquidator
-					<= repairman_icon $apxutechtop_samosbor_map_icon_repairman
-					<= cleaner_icon $apxutechtop_samosbor_map_icon_cleaner
-					<= factory_icon $apxutechtop_samosbor_map_icon_factory
+					<= liquidator_profession null
+					<= repairman_profession null
+					<= cleaner_profession null
+					<= plumber_profession null
 	places_part $apxutechtop_samosbor_map_block_part
 	sub /
 		<= content $mol_view

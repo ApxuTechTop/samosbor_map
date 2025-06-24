@@ -5937,10 +5937,10 @@ declare namespace $ {
 		generator_floor_value( next?: number ): number
 		generator_floor( ): $mol_view
 		Generator( ): $mol_view
-		liquidator_icon( ): $apxutechtop_samosbor_map_icon_liquidator
-		repairman_icon( ): $apxutechtop_samosbor_map_icon_repairman
-		cleaner_icon( ): $apxutechtop_samosbor_map_icon_cleaner
-		factory_icon( ): $apxutechtop_samosbor_map_icon_factory
+		liquidator_profession( ): any
+		repairman_profession( ): any
+		cleaner_profession( ): any
+		plumber_profession( ): any
 		wrapper( ): $mol_view
 		connections( ): readonly(any)[]
 		connections_list( ): ReturnType< $apxutechtop_samosbor_map_block['connections'] >
@@ -6033,6 +6033,10 @@ declare namespace $ {
 		down_flight( ): $apxutechtop_samosbor_map_block_middle_flight
 		name_part( ): $apxutechtop_samosbor_map_block_part
 		info_part( ): $apxutechtop_samosbor_map_block_part
+		liquidator_icon( ): $apxutechtop_samosbor_map_icon_liquidator
+		repairman_icon( ): $apxutechtop_samosbor_map_icon_repairman
+		cleaner_icon( ): $apxutechtop_samosbor_map_icon_cleaner
+		factory_icon( ): $apxutechtop_samosbor_map_icon_factory
 		profession_part( ): $apxutechtop_samosbor_map_block_part
 		places_part( ): $apxutechtop_samosbor_map_block_part
 		sub( ): readonly(any)[]
@@ -7110,6 +7114,14 @@ declare namespace $.$$ {
         up_right_part(): ReturnType<$.$apxutechtop_samosbor_map_block["name_part"]>;
         down_right_part(): ReturnType<$.$apxutechtop_samosbor_map_block["places_part"]>;
         down_left_part(): ReturnType<$.$apxutechtop_samosbor_map_block["places_part"]>;
+        has_liquidator_profession(): boolean;
+        has_repairman_profession(): boolean;
+        has_cleaner_profession(): boolean;
+        has_plumber_profession(): boolean;
+        liquidator_profession(): ReturnType<$.$apxutechtop_samosbor_map_block["liquidator_icon"]> | null;
+        repairman_profession(): $apxutechtop_samosbor_map_icon_repairman | null;
+        cleaner_profession(): $apxutechtop_samosbor_map_icon_cleaner | null;
+        plumber_profession(): $apxutechtop_samosbor_map_icon_factory | null;
     }
     export {};
 }
