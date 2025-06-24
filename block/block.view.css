@@ -210,6 +210,17 @@
 			}
 
 		}
+
+		[apxutechtop_samosbor_map_block_up_middle_passage],
+		[apxutechtop_samosbor_map_block_down_middle_passage],
+		[apxutechtop_samosbor_map_block_left_passage],
+		[apxutechtop_samosbor_map_block_right_passage] {
+			z-index: 2000;
+
+			&::after {
+				outline: unset;
+			}
+		}
 	}
 
 	[apxutechtop_samosbor_map_block_passage] {
@@ -307,6 +318,32 @@
 
 		[apxutechtop_samosbor_map_block_hallway] {
 			background-color: var(--bg);
+		}
+
+		[apxutechtop_samosbor_map_block_fence] {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: var(--passage-width);
+			height: var(--passage-width);
+			z-index: 2000;
+
+			&::after {
+				content: "";
+			}
+
+			&[type=missing] {
+				&::after {
+					background-color: #00000000;
+				}
+			}
+
+			&[type=solid] {
+				&::after {
+					background-color: white;
+				}
+			}
+
 		}
 
 		&>* {
@@ -513,8 +550,23 @@
 			}
 
 			[apxutechtop_samosbor_map_block_fence] {
-				width: var(--passage-width);
-				height: var(--passage-width);
+				&::after {
+					width: 10px;
+					height: calc(100% + 10px);
+				}
+
+				&[type=hole] {
+					&::after {
+						background:
+							linear-gradient(to bottom,
+								white 0%,
+								white 35%,
+								transparent 35%,
+								transparent 65%,
+								white 65%,
+								white 100%);
+					}
+				}
 			}
 		}
 	}
@@ -600,8 +652,25 @@
 			}
 
 			[apxutechtop_samosbor_map_block_fence] {
-				width: var(--passage-width);
-				height: var(--passage-width);
+				flex-direction: column;
+
+				&::after {
+					width: calc(100% + 10px);
+					height: 10px;
+				}
+
+				&[type=hole] {
+					&::after {
+						background:
+							linear-gradient(to right,
+								white 0%,
+								white 35%,
+								transparent 35%,
+								transparent 65%,
+								white 65%,
+								white 100%);
+					}
+				}
 			}
 		}
 	}

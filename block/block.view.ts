@@ -73,8 +73,13 @@ namespace $.$$ {
 		DownMiddlePassage: PassageData,
 		DownRightPassage: PassageData,
 	}
+	const FenceTypes = [ "missing", "hole", "solid" ] as const
+	export class FenceData extends $hyoo_crus_atom_enum( FenceTypes ) {}
 
-	export class FloorData extends $hyoo_crus_dict.with( PassageDirections ) {
+	export class FloorData extends $hyoo_crus_dict.with( {
+		...PassageDirections,
+		Fence: FenceData
+	} ) {
 		static readonly positions_map: { [ pos in TransitionPosition ]: keyof typeof PassageDirections } = {
 			up_left: "UpLeftPassage",
 			up_middle: "UpMiddlePassage",
@@ -98,20 +103,24 @@ namespace $.$$ {
 
 		@$mol_mem_key
 		is_passage_free( transition: TransitionPosition ) {
-
-			// const get_type: { [ t in TransitionPosition ]: typeof PassageType.options[ number ] | undefined | null } = {
-			// 	up_left: this.UpLeftPassage( null )?.Type( null )?.val(),
-			// 	up_right: this.UpRightPassage( null )?.Type( null )?.val(),
-			// 	right: this.RightPassage( null )?.Type( null )?.val() ?? "normal",
-			// 	down_right: this.DownRightPassage( null )?.Type( null )?.val(),
-			// 	down_left: this.DownLeftPassage( null )?.Type( null )?.val(),
-			// 	left: this.LeftPassage( null )?.Type( null )?.val() ?? "normal",
-			// }
 			const passage_type = this.get_passage_type( transition )
 			if( !passage_type ) return false
 			if( passage_type === "noway" ) return false
 			return true
 		}
+
+		@$mol_mem
+		fence_type( next?: typeof FenceData.options[ number ] ) {
+			return this.Fence( null )?.val( next ) ?? "missing"
+		}
+		@$mol_action
+		set_next_fence_type() {
+			const current_type = this.fence_type()
+			const id = FenceTypes.indexOf( current_type )
+			const new_type = FenceTypes[ ( id + 1 ) % FenceTypes.length ]
+			this.fence_type( new_type )
+		}
+
 	}
 
 	export class FloorsData extends $hyoo_crus_dict_to( FloorData ) {}
@@ -848,24 +857,25 @@ namespace $.$$ {
 			left: 3,
 		}
 		@$mol_mem
-		up_left_part(): ReturnType<$.$apxutechtop_samosbor_map_block[ "name_part" ]> {
-			return this.parts[ this.dir_shift[ this.block_direction() ] ]
+		up_left_part() {
+			const shift = ( this.dir_shift[ this.block_direction() ] + 0 ) % 4
+			return this.parts[ shift ]
 		}
 
 		@$mol_mem
-		up_right_part(): ReturnType<$.$apxutechtop_samosbor_map_block[ "name_part" ]> {
+		up_right_part() {
 			const shift = ( this.dir_shift[ this.block_direction() ] + 1 ) % 4
 			return this.parts[ shift ]
 		}
 
 		@$mol_mem
-		down_right_part(): ReturnType<$.$apxutechtop_samosbor_map_block[ "places_part" ]> {
+		down_right_part() {
 			const shift = ( this.dir_shift[ this.block_direction() ] + 2 ) % 4
 			return this.parts[ shift ]
 		}
 
 		@$mol_mem
-		down_left_part(): ReturnType<$.$apxutechtop_samosbor_map_block[ "places_part" ]> {
+		down_left_part() {
 			const shift = ( this.dir_shift[ this.block_direction() ] + 3 ) % 4
 			return this.parts[ shift ]
 		}
@@ -907,6 +917,15 @@ namespace $.$$ {
 			return this.has_plumber_profession() ? this.factory_icon() : null
 		}
 
-
+		@$mol_mem
+		fence_type( next?: typeof FenceData.options[ number ] ): string {
+			return this.block_data().FloorsData( null )?.key( this.current_floor() ).fence_type( next ) ?? "missing"
+		}
+		@$mol_action
+		fence_click( event?: PointerEvent ) {
+			event?.stopImmediatePropagation()
+			event?.preventDefault()
+			this.block_data().FloorsData( null )?.key( this.current_floor() ).set_next_fence_type()
+		}
 	}
 }
