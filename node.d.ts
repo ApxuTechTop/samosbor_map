@@ -5986,7 +5986,7 @@ declare namespace $ {
 		down_left_passage( ): $apxutechtop_samosbor_map_block_passage
 		down_left_part( ): ReturnType< $apxutechtop_samosbor_map_block['profession_part'] >
 		down_passage_or_flight( ): $mol_view
-		down_right_part( ): $apxutechtop_samosbor_map_block_part
+		down_right_part( ): ReturnType< $apxutechtop_samosbor_map_block['places_part'] >
 		down_right_passage_type( ): string
 		down_right_passage_click( next?: any ): any
 		down_right_passage( ): $apxutechtop_samosbor_map_block_passage
@@ -6034,6 +6034,7 @@ declare namespace $ {
 		name_part( ): $apxutechtop_samosbor_map_block_part
 		info_part( ): $apxutechtop_samosbor_map_block_part
 		profession_part( ): $apxutechtop_samosbor_map_block_part
+		places_part( ): $apxutechtop_samosbor_map_block_part
 		sub( ): readonly(any)[]
 	}
 	
@@ -7101,6 +7102,14 @@ declare namespace $.$$ {
         up_passage_or_flight(): $.$apxutechtop_samosbor_map_block_passage | $apxutechtop_samosbor_map_block_middle_flight;
         is_down_flight(next?: boolean): boolean;
         down_passage_or_flight(): $.$apxutechtop_samosbor_map_block_passage | $apxutechtop_samosbor_map_block_middle_flight;
+        readonly parts: $apxutechtop_samosbor_map_block_part[];
+        readonly dir_shift: {
+            [dir in DirectionType]: number;
+        };
+        up_left_part(): ReturnType<$.$apxutechtop_samosbor_map_block["name_part"]>;
+        up_right_part(): ReturnType<$.$apxutechtop_samosbor_map_block["name_part"]>;
+        down_right_part(): ReturnType<$.$apxutechtop_samosbor_map_block["places_part"]>;
+        down_left_part(): ReturnType<$.$apxutechtop_samosbor_map_block["places_part"]>;
     }
     export {};
 }

@@ -6061,8 +6061,7 @@ var $;
 			return obj;
 		}
 		down_right_part(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
-			return obj;
+			return (this.places_part());
 		}
 		down_right_passage_type(){
 			return "noway";
@@ -6230,6 +6229,10 @@ var $;
 			(obj.sub) = () => ([(this.wrapper())]);
 			return obj;
 		}
+		places_part(){
+			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
+			return obj;
+		}
 		sub(){
 			return [(this.content())];
 		}
@@ -6293,7 +6296,6 @@ var $;
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_left_passage_click"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_left_passage"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_passage_or_flight"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_right_part"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_right_passage_click"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_right_passage"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "block_effects_part"));
@@ -6320,6 +6322,7 @@ var $;
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "name_part"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "info_part"));
 	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "profession_part"));
+	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "places_part"));
 
 
 ;
@@ -13988,6 +13991,28 @@ var $;
                     return this.down_middle_passage();
                 }
             }
+            parts = [this.name_part(), this.info_part(), this.places_part(), this.profession_part()];
+            dir_shift = {
+                up: 0,
+                right: 1,
+                down: 2,
+                left: 3,
+            };
+            up_left_part() {
+                return this.parts[this.dir_shift[this.block_direction()]];
+            }
+            up_right_part() {
+                const shift = (this.dir_shift[this.block_direction()] + 1) % 4;
+                return this.parts[shift];
+            }
+            down_right_part() {
+                const shift = (this.dir_shift[this.block_direction()] + 2) % 4;
+                return this.parts[shift];
+            }
+            down_left_part() {
+                const shift = (this.dir_shift[this.block_direction()] + 3) % 4;
+                return this.parts[shift];
+            }
         }
         __decorate([
             $mol_mem
@@ -14151,6 +14176,18 @@ var $;
         __decorate([
             $mol_mem
         ], $apxutechtop_samosbor_map_block.prototype, "down_passage_or_flight", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "up_left_part", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "up_right_part", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "down_right_part", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_block.prototype, "down_left_part", null);
         __decorate([
             $mol_mem
         ], $apxutechtop_samosbor_map_block, "first_port", null);
