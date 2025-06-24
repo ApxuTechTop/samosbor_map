@@ -221,6 +221,11 @@
 				outline: unset;
 			}
 		}
+
+		[apxutechtop_samosbor_map_block_fence] {
+			outline: 3px solid black;
+			animation: blink-edit 2s infinite;
+		}
 	}
 
 	[apxutechtop_samosbor_map_block_passage] {
