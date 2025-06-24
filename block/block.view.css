@@ -116,8 +116,31 @@
 		height: var(--part-width);
 
 		&::before {
+			left: 0px;
 			background-color: var(--main);
 		}
+	}
+
+	[apxutechtop_samosbor_map_block_profession_part] {
+
+		&>* {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			gap: 26px;
+
+			padding: 13px;
+			justify-content: flex-start;
+			align-items: flex-start;
+
+			&>* {
+				width: 34px;
+				height: 34px;
+			}
+		}
+
 	}
 
 	[apxutechtop_samosbor_map_block_floor_part] {
@@ -245,14 +268,6 @@
 
 
 	[apxutechtop_samosbor_map_block_content] {
-		--stroke-length-left: 85px;
-		/* Длина штриха ВЕРТИКАЛЬНЫХ линий */
-		--empty-length-left: 85px;
-		/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */
-		--stroke-length-top: 90px;
-		/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */
-		--empty-length-top: 90px;
-		/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */
 		box-sizing: border-box;
 		background-color: white;
 		cursor: pointer;
@@ -273,61 +288,22 @@
 			inset: 0px;
 			content: "";
 			z-index: 100;
-			/* Разные значения для вертикальных/горизонтальных линий */
-			/* --stroke-length-vertical: 85px;
-			--empty-length-vertical: 85px;
-			--stroke-length-horizontal: 90px;
-			--empty-length-horizontal: 90px; */
-			--stroke-width: 10px;
 			border-radius: 10px;
-
-			/* Толщина линии */
 
 			width: calc(100% - 0px);
 			height: calc(100% - 0px);
 
-			/* Рассчитываем половины значений */
-			--half-dash-h: calc(var(--stroke-length-horizontal) / 2);
-			--half-dash-v: calc(var(--stroke-length-vertical) / 2);
-
-			background:
-				/* Верхняя граница (горизонтальная) */
-				linear-gradient(90deg,
-					var(--stroke-color) 0 var(--half-dash-h),
-					transparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),
-					var(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 0 / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,
-
-				/* Правая граница (вертикальная) */
-				linear-gradient(180deg,
-					var(--stroke-color) 0 var(--half-dash-v),
-					transparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),
-					var(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 100% 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y,
-
-				/* Нижняя граница (горизонтальная) */
-				linear-gradient(270deg,
-					var(--stroke-color) 0 var(--half-dash-h),
-					transparent var(--half-dash-h) calc(var(--half-dash-h) + var(--empty-length-horizontal)),
-					var(--stroke-color) calc(var(--half-dash-h) + var(--empty-length-horizontal)) calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal))) 0 100% / calc(var(--stroke-length-horizontal) + var(--empty-length-horizontal)) var(--stroke-width) repeat-x,
-
-				/* Левая граница (вертикальная) */
-				linear-gradient(0deg,
-					var(--stroke-color) 0 var(--half-dash-v),
-					transparent var(--half-dash-v) calc(var(--half-dash-v) + var(--empty-length-vertical)),
-					var(--stroke-color) calc(var(--half-dash-v) + var(--empty-length-vertical)) calc(var(--stroke-length-vertical) + var(--empty-length-vertical))) 0 0 / var(--stroke-width) calc(var(--stroke-length-vertical) + var(--empty-length-vertical)) repeat-y;
-			background: unset;
 			/* border: 10px solid var(--stroke-color); */
 			box-shadow: 0 0 10px 10px var(--stroke-color);
 			/* blur = 20px, spread = 5px */
 
 		}
-
-		/* filter: drop-shadow(0 0 20px var(--stroke-color)); */
-
-
 	}
 
 	[apxutechtop_samosbor_map_block_middle_row] {
 		display: flex;
+		gap: 10px;
+		background-color: var(--bg);
 
 		[apxutechtop_samosbor_map_block_hallway] {
 			background-color: var(--bg);
@@ -343,8 +319,8 @@
 			&::before {
 				box-sizing: border-box;
 				content: "";
-				width: 100% !important;
-				height: 100% !important;
+				width: 100%;
+				height: 100%;
 				background-color: var(--bg);
 				position: absolute;
 				/* background-color: var(--main); */
@@ -479,21 +455,7 @@
 		[apxutechtop_samosbor_map_block_content] {
 			width: var(--width);
 			height: var(--height);
-
-
-
-			--stroke-length-vertical: var(--stroke-length-left);
-			/* Длина штриха ВЕРТИКАЛЬНЫХ линий */
-			--empty-length-vertical: var(--empty-length-left);
-			/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */
-			--stroke-length-horizontal: var(--stroke-length-top);
-			/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */
-			--empty-length-horizontal: var(--empty-length-top);
-			/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */
-
 		}
-
-		;
 
 		[apxutechtop_samosbor_map_block_hallway] {
 			width: 100%;
@@ -528,11 +490,31 @@
 			[apxutechtop_samosbor_map_block_passage] {
 				width: var(--part-width);
 				height: var(--passage-width);
+
+				&[type=normal],
+				&[type=stairs_up],
+				&[type=stairs_down] {
+					&::before {
+						width: calc(var(--part-width) + 25px);
+						height: var(--passage-width);
+					}
+				}
+			}
+
+			[apxutechtop_samosbor_map_block_left_crossroad],
+			[apxutechtop_samosbor_map_block_right_crossroad] {
+				width: var(--passage-width);
+				height: var(--passage-width);
 			}
 
 			[apxutechtop_samosbor_map_block_left_hallway],
 			[apxutechtop_samosbor_map_block_right_hallway] {
-				width: calc((100% - 2 * var(--part-width)) / 2);
+				width: var(--part-width);
+			}
+
+			[apxutechtop_samosbor_map_block_fence] {
+				width: var(--passage-width);
+				height: var(--passage-width);
 			}
 		}
 	}
@@ -595,11 +577,31 @@
 			[apxutechtop_samosbor_map_block_passage] {
 				height: var(--part-width);
 				width: var(--passage-width);
+
+				&[type=normal],
+				&[type=stairs_up],
+				&[type=stairs_down] {
+					&::before {
+						height: calc(var(--part-width) + 25px);
+						width: var(--passage-width);
+					}
+				}
+			}
+
+			[apxutechtop_samosbor_map_block_left_crossroad],
+			[apxutechtop_samosbor_map_block_right_crossroad] {
+				width: var(--passage-width);
+				height: var(--passage-width);
 			}
 
 			[apxutechtop_samosbor_map_block_left_hallway],
 			[apxutechtop_samosbor_map_block_right_hallway] {
-				height: calc((100% - 2 * var(--part-width)) / 2);
+				height: var(--part-width);
+			}
+
+			[apxutechtop_samosbor_map_block_fence] {
+				width: var(--passage-width);
+				height: var(--passage-width);
 			}
 		}
 	}
@@ -611,8 +613,6 @@
 
 		[apxutechtop_samosbor_map_block_row] {
 			flex-direction: row;
-			/* left: 0px;
-			top: 0px; */
 		}
 
 		[apxutechtop_samosbor_map_block_passage] {
@@ -829,10 +829,6 @@
 				[apxutechtop_samosbor_map_block_passage_interfloor] {
 					flex-direction: row;
 				}
-			}
-
-			[apxutechtop_samosbor_map_block_passage_interfloor] {
-				flex-direction: inherit;
 			}
 		}
 
