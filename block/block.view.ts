@@ -870,6 +870,43 @@ namespace $.$$ {
 			return this.parts[ shift ]
 		}
 
+		@$mol_mem
+		has_liquidator_profession() {
+			return Math.random() < 0.5
+		}
+		@$mol_mem
+		has_repairman_profession() {
+			return Math.random() < 0.5
+		}
+		@$mol_mem
+		has_cleaner_profession() {
+			return Math.random() < 0.5
+		}
+		@$mol_mem
+		has_plumber_profession() {
+			return Math.random() < 0.5
+		}
+
+		@$mol_mem
+		liquidator_profession(): ReturnType<$.$apxutechtop_samosbor_map_block[ "liquidator_icon" ]> | null {
+			return this.has_liquidator_profession() ? this.liquidator_icon() : null
+		}
+
+		@$mol_mem
+		repairman_profession() {
+			return this.has_repairman_profession() ? this.repairman_icon() : null
+		}
+
+		@$mol_mem
+		cleaner_profession() {
+			return this.has_cleaner_profession() ? this.cleaner_icon() : null
+		}
+
+		@$mol_mem
+		plumber_profession() {
+			return this.has_plumber_profession() ? this.factory_icon() : null
+		}
+
 
 	}
 }
