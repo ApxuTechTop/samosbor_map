@@ -119,6 +119,7 @@ $apxutechtop_samosbor_map_block $mol_view
 					<= repairman_icon $apxutechtop_samosbor_map_icon_repairman
 					<= cleaner_icon $apxutechtop_samosbor_map_icon_cleaner
 					<= factory_icon $apxutechtop_samosbor_map_icon_factory
+	places_part $apxutechtop_samosbor_map_block_part
 	sub /
 		<= content $mol_view
 			sub /
@@ -191,7 +192,7 @@ $apxutechtop_samosbor_map_block $mol_view
 							left true
 						<= down_left_part <= profession_part
 						<= down_passage_or_flight $mol_view
-						<= down_right_part $apxutechtop_samosbor_map_block_part
+						<= down_right_part <= places_part
 						<= down_right_passage $apxutechtop_samosbor_map_block_passage
 							type <= down_right_passage_type \noway
 							event *

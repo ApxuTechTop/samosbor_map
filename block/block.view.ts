@@ -840,5 +840,36 @@ namespace $.$$ {
 				return this.down_middle_passage()
 			}
 		}
+		readonly parts = [ this.name_part(), this.info_part(), this.places_part(), this.profession_part() ]
+		readonly dir_shift: { [ dir in DirectionType ]: number } = {
+			up: 0,
+			right: 1,
+			down: 2,
+			left: 3,
+		}
+		@$mol_mem
+		up_left_part(): ReturnType<$.$apxutechtop_samosbor_map_block[ "name_part" ]> {
+			return this.parts[ this.dir_shift[ this.block_direction() ] ]
+		}
+
+		@$mol_mem
+		up_right_part(): ReturnType<$.$apxutechtop_samosbor_map_block[ "name_part" ]> {
+			const shift = ( this.dir_shift[ this.block_direction() ] + 1 ) % 4
+			return this.parts[ shift ]
+		}
+
+		@$mol_mem
+		down_right_part(): ReturnType<$.$apxutechtop_samosbor_map_block[ "places_part" ]> {
+			const shift = ( this.dir_shift[ this.block_direction() ] + 2 ) % 4
+			return this.parts[ shift ]
+		}
+
+		@$mol_mem
+		down_left_part(): ReturnType<$.$apxutechtop_samosbor_map_block[ "places_part" ]> {
+			const shift = ( this.dir_shift[ this.block_direction() ] + 3 ) % 4
+			return this.parts[ shift ]
+		}
+
+
 	}
 }
