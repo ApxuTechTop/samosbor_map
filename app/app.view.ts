@@ -79,14 +79,22 @@ namespace $.$$ {
 		}
 
 		@$mol_mem_key
+		selected_blocks(ref: any, next?: $.$apxutechtop_samosbor_map_block | null) {
+			return next
+		}
+
+		@$mol_mem_key
 		block_clicked( ref: any, event: any ) {
 			console.log( ref, event )
 			this.selected_block()?.selected( false )
+			// this.selected_blocks(ref)?.selected(false)
 			if( this.selected_block() == this.Block( ref ) ) {
 				this.selected_block( null )
 			} else {
 				this.selected_block( this.Block( ref ) )
 				this.selected_block()?.selected( true )
+				// this.selected_blocks(ref, this.Block(ref))
+				// this.selected_blocks(ref, this.Block(ref))?.selected(true)
 			}
 		}
 

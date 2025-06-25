@@ -22,6 +22,20 @@
 	}
 }
 
+@keyframes blink-border {
+
+	0%,
+	100% {
+		outline-color: rgb(14, 211, 237);
+		/* Цвет обводки в начале и конце цикла */
+	}
+
+	50% {
+		outline-color: transparent;
+		/* Обводка исчезает посередине цикла */
+	}
+}
+
 [apxutechtop_samosbor_map_cluster]>*,
 [apxutechtop_samosbor_map_block] {
 
@@ -66,11 +80,11 @@
 		}
 	}
 
+	animation: blink-border 2s infinite;
+	outline: unset;
+
 	&[selected] {
 		outline: 5px solid rgb(14, 211, 237);
-		/* Размер и цвет границы */
-		animation: blink-border 2s infinite;
-		/* Запуск анимации бесконечно */
 	}
 
 	top: 0px;

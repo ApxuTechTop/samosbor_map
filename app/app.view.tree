@@ -30,6 +30,7 @@ $apxutechtop_samosbor_map_app $mol_view
 						create \Create Block
 						connect \Connect Blocks
 						configure \Configure Block
+		^ block_cards /$apxutechtop_samosbor_map_block_card
 		<= Block_Form $mol_card
 			sub /
 				<= name_setting $mol_view
