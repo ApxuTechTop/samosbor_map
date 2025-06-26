@@ -22,6 +22,7 @@ $apxutechtop_samosbor_map_slider $mol_view
 	min_value? -1
 	max_value? 1
 	value? 0
+	value_limited? 0
 	step? 1
 	direction? \vertical
 	Slot* $mol_view
