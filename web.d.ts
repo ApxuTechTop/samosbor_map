@@ -1111,6 +1111,35 @@ declare namespace $ {
 		view_box( ): string
 	}
 	
+	export class $apxutechtop_samosbor_map_icon_party extends $mol_icon {
+		path( ): string
+		view_box( ): string
+	}
+	
+	type $mol_svg_path__geometry_apxutechtop_samosbor_map_icon_hospital_1 = $mol_type_enforce<
+		ReturnType< $apxutechtop_samosbor_map_icon_hospital['path'] >
+		,
+		ReturnType< $mol_svg_path['geometry'] >
+	>
+	type $mol_svg_path__geometry_apxutechtop_samosbor_map_icon_hospital_2 = $mol_type_enforce<
+		ReturnType< $apxutechtop_samosbor_map_icon_hospital['path2'] >
+		,
+		ReturnType< $mol_svg_path['geometry'] >
+	>
+	export class $apxutechtop_samosbor_map_icon_hospital extends $mol_icon {
+		path( ): string
+		Path1( ): $mol_svg_path
+		path2( ): string
+		Path2( ): $mol_svg_path
+		view_box( ): string
+		sub( ): readonly(any)[]
+	}
+	
+	export class $apxutechtop_samosbor_map_icon_warehouse extends $mol_icon {
+		view_box( ): string
+		path( ): string
+	}
+	
 	type $mol_svg_path__geometry_apxutechtop_samosbor_map_icon_liquidator_1 = $mol_type_enforce<
 		string
 		,
@@ -5628,131 +5657,131 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_flight__event_apxutechtop_samosbor_map_block_7 = $mol_type_enforce<
+	type $mol_view__sub_apxutechtop_samosbor_map_block_7 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxutechtop_samosbor_map_block_flight__event_apxutechtop_samosbor_map_block_8 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['left_flight_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['left_flight_click'] >,
 		}) 
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_flight['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_flight__sub_apxutechtop_samosbor_map_block_8 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_flight__sub_apxutechtop_samosbor_map_block_9 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_flight['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_9 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_10 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_block['up_left_passage_type'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_10 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_11 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['up_left_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['up_left_passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__up_apxutechtop_samosbor_map_block_11 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__up_apxutechtop_samosbor_map_block_12 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['up'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__left_apxutechtop_samosbor_map_block_12 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__left_apxutechtop_samosbor_map_block_13 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['left'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_13 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_14 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_block['up_right_passage_type'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_14 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_15 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['up_right_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['up_right_passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__up_apxutechtop_samosbor_map_block_15 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__up_apxutechtop_samosbor_map_block_16 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['up'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__right_apxutechtop_samosbor_map_block_16 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__right_apxutechtop_samosbor_map_block_17 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['right'] >
 	>
-	type $apxutechtop_samosbor_map_block_flight__event_apxutechtop_samosbor_map_block_17 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_flight__event_apxutechtop_samosbor_map_block_18 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['right_flight_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['right_flight_click'] >,
 		}) 
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_flight['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_flight__sub_apxutechtop_samosbor_map_block_18 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_flight__sub_apxutechtop_samosbor_map_block_19 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_flight['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_row__sub_apxutechtop_samosbor_map_block_19 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_row__sub_apxutechtop_samosbor_map_block_20 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_row['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_20 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_21 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_block['left_passage_type'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_21 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_22 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['left_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['left_passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__left_apxutechtop_samosbor_map_block_22 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__left_apxutechtop_samosbor_map_block_23 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['left'] >
 	>
-	type $mol_view__attr_apxutechtop_samosbor_map_block_23 = $mol_type_enforce<
+	type $mol_view__attr_apxutechtop_samosbor_map_block_24 = $mol_type_enforce<
 		({ 
 			'type': ReturnType< $apxutechtop_samosbor_map_block['fence_type'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__event_apxutechtop_samosbor_map_block_24 = $mol_type_enforce<
+	type $mol_view__event_apxutechtop_samosbor_map_block_25 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['fence_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['fence_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_25 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_26 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_block['right_passage_type'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_26 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_27 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['right_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['right_passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__right_apxutechtop_samosbor_map_block_27 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__right_apxutechtop_samosbor_map_block_28 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['right'] >
-	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_28 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
 	>
 	type $mol_view__sub_apxutechtop_samosbor_map_block_29 = $mol_type_enforce<
 		readonly(any)[]
@@ -5774,66 +5803,71 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_33 = $mol_type_enforce<
+	type $mol_view__sub_apxutechtop_samosbor_map_block_33 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_34 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_34 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_35 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_block['down_left_passage_type'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_35 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_36 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['down_left_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['down_left_passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__down_apxutechtop_samosbor_map_block_36 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__down_apxutechtop_samosbor_map_block_37 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['down'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__left_apxutechtop_samosbor_map_block_37 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__left_apxutechtop_samosbor_map_block_38 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['left'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_38 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_39 = $mol_type_enforce<
 		ReturnType< $apxutechtop_samosbor_map_block['down_right_passage_type'] >
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_39 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_40 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['down_right_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['down_right_passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__down_apxutechtop_samosbor_map_block_40 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__down_apxutechtop_samosbor_map_block_41 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['down'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__right_apxutechtop_samosbor_map_block_41 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__right_apxutechtop_samosbor_map_block_42 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['right'] >
 	>
-	type $apxutechtop_samosbor_map_block_row__sub_apxutechtop_samosbor_map_block_42 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_row__sub_apxutechtop_samosbor_map_block_43 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_row['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_43 = $mol_type_enforce<
+	type $mol_view__sub_apxutechtop_samosbor_map_block_44 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__attr_apxutechtop_samosbor_map_block_44 = $mol_type_enforce<
+	type $mol_view__attr_apxutechtop_samosbor_map_block_45 = $mol_type_enforce<
 		({ 
 			'hidden': ReturnType< $apxutechtop_samosbor_map_block['connection_hidden'] >,
 			'highlight': ReturnType< $apxutechtop_samosbor_map_block['connection_highlight'] >,
@@ -5841,7 +5875,7 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxutechtop_samosbor_map_block_45 = $mol_type_enforce<
+	type $mol_view__style_apxutechtop_samosbor_map_block_46 = $mol_type_enforce<
 		({ 
 			'left': ReturnType< $apxutechtop_samosbor_map_block['connection_left'] >,
 			'top': ReturnType< $apxutechtop_samosbor_map_block['connection_top'] >,
@@ -5849,14 +5883,14 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $mol_view__event_apxutechtop_samosbor_map_block_46 = $mol_type_enforce<
+	type $mol_view__event_apxutechtop_samosbor_map_block_47 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['connection_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['connection_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $mol_view__attr_apxutechtop_samosbor_map_block_47 = $mol_type_enforce<
+	type $mol_view__attr_apxutechtop_samosbor_map_block_48 = $mol_type_enforce<
 		({ 
 			'hidden': ReturnType< $apxutechtop_samosbor_map_block['transition_hidden'] >,
 			'direction': ReturnType< $apxutechtop_samosbor_map_block['transition_direction'] >,
@@ -5864,7 +5898,7 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxutechtop_samosbor_map_block_48 = $mol_type_enforce<
+	type $mol_view__style_apxutechtop_samosbor_map_block_49 = $mol_type_enforce<
 		({ 
 			'left': ReturnType< $apxutechtop_samosbor_map_block['transition_left'] >,
 			'top': ReturnType< $apxutechtop_samosbor_map_block['transition_top'] >,
@@ -5872,54 +5906,49 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_49 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_50 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_50 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_51 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['up_middle_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['up_middle_passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__up_apxutechtop_samosbor_map_block_51 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__up_apxutechtop_samosbor_map_block_52 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['up'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_52 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_53 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_53 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_54 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxutechtop_samosbor_map_block['down_middle_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['down_middle_passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__down_apxutechtop_samosbor_map_block_54 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_passage__down_apxutechtop_samosbor_map_block_55 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_passage['down'] >
-	>
-	type $apxutechtop_samosbor_map_block_middle_flight__sub_apxutechtop_samosbor_map_block_55 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxutechtop_samosbor_map_block_middle_flight['sub'] >
 	>
 	type $apxutechtop_samosbor_map_block_middle_flight__sub_apxutechtop_samosbor_map_block_56 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_middle_flight['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_57 = $mol_type_enforce<
+	type $apxutechtop_samosbor_map_block_middle_flight__sub_apxutechtop_samosbor_map_block_57 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
+		ReturnType< $apxutechtop_samosbor_map_block_middle_flight['sub'] >
 	>
 	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_58 = $mol_type_enforce<
 		readonly(any)[]
@@ -5927,6 +5956,16 @@ declare namespace $ {
 		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
 	>
 	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_59 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
+	>
+	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_60 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
+	>
+	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_61 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
@@ -5969,7 +6008,12 @@ declare namespace $ {
 		repairman_profession( ): any
 		cleaner_profession( ): any
 		plumber_profession( ): any
-		wrapper( ): $mol_view
+		profession_wrapper( ): $mol_view
+		theatre_place( ): any
+		party_place( ): any
+		hospital_place( ): any
+		warehouse_place( ): any
+		places_wrapper( ): $mol_view
 		connections( ): readonly(any)[]
 		connections_list( ): ReturnType< $apxutechtop_samosbor_map_block['connections'] >
 		transitions( ): readonly(any)[]
@@ -6067,6 +6111,10 @@ declare namespace $ {
 		repairman_icon( ): $apxutechtop_samosbor_map_icon_repairman
 		cleaner_icon( ): $apxutechtop_samosbor_map_icon_cleaner
 		factory_icon( ): $apxutechtop_samosbor_map_icon_factory
+		theatre_icon( ): $apxutechtop_samosbor_map_icon_theatre
+		party_icon( ): $apxutechtop_samosbor_map_icon_party
+		hospital_icon( ): $apxutechtop_samosbor_map_icon_hospital
+		warehouse_icon( ): $apxutechtop_samosbor_map_icon_warehouse
 		profession_part( ): $apxutechtop_samosbor_map_block_part
 		places_part( ): $apxutechtop_samosbor_map_block_part
 		sub( ): readonly(any)[]
@@ -7201,6 +7249,10 @@ declare namespace $.$$ {
         repairman_profession(): $apxutechtop_samosbor_map_icon_repairman | null;
         cleaner_profession(): $apxutechtop_samosbor_map_icon_cleaner | null;
         plumber_profession(): $apxutechtop_samosbor_map_icon_factory | null;
+        theatre_place(): $apxutechtop_samosbor_map_icon_theatre;
+        party_place(): $apxutechtop_samosbor_map_icon_party;
+        hospital_place(): $apxutechtop_samosbor_map_icon_hospital;
+        warehouse_place(): $apxutechtop_samosbor_map_icon_warehouse;
         fence_type(next?: typeof FenceData.options[number]): string;
         fence_click(event?: PointerEvent): void;
     }
