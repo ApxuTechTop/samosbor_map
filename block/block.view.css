@@ -135,7 +135,8 @@
 		}
 	}
 
-	[apxutechtop_samosbor_map_block_profession_part] {
+	[apxutechtop_samosbor_map_block_profession_part],
+	[apxutechtop_samosbor_map_block_places_part] {
 
 		&>* {
 			width: 100%;

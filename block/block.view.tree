@@ -115,15 +115,26 @@ $apxutechtop_samosbor_map_block $mol_view
 	repairman_icon $apxutechtop_samosbor_map_icon_repairman
 	cleaner_icon $apxutechtop_samosbor_map_icon_cleaner
 	factory_icon $apxutechtop_samosbor_map_icon_factory
+	theatre_icon $apxutechtop_samosbor_map_icon_theatre
+	party_icon $apxutechtop_samosbor_map_icon_party
+	hospital_icon $apxutechtop_samosbor_map_icon_hospital
+	warehouse_icon $apxutechtop_samosbor_map_icon_warehouse
 	profession_part $apxutechtop_samosbor_map_block_part
 		sub /
-			<= wrapper $mol_view
+			<= profession_wrapper $mol_view
 				sub /
 					<= liquidator_profession null
 					<= repairman_profession null
 					<= cleaner_profession null
 					<= plumber_profession null
 	places_part $apxutechtop_samosbor_map_block_part
+		sub /
+			<= places_wrapper $mol_view
+				sub /
+					<= theatre_place null
+					<= party_place null
+					<= hospital_place null
+					<= warehouse_place null
 	sub /
 		<= content $mol_view
 			sub /

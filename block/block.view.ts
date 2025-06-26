@@ -918,6 +918,26 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
+		theatre_place() {
+			return this.theatre_icon()
+		}
+
+		@$mol_mem
+		party_place() {
+			return this.party_icon()
+		}
+
+		@$mol_mem
+		hospital_place() {
+			return this.hospital_icon()
+		}
+
+		@$mol_mem
+		warehouse_place() {
+			return this.warehouse_icon()
+		}
+
+		@$mol_mem
 		fence_type( next?: typeof FenceData.options[ number ] ): string {
 			return this.block_data().FloorsData( null )?.key( this.current_floor() ).fence_type( next ) ?? "missing"
 		}
