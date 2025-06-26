@@ -1,0 +1,54 @@
+$apxutechtop_samosbor_map_slider_input $mol_plugin
+	x? 0
+	y? 0
+	delta_x? 0
+	delta_y? 0
+	-
+	on_drag? null
+	on_drag_start? null
+	on_drag_end? null
+	-
+	drag? null
+	drag_start? null
+	drag_end? null
+	event *
+		^
+		pointerdown? <=> pointerdown? null
+	attr *
+		^
+		moving <= moving? false
+
+$apxutechtop_samosbor_map_slider $mol_view
+	min_value? -1
+	max_value? 1
+	value? 0
+	step? 1
+	direction? \vertical
+	Slot* $mol_view
+		attr *
+			direction <= direction
+	sub /
+		<= Slots $mol_view
+			sub /
+				^ visible_slots <= all_slots /$mol_view
+		<= Bar $mol_view
+			event *
+				click? <=> bar_click? null
+			sub /
+				<= Thumb $mol_view
+					plugins /
+						<= input_plugin $apxutechtop_samosbor_map_slider_input
+							delta_x? => delta_x? 0
+							delta_y? <=> delta_y? 0
+							on_drag_start? <=> drag_start? null
+					style *
+						top <= thumb_top 0
+					event *
+						mousedown? <=> event_mouse_down? null
+						mousemove? <=> event_mouse_move? null
+						mouseup? <=> event_mouse_up? null
+						touchstart? <=> event_touch_start? null
+						touchmove? <=> event_touch_move? null
+						touchend? <=> event_touch_end? null
+					sub /
+						<= thumb_content <= value_limited

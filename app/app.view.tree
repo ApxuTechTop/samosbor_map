@@ -91,6 +91,12 @@ $apxutechtop_samosbor_map_app $mol_view
 					click? <=> delete_block? null
 		<= Layer_Bar $mol_number
 			value? <=> current_layer? 0
+		<= Slider_Container $mol_view
+			sub /
+				<= Layer_Slider $apxutechtop_samosbor_map_slider
+					min_value? -19
+					max_value? 19
+					value? <=> current_layer? 0
 		<= Searcher $mol_view
 		<= Canvas $mol_view
 			sub /

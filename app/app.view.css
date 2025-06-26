@@ -268,9 +268,19 @@
 	z-index: 10;
 }
 
+[apxutechtop_samosbor_map_app_slider_container] {
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	padding: 10px;
+	height: 100%;
+	width: 50px;
+	z-index: 20;
+}
+
 [apxutechtop_samosbor_map_app_block_form] {
 	align-self: anchor-center;
-	right: 10px;
+	right: 50px;
 	/* width: 200px;
 	height: 500px; */
 	position: fixed;

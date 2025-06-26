@@ -1,0 +1,63 @@
+namespace $.$$ {
+
+	export class $apxutechtop_samosbor_map_slider_input extends $.$apxutechtop_samosbor_map_slider_input {
+
+		@$mol_mem
+		delta_x( val?: number ): number {
+			return val ?? 0
+		}
+		@$mol_mem
+		delta_y( val?: number ): number {
+			return val ?? 0
+		}
+
+		start_event?: PointerEvent
+		start_pos?: { x: number, y: number }
+
+		drag_start( event: PointerEvent ) {
+			this.start_event = event
+			this.start_pos = { x: this.x(), y: this.y() }
+			this.moving( true )
+			this.on_drag_start( event )
+		}
+
+		@$mol_action
+		drag( event: PointerEvent ) {
+			console.log( "drag" )
+			this.x( this.start_pos!.x + this.delta_x( event.x - this.start_event!.x ) )
+			this.y( this.start_pos!.y + this.delta_y( event.y - this.start_event!.y ) )
+			this.on_drag( event )
+		}
+
+		drag_end( event: PointerEvent ) {
+			this.moving( false )
+			this.on_drag_end( event )
+		}
+
+		pointerdown( event: PointerEvent ) {
+
+			this.drag_start( event )
+
+			const mousemove = new $mol_dom_listener(
+				this.$.$mol_dom_context.document,
+				'mousemove',
+				$mol_wire_async( event => {
+					this.drag( event )
+				} ),
+			)
+
+			const mouseup = new $mol_dom_listener(
+				this.$.$mol_dom_context.document,
+				'mouseup',
+				$mol_wire_async( event => {
+					this.drag_end( event )
+					mouseup?.destructor()
+					mousemove?.destructor()
+				} ),
+			)
+
+		}
+
+	}
+
+}
