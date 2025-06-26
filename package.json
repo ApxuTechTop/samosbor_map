@@ -151,6 +151,7 @@
     "$mol_icon_chevron_right",
     "$mol_check_box",
     "$mol_icon_tick",
+    "$apxutechtop_samosbor_map_slider",
     "$apxutechtop_samosbor_map_area",
     "$apxutechtop_samosbor_map_block",
     "$hyoo_crus_atom",
@@ -251,7 +252,8 @@
     "$mol_bus",
     "$mol_wire_race",
     "$mol_hash_string",
-    "$mol_hash"
+    "$mol_hash",
+    "$apxutechtop_samosbor_map_block_card"
   ],
   "dependencies": {
     "jsdom": "*",

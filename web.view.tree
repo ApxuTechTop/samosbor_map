@@ -279,6 +279,62 @@ $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
 $mol_check_box $mol_check
 	Icon $mol_icon_tick
 
+$apxutechtop_samosbor_map_slider_input $mol_plugin
+	x? 0
+	y? 0
+	delta_x? 0
+	delta_y? 0
+	-
+	on_drag? null
+	on_drag_start? null
+	on_drag_end? null
+	-
+	drag? null
+	drag_start? null
+	drag_end? null
+	event *
+		^
+		pointerdown? <=> pointerdown? null
+	attr *
+		^
+		moving <= moving? false
+
+$apxutechtop_samosbor_map_slider $mol_view
+	min_value? -1
+	max_value? 1
+	value? 0
+	value_limited? 0
+	step? 1
+	direction? \vertical
+	Slot* $mol_view
+		attr *
+			direction <= direction
+	sub /
+		<= Slots $mol_view
+			sub /
+				^ visible_slots <= all_slots /$mol_view
+		<= Bar $mol_view
+			event *
+				click? <=> bar_click? null
+			sub /
+				<= Thumb $mol_view
+					plugins /
+						<= input_plugin $apxutechtop_samosbor_map_slider_input
+							delta_x? => delta_x? 0
+							delta_y? <=> delta_y? 0
+							on_drag_start? <=> drag_start? null
+					style *
+						top <= thumb_top 0
+					event *
+						mousedown? <=> event_mouse_down? null
+						mousemove? <=> event_mouse_move? null
+						mouseup? <=> event_mouse_up? null
+						touchstart? <=> event_touch_start? null
+						touchmove? <=> event_touch_move? null
+						touchend? <=> event_touch_end? null
+					sub /
+						<= thumb_content <= value_limited
+
 $apxutechtop_samosbor_map_area $mol_view
 	zoom 1
 	attr *
@@ -543,6 +599,7 @@ $apxutechtop_samosbor_map_app $mol_view
 						create \Create Block
 						connect \Connect Blocks
 						configure \Configure Block
+		^ block_cards /$apxutechtop_samosbor_map_block_card
 		<= Block_Form $mol_card
 			sub /
 				<= name_setting $mol_view
@@ -603,6 +660,12 @@ $apxutechtop_samosbor_map_app $mol_view
 					click? <=> delete_block? null
 		<= Layer_Bar $mol_number
 			value? <=> current_layer? 0
+		<= Slider_Container $mol_view
+			sub /
+				<= Layer_Slider $apxutechtop_samosbor_map_slider
+					min_value? -19
+					max_value? 19
+					value? <=> current_layer? 0
 		<= Searcher $mol_view
 		<= Canvas $mol_view
 			sub /
@@ -613,3 +676,7 @@ $apxutechtop_samosbor_map_app $mol_view
 					items /
 						^ blocks /
 						- ^ transitions /
+
+$apxutechtop_samosbor_map_block_card $mol_view
+	block $apxutechtop_samosbor_map_block
+	

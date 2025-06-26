@@ -5345,6 +5345,349 @@ var $;
 "use strict";
 
 ;
+	($.$apxutechtop_samosbor_map_slider_input) = class $apxutechtop_samosbor_map_slider_input extends ($.$mol_plugin) {
+		pointerdown(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		moving(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		x(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		y(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		delta_x(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		delta_y(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		on_drag(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		on_drag_start(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		on_drag_end(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		drag(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		drag_start(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		drag_end(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event(){
+			return {...(super.event()), "pointerdown": (next) => (this.pointerdown(next))};
+		}
+		attr(){
+			return {...(super.attr()), "moving": (this.moving())};
+		}
+	};
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "pointerdown"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "moving"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "x"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "y"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "delta_x"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "delta_y"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "on_drag"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "on_drag_start"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "on_drag_end"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "drag"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "drag_start"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "drag_end"));
+	($.$apxutechtop_samosbor_map_slider) = class $apxutechtop_samosbor_map_slider extends ($.$mol_view) {
+		all_slots(){
+			return [];
+		}
+		visible_slots(){
+			return (this.all_slots());
+		}
+		Slots(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([...(this.visible_slots())]);
+			return obj;
+		}
+		bar_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		delta_x(next){
+			return (this.input_plugin().delta_x(next));
+		}
+		delta_y(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		drag_start(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		input_plugin(){
+			const obj = new this.$.$apxutechtop_samosbor_map_slider_input();
+			(obj.delta_y) = (next) => ((this.delta_y(next)));
+			(obj.on_drag_start) = (next) => ((this.drag_start(next)));
+			return obj;
+		}
+		thumb_top(){
+			return 0;
+		}
+		event_mouse_down(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event_mouse_move(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event_mouse_up(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event_touch_start(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event_touch_move(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event_touch_end(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		thumb_content(){
+			return (this.value_limited());
+		}
+		Thumb(){
+			const obj = new this.$.$mol_view();
+			(obj.plugins) = () => ([(this.input_plugin())]);
+			(obj.style) = () => ({"top": (this.thumb_top())});
+			(obj.event) = () => ({
+				"mousedown": (next) => (this.event_mouse_down(next)), 
+				"mousemove": (next) => (this.event_mouse_move(next)), 
+				"mouseup": (next) => (this.event_mouse_up(next)), 
+				"touchstart": (next) => (this.event_touch_start(next)), 
+				"touchmove": (next) => (this.event_touch_move(next)), 
+				"touchend": (next) => (this.event_touch_end(next))
+			});
+			(obj.sub) = () => ([(this.thumb_content())]);
+			return obj;
+		}
+		Bar(){
+			const obj = new this.$.$mol_view();
+			(obj.event) = () => ({"click": (next) => (this.bar_click(next))});
+			(obj.sub) = () => ([(this.Thumb())]);
+			return obj;
+		}
+		min_value(next){
+			if(next !== undefined) return next;
+			return -1;
+		}
+		max_value(next){
+			if(next !== undefined) return next;
+			return 1;
+		}
+		value(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		value_limited(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		step(next){
+			if(next !== undefined) return next;
+			return 1;
+		}
+		direction(next){
+			if(next !== undefined) return next;
+			return "vertical";
+		}
+		Slot(id){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"direction": (this.direction())});
+			return obj;
+		}
+		sub(){
+			return [(this.Slots()), (this.Bar())];
+		}
+	};
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "Slots"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "bar_click"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "delta_y"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "drag_start"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "input_plugin"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_mouse_down"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_mouse_move"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_mouse_up"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_touch_start"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_touch_move"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_touch_end"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "Thumb"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "Bar"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "min_value"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "max_value"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "value"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "value_limited"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "step"));
+	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "direction"));
+	($mol_mem_key(($.$apxutechtop_samosbor_map_slider.prototype), "Slot"));
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $apxutechtop_samosbor_map_slider_input extends $.$apxutechtop_samosbor_map_slider_input {
+            delta_x(val) {
+                return val ?? 0;
+            }
+            delta_y(val) {
+                return val ?? 0;
+            }
+            start_event;
+            start_pos;
+            drag_start(event) {
+                this.start_event = event;
+                this.start_pos = { x: this.x(), y: this.y() };
+                this.moving(true);
+                this.on_drag_start(event);
+            }
+            drag(event) {
+                console.log("drag");
+                this.x(this.start_pos.x + this.delta_x(event.x - this.start_event.x));
+                this.y(this.start_pos.y + this.delta_y(event.y - this.start_event.y));
+                this.on_drag(event);
+            }
+            drag_end(event) {
+                this.moving(false);
+                this.on_drag_end(event);
+            }
+            pointerdown(event) {
+                this.drag_start(event);
+                const mousemove = new $mol_dom_listener(this.$.$mol_dom_context.document, 'mousemove', $mol_wire_async(event => {
+                    this.drag(event);
+                }));
+                const mouseup = new $mol_dom_listener(this.$.$mol_dom_context.document, 'mouseup', $mol_wire_async(event => {
+                    this.drag_end(event);
+                    mouseup?.destructor();
+                    mousemove?.destructor();
+                }));
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_slider_input.prototype, "delta_x", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_slider_input.prototype, "delta_y", null);
+        __decorate([
+            $mol_action
+        ], $apxutechtop_samosbor_map_slider_input.prototype, "drag", null);
+        $$.$apxutechtop_samosbor_map_slider_input = $apxutechtop_samosbor_map_slider_input;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $apxutechtop_samosbor_map_slider extends $.$apxutechtop_samosbor_map_slider {
+            slot_count() {
+                return (this.max_value() - this.min_value()) + 1;
+            }
+            slot_size() {
+                const dom = this.dom_node_actual();
+                return (dom.offsetHeight - 24) / (this.slot_count() - 1);
+            }
+            thumb_top() {
+                return (this.max_value() - this.value_limited()) * this.slot_size();
+            }
+            value_limited(next = this.value()) {
+                if (next < this.min_value()) {
+                    return this.value(this.min_value());
+                }
+                if (next > this.max_value()) {
+                    return this.value(this.max_value());
+                }
+                return this.value(next);
+            }
+            all_slots() {
+                const slots = [];
+                for (let i = 0; i < this.slot_count(); ++i) {
+                    const slot = this.Slot(i);
+                    slots.push(slot);
+                }
+                return slots;
+            }
+            first_value = 0;
+            drag_start(event) {
+                console.log("drag start");
+                this.first_value = this.value();
+            }
+            delta_y(next) {
+                if (next) {
+                    const new_absolute_value = this.first_value - next / this.slot_size();
+                    this.value(Math.round(new_absolute_value));
+                }
+                return next ?? 0;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_slider.prototype, "slot_count", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_slider.prototype, "slot_size", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_slider.prototype, "thumb_top", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_slider.prototype, "value_limited", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_slider.prototype, "all_slots", null);
+        __decorate([
+            $mol_mem
+        ], $apxutechtop_samosbor_map_slider.prototype, "drag_start", null);
+        $$.$apxutechtop_samosbor_map_slider = $apxutechtop_samosbor_map_slider;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("apxutechtop/samosbor/map/slider/slider.view.css", "[apxutechtop_samosbor_map_slider] {\n\t&[direction=vertical] {\n\t\theight: 100%;\n\t}\n\n\tgap: 10px;\n}\n\n[apxutechtop_samosbor_map_slider_bar] {\n\tposition: relative;\n\n\theight: 100%;\n\tbackground-color: #D9D9D9;\n\n\tborder-radius: 5px;\n\twidth: 11px;\n\tdisplay: flex;\n\tjustify-content: center;\n\n\tpadding-top: 11.5px;\n\tpadding-bottom: 11.5px;\n\n\t&::before {\n\t\tcontent: \"\";\n\t\tbox-sizing: border-box;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tborder: 3px solid #6C757D;\n\t\tborder-radius: 5px;\n\t\tposition: absolute;\n\t\ttop: 0px;\n\t\tleft: 0px;\n\t}\n}\n\n[apxutechtop_samosbor_map_slider_thumb] {\n\tposition: relative;\n\twidth: 27px;\n\theight: 27px;\n\tborder-radius: 23px;\n\tbackground-color: #D9D9D9;\n\tjustify-content: center;\n\talign-items: center;\n\tborder: 3px solid #6C757D;\n\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: auto;\n\tline-height: 20px;\n\tletter-spacing: 0;\n\t/* text-align: center; */\n\tcolor: black;\n\ttransform: translateY(-50%);\n\n\tuser-select: none;\n\tcursor: pointer;\n}\n\n[apxutechtop_samosbor_map_slider_slots] {\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tpadding-top: 11.5px;\n\tpadding-bottom: 11.5px;\n\n\tpointer-events: none;\n}\n\n[apxutechtop_samosbor_map_slider_slot] {\n\twidth: 13px;\n\theight: 3px;\n\tbackground-color: #6C757D;\n}\n");
+})($ || ($ = {}));
+
+;
 	($.$apxutechtop_samosbor_map_area) = class $apxutechtop_samosbor_map_area extends ($.$mol_view) {
 		isDragging(next){
 			if(next !== undefined) return next;
@@ -14302,7 +14645,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxutechtop/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxutechtop_samosbor_map_cluster]>*,\n[apxutechtop_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tfill: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: black;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: red;\n\t}\n\n\t&[block-type=abandoned] {\n\t\t--block-type-stroke-color: yellow;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: blue;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\topacity: 0.2;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t\t/* Размер и цвет границы */\n\t\tanimation: blink-border 2s infinite;\n\t\t/* Запуск анимации бесконечно */\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxutechtop_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\t\tposition: absolute;\n\t\t/* transform: translate(-50%, -50%); */\n\t\t/* border: 5px solid white; */\n\t\tbackground-color: #FFFFFF80;\n\t\tz-index: 100;\n\t}\n\n\t[apxutechtop_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_profession_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxutechtop_samosbor_map_block_flight],\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_up_middle_passage],\n\t\t[apxutechtop_samosbor_map_block_down_middle_passage],\n\t\t[apxutechtop_samosbor_map_block_left_passage],\n\t\t[apxutechtop_samosbor_map_block_right_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 10px 10px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxutechtop_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_info_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_generator_floor] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_crossroad],\n\t\t\t[apxutechtop_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_crossroad],\n\t\t\t[apxutechtop_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
+    $mol_style_attach("apxutechtop/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxutechtop_samosbor_map_cluster]>*,\n[apxutechtop_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tfill: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: black;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: red;\n\t}\n\n\t&[block-type=abandoned] {\n\t\t--block-type-stroke-color: yellow;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: blue;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\topacity: 0.2;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxutechtop_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\t\tposition: absolute;\n\t\t/* transform: translate(-50%, -50%); */\n\t\t/* border: 5px solid white; */\n\t\tbackground-color: #FFFFFF80;\n\t\tz-index: 100;\n\t}\n\n\t[apxutechtop_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_profession_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxutechtop_samosbor_map_block_flight],\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_up_middle_passage],\n\t\t[apxutechtop_samosbor_map_block_down_middle_passage],\n\t\t[apxutechtop_samosbor_map_block_left_passage],\n\t\t[apxutechtop_samosbor_map_block_right_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 10px 10px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxutechtop_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_info_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_generator_floor] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_crossroad],\n\t\t\t[apxutechtop_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_crossroad],\n\t\t\t[apxutechtop_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -14358,6 +14701,9 @@ var $;
 			const obj = new this.$.$mol_card();
 			(obj.sub) = () => ([(this.Control_Switch())]);
 			return obj;
+		}
+		block_cards(){
+			return [];
 		}
 		selected_block_name(next){
 			if(next !== undefined) return next;
@@ -14560,6 +14906,18 @@ var $;
 			(obj.value) = (next) => ((this.current_layer(next)));
 			return obj;
 		}
+		Layer_Slider(){
+			const obj = new this.$.$apxutechtop_samosbor_map_slider();
+			(obj.min_value) = (next) => (-19);
+			(obj.max_value) = (next) => (19);
+			(obj.value) = (next) => ((this.current_layer(next)));
+			return obj;
+		}
+		Slider_Container(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.Layer_Slider())]);
+			return obj;
+		}
 		Searcher(){
 			const obj = new this.$.$mol_view();
 			return obj;
@@ -14599,8 +14957,10 @@ var $;
 		sub(){
 			return [
 				(this.Control_Panel()), 
+				...(this.block_cards()), 
 				(this.Block_Form()), 
 				(this.Layer_Bar()), 
+				(this.Slider_Container()), 
 				(this.Searcher()), 
 				(this.Canvas())
 			];
@@ -14647,12 +15007,27 @@ var $;
 	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "delete_block_button"));
 	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Block_Form"));
 	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Layer_Bar"));
+	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Layer_Slider"));
+	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Slider_Container"));
 	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Searcher"));
 	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Area"));
 	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Canvas"));
 	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "Block"));
 	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "Transition"));
 
+
+;
+	($.$apxutechtop_samosbor_map_block_card) = class $apxutechtop_samosbor_map_block_card extends ($.$mol_view) {
+		block(){
+			const obj = new this.$.$apxutechtop_samosbor_map_block();
+			return obj;
+		}
+	};
+	($mol_mem(($.$apxutechtop_samosbor_map_block_card.prototype), "block"));
+
+
+;
+"use strict";
 
 ;
 "use strict";
@@ -14743,6 +15118,9 @@ var $;
                 return Gigacluster.global().land();
             }
             selected_block(next) {
+                return next;
+            }
+            selected_blocks(ref, next) {
                 return next;
             }
             block_clicked(ref, event) {
@@ -14968,6 +15346,9 @@ var $;
         ], $apxutechtop_samosbor_map_app.prototype, "selected_block", null);
         __decorate([
             $mol_mem_key
+        ], $apxutechtop_samosbor_map_app.prototype, "selected_blocks", null);
+        __decorate([
+            $mol_mem_key
         ], $apxutechtop_samosbor_map_app.prototype, "block_clicked", null);
         __decorate([
             $mol_mem
@@ -15052,7 +15433,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxutechtop/samosbor/map/app/app.view.css", "[apxutechtop_samosbor_map_app] {\n\t--bg: #6E6E6E;\n\t--main: #585858;\n\n\t[color=a] {\n\t\t--bg: #BD9EFF;\n\t\t--main: #9A76E7;\n\t}\n\n\t[color=b] {\n\t\t--bg: #FF9E9E;\n\t\t--main: #EB6B6B;\n\t}\n\n\t[color=v] {\n\t\t--bg: #EAB27F;\n\t\t--main: #C1844D;\n\t}\n\n\t[color=g] {\n\t\t--bg: #BDC9E6;\n\t\t--main: #889DCF;\n\t}\n\n\t[color=d] {\n\t\t--bg: #8A609D;\n\t\t--main: #64367A;\n\t}\n\n\t[color=e] {\n\t\t--bg: #E4C1AD;\n\t\t--main: #CB9B7F;\n\t}\n\n\t[color=j] {\n\t\t--bg: #79C0B4;\n\t\t--main: #4EAD9D;\n\t}\n\n\t[color=z] {\n\t\t--bg: #9EE2FF;\n\t\t--main: #6AC3E9;\n\t}\n\n\t[color=i] {\n\t\t--bg: #968F66;\n\t\t--main: #7D7843;\n\t}\n\n\t[color=k] {\n\t\t--bg: #FA9B48;\n\t\t--main: #E3861B;\n\t}\n\n\t[color=l] {\n\t\t--bg: #9EA2FF;\n\t\t--main: #8388F4;\n\t}\n\n\t[color=m] {\n\t\t--bg: #E69EFF;\n\t\t--main: #CD73ED;\n\t}\n\n\t[color=n] {\n\t\t--bg: #FF9ED8;\n\t\t--main: #E96EB7;\n\t}\n\n\t[color=o] {\n\t\t--bg: #C09786;\n\t\t--main: #AA7762;\n\t}\n\n\t[color=p] {\n\t\t--bg: #6F6F6F;\n\t\t--main: #585858;\n\t}\n\n\t[color=r] {\n\t\t--bg: #93AF6E;\n\t\t--main: #789A4E;\n\t}\n\n\t[color=s] {\n\t\t--bg: #575FA8;\n\t\t--main: #353E87;\n\t}\n\n\t[color=t] {\n\t\t--bg: #6D949C;\n\t\t--main: #457681;\n\t}\n\n\t[color=u] {\n\t\t--bg: #B5C35D;\n\t\t--main: #95A62D;\n\t}\n\n\t[color=f] {\n\t\t--bg: #D4BACA;\n\t\t--main: #C696B3;\n\t}\n\n\t[color=h] {\n\t\t--bg: #D74851;\n\t\t--main: #BE2630;\n\t}\n\n\t[color=c] {\n\t\t--bg: #65BD9D;\n\t\t--main: #43A682;\n\t}\n\n\t[color=ch] {\n\t\t--bg: #D99A4F;\n\t\t--main: #C38030;\n\t}\n\n\t[color=sh] {\n\t\t--bg: #A37A55;\n\t\t--main: #926237;\n\t}\n\n\t[color=shch] {\n\t\t--bg: #31D02E;\n\t\t--main: #07B903;\n\t}\n\n\t[color=y] {\n\t\t--bg: #6C58BB;\n\t\t--main: #4832A1;\n\t}\n\n\t[color=yu] {\n\t\t--bg: #CD6597;\n\t\t--main: #B53974;\n\t}\n\n\t[color=je] {\n\t\t--bg: #689666;\n\t\t--main: #527D43;\n\t}\n\n\t[color=ya] {\n\t\t--bg: #966666;\n\t\t--main: #7D4343;\n\t}\n}\n\n[apxutechtop_samosbor_map_app] {\n\tbackground-color: #1E1E1E;\n}\n\n[apxutechtop_samosbor_map_app_canvas] {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\t/* scale: 0.5; */\n\t/* background-color: #504d4c; */\n}\n\n[apxutechtop_samosbor_map_cluster] {\n\tposition: absolute;\n}\n\n[apxutechtop_samosbor_map_app_block_connection] {\n\tposition: absolute;\n\twidth: 40px;\n\theight: 40px;\n\tbackground-color: rgb(31, 233, 58);\n\tz-index: 2000;\n\ttransform: translate(calc(var(--transition-length) * (-1 / 2) - 50%), calc(var(--transition-length) * (-1 / 2) - 50%));\n\tcursor: pointer;\n\tborder: 4px inset black;\n\tborder-radius: 10px;\n\n\t&[hidden] {\n\t\tdisplay: none;\n\t\tbackground-color: red;\n\t}\n\n\t&[highlight] {\n\t\toutline: 5px solid blue;\n\t}\n}\n\n[apxutechtop_samosbor_map_app_transition] {\n\t--transition-width: 50px;\n\t--transition-height: 50px;\n\tbox-sizing: content-box;\n\n\t&[direction=vertical] {\n\t\theight: var(--transition-width);\n\t\twidth: var(--transition-length);\n\n\t\tborder-bottom: 10px solid white;\n\t\tborder-top: 10px solid white;\n\t}\n\n\t&[direction=horizontal] {\n\t\theight: var(--transition-length);\n\t\twidth: var(--transition-width);\n\t\tborder-left: 10px solid white;\n\t\tborder-right: 10px solid white;\n\t}\n\n\tposition: absolute;\n\ttransform: translate(-50%, -50%);\n\t/* border: 5px solid white; */\n\tbackground-color: #FFFFFF80;\n}\n\n[apxutechtop_samosbor_map_app_name_setting] {\n\theight: 40px !important;\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[mol_view_root] {\n\t--t: 25px;\n\t/* ширина внутреннего перехода */\n\t--p: 50px;\n\t/* ширина угловой части */\n\t--x: 150px;\n\t/* ширина информационной части */\n\t--fullWidth: 720px;\n\t--fullHeight: 360px;\n\t--height: 330px;\n\t/* высота блока */\n\t--width: 710px;\n\t/* ширина блока */\n\t--l: 50px;\n\t/* ширина внешнего перехода */\n\n\t--vertical-transition-width: 49px;\n\t--vertical-transition-height: 54px;\n\t--horizontal-transition-width: 54px;\n\t--horizontal-transition-height: 49px;\n\n\t--border-width: 10px;\n\t--part-width: 120px;\n\t--calc-part-width: calc(var(--part-width) + var(--border-width));\n\t--passage-width: 50px;\n\t--calc-passage-width: calc(var(--passage-width) + var(--border-width));\n\t--solo-icon-size: 50px;\n\t--duo-icon-size: 40px;\n\t--block-width: calc((var(--part-width) + var(--border-width)) * 4 + (var(--passage-width) + var(--border-width)) * 3);\n\t--transition-width: var(--passage-width);\n\t--calc-transition-width: var(--calc-passage-width);\n\t--transition-length: calc(var(--passage-width));\n\t--calc-transition-length: calc(var(--transition-length) + var(--border-width));\n\n\n\t/* Colors */\n\t--border-color: #FFFFFF;\n\t--text-color: #FFFFFF;\n}\n\n[apxutechtop_samosbor_map_app_layer_bar] {\n\t/* width: 20px;\n\theight: 80%; */\n\tposition: fixed;\n\t/* right: 10px; */\n\tjustify-self: anchor-center;\n\tbottom: 10px;\n\t/* top: 10%; */\n\t/* background-color: aqua; */\n\tborder-radius: 3px;\n\tz-index: 10;\n}\n\n[apxutechtop_samosbor_map_app_block_form] {\n\talign-self: anchor-center;\n\tright: 10px;\n\t/* width: 200px;\n\theight: 500px; */\n\tposition: fixed;\n\tz-index: 10;\n\tmax-height: 100%;\n\toverflow: scroll;\n\n\t[apxutechtop_samosbor_map_app_block_type_switch] {\n\t\tflex-wrap: wrap;\n\t\tflex-direction: column;\n\t}\n}\n\n[apxutechtop_samosbor_map_app_control_panel] {\n\tjustify-self: anchor-center;\n\ttop: 10px;\n\tposition: fixed;\n\tz-index: 10;\n}\n\n[apxutechtop_samosbor_map_app_access_panel] {\n\t/* align-self: anchor-center; */\n\twidth: 200px;\n\ttop: 10px;\n\tleft: 10px;\n\tposition: fixed;\n\tz-index: 10;\n\n\t[apxutechtop_samosbor_map_app_my_key] {\n\t\tword-break: break-all;\n\t}\n}\n");
+    $mol_style_attach("apxutechtop/samosbor/map/app/app.view.css", "[apxutechtop_samosbor_map_app] {\n\t--bg: #6E6E6E;\n\t--main: #585858;\n\n\t[color=a] {\n\t\t--bg: #BD9EFF;\n\t\t--main: #9A76E7;\n\t}\n\n\t[color=b] {\n\t\t--bg: #FF9E9E;\n\t\t--main: #EB6B6B;\n\t}\n\n\t[color=v] {\n\t\t--bg: #EAB27F;\n\t\t--main: #C1844D;\n\t}\n\n\t[color=g] {\n\t\t--bg: #BDC9E6;\n\t\t--main: #889DCF;\n\t}\n\n\t[color=d] {\n\t\t--bg: #8A609D;\n\t\t--main: #64367A;\n\t}\n\n\t[color=e] {\n\t\t--bg: #E4C1AD;\n\t\t--main: #CB9B7F;\n\t}\n\n\t[color=j] {\n\t\t--bg: #79C0B4;\n\t\t--main: #4EAD9D;\n\t}\n\n\t[color=z] {\n\t\t--bg: #9EE2FF;\n\t\t--main: #6AC3E9;\n\t}\n\n\t[color=i] {\n\t\t--bg: #968F66;\n\t\t--main: #7D7843;\n\t}\n\n\t[color=k] {\n\t\t--bg: #FA9B48;\n\t\t--main: #E3861B;\n\t}\n\n\t[color=l] {\n\t\t--bg: #9EA2FF;\n\t\t--main: #8388F4;\n\t}\n\n\t[color=m] {\n\t\t--bg: #E69EFF;\n\t\t--main: #CD73ED;\n\t}\n\n\t[color=n] {\n\t\t--bg: #FF9ED8;\n\t\t--main: #E96EB7;\n\t}\n\n\t[color=o] {\n\t\t--bg: #C09786;\n\t\t--main: #AA7762;\n\t}\n\n\t[color=p] {\n\t\t--bg: #6F6F6F;\n\t\t--main: #585858;\n\t}\n\n\t[color=r] {\n\t\t--bg: #93AF6E;\n\t\t--main: #789A4E;\n\t}\n\n\t[color=s] {\n\t\t--bg: #575FA8;\n\t\t--main: #353E87;\n\t}\n\n\t[color=t] {\n\t\t--bg: #6D949C;\n\t\t--main: #457681;\n\t}\n\n\t[color=u] {\n\t\t--bg: #B5C35D;\n\t\t--main: #95A62D;\n\t}\n\n\t[color=f] {\n\t\t--bg: #D4BACA;\n\t\t--main: #C696B3;\n\t}\n\n\t[color=h] {\n\t\t--bg: #D74851;\n\t\t--main: #BE2630;\n\t}\n\n\t[color=c] {\n\t\t--bg: #65BD9D;\n\t\t--main: #43A682;\n\t}\n\n\t[color=ch] {\n\t\t--bg: #D99A4F;\n\t\t--main: #C38030;\n\t}\n\n\t[color=sh] {\n\t\t--bg: #A37A55;\n\t\t--main: #926237;\n\t}\n\n\t[color=shch] {\n\t\t--bg: #31D02E;\n\t\t--main: #07B903;\n\t}\n\n\t[color=y] {\n\t\t--bg: #6C58BB;\n\t\t--main: #4832A1;\n\t}\n\n\t[color=yu] {\n\t\t--bg: #CD6597;\n\t\t--main: #B53974;\n\t}\n\n\t[color=je] {\n\t\t--bg: #689666;\n\t\t--main: #527D43;\n\t}\n\n\t[color=ya] {\n\t\t--bg: #966666;\n\t\t--main: #7D4343;\n\t}\n}\n\n[apxutechtop_samosbor_map_app] {\n\tbackground-color: #1E1E1E;\n}\n\n[apxutechtop_samosbor_map_app_canvas] {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\t/* scale: 0.5; */\n\t/* background-color: #504d4c; */\n}\n\n[apxutechtop_samosbor_map_cluster] {\n\tposition: absolute;\n}\n\n[apxutechtop_samosbor_map_app_block_connection] {\n\tposition: absolute;\n\twidth: 40px;\n\theight: 40px;\n\tbackground-color: rgb(31, 233, 58);\n\tz-index: 2000;\n\ttransform: translate(calc(var(--transition-length) * (-1 / 2) - 50%), calc(var(--transition-length) * (-1 / 2) - 50%));\n\tcursor: pointer;\n\tborder: 4px inset black;\n\tborder-radius: 10px;\n\n\t&[hidden] {\n\t\tdisplay: none;\n\t\tbackground-color: red;\n\t}\n\n\t&[highlight] {\n\t\toutline: 5px solid blue;\n\t}\n}\n\n[apxutechtop_samosbor_map_app_transition] {\n\t--transition-width: 50px;\n\t--transition-height: 50px;\n\tbox-sizing: content-box;\n\n\t&[direction=vertical] {\n\t\theight: var(--transition-width);\n\t\twidth: var(--transition-length);\n\n\t\tborder-bottom: 10px solid white;\n\t\tborder-top: 10px solid white;\n\t}\n\n\t&[direction=horizontal] {\n\t\theight: var(--transition-length);\n\t\twidth: var(--transition-width);\n\t\tborder-left: 10px solid white;\n\t\tborder-right: 10px solid white;\n\t}\n\n\tposition: absolute;\n\ttransform: translate(-50%, -50%);\n\t/* border: 5px solid white; */\n\tbackground-color: #FFFFFF80;\n}\n\n[apxutechtop_samosbor_map_app_name_setting] {\n\theight: 40px !important;\n}\n\n[mol_view_root] {\n\t--t: 25px;\n\t/* ширина внутреннего перехода */\n\t--p: 50px;\n\t/* ширина угловой части */\n\t--x: 150px;\n\t/* ширина информационной части */\n\t--fullWidth: 720px;\n\t--fullHeight: 360px;\n\t--height: 330px;\n\t/* высота блока */\n\t--width: 710px;\n\t/* ширина блока */\n\t--l: 50px;\n\t/* ширина внешнего перехода */\n\n\t--vertical-transition-width: 49px;\n\t--vertical-transition-height: 54px;\n\t--horizontal-transition-width: 54px;\n\t--horizontal-transition-height: 49px;\n\n\t--border-width: 10px;\n\t--part-width: 120px;\n\t--calc-part-width: calc(var(--part-width) + var(--border-width));\n\t--passage-width: 50px;\n\t--calc-passage-width: calc(var(--passage-width) + var(--border-width));\n\t--solo-icon-size: 50px;\n\t--duo-icon-size: 40px;\n\t--block-width: calc((var(--part-width) + var(--border-width)) * 4 + (var(--passage-width) + var(--border-width)) * 3);\n\t--transition-width: var(--passage-width);\n\t--calc-transition-width: var(--calc-passage-width);\n\t--transition-length: calc(var(--passage-width));\n\t--calc-transition-length: calc(var(--transition-length) + var(--border-width));\n\n\n\t/* Colors */\n\t--border-color: #FFFFFF;\n\t--text-color: #FFFFFF;\n}\n\n[apxutechtop_samosbor_map_app_layer_bar] {\n\t/* width: 20px;\n\theight: 80%; */\n\tposition: fixed;\n\t/* right: 10px; */\n\tjustify-self: anchor-center;\n\tbottom: 10px;\n\t/* top: 10%; */\n\t/* background-color: aqua; */\n\tborder-radius: 3px;\n\tz-index: 10;\n}\n\n[apxutechtop_samosbor_map_app_slider_container] {\n\tposition: fixed;\n\tright: 0px;\n\ttop: 0px;\n\tpadding: 10px;\n\theight: 100%;\n\twidth: 50px;\n\tz-index: 20;\n}\n\n[apxutechtop_samosbor_map_app_block_form] {\n\talign-self: anchor-center;\n\tright: 50px;\n\t/* width: 200px;\n\theight: 500px; */\n\tposition: fixed;\n\tz-index: 10;\n\tmax-height: 100%;\n\toverflow: scroll;\n\n\t[apxutechtop_samosbor_map_app_block_type_switch] {\n\t\tflex-wrap: wrap;\n\t\tflex-direction: column;\n\t}\n}\n\n[apxutechtop_samosbor_map_app_control_panel] {\n\tjustify-self: anchor-center;\n\ttop: 10px;\n\tposition: fixed;\n\tz-index: 10;\n}\n\n[apxutechtop_samosbor_map_app_access_panel] {\n\t/* align-self: anchor-center; */\n\twidth: 200px;\n\ttop: 10px;\n\tleft: 10px;\n\tposition: fixed;\n\tz-index: 10;\n\n\t[apxutechtop_samosbor_map_app_my_key] {\n\t\tword-break: break-all;\n\t}\n}\n");
 })($ || ($ = {}));
 
 ;
