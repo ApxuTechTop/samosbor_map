@@ -7249,10 +7249,14 @@ declare namespace $.$$ {
         repairman_profession(): $apxutechtop_samosbor_map_icon_repairman | null;
         cleaner_profession(): $apxutechtop_samosbor_map_icon_cleaner | null;
         plumber_profession(): $apxutechtop_samosbor_map_icon_factory | null;
-        theatre_place(): $apxutechtop_samosbor_map_icon_theatre;
-        party_place(): $apxutechtop_samosbor_map_icon_party;
-        hospital_place(): $apxutechtop_samosbor_map_icon_hospital;
-        warehouse_place(): $apxutechtop_samosbor_map_icon_warehouse;
+        has_theatre_place(): boolean;
+        has_party_place(): boolean;
+        has_hospital_place(): boolean;
+        has_warehouse_place(): boolean;
+        theatre_place(): $apxutechtop_samosbor_map_icon_theatre | null;
+        party_place(): $apxutechtop_samosbor_map_icon_party | null;
+        hospital_place(): $apxutechtop_samosbor_map_icon_hospital | null;
+        warehouse_place(): $apxutechtop_samosbor_map_icon_warehouse | null;
         fence_type(next?: typeof FenceData.options[number]): string;
         fence_click(event?: PointerEvent): void;
     }
@@ -7271,6 +7275,10 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=card.view.tree.d.ts.map
+declare namespace $ {
+    let $apxutechtop_samosbor_map_app_gigacluster_ref: string;
+}
+
 declare namespace $ {
 
 	type $mol_switch__value_apxutechtop_samosbor_map_app_1 = $mol_type_enforce<
@@ -7823,8 +7831,6 @@ declare namespace $.$$ {
 
 declare namespace $ {
 }
-
-declare let $apxutechtop_samosbor_map_gigacluster_ref: string;
 
 export = $;
 //# sourceMappingURL=web.d.ts.map

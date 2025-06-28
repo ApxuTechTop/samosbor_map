@@ -5232,5 +5232,12 @@ var $;
     })($$ = $_1.$$ || ($_1.$$ = {}));
 })($ || ($ = {}));
 
+;
+"use strict";
+var $;
+(function ($) {
+    $.$apxutechtop_samosbor_map_app_gigacluster_ref = "rIuXD13u_MIkær61B";
+})($ || ($ = {}));
+
 
 //# sourceMappingURL=web.test.js.map
