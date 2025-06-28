@@ -6,11 +6,11 @@ namespace $.$$ {
 	} ) {
 		@$mol_mem
 		static global() {
-			// const storage = $hyoo_crus_glob.home( Gigacluster ) // home для каждого юзера свой
+			// const storage = $hyoo_crus_glob.home( Gigacluster )
 			// const ref = storage.ref().description
 			// console.log( "global ref:", ref )
-			console.log( $apxutechtop_samosbor_map_gigacluster_ref )
-			const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( $apxutechtop_samosbor_map_gigacluster_ref ), Gigacluster ) // используем мой home
+			console.log( $apxutechtop_samosbor_map_app_gigacluster_ref )
+			const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( $apxutechtop_samosbor_map_app_gigacluster_ref ), Gigacluster ) // используем мой home
 			return storage
 		}
 		@$mol_action
@@ -79,7 +79,7 @@ namespace $.$$ {
 		}
 
 		@$mol_mem_key
-		selected_blocks(ref: any, next?: $.$apxutechtop_samosbor_map_block | null) {
+		selected_blocks( ref: any, next?: $.$apxutechtop_samosbor_map_block | null ) {
 			return next
 		}
 

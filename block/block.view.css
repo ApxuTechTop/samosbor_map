@@ -96,6 +96,8 @@
 		--transition-height: 50px;
 		box-sizing: content-box;
 		z-index: 4000;
+		position: absolute;
+		background-color: #FFFFFF80;
 
 		&[hidden] {
 			display: none;
@@ -118,11 +120,7 @@
 			translate: -10px;
 		}
 
-		position: absolute;
-		/* transform: translate(-50%, -50%); */
-		/* border: 5px solid white; */
-		background-color: #FFFFFF80;
-		z-index: 100;
+		
 	}
 
 	[apxutechtop_samosbor_map_block_part] {

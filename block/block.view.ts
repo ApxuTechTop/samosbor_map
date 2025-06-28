@@ -918,23 +918,40 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
+		has_theatre_place() {
+			return Math.random() < 0.5
+		}
+		@$mol_mem
+		has_party_place() {
+			return Math.random() < 0.5
+		}
+		@$mol_mem
+		has_hospital_place() {
+			return Math.random() < 0.5
+		}
+		@$mol_mem
+		has_warehouse_place() {
+			return Math.random() < 0.5
+		}
+
+		@$mol_mem
 		theatre_place() {
-			return this.theatre_icon()
+			return this.has_theatre_place() ? this.theatre_icon() : null
 		}
 
 		@$mol_mem
 		party_place() {
-			return this.party_icon()
+			return this.has_party_place() ? this.party_icon() : null
 		}
 
 		@$mol_mem
 		hospital_place() {
-			return this.hospital_icon()
+			return this.has_hospital_place() ? this.hospital_icon() : null
 		}
 
 		@$mol_mem
 		warehouse_place() {
-			return this.warehouse_icon()
+			return this.has_warehouse_place() ? this.warehouse_icon() : null
 		}
 
 		@$mol_mem
