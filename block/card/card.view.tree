@@ -7,6 +7,11 @@ $apxu_samosbor_map_block_card_position_input $apxu_samosbor_map_block_card_numbe
 	sub /
 		<= String
 
+$apxu_samosbor_map_block_card_flight_button $mol_button_major
+	attr *
+		^
+		edit-mode <= edit_mode? false
+
 $apxu_samosbor_map_block_card $mol_view
 	block $apxu_samosbor_map_block
 	edit_mode? false
@@ -65,16 +70,14 @@ $apxu_samosbor_map_block_card $mol_view
 													value? <=> min_floor? -15
 						<= flights $mol_view
 							sub /
-								<= flight_left_button $mol_button_major
-									attr *
-										edit-mode <= edit_mode 
+								<= flight_left_button $apxu_samosbor_map_block_card_flight_button
+									edit_mode <= edit_mode 
 									sub / <= flight_left_icon $mol_icon_chevron_left
 								<= flight_view $mol_view
 									sub /
 										^ current_flight /
-								<= flight_right_button $mol_button_major
-									attr *
-										edit-mode <= edit_mode 
+								<= flight_right_button $apxu_samosbor_map_block_card_flight_button
+									edit_mode <= edit_mode 
 									sub / <= flight_right_icon $mol_icon_chevron_right
 				<= block_buttons $mol_view
 					sub /

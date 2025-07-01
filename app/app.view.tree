@@ -17,7 +17,7 @@ $apxu_samosbor_map_app $mol_view
 		pos_x? <=> pos_x_value*? 0
 		pos_y? <=> pos_y_value*? 0
 		block_layer? <=> layer_value*? 0
-		block <= block_view*
+		block <= Block*
 	Transition* $mol_view
 		attr *
 			direction <= transition_direction* \vertical
