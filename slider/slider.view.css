@@ -1,4 +1,4 @@
-[apxutechtop_samosbor_map_slider] {
+[apxu_samosbor_map_slider] {
 	&[direction=vertical] {
 		height: 100%;
 	}
@@ -6,7 +6,7 @@
 	gap: 10px;
 }
 
-[apxutechtop_samosbor_map_slider_bar] {
+[apxu_samosbor_map_slider_bar] {
 	position: relative;
 
 	height: 100%;
@@ -33,7 +33,7 @@
 	}
 }
 
-[apxutechtop_samosbor_map_slider_thumb] {
+[apxu_samosbor_map_slider_thumb] {
 	position: relative;
 	width: 27px;
 	height: 27px;
@@ -56,7 +56,7 @@
 	cursor: pointer;
 }
 
-[apxutechtop_samosbor_map_slider_slots] {
+[apxu_samosbor_map_slider_slots] {
 	flex-direction: column;
 	justify-content: space-between;
 	padding-top: 11.5px;
@@ -65,7 +65,7 @@
 	pointer-events: none;
 }
 
-[apxutechtop_samosbor_map_slider_slot] {
+[apxu_samosbor_map_slider_slot] {
 	width: 13px;
 	height: 3px;
 	background-color: #6C757D;

@@ -36,8 +36,8 @@
 	}
 }
 
-[apxutechtop_samosbor_map_cluster]>*,
-[apxutechtop_samosbor_map_block] {
+[apxu_samosbor_map_cluster]>*,
+[apxu_samosbor_map_block] {
 
 	[mol_view] {
 		transition: none;
@@ -69,12 +69,12 @@
 
 	padding: calc(var(--transition-length) / 2);
 
-	[apxutechtop_samosbor_map_block_content] {
+	[apxu_samosbor_map_block_content] {
 		z-index: 501;
 	}
 
 	&:not([visible]) {
-		[apxutechtop_samosbor_map_block_content] {
+		[apxu_samosbor_map_block_content] {
 			opacity: 0.2;
 			z-index: 500;
 		}
@@ -91,7 +91,7 @@
 	left: 0px;
 	position: absolute;
 
-	[apxutechtop_samosbor_map_block_transition] {
+	[apxu_samosbor_map_block_transition] {
 		--transition-width: 50px;
 		--transition-height: 50px;
 		box-sizing: content-box;
@@ -120,10 +120,10 @@
 			translate: -10px;
 		}
 
-		
+
 	}
 
-	[apxutechtop_samosbor_map_block_part] {
+	[apxu_samosbor_map_block_part] {
 		width: var(--part-width);
 		height: var(--part-width);
 
@@ -133,8 +133,8 @@
 		}
 	}
 
-	[apxutechtop_samosbor_map_block_profession_part],
-	[apxutechtop_samosbor_map_block_places_part] {
+	[apxu_samosbor_map_block_profession_part],
+	[apxu_samosbor_map_block_places_part] {
 
 		&>* {
 			width: 100%;
@@ -156,7 +156,7 @@
 
 	}
 
-	[apxutechtop_samosbor_map_block_floor_part] {
+	[apxu_samosbor_map_block_floor_part] {
 		padding-top: 50px;
 		padding-right: 11px;
 		padding-bottom: 50px;
@@ -195,7 +195,7 @@
 		}
 	}
 
-	[apxutechtop_samosbor_map_block_flight] {
+	[apxu_samosbor_map_block_flight] {
 		[mol_icon] {
 			width: var(--duo-icon-size);
 			height: var(--duo-icon-size);
@@ -209,8 +209,8 @@
 
 	&[editing] {
 
-		[apxutechtop_samosbor_map_block_flight],
-		[apxutechtop_samosbor_map_block_passage] {
+		[apxu_samosbor_map_block_flight],
+		[apxu_samosbor_map_block_passage] {
 			z-index: 2000;
 
 			&::after {
@@ -224,10 +224,10 @@
 
 		}
 
-		[apxutechtop_samosbor_map_block_up_middle_passage],
-		[apxutechtop_samosbor_map_block_down_middle_passage],
-		[apxutechtop_samosbor_map_block_left_passage],
-		[apxutechtop_samosbor_map_block_right_passage] {
+		[apxu_samosbor_map_block_up_middle_passage],
+		[apxu_samosbor_map_block_down_middle_passage],
+		[apxu_samosbor_map_block_left_passage],
+		[apxu_samosbor_map_block_right_passage] {
 			z-index: 2000;
 
 			&::after {
@@ -235,13 +235,13 @@
 			}
 		}
 
-		[apxutechtop_samosbor_map_block_fence] {
+		[apxu_samosbor_map_block_fence] {
 			outline: 3px solid black;
 			animation: blink-edit 2s infinite;
 		}
 	}
 
-	[apxutechtop_samosbor_map_block_passage] {
+	[apxu_samosbor_map_block_passage] {
 		&::before {
 			background-color: var(--main);
 		}
@@ -254,14 +254,14 @@
 			}
 		}
 
-		[apxutechtop_samosbor_map_block_passage_interfloor] {
+		[apxu_samosbor_map_block_passage_interfloor] {
 			display: flex;
 			gap: 10px;
 			justify-content: center;
 			align-items: center;
 		}
 
-		[apxutechtop_samosbor_map_block_passage_floor_inc] {
+		[apxu_samosbor_map_block_passage_floor_inc] {
 			z-index: 2000;
 			font-family: "Roboto";
 			font-weight: 700;
@@ -272,31 +272,31 @@
 			color: white;
 		}
 
-		[apxutechtop_samosbor_map_block_passage_stairs] {
+		[apxu_samosbor_map_block_passage_stairs] {
 			width: 30px;
 			height: 30px;
 		}
 	}
 
-	[apxutechtop_samosbor_map_block_middle_flight] {
+	[apxu_samosbor_map_block_middle_flight] {
 		&::before {
 			background-color: var(--main);
 		}
 
 	}
 
-	[apxutechtop_samosbor_map_block_blockname] {
+	[apxu_samosbor_map_block_blockname] {
 		z-index: 10;
 		align-items: center;
 	}
 
-	[apxutechtop_samosbor_map_block_currentfloor] {
+	[apxu_samosbor_map_block_currentfloor] {
 		z-index: 10;
 		align-items: center;
 	}
 
 
-	[apxutechtop_samosbor_map_block_content] {
+	[apxu_samosbor_map_block_content] {
 		box-sizing: border-box;
 		background-color: white;
 		cursor: pointer;
@@ -329,16 +329,16 @@
 		}
 	}
 
-	[apxutechtop_samosbor_map_block_middle_row] {
+	[apxu_samosbor_map_block_middle_row] {
 		display: flex;
 		gap: 10px;
 		background-color: var(--bg);
 
-		[apxutechtop_samosbor_map_block_hallway] {
+		[apxu_samosbor_map_block_hallway] {
 			background-color: var(--bg);
 		}
 
-		[apxutechtop_samosbor_map_block_fence] {
+		[apxu_samosbor_map_block_fence] {
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -368,7 +368,7 @@
 			background-color: var(--bg);
 		}
 
-		[apxutechtop_samosbor_map_block_passage] {
+		[apxu_samosbor_map_block_passage] {
 			position: relative;
 
 			&::before {
@@ -384,7 +384,7 @@
 
 	}
 
-	[apxutechtop_samosbor_map_block_row] {
+	[apxu_samosbor_map_block_row] {
 		display: flex;
 		gap: 10px;
 
@@ -405,7 +405,7 @@
 		}
 	}
 
-	[apxutechtop_samosbor_map_block_left_flight] {
+	[apxu_samosbor_map_block_left_flight] {
 		[mol_icon] {
 			width: var(--duo-icon-size);
 			height: var(--duo-icon-size);
@@ -419,7 +419,7 @@
 		}
 	}
 
-	[apxutechtop_samosbor_map_block_name_part] {
+	[apxu_samosbor_map_block_name_part] {
 		padding-top: 50px;
 		padding-right: 11px;
 		padding-bottom: 50px;
@@ -430,7 +430,7 @@
 		align-items: center;
 		justify-content: center;
 
-		[apxutechtop_samosbor_map_block_blockname] {
+		[apxu_samosbor_map_block_blockname] {
 			color: white;
 			font-family: "Roboto";
 			font-weight: 700;
@@ -440,7 +440,7 @@
 			text-align: center;
 		}
 
-		[apxutechtop_samosbor_map_block_currentfloor] {
+		[apxu_samosbor_map_block_currentfloor] {
 			color: white;
 			font-family: "Roboto";
 			font-weight: 700;
@@ -461,7 +461,8 @@
 		}
 	}
 
-	[apxutechtop_samosbor_map_block_info_part] {
+	[apxu_samosbor_map_block_info_part],
+	[apxu_samosbor_map_block_effects_part] {
 		padding-top: 50px;
 		padding-right: 11px;
 		padding-bottom: 50px;
@@ -482,12 +483,24 @@
 			line-height: 100%;
 		}
 
-		[apxutechtop_samosbor_map_block_gen_icon] {
+		[apxu_samosbor_map_block_gen_icon] {
 			width: 28px;
 			height: 36px;
 		}
 
-		[apxutechtop_samosbor_map_block_generator_floor] {
+		[apxu_samosbor_map_block_flooded_icon] {
+			width: 34px;
+			height: 34px;
+		}
+
+		[apxu_samosbor_map_block_roof_icon] {
+			width: 36px;
+			height: 30px;
+		}
+
+		[apxu_samosbor_map_block_generator_floor],
+		[apxu_samosbor_map_block_flooded_floor_view],
+		[apxu_samosbor_map_block_roof_floor_view] {
 			z-index: 1000;
 			color: white;
 			font-family: "Roboto";
@@ -502,22 +515,22 @@
 
 	&[direction=up],
 	&[direction=down] {
-		[apxutechtop_samosbor_map_block_row] {
+		[apxu_samosbor_map_block_row] {
 			width: 100%;
 			height: var(--part-width);
 		}
 
-		[apxutechtop_samosbor_map_block_content] {
+		[apxu_samosbor_map_block_content] {
 			width: var(--width);
 			height: var(--height);
 		}
 
-		[apxutechtop_samosbor_map_block_hallway] {
+		[apxu_samosbor_map_block_hallway] {
 			width: 100%;
 			height: var(--passage-width);
 		}
 
-		[apxutechtop_samosbor_map_block_passage] {
+		[apxu_samosbor_map_block_passage] {
 			width: var(--passage-width);
 			height: var(--part-width);
 
@@ -536,13 +549,13 @@
 			}
 		}
 
-		[apxutechtop_samosbor_map_block_middle_flight] {
+		[apxu_samosbor_map_block_middle_flight] {
 			width: var(--passage-width);
 			height: var(--part-width);
 		}
 
-		[apxutechtop_samosbor_map_block_middle_row] {
-			[apxutechtop_samosbor_map_block_passage] {
+		[apxu_samosbor_map_block_middle_row] {
+			[apxu_samosbor_map_block_passage] {
 				width: var(--part-width);
 				height: var(--passage-width);
 
@@ -556,18 +569,18 @@
 				}
 			}
 
-			[apxutechtop_samosbor_map_block_left_crossroad],
-			[apxutechtop_samosbor_map_block_right_crossroad] {
+			[apxu_samosbor_map_block_left_crossroad],
+			[apxu_samosbor_map_block_right_crossroad] {
 				width: var(--passage-width);
 				height: var(--passage-width);
 			}
 
-			[apxutechtop_samosbor_map_block_left_hallway],
-			[apxutechtop_samosbor_map_block_right_hallway] {
+			[apxu_samosbor_map_block_left_hallway],
+			[apxu_samosbor_map_block_right_hallway] {
 				width: var(--part-width);
 			}
 
-			[apxutechtop_samosbor_map_block_fence] {
+			[apxu_samosbor_map_block_fence] {
 				&::after {
 					width: 10px;
 					height: calc(100% + 10px);
@@ -593,12 +606,12 @@
 
 	&[direction=left],
 	&[direction=right] {
-		[apxutechtop_samosbor_map_block_row] {
+		[apxu_samosbor_map_block_row] {
 			width: var(--part-width);
 			height: 100%;
 		}
 
-		[apxutechtop_samosbor_map_block_content] {
+		[apxu_samosbor_map_block_content] {
 			width: var(--height);
 			height: var(--width);
 
@@ -614,12 +627,12 @@
 
 		;
 
-		[apxutechtop_samosbor_map_block_hallway] {
+		[apxu_samosbor_map_block_hallway] {
 			width: var(--passage-width);
 			height: 100%;
 		}
 
-		[apxutechtop_samosbor_map_block_passage] {
+		[apxu_samosbor_map_block_passage] {
 			width: var(--part-width);
 			height: var(--passage-width);
 
@@ -638,13 +651,13 @@
 			}
 		}
 
-		[apxutechtop_samosbor_map_block_middle_flight] {
+		[apxu_samosbor_map_block_middle_flight] {
 			height: var(--passage-width);
 			width: var(--part-width);
 		}
 
-		[apxutechtop_samosbor_map_block_middle_row] {
-			[apxutechtop_samosbor_map_block_passage] {
+		[apxu_samosbor_map_block_middle_row] {
+			[apxu_samosbor_map_block_passage] {
 				height: var(--part-width);
 				width: var(--passage-width);
 
@@ -658,18 +671,18 @@
 				}
 			}
 
-			[apxutechtop_samosbor_map_block_left_crossroad],
-			[apxutechtop_samosbor_map_block_right_crossroad] {
+			[apxu_samosbor_map_block_left_crossroad],
+			[apxu_samosbor_map_block_right_crossroad] {
 				width: var(--passage-width);
 				height: var(--passage-width);
 			}
 
-			[apxutechtop_samosbor_map_block_left_hallway],
-			[apxutechtop_samosbor_map_block_right_hallway] {
+			[apxu_samosbor_map_block_left_hallway],
+			[apxu_samosbor_map_block_right_hallway] {
 				height: var(--part-width);
 			}
 
-			[apxutechtop_samosbor_map_block_fence] {
+			[apxu_samosbor_map_block_fence] {
 				flex-direction: column;
 
 				&::after {
@@ -694,21 +707,21 @@
 	}
 
 	&[direction=up] {
-		[apxutechtop_samosbor_map_block_content] {
+		[apxu_samosbor_map_block_content] {
 			flex-direction: column;
 		}
 
-		[apxutechtop_samosbor_map_block_row] {
+		[apxu_samosbor_map_block_row] {
 			flex-direction: row;
 		}
 
-		[apxutechtop_samosbor_map_block_passage] {
+		[apxu_samosbor_map_block_passage] {
 			&[left] {
 				&::before {
 					left: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: row;
 				}
 			}
@@ -718,7 +731,7 @@
 					right: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: row-reverse;
 				}
 			}
@@ -728,7 +741,7 @@
 					top: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: column;
 				}
 			}
@@ -738,7 +751,7 @@
 					bottom: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: column-reverse;
 				}
 			}
@@ -746,32 +759,32 @@
 
 		}
 
-		[apxutechtop_samosbor_map_block_name_part] {
+		[apxu_samosbor_map_block_name_part] {
 			left: var(--pos);
 			top: 0px;
 		}
 
-		[apxutechtop_samosbor_map_block_middle_row] {
+		[apxu_samosbor_map_block_middle_row] {
 			flex-direction: row;
 		}
 	}
 
 	&[direction=down] {
-		[apxutechtop_samosbor_map_block_content] {
+		[apxu_samosbor_map_block_content] {
 			flex-direction: column-reverse;
 		}
 
-		[apxutechtop_samosbor_map_block_row] {
+		[apxu_samosbor_map_block_row] {
 			flex-direction: row-reverse;
 		}
 
-		[apxutechtop_samosbor_map_block_passage] {
+		[apxu_samosbor_map_block_passage] {
 			&[left] {
 				&::before {
 					right: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: row-reverse;
 				}
 			}
@@ -781,7 +794,7 @@
 					left: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: row;
 				}
 			}
@@ -791,7 +804,7 @@
 					bottom: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: column-reverse;
 				}
 			}
@@ -801,33 +814,33 @@
 					top: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: column;
 				}
 			}
 		}
 
-		[apxutechtop_samosbor_map_block_middle_row] {
+		[apxu_samosbor_map_block_middle_row] {
 			flex-direction: row-reverse;
 		}
 	}
 
 	&[direction=left] {
-		[apxutechtop_samosbor_map_block_content] {
+		[apxu_samosbor_map_block_content] {
 			flex-direction: row;
 		}
 
-		[apxutechtop_samosbor_map_block_row] {
+		[apxu_samosbor_map_block_row] {
 			flex-direction: column-reverse;
 		}
 
-		[apxutechtop_samosbor_map_block_passage] {
+		[apxu_samosbor_map_block_passage] {
 			&[left] {
 				&::before {
 					bottom: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: column-reverse;
 				}
 			}
@@ -837,7 +850,7 @@
 					top: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: column;
 				}
 			}
@@ -847,7 +860,7 @@
 					left: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: row;
 				}
 			}
@@ -857,33 +870,33 @@
 					right: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: row-reverse;
 				}
 			}
 		}
 
-		[apxutechtop_samosbor_map_block_middle_row] {
+		[apxu_samosbor_map_block_middle_row] {
 			flex-direction: column-reverse;
 		}
 	}
 
 	&[direction=right] {
-		[apxutechtop_samosbor_map_block_content] {
+		[apxu_samosbor_map_block_content] {
 			flex-direction: row-reverse;
 		}
 
-		[apxutechtop_samosbor_map_block_row] {
+		[apxu_samosbor_map_block_row] {
 			flex-direction: column;
 		}
 
-		[apxutechtop_samosbor_map_block_passage] {
+		[apxu_samosbor_map_block_passage] {
 			&[left] {
 				&::before {
 					top: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: column;
 				}
 			}
@@ -893,7 +906,7 @@
 					bottom: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: column-reverse;
 				}
 			}
@@ -903,7 +916,7 @@
 					right: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: row-reverse;
 				}
 			}
@@ -913,13 +926,13 @@
 					left: 0px;
 				}
 
-				[apxutechtop_samosbor_map_block_passage_interfloor] {
+				[apxu_samosbor_map_block_passage_interfloor] {
 					flex-direction: row;
 				}
 			}
 		}
 
-		[apxutechtop_samosbor_map_block_middle_row] {
+		[apxu_samosbor_map_block_middle_row] {
 			flex-direction: column;
 		}
 	}

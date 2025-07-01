@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	export class $apxutechtop_samosbor_map_slider_input extends $.$apxutechtop_samosbor_map_slider_input {
+	export class $apxu_samosbor_map_slider_input extends $.$apxu_samosbor_map_slider_input {
 
 		@$mol_mem
 		delta_x( val?: number ): number {

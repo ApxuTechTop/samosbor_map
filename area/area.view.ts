@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	export class $apxutechtop_samosbor_map_area extends $.$apxutechtop_samosbor_map_area {
+	export class $apxu_samosbor_map_area extends $.$apxu_samosbor_map_area {
 		constructor() {
 			super()
 			this.log()

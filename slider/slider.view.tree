@@ -1,4 +1,4 @@
-$apxutechtop_samosbor_map_slider_input $mol_plugin
+$apxu_samosbor_map_slider_input $mol_plugin
 	x? 0
 	y? 0
 	delta_x? 0
@@ -18,7 +18,7 @@ $apxutechtop_samosbor_map_slider_input $mol_plugin
 		^
 		moving <= moving? false
 
-$apxutechtop_samosbor_map_slider $mol_view
+$apxu_samosbor_map_slider $mol_view
 	min_value? -1
 	max_value? 1
 	value? 0
@@ -38,7 +38,7 @@ $apxutechtop_samosbor_map_slider $mol_view
 			sub /
 				<= Thumb $mol_view
 					plugins /
-						<= input_plugin $apxutechtop_samosbor_map_slider_input
+						<= input_plugin $apxu_samosbor_map_slider_input
 							delta_x? => delta_x? 0
 							delta_y? <=> delta_y? 0
 							on_drag_start? <=> drag_start? null

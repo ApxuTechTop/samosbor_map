@@ -1,4 +1,4 @@
-[apxutechtop_samosbor_map_app] {
+[apxu_samosbor_map_app] {
 	--bg: #6E6E6E;
 	--main: #585858;
 
@@ -148,11 +148,11 @@
 	}
 }
 
-[apxutechtop_samosbor_map_app] {
+[apxu_samosbor_map_app] {
 	background-color: #1E1E1E;
 }
 
-[apxutechtop_samosbor_map_app_canvas] {
+[apxu_samosbor_map_app_canvas] {
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -160,11 +160,11 @@
 	/* background-color: #504d4c; */
 }
 
-[apxutechtop_samosbor_map_cluster] {
+[apxu_samosbor_map_cluster] {
 	position: absolute;
 }
 
-[apxutechtop_samosbor_map_app_block_connection] {
+[apxu_samosbor_map_app_block_connection] {
 	position: absolute;
 	width: 40px;
 	height: 40px;
@@ -185,7 +185,7 @@
 	}
 }
 
-[apxutechtop_samosbor_map_app_transition] {
+[apxu_samosbor_map_app_transition] {
 	--transition-width: 50px;
 	--transition-height: 50px;
 	box-sizing: content-box;
@@ -211,7 +211,7 @@
 	background-color: #FFFFFF80;
 }
 
-[apxutechtop_samosbor_map_app_name_setting] {
+[apxu_samosbor_map_app_name_setting] {
 	height: 40px !important;
 }
 
@@ -255,7 +255,7 @@
 	--text-color: #FFFFFF;
 }
 
-[apxutechtop_samosbor_map_app_layer_bar] {
+[apxu_samosbor_map_app_layer_bar] {
 	/* width: 20px;
 	height: 80%; */
 	position: fixed;
@@ -268,7 +268,7 @@
 	z-index: 10;
 }
 
-[apxutechtop_samosbor_map_app_slider_container] {
+[apxu_samosbor_map_app_slider_container] {
 	position: fixed;
 	right: 0px;
 	top: 0px;
@@ -278,7 +278,7 @@
 	z-index: 20;
 }
 
-[apxutechtop_samosbor_map_app_block_form] {
+[apxu_samosbor_map_app_block_form] {
 	align-self: anchor-center;
 	right: 50px;
 	/* width: 200px;
@@ -288,20 +288,20 @@
 	max-height: 100%;
 	overflow: scroll;
 
-	[apxutechtop_samosbor_map_app_block_type_switch] {
+	[apxu_samosbor_map_app_block_type_switch] {
 		flex-wrap: wrap;
 		flex-direction: column;
 	}
 }
 
-[apxutechtop_samosbor_map_app_control_panel] {
+[apxu_samosbor_map_app_control_panel] {
 	justify-self: anchor-center;
 	top: 10px;
 	position: fixed;
 	z-index: 10;
 }
 
-[apxutechtop_samosbor_map_app_access_panel] {
+[apxu_samosbor_map_app_access_panel] {
 	/* align-self: anchor-center; */
 	width: 200px;
 	top: 10px;
@@ -309,7 +309,7 @@
 	position: fixed;
 	z-index: 10;
 
-	[apxutechtop_samosbor_map_app_my_key] {
+	[apxu_samosbor_map_app_my_key] {
 		word-break: break-all;
 	}
 }

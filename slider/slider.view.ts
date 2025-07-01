@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	export class $apxutechtop_samosbor_map_slider extends $.$apxutechtop_samosbor_map_slider {
+	export class $apxu_samosbor_map_slider extends $.$apxu_samosbor_map_slider {
 		@$mol_mem
 		slot_count() {
 			return ( this.max_value() - this.min_value() ) + 1

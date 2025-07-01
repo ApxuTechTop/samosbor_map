@@ -2,15 +2,15 @@ namespace $.$$ {
 
 
 	export class Gigacluster extends $hyoo_crus_home.with( {
-		Blocks: $hyoo_crus_list_ref_to( () => $apxutechtop_samosbor_map_block_data ),
+		Blocks: $hyoo_crus_list_ref_to( () => $apxu_samosbor_map_block_data ),
 	} ) {
 		@$mol_mem
 		static global() {
 			// const storage = $hyoo_crus_glob.home( Gigacluster )
 			// const ref = storage.ref().description
 			// console.log( "global ref:", ref )
-			console.log( $apxutechtop_samosbor_map_app_gigacluster_ref )
-			const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( $apxutechtop_samosbor_map_app_gigacluster_ref ), Gigacluster ) // используем мой home
+			console.log( $apxu_samosbor_map_app_gigacluster_ref )
+			const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( $apxu_samosbor_map_app_gigacluster_ref ), Gigacluster ) // используем мой home
 			return storage
 		}
 		@$mol_action
@@ -22,11 +22,11 @@ namespace $.$$ {
 		@$mol_action
 		static delete_block( ref: any ) {
 			// TODO пройтись по соединениям и удалить их
-			const block = $hyoo_crus_glob.Node( ref, $apxutechtop_samosbor_map_block_data )
+			const block = $hyoo_crus_glob.Node( ref, $apxu_samosbor_map_block_data )
 			block.transitions()?.forEach( ( transition ) => {
 				const connected_block_ref = transition.get_connected_block( ref )
 				if( !connected_block_ref ) return
-				const connected_block = $hyoo_crus_glob.Node( connected_block_ref, $apxutechtop_samosbor_map_block_data )
+				const connected_block = $hyoo_crus_glob.Node( connected_block_ref, $apxu_samosbor_map_block_data )
 				connected_block.transitions()?.forEach( ( connected_transition ) => {
 					if( connected_transition.get_connected_block( connected_block_ref ) === ref ) {
 						connected_block.Transitions( null )?.cut( connected_transition.ref() )
@@ -53,7 +53,7 @@ namespace $.$$ {
 					if( !port ) return
 					const block_ref = port.Block( null )?.val()
 					if( !block_ref ) return
-					const name = $hyoo_crus_glob.Node( block_ref, $apxutechtop_samosbor_map_block_data ).name()
+					const name = $hyoo_crus_glob.Node( block_ref, $apxu_samosbor_map_block_data ).name()
 					if( name === block_name && Number( port.Floor( null )?.val() ) === floor && port.Position( null )?.val() === position ) {
 						return true
 					}
@@ -66,7 +66,7 @@ namespace $.$$ {
 	}
 
 
-	export class $apxutechtop_samosbor_map_app extends $.$apxutechtop_samosbor_map_app {
+	export class $apxu_samosbor_map_app extends $.$apxu_samosbor_map_app {
 
 		@$mol_mem
 		map_land() {
@@ -74,28 +74,40 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		selected_block( next?: $.$apxutechtop_samosbor_map_block | null ) {
+		selected_block( next?: $.$apxu_samosbor_map_block | null ) {
 			return next
 		}
 
-		@$mol_mem_key
-		selected_blocks( ref: any, next?: $.$apxutechtop_samosbor_map_block | null ) {
-			return next
+		@$mol_mem
+		selected_blocks( next?: symbol[] ) {
+			return next ?? []
 		}
 
 		@$mol_mem_key
-		block_clicked( ref: any, event: any ) {
-			console.log( ref, event )
-			this.selected_block()?.selected( false )
-			// this.selected_blocks(ref)?.selected(false)
-			if( this.selected_block() == this.Block( ref ) ) {
-				this.selected_block( null )
+		block_selected( ref: symbol ) {
+			return this.selected_blocks().includes( ref )
+		}
+
+		@$mol_action
+		block_clicked( ref: symbol, event: any ) {
+			const ref_str = ref.description ?? ""
+			console.log( ref_str, event )
+			const block = this.Block( ref )
+			const selected_blocks = this.selected_blocks()
+			if( this.block_selected( ref ) ) {
+				this.selected_blocks( selected_blocks.filter( ( r ) => r !== ref ) )
 			} else {
-				this.selected_block( this.Block( ref ) )
-				this.selected_block()?.selected( true )
-				// this.selected_blocks(ref, this.Block(ref))
-				// this.selected_blocks(ref, this.Block(ref))?.selected(true)
+				this.selected_blocks( [ ...selected_blocks, ref ] )
 			}
+			console.log( this.selected_blocks() )
+		}
+
+		@$mol_mem
+		block_cards(): readonly ( $apxu_samosbor_map_block_card )[] {
+			const cards = this.selected_blocks().map( ( ref ) => {
+				return this.BlockCard( ref )
+			} )
+			return cards
 		}
 
 		@$mol_mem
@@ -103,25 +115,34 @@ namespace $.$$ {
 			return this.selected_block()?.generator_floor_value( next ) ?? 0
 		}
 
-		@$mol_mem
-		min_floor( next?: number ): number {
-			return this.selected_block()?.min_floor( next ) ?? 0
+		@$mol_mem_key
+		min_floor( ref: symbol, next?: number ): number {
+			const block = this.Block( ref )
+			return block.min_floor( next ) ?? 0
 		}
-		@$mol_mem
-		max_floor( next?: number ): number {
-			return this.selected_block()?.max_floor( next ) ?? 0
+		@$mol_mem_key
+		max_floor( ref: symbol, next?: number ): number {
+			const block = this.Block( ref )
+			return block.max_floor( next ) ?? 0
 		}
-		@$mol_mem
-		layer_value( next?: number ): number {
-			return this.selected_block()?.block_layer( next ) ?? 0
+		@$mol_action
+		close_click( ref: symbol, event?: any ) {
+			this.selected_blocks( [ ...this.selected_blocks().filter( ( r ) => r !== ref ) ] )
 		}
-		@$mol_mem
-		pos_x_value( next?: number ): number {
-			return this.selected_block()?.pos_x( next ) ?? 0
+		@$mol_mem_key
+		layer_value( ref: symbol, next?: number ): number {
+			const block = this.Block( ref )
+			return block.block_layer( next ) ?? 0
 		}
-		@$mol_mem
-		pos_y_value( next?: number ): number {
-			return this.selected_block()?.pos_y( next ) ?? 0
+		@$mol_mem_key
+		pos_x_value( ref: symbol, next?: number ): number {
+			const block = this.Block( ref )
+			return block.pos_x( next ) ?? 0
+		}
+		@$mol_mem_key
+		pos_y_value( ref: symbol, next?: number ): number {
+			const block = this.Block( ref )
+			return block.pos_y( next ) ?? 0
 		}
 		@$mol_mem
 		direction_value( next?: DirectionType ) {
@@ -149,9 +170,10 @@ namespace $.$$ {
 		delete_block() {
 			Gigacluster.delete_block( this.selected_block()?.block_data().ref() )
 		}
-		@$mol_mem
-		selected_block_name( next?: string ) {
-			return this.selected_block()?.block_name( next ) ?? ""
+		@$mol_mem_key
+		selected_block_name( ref: symbol, next?: string ) {
+			const block = this.Block( ref )
+			return block.block_name( next ) ?? ""
 		}
 
 		@$mol_mem_key
@@ -160,12 +182,12 @@ namespace $.$$ {
 		}
 		@$mol_mem_key
 		static block( ref: any ) {
-			const block_node = $hyoo_crus_glob.Node( ref, $apxutechtop_samosbor_map_block_data )
+			const block_node = $hyoo_crus_glob.Node( ref, $apxu_samosbor_map_block_data )
 			return block_node
 		}
 		@$mol_mem_key
 		block( ref: any ) {
-			return $apxutechtop_samosbor_map_app.block( ref )
+			return $apxu_samosbor_map_app.block( ref )
 		}
 		@$mol_mem
 		transitions() {
@@ -183,7 +205,7 @@ namespace $.$$ {
 			const node = $hyoo_crus_glob.Node( ref, TransitionData )
 			const block_ref = node.From( null )?.Block( null )?.val()
 			const block = this.block( block_ref )
-			const absolute_direction = $apxutechtop_samosbor_map_app.absolute_direction( block.direction(), node.From( null )?.Position( null )?.val()! )
+			const absolute_direction = $apxu_samosbor_map_app.absolute_direction( block.direction(), node.From( null )?.Position( null )?.val()! )
 			if( absolute_direction === "down" || absolute_direction === "up" ) {
 				return "horizontal"
 			} else {
@@ -195,7 +217,7 @@ namespace $.$$ {
 			const node = $hyoo_crus_glob.Node( ref, TransitionData )
 			const block_ref = node.From( null )?.Block( null )?.val()
 			const block = this.block( block_ref )
-			const offset = $apxutechtop_samosbor_map_app.getOffset( node.From( null )?.Position( null )?.val()!, block.direction() )
+			const offset = $apxu_samosbor_map_app.getOffset( node.From( null )?.Position( null )?.val()!, block.direction() )
 			const left = block.pos_x() * block_full_cell + offset.x
 			return left
 		}
@@ -204,7 +226,7 @@ namespace $.$$ {
 			const node = $hyoo_crus_glob.Node( ref, TransitionData )
 			const block_ref = node.From( null )?.Block( null )?.val()
 			const block = this.block( block_ref )
-			const offset = $apxutechtop_samosbor_map_app.getOffset( node.From( null )?.Position( null )?.val()!, block.direction() )
+			const offset = $apxu_samosbor_map_app.getOffset( node.From( null )?.Position( null )?.val()!, block.direction() )
 			const top = block.pos_y() * block_full_cell + offset.y
 			return top
 		}
@@ -320,6 +342,11 @@ namespace $.$$ {
 			return directions[
 				( posMap[ position ] + dirMap[ direction as keyof typeof dirMap ] ) % 4
 			]
+		}
+
+		@$mol_mem_key
+		block_view( ref: symbol ) {
+			return this.Block( ref )
 		}
 
 		@$mol_mem

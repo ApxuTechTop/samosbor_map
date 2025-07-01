@@ -1,4 +1,4 @@
-[apxutechtop_samosbor_map_area] {
+[apxu_samosbor_map_area] {
 	width: 300px;
 	height: 300px;
 	overflow: hidden;
@@ -9,7 +9,7 @@
 	}
 	display: block;
 }
-[apxutechtop_samosbor_map_area_plane] {
+[apxu_samosbor_map_area_plane] {
 	position: relative;
 	width: 0px;
 	height: 0px;

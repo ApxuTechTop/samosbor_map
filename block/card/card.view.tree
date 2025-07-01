@@ -1,3 +1,147 @@
-$apxutechtop_samosbor_map_block_card $mol_view
-	block $apxutechtop_samosbor_map_block
-	
+$apxu_samosbor_map_block_card_number_input $mol_number
+	minimal_height 0
+	sub /
+		<= String
+
+$apxu_samosbor_map_block_card_position_input $apxu_samosbor_map_block_card_number_input
+	sub /
+		<= String
+
+$apxu_samosbor_map_block_card $mol_view
+	block $apxu_samosbor_map_block
+	edit_mode? false
+	flight_icons* *
+		stairs <= stairs_icon* $apxu_samosbor_map_icon_stairs
+		elevator <= elevator_icon* $apxu_samosbor_map_icon_elevator
+		ladder_icon <= ladder_icon* $apxu_samosbor_map_icon_ladder
+	is_middle_flight? false
+	block_direction? \up
+	sub /
+		<= misc_buttons $mol_view
+			sub /
+				<= shop_button $mol_button_minor
+					sub / <= shop_icon $apxu_samosbor_map_icon_shop
+		<= control_buttons $mol_view
+			sub /
+				<= close_button $mol_button_minor
+					sub / <= close_icon $mol_icon_close
+					click? <=> close_click? null
+				<= edit_button $mol_check_icon
+					Icon <= edit_icon $mol_icon_pencil
+					checked? <=> edit_mode?
+				<= delete_button $mol_button_minor
+					sub / <= delete_icon $mol_icon_trash_can_outline
+		<= header $mol_view
+			sub /
+				<= block_info $mol_view
+					sub /
+						<= name_size $mol_view
+							sub /
+								<= block_name_input $mol_string
+									enabled <= edit_mode
+									value? <=> block_name? \Л-96
+								<= block_size $mol_view
+									sub /
+										<= max_floor_view $mol_view
+											sub /
+												<= max_floor_icon $apxu_samosbor_map_icon_max_floor
+												<= max_floor_value $apxu_samosbor_map_block_card_number_input
+													enabled <= edit_mode
+													value? <=> max_floor? 15
+										<= min_floor_view $mol_view
+											sub /
+												<= min_floor_icon $apxu_samosbor_map_icon_min_floor
+												<= min_floor_value $apxu_samosbor_map_block_card_number_input
+													enabled <= edit_mode
+													value? <=> min_floor? -15
+						<= flights $mol_view
+							sub /
+								<= flight_left_button $mol_button_major
+									attr *
+										edit-mode <= edit_mode 
+									sub / <= flight_left_icon $mol_icon_chevron_left
+								<= flight_view $mol_view
+									a <= left_flight_view $mol_view
+										sub /
+											<= left_flight_arrow $apxu_samosbor_map_icon_arrow_left
+											^ left_flight_icons /
+									b <= middle_flight_view $mol_view
+									c <= right_flight_view $mol_view
+										sub /
+											^ right_flight_icons /
+											<= right_flight_arrow $apxu_samosbor_map_icon_arrow_right
+									sub /
+										^ current_flight /
+								<= flight_right_button $mol_button_major
+									attr *
+										edit-mode <= edit_mode 
+									sub / <= flight_right_icon $mol_icon_chevron_right
+				<= block_buttons $mol_view
+					sub /
+						<= copy_button $mol_button_major
+							sub / <= copy_icon $mol_icon_content_copy
+							click? <=> copy_click? null
+						<= path_button $mol_button_major
+							sub / <= path_icon $mol_icon_map_marker_path
+							click? <=> path_click? null
+		<= position_info $mol_view
+			attr *
+				edit-mode <= edit_mode
+			sub /
+				<= coordinates $mol_view
+					sub /
+						<= pos_x_view $mol_view
+							sub /
+								\X: 
+								<= pos_x_input $apxu_samosbor_map_block_card_position_input
+									value? <=> pos_x? -999
+						<= pos_y_view $mol_view
+							sub /
+								\Y: 
+								<= pos_y_input $apxu_samosbor_map_block_card_position_input
+									value? <=> pos_y? 0
+						<= pos_z_view $mol_view
+							sub /
+								\L: 
+								<= pos_z_input $apxu_samosbor_map_block_card_position_input
+									value? <=> block_layer? 0
+				<= pos_controller $mol_view
+					sub /
+						<= up_button $mol_button_minor
+							sub / <= up_icon $apxu_samosbor_map_icon_arrow_up
+							click? <=> move_click*up? null
+							minimal_height 18
+							minimal_width 18
+						<= right_button $mol_button_minor
+							sub / <= right_icon $apxu_samosbor_map_icon_arrow_right
+							click? <=> move_click*right? null
+							minimal_height 18
+							minimal_width 18
+						<= down_button $mol_button_minor
+							sub / <= down_icon $apxu_samosbor_map_icon_arrow_down
+							click? <=> move_click*down? null
+							minimal_height 18
+							minimal_width 18
+						<= left_button $mol_button_minor
+							sub / <= left_icon $apxu_samosbor_map_icon_arrow_left
+							click? <=> move_click*left? null
+							minimal_height 18
+							minimal_width 18
+						<= rotate_button $mol_button_minor
+							click? <=> rotate_click? null
+							minimal_height 18
+							minimal_width 18
+							sub / <= rotation_icon $apxu_samosbor_map_icon_direction
+								style *
+									transform <= rotation \rotate(0deg)
+				<= pipe $mol_view
+		<= floors_info $mol_view
+			sub /
+				<= gen_floor_view $mol_view
+				<= board_floor_view $mol_view
+				<= roof_floor_view $mol_view
+				<= flooded_floor_view $mol_view
+		<= features $mol_view
+			sub /
+				<= professions $mol_view
+				<= places $mol_view

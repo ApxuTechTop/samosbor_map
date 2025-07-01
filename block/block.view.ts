@@ -16,7 +16,7 @@ namespace $.$$ {
 	export class BlockDirection extends $hyoo_crus_atom_enum( [ "up", "right", "down", "left" ] ) {}
 	export class TransitionPositionData extends $hyoo_crus_atom_enum( TransitionPositions ) {}
 	export class TransitionPort extends $hyoo_crus_dict.with( {
-		Block: $hyoo_crus_atom_ref_to( () => $apxutechtop_samosbor_map_block_data ),
+		Block: $hyoo_crus_atom_ref_to( () => $apxu_samosbor_map_block_data ),
 		Floor: $hyoo_crus_atom_int,
 		Position: TransitionPositionData,
 	} ) {
@@ -41,9 +41,9 @@ namespace $.$$ {
 		remove_transition() {
 			const from_block_ref = this.From( null )?.Block( null )?.val()
 
-			const from_block = from_block_ref && $apxutechtop_samosbor_map_app.block( from_block_ref )
+			const from_block = from_block_ref && $apxu_samosbor_map_app.block( from_block_ref )
 			const to_block_ref = this.To( null )?.Block( null )?.val()
-			const to_block = to_block_ref && $apxutechtop_samosbor_map_app.block( to_block_ref )
+			const to_block = to_block_ref && $apxu_samosbor_map_app.block( to_block_ref )
 			to_block?.Transitions( null )?.cut( this.ref() )
 			from_block?.Transitions( null )?.cut( this.ref() )
 		}
@@ -96,6 +96,9 @@ namespace $.$$ {
 			if( transition === "right" || transition === "left" ) {
 				return "normal"
 			}
+			if( transition === "up_middle" || transition === "down_middle" ) {
+				return "noway"
+			}
 			const property_name = FloorData.positions_map[ transition ]
 			const passage_type = this[ property_name ]( null )?.Type( null )?.val()
 			return passage_type ?? "noway"
@@ -139,7 +142,7 @@ namespace $.$$ {
 		Floor: $hyoo_crus_atom_int,
 	} ) {}
 
-	export class $apxutechtop_samosbor_map_block_data extends $hyoo_crus_entity.with( {
+	export class $apxu_samosbor_map_block_data extends $hyoo_crus_entity.with( {
 		Name: $hyoo_crus_atom_str,
 		Direction: BlockDirection,
 		Type: BlockType,
@@ -183,7 +186,7 @@ namespace $.$$ {
 		}
 
 		@$mol_action
-		connect( my_floor: number, my_pos: TransitionPosition, block_node: $apxutechtop_samosbor_map_block_data, another_floor: number, another_pos: TransitionPosition ) {
+		connect( my_floor: number, my_pos: TransitionPosition, block_node: $apxu_samosbor_map_block_data, another_floor: number, another_pos: TransitionPosition ) {
 			const trans = this.Transitions( null )?.make( { '': $hyoo_crus_rank_read } )
 			if( !trans ) return
 			block_node.Transitions( null )?.add( trans.ref() )
@@ -303,7 +306,7 @@ namespace $.$$ {
 		"Э": "je",
 		"Я": "ya",
 	}
-	export class $apxutechtop_samosbor_map_block_passage extends $.$apxutechtop_samosbor_map_block_passage {
+	export class $apxu_samosbor_map_block_passage extends $.$apxu_samosbor_map_block_passage {
 		floor_inc_value(): string {
 			if( this.type() === "stairs_up" ) {
 				return "+1"
@@ -321,25 +324,25 @@ namespace $.$$ {
 			return this.is_interfloor() ? this.InterFloor() : null
 		}
 	}
-	export class $apxutechtop_samosbor_map_block extends $.$apxutechtop_samosbor_map_block {
+	export class $apxu_samosbor_map_block extends $.$apxu_samosbor_map_block {
 		// @$mol_mem
 		// block_name(next?: string) {
 		// 	return next ?? "qwe"
 		// }
 		// @$mol_mem_key
 		// block_link( block_name: string, next?: Block ): Block {
-		// 	return $apxutechtop_samosbor_map_app.block(block_name, next)
+		// 	return $apxu_samosbor_map_app.block(block_name, next)
 		// }
 		@$mol_mem
-		block_ref( next?: $apxutechtop_samosbor_map_block_data ) {
+		block_ref( next?: $apxu_samosbor_map_block_data ) {
 			return next!
 		}
 		@$mol_mem
-		block_data( next?: $apxutechtop_samosbor_map_block_data ): $apxutechtop_samosbor_map_block_data {
+		block_data( next?: $apxu_samosbor_map_block_data ): $apxu_samosbor_map_block_data {
 			return next!
 		}
 		@$mol_mem
-		block_direction( next?: DirectionType ) {
+		block_direction( next?: DirectionType ): DirectionType {
 			return this.block_data().direction( next )
 		}
 		@$mol_mem
@@ -408,7 +411,7 @@ namespace $.$$ {
 			for( const transition of this.block_data().transitions() ?? [] ) {
 				const from_block_ref = transition.From( null )?.Block( null )?.val()
 				if( !from_block_ref ) continue
-				const block_data = $hyoo_crus_glob.Node( from_block_ref, $apxutechtop_samosbor_map_block_data )
+				const block_data = $hyoo_crus_glob.Node( from_block_ref, $apxu_samosbor_map_block_data )
 				if( this.block_data() === block_data ) {
 					transition_views.push( this.Transition( transition.ref() ) )
 				}
@@ -426,8 +429,8 @@ namespace $.$$ {
 				left: { x: padding, y: 0 },
 				right: { x: -padding, y: 0 },
 			}
-			const transition_offset = $apxutechtop_samosbor_map_app.getOffset( position, this.block_direction() )
-			const abs_dir = $apxutechtop_samosbor_map_app.absolute_direction( this.block_direction(), position )
+			const transition_offset = $apxu_samosbor_map_app.getOffset( position, this.block_direction() )
+			const abs_dir = $apxu_samosbor_map_app.absolute_direction( this.block_direction(), position )
 			const adjustment = adjustments[ abs_dir ] ?? { x: 0, y: 0 }
 			const adjusted_offset = {
 				x: transition_offset.x - 50,
@@ -441,7 +444,7 @@ namespace $.$$ {
 			const node = $hyoo_crus_glob.Node( ref, TransitionData )
 			const block_ref = node.From( null )?.Block( null )?.val()
 			const block = this.block_data()
-			const absolute_direction = $apxutechtop_samosbor_map_app.absolute_direction( block.direction(), node.From( null )?.Position( null )?.val()! )
+			const absolute_direction = $apxu_samosbor_map_app.absolute_direction( block.direction(), node.From( null )?.Position( null )?.val()! )
 			if( absolute_direction === "down" || absolute_direction === "up" ) {
 				return "horizontal"
 			} else {
@@ -508,8 +511,8 @@ namespace $.$$ {
 				left: { x: padding, y: 0 },
 				right: { x: -padding, y: 0 },
 			}
-			const connectionOffset = $apxutechtop_samosbor_map_app.getOffset( position, this.block_direction() )
-			const abs_dir = $apxutechtop_samosbor_map_app.absolute_direction( this.block_direction(), position )
+			const connectionOffset = $apxu_samosbor_map_app.getOffset( position, this.block_direction() )
+			const abs_dir = $apxu_samosbor_map_app.absolute_direction( this.block_direction(), position )
 			const adjustment = adjustments[ abs_dir ] ?? { x: 0, y: 0 }
 			const adjustedOffset = {
 				x: connectionOffset.x + adjustment.x,
@@ -548,13 +551,13 @@ namespace $.$$ {
 
 		@$mol_action
 		select_connection( position: TransitionPosition ) {
-			const first_port = $apxutechtop_samosbor_map_block.first_port()
+			const first_port = $apxu_samosbor_map_block.first_port()
 			const is_same_port = ( port: { block_ref: any, floor: number, position: TransitionPosition } ) => {
 				return port.block_ref.description == this.block_data().ref().description && port.floor == this.current_floor() && port.position == position
 			}
 			// если кликнули по тому же соединению, убрать first_port
 			if( first_port && is_same_port( first_port ) ) {
-				$apxutechtop_samosbor_map_block.first_port( null )
+				$apxu_samosbor_map_block.first_port( null )
 				return
 			}
 			// если кликнули по тому же блоку, то ничего не делаем
@@ -562,7 +565,7 @@ namespace $.$$ {
 
 			// если нет first_port добавить в first_port
 			if( !first_port ) {
-				$apxutechtop_samosbor_map_block.first_port( { block_ref: this.block_data().ref(), floor: this.current_floor(), position: position } )
+				$apxu_samosbor_map_block.first_port( { block_ref: this.block_data().ref(), floor: this.current_floor(), position: position } )
 				return
 			}
 
@@ -572,11 +575,11 @@ namespace $.$$ {
 
 		@$mol_action
 		change_connection( position: TransitionPosition ) {
-			const first_port = $apxutechtop_samosbor_map_block.first_port()
+			const first_port = $apxu_samosbor_map_block.first_port()
 			console.log( "first port: ", first_port )
 			if( !first_port ) return
 
-			const first_block = $hyoo_crus_glob.Node( first_port.block_ref, $apxutechtop_samosbor_map_block_data )
+			const first_block = $hyoo_crus_glob.Node( first_port.block_ref, $apxu_samosbor_map_block_data )
 			const transition = this.block_data().transition_by_position( this.current_floor(), position )
 
 
@@ -589,17 +592,17 @@ namespace $.$$ {
 				transition.remove_transition()
 			} else {
 				// соединить блоки
-				const another_block = $hyoo_crus_glob.Node( first_port.block_ref, $apxutechtop_samosbor_map_block_data )
+				const another_block = $hyoo_crus_glob.Node( first_port.block_ref, $apxu_samosbor_map_block_data )
 				const another_floor = first_port.floor
 				const another_position = first_port.position
 				this.block_data().connect( this.current_floor(), position, another_block, another_floor, another_position )
 			}
-			$apxutechtop_samosbor_map_block.first_port( null )
+			$apxu_samosbor_map_block.first_port( null )
 		}
 
 		@$mol_mem_key
 		connection_highlight( position: TransitionPosition ) {
-			const first_port = $apxutechtop_samosbor_map_block.first_port()
+			const first_port = $apxu_samosbor_map_block.first_port()
 			if( !first_port ) { return false }
 			const current_block = this.block_data().ref()
 			const current_floor = this.current_floor()
@@ -617,7 +620,7 @@ namespace $.$$ {
 				return true
 			}
 
-			const first_block = $hyoo_crus_glob.Node( first_port.block_ref, $apxutechtop_samosbor_map_block_data )
+			const first_block = $hyoo_crus_glob.Node( first_port.block_ref, $apxu_samosbor_map_block_data )
 			// выделяем если нашли transition
 			const transition = first_block.transition_by_position( first_port.floor, first_port.position )
 
@@ -661,13 +664,13 @@ namespace $.$$ {
 				return
 			}
 			if( this.connect_mode() ) return
-			const offset = $apxutechtop_samosbor_map_app.getPositionOffset( position, this.block_direction() )
-			const new_block_direction = $apxutechtop_samosbor_map_app.next_direction(
-				$apxutechtop_samosbor_map_app.next_direction(
-					$apxutechtop_samosbor_map_app.absolute_direction(
+			const offset = $apxu_samosbor_map_app.getPositionOffset( position, this.block_direction() )
+			const new_block_direction = $apxu_samosbor_map_app.next_direction(
+				$apxu_samosbor_map_app.next_direction(
+					$apxu_samosbor_map_app.absolute_direction(
 						this.block_direction(), position ) ) )
 
-			const new_offset = $apxutechtop_samosbor_map_app.getPositionOffset( "up_left", new_block_direction )
+			const new_offset = $apxu_samosbor_map_app.getPositionOffset( "up_left", new_block_direction )
 
 			console.log( offset )
 			const pos_x = Math.round( ( this.pos_x() + offset.x - new_offset.x ) )
@@ -898,7 +901,7 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		liquidator_profession(): ReturnType<$.$apxutechtop_samosbor_map_block[ "liquidator_icon" ]> | null {
+		liquidator_profession(): ReturnType<$.$apxu_samosbor_map_block[ "liquidator_icon" ]> | null {
 			return this.has_liquidator_profession() ? this.liquidator_icon() : null
 		}
 
@@ -952,6 +955,15 @@ namespace $.$$ {
 		@$mol_mem
 		warehouse_place() {
 			return this.has_warehouse_place() ? this.warehouse_icon() : null
+		}
+
+		@$mol_mem
+		flooded() {
+			return this.flooded_effect()
+		}
+		@$mol_mem
+		roof() {
+			return this.roof_effect()
 		}
 
 		@$mol_mem

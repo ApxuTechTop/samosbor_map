@@ -9,8 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: build
-    env: 
-        GIGACLUSTER_REF: ${{ vars.GIGACLUSTER_REF }}
     steps:
     - name: Build app
       uses: hyoo-ru/mam_build@master2

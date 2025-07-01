@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+@font-face {
+	font-family: "Space Mono";
+	src: url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+	font-weight: 700;
+	font-style: normal;
+}
+
+[apxu_samosbor_map_block_card] {
+	position: relative;
+	width: 287px;
+	height: 482px;
+	background-color: #121212;
+	border-radius: 5px;
+	padding: 15px;
+
+	--main-color: #676767;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+
+	[mol_icon] {
+		filter: unset;
+	}
+
+	z-index: 1000;
+
+	[mol_number] {
+		[mol_string] {
+			padding: 3px;
+			text-align: right;
+		}
+
+	}
+
+	&>* {
+		border-bottom: 3px solid var(--main-color);
+		padding: 5px;
+	}
+}
+
+[apxu_samosbor_map_block_card_header] {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+
+
+	display: flex;
+	align-items: center;
+}
+
+[apxu_samosbor_map_block_card_misc_buttons] {
+	position: absolute;
+	right: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 5px;
+	border-bottom: none;
+
+	&>* {
+		width: 44px;
+		height: 44px;
+		background-color: #121212;
+		justify-content: center;
+		color: var(--main-color);
+	}
+}
+
+[apxu_samosbor_map_block_card_control_buttons] {
+	position: absolute;
+	left: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 5px;
+	border-bottom: none;
+
+	&>* {
+		width: 44px;
+		height: 44px;
+		background-color: #121212;
+		justify-content: center;
+		color: var(--main-color);
+	}
+
+}
+
+[apxu_samosbor_map_block_card_edit_icon] {
+	width: 20px;
+	height: 20px;
+}
+
+[apxu_samosbor_map_block_card_close_icon] {
+	width: 30px;
+	height: 30px;
+}
+
+[apxu_samosbor_map_block_card_delete_icon] {
+	width: 20px;
+	height: 20px;
+}
+
+[apxu_samosbor_map_block_card_block_name_input] {
+	width: 141px;
+	height: 50px;
+	padding: 0px;
+	flex: unset;
+	font-family: "Space Mono";
+	font-weight: 700;
+	font-size: 48px;
+	line-height: 12px;
+	letter-spacing: 0;
+	text-align: center;
+	color: var(--main-color) !important;
+}
+
+[apxu_samosbor_map_block_card_block_size] {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 10px;
+	width: 55px;
+	height: 46px;
+
+	&>* {
+		justify-content: space-between;
+		align-items: center;
+		height: 16px;
+
+
+
+		gap: 5px;
+
+		[mol_string] {
+			font-family: "Roboto";
+			font-weight: 700;
+			font-size: 18px;
+			line-height: 20px;
+			letter-spacing: 0;
+			text-align: center;
+			color: var(--main-color) !important;
+		}
+
+		&>[mol_icon] {
+			width: 16px;
+			height: 16px;
+			fill: var(--main-color);
+		}
+	}
+}
+
+[apxu_samosbor_map_block_card_block_info] {
+	border-right: 2px solid var(--main-color);
+	padding: 5px;
+
+	flex-direction: column;
+}
+
+[apxu_samosbor_map_block_card_flights] {
+	width: 100%;
+	justify-content: space-between;
+
+	&>[mol_button]:not([edit-mode]) {
+		visibility: hidden;
+	}
+}
+
+[apxu_samosbor_map_block_card_flight_view] {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex: 1;
+
+	&>&>* {
+		width: 20px;
+		height: 20px;
+	}
+}
+
+[apxu_samosbor_map_block_card_block_buttons] {
+	padding: 5px;
+	flex-direction: column;
+}
+
+[apxu_samosbor_map_block_card_coordinates] {
+	flex-direction: column;
+	width: 86px;
+
+	[mol_button_minor] {
+		width: 10px;
+		height: 15px;
+		padding: 0px;
+	}
+}
+
+[apxu_samosbor_map_block_card_pos_controller] {
+	display: grid;
+	grid-template-columns: 22px 22px 22px;
+	grid-template-rows: 22px 22px 22px;
+
+	&>* {
+		padding: 0;
+		align-self: center;
+		justify-content: center;
+		align-items: center;
+		width: 22px;
+		height: 22px;
+
+		&>* {
+			width: 18px;
+			height: 18px;
+		}
+	}
+}
+
+[apxu_samosbor_map_block_card_up_button] {
+	grid-area: 1 / 2 / 2 / 3;
+}
+
+[apxu_samosbor_map_block_card_right_button] {
+	grid-area: 2 / 3 / 3 / 4;
+}
+
+[apxu_samosbor_map_block_card_down_button] {
+	grid-area: 3 / 2 / 4 / 3;
+}
+
+[apxu_samosbor_map_block_card_left_button] {
+	grid-area: 2 / 1 / 3 / 2;
+}
+
+[apxu_samosbor_map_block_card_rotate_button] {
+	grid-area: 2 / 2 / 3 / 3;
+}

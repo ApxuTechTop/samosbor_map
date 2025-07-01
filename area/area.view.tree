@@ -1,4 +1,4 @@
-$apxutechtop_samosbor_map_area $mol_view
+$apxu_samosbor_map_area $mol_view
 	zoom 1
 	attr *
 		dragging <= isDragging? false
