@@ -1068,65 +1068,65 @@ declare namespace $ {
 //# sourceMappingURL=web.view.tree.d.ts.map
 declare namespace $ {
 
-	export class $apxutechtop_samosbor_map_icon_stairs extends $mol_icon {
+	export class $apxu_samosbor_map_icon_stairs extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_cleaner extends $mol_icon {
+	export class $apxu_samosbor_map_icon_cleaner extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_factory extends $mol_icon {
+	export class $apxu_samosbor_map_icon_factory extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_repairman extends $mol_icon {
+	export class $apxu_samosbor_map_icon_repairman extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_sinking extends $mol_icon {
+	export class $apxu_samosbor_map_icon_sinking extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_roof extends $mol_icon {
+	export class $apxu_samosbor_map_icon_roof extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_elevator extends $mol_icon {
+	export class $apxu_samosbor_map_icon_elevator extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_abandoned extends $mol_icon_spider_web {
+	export class $apxu_samosbor_map_icon_abandoned extends $mol_icon_spider_web {
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_theatre extends $mol_icon {
+	export class $apxu_samosbor_map_icon_theatre extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_party extends $mol_icon {
+	export class $apxu_samosbor_map_icon_party extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	type $mol_svg_path__geometry_apxutechtop_samosbor_map_icon_hospital_1 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_icon_hospital['path'] >
+	type $mol_svg_path__geometry_apxu_samosbor_map_icon_hospital_1 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_icon_hospital['path'] >
 		,
 		ReturnType< $mol_svg_path['geometry'] >
 	>
-	type $mol_svg_path__geometry_apxutechtop_samosbor_map_icon_hospital_2 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_icon_hospital['path2'] >
+	type $mol_svg_path__geometry_apxu_samosbor_map_icon_hospital_2 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_icon_hospital['path2'] >
 		,
 		ReturnType< $mol_svg_path['geometry'] >
 	>
-	export class $apxutechtop_samosbor_map_icon_hospital extends $mol_icon {
+	export class $apxu_samosbor_map_icon_hospital extends $mol_icon {
 		path( ): string
 		Path1( ): $mol_svg_path
 		path2( ): string
@@ -1135,45 +1135,81 @@ declare namespace $ {
 		sub( ): readonly(any)[]
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_warehouse extends $mol_icon {
+	export class $apxu_samosbor_map_icon_warehouse extends $mol_icon {
 		view_box( ): string
 		path( ): string
 	}
 	
-	type $mol_svg_path__geometry_apxutechtop_samosbor_map_icon_liquidator_1 = $mol_type_enforce<
+	type $mol_svg_path__geometry_apxu_samosbor_map_icon_liquidator_1 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_svg_path['geometry'] >
 	>
-	type $mol_svg_path__geometry_apxutechtop_samosbor_map_icon_liquidator_2 = $mol_type_enforce<
+	type $mol_svg_path__geometry_apxu_samosbor_map_icon_liquidator_2 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_svg_path['geometry'] >
 	>
-	export class $apxutechtop_samosbor_map_icon_liquidator extends $mol_icon {
+	export class $apxu_samosbor_map_icon_liquidator extends $mol_icon {
 		path1( ): $mol_svg_path
 		path2( ): $mol_svg_path
 		sub( ): readonly(any)[]
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_ladder extends $mol_icon {
+	export class $apxu_samosbor_map_icon_ladder extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_min_floor extends $mol_icon {
+	export class $apxu_samosbor_map_icon_arrow_down extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_max_floor extends $apxutechtop_samosbor_map_icon_min_floor {
+	export class $apxu_samosbor_map_icon_arrow_left extends $apxu_samosbor_map_icon_arrow_down {
 		style( ): ({ 
 			'transform': string,
 		}) 
 	}
 	
-	export class $apxutechtop_samosbor_map_icon_generator extends $mol_icon {
+	export class $apxu_samosbor_map_icon_arrow_right extends $apxu_samosbor_map_icon_arrow_down {
+		style( ): ({ 
+			'transform': string,
+		}) 
+	}
+	
+	export class $apxu_samosbor_map_icon_arrow_up extends $apxu_samosbor_map_icon_arrow_down {
+		style( ): ({ 
+			'transform': string,
+		}) 
+	}
+	
+	export class $apxu_samosbor_map_icon_min_floor extends $apxu_samosbor_map_icon_arrow_down {
+	}
+	
+	export class $apxu_samosbor_map_icon_max_floor extends $apxu_samosbor_map_icon_min_floor {
+		style( ): ({ 
+			'transform': string,
+		}) 
+	}
+	
+	export class $apxu_samosbor_map_icon_generator extends $mol_icon {
+		path( ): string
+		view_box( ): string
+	}
+	
+	export class $apxu_samosbor_map_icon_trash extends $mol_icon {
+		path( ): string
+		view_box( ): string
+	}
+	
+	export class $apxu_samosbor_map_icon_shop extends $mol_icon {
+		path( ): string
+		view_box( ): string
+	}
+	
+	export class $apxu_samosbor_map_icon_direction extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
@@ -1564,6 +1600,24 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+
+	export class $mol_icon_chevron extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=chevron.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_chevron_left extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=left.view.tree.d.ts.map
+declare namespace $ {
     let $mol_action: typeof $mol_wire_method;
 }
 
@@ -1648,60 +1702,6 @@ declare namespace $.$$ {
 declare namespace $ {
 }
 
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_view__minimal_height_mol_labeler_1 = $mol_type_enforce<
-		number
-		,
-		ReturnType< $mol_view['minimal_height'] >
-	>
-	type $mol_view__sub_mol_labeler_2 = $mol_type_enforce<
-		ReturnType< $mol_labeler['label'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__minimal_height_mol_labeler_3 = $mol_type_enforce<
-		number
-		,
-		ReturnType< $mol_view['minimal_height'] >
-	>
-	type $mol_view__sub_mol_labeler_4 = $mol_type_enforce<
-		ReturnType< $mol_labeler['content'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $mol_labeler extends $mol_list {
-		label( ): readonly($mol_view_content)[]
-		Label( ): $mol_view
-		content( ): readonly(any)[]
-		Content( ): $mol_view
-		rows( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=labeler.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_chevron extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=chevron.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_chevron_left extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=left.view.tree.d.ts.map
 declare namespace $ {
 
 	export class $mol_icon_chevron_right extends $mol_icon {
@@ -1833,29 +1833,8 @@ declare namespace $.$$ {
     }
 }
 
-declare namespace $ {
-
-	export class $mol_icon_tick extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=tick.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_check_box extends $mol_check {
-		Icon( ): $mol_icon_tick
-	}
-	
-}
-
-//# sourceMappingURL=box.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $apxutechtop_samosbor_map_slider_input extends $.$apxutechtop_samosbor_map_slider_input {
+    class $apxu_samosbor_map_slider_input extends $.$apxu_samosbor_map_slider_input {
         delta_x(val?: number): number;
         delta_y(val?: number): number;
         start_event?: PointerEvent;
@@ -1872,7 +1851,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	export class $apxutechtop_samosbor_map_slider_input extends $mol_plugin {
+	export class $apxu_samosbor_map_slider_input extends $mol_plugin {
 		pointerdown( next?: any ): any
 		moving( next?: boolean ): boolean
 		x( next?: number ): number
@@ -1886,90 +1865,90 @@ declare namespace $ {
 		drag_start( next?: any ): any
 		drag_end( next?: any ): any
 		event( ): ({ 
-			pointerdown( next?: ReturnType< $apxutechtop_samosbor_map_slider_input['pointerdown'] > ): ReturnType< $apxutechtop_samosbor_map_slider_input['pointerdown'] >,
+			pointerdown( next?: ReturnType< $apxu_samosbor_map_slider_input['pointerdown'] > ): ReturnType< $apxu_samosbor_map_slider_input['pointerdown'] >,
 		})  & ReturnType< $mol_plugin['event'] >
 		attr( ): ({ 
-			'moving': ReturnType< $apxutechtop_samosbor_map_slider_input['moving'] >,
+			'moving': ReturnType< $apxu_samosbor_map_slider_input['moving'] >,
 		})  & ReturnType< $mol_plugin['attr'] >
 	}
 	
-	type $mol_view__sub_apxutechtop_samosbor_map_slider_1 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_slider_1 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type __apxutechtop_samosbor_map_slider_2 = $mol_type_enforce<
-		Parameters< $apxutechtop_samosbor_map_slider['delta_x'] >[0]
+	type __apxu_samosbor_map_slider_2 = $mol_type_enforce<
+		Parameters< $apxu_samosbor_map_slider['delta_x'] >[0]
 		,
-		Parameters< ReturnType< $apxutechtop_samosbor_map_slider['input_plugin'] >['delta_x'] >[0]
+		Parameters< ReturnType< $apxu_samosbor_map_slider['input_plugin'] >['delta_x'] >[0]
 	>
-	type $apxutechtop_samosbor_map_slider_input__delta_y_apxutechtop_samosbor_map_slider_3 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_slider['delta_y'] >
+	type $apxu_samosbor_map_slider_input__delta_y_apxu_samosbor_map_slider_3 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_slider['delta_y'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_slider_input['delta_y'] >
+		ReturnType< $apxu_samosbor_map_slider_input['delta_y'] >
 	>
-	type $apxutechtop_samosbor_map_slider_input__on_drag_start_apxutechtop_samosbor_map_slider_4 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_slider['drag_start'] >
+	type $apxu_samosbor_map_slider_input__on_drag_start_apxu_samosbor_map_slider_4 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_slider['drag_start'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_slider_input['on_drag_start'] >
+		ReturnType< $apxu_samosbor_map_slider_input['on_drag_start'] >
 	>
-	type $mol_view__plugins_apxutechtop_samosbor_map_slider_5 = $mol_type_enforce<
+	type $mol_view__plugins_apxu_samosbor_map_slider_5 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['plugins'] >
 	>
-	type $mol_view__style_apxutechtop_samosbor_map_slider_6 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_slider_6 = $mol_type_enforce<
 		({ 
-			'top': ReturnType< $apxutechtop_samosbor_map_slider['thumb_top'] >,
+			'top': ReturnType< $apxu_samosbor_map_slider['thumb_top'] >,
 		}) 
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $mol_view__event_apxutechtop_samosbor_map_slider_7 = $mol_type_enforce<
+	type $mol_view__event_apxu_samosbor_map_slider_7 = $mol_type_enforce<
 		({ 
-			mousedown( next?: ReturnType< $apxutechtop_samosbor_map_slider['event_mouse_down'] > ): ReturnType< $apxutechtop_samosbor_map_slider['event_mouse_down'] >,
-			mousemove( next?: ReturnType< $apxutechtop_samosbor_map_slider['event_mouse_move'] > ): ReturnType< $apxutechtop_samosbor_map_slider['event_mouse_move'] >,
-			mouseup( next?: ReturnType< $apxutechtop_samosbor_map_slider['event_mouse_up'] > ): ReturnType< $apxutechtop_samosbor_map_slider['event_mouse_up'] >,
-			touchstart( next?: ReturnType< $apxutechtop_samosbor_map_slider['event_touch_start'] > ): ReturnType< $apxutechtop_samosbor_map_slider['event_touch_start'] >,
-			touchmove( next?: ReturnType< $apxutechtop_samosbor_map_slider['event_touch_move'] > ): ReturnType< $apxutechtop_samosbor_map_slider['event_touch_move'] >,
-			touchend( next?: ReturnType< $apxutechtop_samosbor_map_slider['event_touch_end'] > ): ReturnType< $apxutechtop_samosbor_map_slider['event_touch_end'] >,
+			mousedown( next?: ReturnType< $apxu_samosbor_map_slider['event_mouse_down'] > ): ReturnType< $apxu_samosbor_map_slider['event_mouse_down'] >,
+			mousemove( next?: ReturnType< $apxu_samosbor_map_slider['event_mouse_move'] > ): ReturnType< $apxu_samosbor_map_slider['event_mouse_move'] >,
+			mouseup( next?: ReturnType< $apxu_samosbor_map_slider['event_mouse_up'] > ): ReturnType< $apxu_samosbor_map_slider['event_mouse_up'] >,
+			touchstart( next?: ReturnType< $apxu_samosbor_map_slider['event_touch_start'] > ): ReturnType< $apxu_samosbor_map_slider['event_touch_start'] >,
+			touchmove( next?: ReturnType< $apxu_samosbor_map_slider['event_touch_move'] > ): ReturnType< $apxu_samosbor_map_slider['event_touch_move'] >,
+			touchend( next?: ReturnType< $apxu_samosbor_map_slider['event_touch_end'] > ): ReturnType< $apxu_samosbor_map_slider['event_touch_end'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_slider_8 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_slider_8 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__event_apxutechtop_samosbor_map_slider_9 = $mol_type_enforce<
+	type $mol_view__event_apxu_samosbor_map_slider_9 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_slider['bar_click'] > ): ReturnType< $apxutechtop_samosbor_map_slider['bar_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_slider['bar_click'] > ): ReturnType< $apxu_samosbor_map_slider['bar_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_slider_10 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_slider_10 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__attr_apxutechtop_samosbor_map_slider_11 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_slider_11 = $mol_type_enforce<
 		({ 
-			'direction': ReturnType< $apxutechtop_samosbor_map_slider['direction'] >,
+			'direction': ReturnType< $apxu_samosbor_map_slider['direction'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	export class $apxutechtop_samosbor_map_slider extends $mol_view {
+	export class $apxu_samosbor_map_slider extends $mol_view {
 		all_slots( ): readonly($mol_view)[]
-		visible_slots( ): ReturnType< $apxutechtop_samosbor_map_slider['all_slots'] >
+		visible_slots( ): ReturnType< $apxu_samosbor_map_slider['all_slots'] >
 		Slots( ): $mol_view
 		bar_click( next?: any ): any
-		delta_x( next?: ReturnType< ReturnType< $apxutechtop_samosbor_map_slider['input_plugin'] >['delta_x'] > ): ReturnType< ReturnType< $apxutechtop_samosbor_map_slider['input_plugin'] >['delta_x'] >
+		delta_x( next?: ReturnType< ReturnType< $apxu_samosbor_map_slider['input_plugin'] >['delta_x'] > ): ReturnType< ReturnType< $apxu_samosbor_map_slider['input_plugin'] >['delta_x'] >
 		delta_y( next?: number ): number
 		drag_start( next?: any ): any
-		input_plugin( ): $apxutechtop_samosbor_map_slider_input
+		input_plugin( ): $apxu_samosbor_map_slider_input
 		thumb_top( ): number
 		event_mouse_down( next?: any ): any
 		event_mouse_move( next?: any ): any
@@ -1977,7 +1956,7 @@ declare namespace $ {
 		event_touch_start( next?: any ): any
 		event_touch_move( next?: any ): any
 		event_touch_end( next?: any ): any
-		thumb_content( ): ReturnType< $apxutechtop_samosbor_map_slider['value_limited'] >
+		thumb_content( ): ReturnType< $apxu_samosbor_map_slider['value_limited'] >
 		Thumb( ): $mol_view
 		Bar( ): $mol_view
 		min_value( next?: number ): number
@@ -1994,7 +1973,7 @@ declare namespace $ {
 
 //# sourceMappingURL=slider.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $apxutechtop_samosbor_map_slider extends $.$apxutechtop_samosbor_map_slider {
+    class $apxu_samosbor_map_slider extends $.$apxu_samosbor_map_slider {
         slot_count(): number;
         slot_size(): number;
         thumb_top(): number;
@@ -2011,30 +1990,30 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_view__minimal_width_apxutechtop_samosbor_map_area_1 = $mol_type_enforce<
+	type $mol_view__minimal_width_apxu_samosbor_map_area_1 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_view['minimal_width'] >
 	>
-	type $mol_view__minimal_height_apxutechtop_samosbor_map_area_2 = $mol_type_enforce<
+	type $mol_view__minimal_height_apxu_samosbor_map_area_2 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_view['minimal_height'] >
 	>
-	type $mol_view__style_apxutechtop_samosbor_map_area_3 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_area_3 = $mol_type_enforce<
 		({ 
-			'translate': ReturnType< $apxutechtop_samosbor_map_area['position_style'] >,
-			'scale': ReturnType< $apxutechtop_samosbor_map_area['scale_style'] >,
+			'translate': ReturnType< $apxu_samosbor_map_area['position_style'] >,
+			'scale': ReturnType< $apxu_samosbor_map_area['scale_style'] >,
 		}) 
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_area_4 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_area_4 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	export class $apxutechtop_samosbor_map_area extends $mol_view {
+	export class $apxu_samosbor_map_area extends $mol_view {
 		isDragging( next?: boolean ): boolean
 		event_wheel( next?: any ): any
 		event_key( next?: any ): any
@@ -2047,14 +2026,14 @@ declare namespace $ {
 		Plane( ): $mol_view
 		zoom( ): number
 		attr( ): ({ 
-			'dragging': ReturnType< $apxutechtop_samosbor_map_area['isDragging'] >,
+			'dragging': ReturnType< $apxu_samosbor_map_area['isDragging'] >,
 		}) 
 		event( ): ({ 
-			wheel( next?: ReturnType< $apxutechtop_samosbor_map_area['event_wheel'] > ): ReturnType< $apxutechtop_samosbor_map_area['event_wheel'] >,
-			keypress( next?: ReturnType< $apxutechtop_samosbor_map_area['event_key'] > ): ReturnType< $apxutechtop_samosbor_map_area['event_key'] >,
-			mousedown( next?: ReturnType< $apxutechtop_samosbor_map_area['event_mouse_down'] > ): ReturnType< $apxutechtop_samosbor_map_area['event_mouse_down'] >,
-			mousemove( next?: ReturnType< $apxutechtop_samosbor_map_area['event_mouse_move'] > ): ReturnType< $apxutechtop_samosbor_map_area['event_mouse_move'] >,
-			mouseup( next?: ReturnType< $apxutechtop_samosbor_map_area['event_mouse_up'] > ): ReturnType< $apxutechtop_samosbor_map_area['event_mouse_up'] >,
+			wheel( next?: ReturnType< $apxu_samosbor_map_area['event_wheel'] > ): ReturnType< $apxu_samosbor_map_area['event_wheel'] >,
+			keypress( next?: ReturnType< $apxu_samosbor_map_area['event_key'] > ): ReturnType< $apxu_samosbor_map_area['event_key'] >,
+			mousedown( next?: ReturnType< $apxu_samosbor_map_area['event_mouse_down'] > ): ReturnType< $apxu_samosbor_map_area['event_mouse_down'] >,
+			mousemove( next?: ReturnType< $apxu_samosbor_map_area['event_mouse_move'] > ): ReturnType< $apxu_samosbor_map_area['event_mouse_move'] >,
+			mouseup( next?: ReturnType< $apxu_samosbor_map_area['event_mouse_up'] > ): ReturnType< $apxu_samosbor_map_area['event_mouse_up'] >,
 		}) 
 		sub( ): readonly($mol_view)[]
 	}
@@ -2063,7 +2042,7 @@ declare namespace $ {
 
 //# sourceMappingURL=area.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $apxutechtop_samosbor_map_area extends $.$apxutechtop_samosbor_map_area {
+    class $apxu_samosbor_map_area extends $.$apxu_samosbor_map_area {
         constructor();
         position(next?: number[]): number[];
         pos_x(next?: string): string;
@@ -5577,403 +5556,414 @@ declare namespace $ {
 
 declare namespace $ {
 
-	export class $apxutechtop_samosbor_map_block_row extends $mol_view {
+	export class $apxu_samosbor_map_block_row extends $mol_view {
 		sub( ): readonly(any)[]
 	}
 	
-	export class $apxutechtop_samosbor_map_block_part extends $mol_view {
+	export class $apxu_samosbor_map_block_part extends $mol_view {
 		content( ): any
 		sub( ): readonly(any)[]
 	}
 	
-	export class $apxutechtop_samosbor_map_block_flight extends $apxutechtop_samosbor_map_block_part {
+	export class $apxu_samosbor_map_block_flight extends $apxu_samosbor_map_block_part {
 	}
 	
-	type $mol_view__sub_apxutechtop_samosbor_map_block_passage_1 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_passage_1 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_passage_2 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_passage_2 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	export class $apxutechtop_samosbor_map_block_passage extends $mol_view {
+	export class $apxu_samosbor_map_block_passage extends $mol_view {
 		type( next?: string ): string
 		flex_direction( ): string
 		floor_inc_value( ): string
 		floor_inc( ): $mol_view
-		stairs( ): $apxutechtop_samosbor_map_icon_stairs
+		stairs( ): $apxu_samosbor_map_icon_stairs
 		content( ): any
 		up( ): boolean
 		right( ): boolean
 		down( ): boolean
 		left( ): boolean
 		attr( ): ({ 
-			'type': ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >,
-			'up': ReturnType< $apxutechtop_samosbor_map_block_passage['up'] >,
-			'right': ReturnType< $apxutechtop_samosbor_map_block_passage['right'] >,
-			'down': ReturnType< $apxutechtop_samosbor_map_block_passage['down'] >,
-			'left': ReturnType< $apxutechtop_samosbor_map_block_passage['left'] >,
+			'type': ReturnType< $apxu_samosbor_map_block_passage['type'] >,
+			'up': ReturnType< $apxu_samosbor_map_block_passage['up'] >,
+			'right': ReturnType< $apxu_samosbor_map_block_passage['right'] >,
+			'down': ReturnType< $apxu_samosbor_map_block_passage['down'] >,
+			'left': ReturnType< $apxu_samosbor_map_block_passage['left'] >,
 		}) 
 		style( ): ({ 
-			'flex-direction': ReturnType< $apxutechtop_samosbor_map_block_passage['flex_direction'] >,
+			'flex-direction': ReturnType< $apxu_samosbor_map_block_passage['flex_direction'] >,
 		}) 
 		InterFloor( ): $mol_view
 		sub( ): readonly(any)[]
 	}
 	
-	export class $apxutechtop_samosbor_map_block_middle_flight extends $mol_view {
+	export class $apxu_samosbor_map_block_middle_flight extends $mol_view {
 	}
 	
-	type $mol_view__sub_apxutechtop_samosbor_map_block_1 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_1 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_2 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_2 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_3 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_3 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_4 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_4 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_5 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_5 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_6 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_6 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_7 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_7 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_flight__event_apxutechtop_samosbor_map_block_8 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_8 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_9 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_flight__event_apxu_samosbor_map_block_10 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['left_flight_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['left_flight_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['left_flight_click'] > ): ReturnType< $apxu_samosbor_map_block['left_flight_click'] >,
 		}) 
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_flight['event'] >
+		ReturnType< $apxu_samosbor_map_block_flight['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_flight__sub_apxutechtop_samosbor_map_block_9 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_flight__sub_apxu_samosbor_map_block_11 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_flight['sub'] >
+		ReturnType< $apxu_samosbor_map_block_flight['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_10 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_block['up_left_passage_type'] >
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_12 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['up_left_passage_type'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_11 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_13 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['up_left_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['up_left_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['up_left_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['up_left_passage_click'] >,
 		}) 
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__up_apxutechtop_samosbor_map_block_12 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_14 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['up'] >
+		ReturnType< $apxu_samosbor_map_block_passage['up'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__left_apxutechtop_samosbor_map_block_13 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_15 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['left'] >
+		ReturnType< $apxu_samosbor_map_block_passage['left'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_14 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_block['up_right_passage_type'] >
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_16 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['up_right_passage_type'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_15 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_17 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['up_right_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['up_right_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['up_right_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['up_right_passage_click'] >,
 		}) 
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__up_apxutechtop_samosbor_map_block_16 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_18 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['up'] >
+		ReturnType< $apxu_samosbor_map_block_passage['up'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__right_apxutechtop_samosbor_map_block_17 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_19 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['right'] >
+		ReturnType< $apxu_samosbor_map_block_passage['right'] >
 	>
-	type $apxutechtop_samosbor_map_block_flight__event_apxutechtop_samosbor_map_block_18 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_flight__event_apxu_samosbor_map_block_20 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['right_flight_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['right_flight_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['right_flight_click'] > ): ReturnType< $apxu_samosbor_map_block['right_flight_click'] >,
 		}) 
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_flight['event'] >
+		ReturnType< $apxu_samosbor_map_block_flight['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_flight__sub_apxutechtop_samosbor_map_block_19 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_flight__sub_apxu_samosbor_map_block_21 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_flight['sub'] >
+		ReturnType< $apxu_samosbor_map_block_flight['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_row__sub_apxutechtop_samosbor_map_block_20 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_row__sub_apxu_samosbor_map_block_22 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_row['sub'] >
+		ReturnType< $apxu_samosbor_map_block_row['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_21 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_block['left_passage_type'] >
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_23 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['left_passage_type'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_22 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_24 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['left_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['left_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['left_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['left_passage_click'] >,
 		}) 
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__left_apxutechtop_samosbor_map_block_23 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_25 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['left'] >
+		ReturnType< $apxu_samosbor_map_block_passage['left'] >
 	>
-	type $mol_view__attr_apxutechtop_samosbor_map_block_24 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_26 = $mol_type_enforce<
 		({ 
-			'type': ReturnType< $apxutechtop_samosbor_map_block['fence_type'] >,
+			'type': ReturnType< $apxu_samosbor_map_block['fence_type'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__event_apxutechtop_samosbor_map_block_25 = $mol_type_enforce<
+	type $mol_view__event_apxu_samosbor_map_block_27 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['fence_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['fence_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['fence_click'] > ): ReturnType< $apxu_samosbor_map_block['fence_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_26 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_block['right_passage_type'] >
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_28 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['right_passage_type'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_27 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_29 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['right_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['right_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['right_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['right_passage_click'] >,
 		}) 
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__right_apxutechtop_samosbor_map_block_28 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_30 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['right'] >
+		ReturnType< $apxu_samosbor_map_block_passage['right'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_29 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_31 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_30 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_32 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_31 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_33 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_32 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_34 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_33 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_35 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_34 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_36 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_35 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_block['down_left_passage_type'] >
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_37 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['down_left_passage_type'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_36 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_38 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['down_left_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['down_left_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['down_left_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['down_left_passage_click'] >,
 		}) 
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__down_apxutechtop_samosbor_map_block_37 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_39 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['down'] >
+		ReturnType< $apxu_samosbor_map_block_passage['down'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__left_apxutechtop_samosbor_map_block_38 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_40 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['left'] >
+		ReturnType< $apxu_samosbor_map_block_passage['left'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_39 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_block['down_right_passage_type'] >
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_41 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['down_right_passage_type'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_40 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_42 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['down_right_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['down_right_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['down_right_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['down_right_passage_click'] >,
 		}) 
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__down_apxutechtop_samosbor_map_block_41 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_43 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['down'] >
+		ReturnType< $apxu_samosbor_map_block_passage['down'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__right_apxutechtop_samosbor_map_block_42 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_44 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['right'] >
+		ReturnType< $apxu_samosbor_map_block_passage['right'] >
 	>
-	type $apxutechtop_samosbor_map_block_row__sub_apxutechtop_samosbor_map_block_43 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_row__sub_apxu_samosbor_map_block_45 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_row['sub'] >
+		ReturnType< $apxu_samosbor_map_block_row['sub'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_block_44 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_46 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__attr_apxutechtop_samosbor_map_block_45 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_47 = $mol_type_enforce<
 		({ 
-			'hidden': ReturnType< $apxutechtop_samosbor_map_block['connection_hidden'] >,
-			'highlight': ReturnType< $apxutechtop_samosbor_map_block['connection_highlight'] >,
+			'hidden': ReturnType< $apxu_samosbor_map_block['connection_hidden'] >,
+			'highlight': ReturnType< $apxu_samosbor_map_block['connection_highlight'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxutechtop_samosbor_map_block_46 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_block_48 = $mol_type_enforce<
 		({ 
-			'left': ReturnType< $apxutechtop_samosbor_map_block['connection_left'] >,
-			'top': ReturnType< $apxutechtop_samosbor_map_block['connection_top'] >,
+			'left': ReturnType< $apxu_samosbor_map_block['connection_left'] >,
+			'top': ReturnType< $apxu_samosbor_map_block['connection_top'] >,
 		}) 
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $mol_view__event_apxutechtop_samosbor_map_block_47 = $mol_type_enforce<
+	type $mol_view__event_apxu_samosbor_map_block_49 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['connection_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['connection_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['connection_click'] > ): ReturnType< $apxu_samosbor_map_block['connection_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $mol_view__attr_apxutechtop_samosbor_map_block_48 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_50 = $mol_type_enforce<
 		({ 
-			'hidden': ReturnType< $apxutechtop_samosbor_map_block['transition_hidden'] >,
-			'direction': ReturnType< $apxutechtop_samosbor_map_block['transition_direction'] >,
+			'hidden': ReturnType< $apxu_samosbor_map_block['transition_hidden'] >,
+			'direction': ReturnType< $apxu_samosbor_map_block['transition_direction'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxutechtop_samosbor_map_block_49 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_block_51 = $mol_type_enforce<
 		({ 
-			'left': ReturnType< $apxutechtop_samosbor_map_block['transition_left'] >,
-			'top': ReturnType< $apxutechtop_samosbor_map_block['transition_top'] >,
+			'left': ReturnType< $apxu_samosbor_map_block['transition_left'] >,
+			'top': ReturnType< $apxu_samosbor_map_block['transition_top'] >,
 		}) 
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_50 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_52 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_51 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['up_middle_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['up_middle_passage_click'] >,
-		}) 
-		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
-	>
-	type $apxutechtop_samosbor_map_block_passage__up_apxutechtop_samosbor_map_block_52 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_53 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['up'] >
+		ReturnType< $apxu_samosbor_map_block_passage['up'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__type_apxutechtop_samosbor_map_block_53 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_54 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['type'] >
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxutechtop_samosbor_map_block_passage__event_apxutechtop_samosbor_map_block_54 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['down_middle_passage_click'] > ): ReturnType< $apxutechtop_samosbor_map_block['down_middle_passage_click'] >,
-		}) 
-		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['event'] >
-	>
-	type $apxutechtop_samosbor_map_block_passage__down_apxutechtop_samosbor_map_block_55 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_55 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_passage['down'] >
+		ReturnType< $apxu_samosbor_map_block_passage['down'] >
 	>
-	type $apxutechtop_samosbor_map_block_middle_flight__sub_apxutechtop_samosbor_map_block_56 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_56 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_middle_flight['sub'] >
+		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_middle_flight__sub_apxutechtop_samosbor_map_block_57 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_57 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_middle_flight['sub'] >
+		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_58 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_58 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_59 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_59 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_60 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_60 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block_part__sub_apxutechtop_samosbor_map_block_61 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_61 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_block_part['sub'] >
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
 	>
-	export class $apxutechtop_samosbor_map_block extends $mol_view {
+	type $mol_view__sub_apxu_samosbor_map_block_62 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_63 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_64 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	export class $apxu_samosbor_map_block extends $mol_view {
 		block_direction( next?: string ): string
 		visible( ): boolean
-		selected( next?: boolean ): boolean
+		selected( ): boolean
 		color_letter( ): string
 		block_type( next?: string ): string
 		left( next?: number ): number
@@ -5988,19 +5978,17 @@ declare namespace $ {
 		transition_direction( id: any): string
 		transition_left( id: any): number
 		transition_top( id: any): number
-		stairs_icon( id: any): $apxutechtop_samosbor_map_icon_stairs
-		elevator_icon( id: any): $apxutechtop_samosbor_map_icon_elevator
-		ladder_icon( id: any): $apxutechtop_samosbor_map_icon_ladder
+		stairs_icon( id: any): $apxu_samosbor_map_icon_stairs
+		elevator_icon( id: any): $apxu_samosbor_map_icon_elevator
+		ladder_icon( id: any): $apxu_samosbor_map_icon_ladder
 		ladder_elevator( id: any): $mol_view
-		up_middle_passage_click( next?: any ): any
-		down_middle_passage_click( next?: any ): any
-		up_flight_icon( ): $apxutechtop_samosbor_map_icon_stairs
-		down_flight_icon( ): $apxutechtop_samosbor_map_icon_stairs
+		up_flight_icon( ): $apxu_samosbor_map_icon_stairs
+		down_flight_icon( ): $apxu_samosbor_map_icon_stairs
 		block_name( next?: string ): string
 		BlockName( ): $mol_view
 		display_floor( ): string
 		CurrentFloor( ): $mol_view
-		gen_icon( ): $apxutechtop_samosbor_map_icon_generator
+		gen_icon( ): $apxu_samosbor_map_icon_generator
 		generator_floor_value( next?: number ): number
 		generator_floor( ): $mol_view
 		Generator( ): $mol_view
@@ -6014,27 +6002,35 @@ declare namespace $ {
 		hospital_place( ): any
 		warehouse_place( ): any
 		places_wrapper( ): $mol_view
+		flooded_icon( ): $apxu_samosbor_map_icon_sinking
+		flooded_floor( ): ReturnType< $apxu_samosbor_map_block['min_floor'] >
+		flooded_floor_view( ): $mol_view
+		roof_icon( ): $apxu_samosbor_map_icon_roof
+		roof_floor( ): ReturnType< $apxu_samosbor_map_block['max_floor'] >
+		roof_floor_view( ): $mol_view
+		flooded( ): any
+		roof( ): any
 		connections( ): readonly(any)[]
-		connections_list( ): ReturnType< $apxutechtop_samosbor_map_block['connections'] >
+		connections_list( ): ReturnType< $apxu_samosbor_map_block['connections'] >
 		transitions( ): readonly(any)[]
-		transitions_list( ): ReturnType< $apxutechtop_samosbor_map_block['transitions'] >
+		transitions_list( ): ReturnType< $apxu_samosbor_map_block['transitions'] >
 		left_flight_click( next?: any ): any
-		left_flight( ): $apxutechtop_samosbor_map_block_flight
+		left_flight( ): $apxu_samosbor_map_block_flight
 		up_left_passage_type( ): string
 		up_left_passage_click( next?: any ): any
-		up_left_passage( ): $apxutechtop_samosbor_map_block_passage
-		up_left_part( ): ReturnType< $apxutechtop_samosbor_map_block['name_part'] >
+		up_left_passage( ): $apxu_samosbor_map_block_passage
+		up_left_part( ): ReturnType< $apxu_samosbor_map_block['name_part'] >
 		up_passage_or_flight( ): $mol_view
-		up_right_part( ): ReturnType< $apxutechtop_samosbor_map_block['info_part'] >
+		up_right_part( ): ReturnType< $apxu_samosbor_map_block['info_part'] >
 		up_right_passage_type( ): string
 		up_right_passage_click( next?: any ): any
-		up_right_passage( ): $apxutechtop_samosbor_map_block_passage
+		up_right_passage( ): $apxu_samosbor_map_block_passage
 		right_flight_click( next?: any ): any
-		right_flight( ): $apxutechtop_samosbor_map_block_flight
-		up_row( ): $apxutechtop_samosbor_map_block_row
+		right_flight( ): $apxu_samosbor_map_block_flight
+		up_row( ): $apxu_samosbor_map_block_row
 		left_passage_type( ): string
 		left_passage_click( next?: any ): any
-		left_passage( ): $apxutechtop_samosbor_map_block_passage
+		left_passage( ): $apxu_samosbor_map_block_passage
 		left_crossroad( ): $mol_view
 		left_hallway( ): $mol_view
 		fence_type( next?: string ): string
@@ -6044,28 +6040,27 @@ declare namespace $ {
 		right_crossroad( ): $mol_view
 		right_passage_type( ): string
 		right_passage_click( next?: any ): any
-		right_passage( ): $apxutechtop_samosbor_map_block_passage
+		right_passage( ): $apxu_samosbor_map_block_passage
 		middle_row( ): $mol_view
-		max_floor_icon( ): $apxutechtop_samosbor_map_icon_max_floor
+		max_floor_icon( ): $apxu_samosbor_map_icon_max_floor
 		max_floor( next?: number ): number
 		max_floor_value( ): $mol_view
 		max_floor_view( ): $mol_view
-		min_floor_icon( ): $apxutechtop_samosbor_map_icon_min_floor
+		min_floor_icon( ): $apxu_samosbor_map_icon_min_floor
 		min_floor( next?: number ): number
 		min_floor_value( ): $mol_view
 		min_floor_view( ): $mol_view
-		floor_part( ): $apxutechtop_samosbor_map_block_part
+		floor_part( ): $apxu_samosbor_map_block_part
 		down_left_passage_type( ): string
 		down_left_passage_click( next?: any ): any
-		down_left_passage( ): $apxutechtop_samosbor_map_block_passage
-		down_left_part( ): ReturnType< $apxutechtop_samosbor_map_block['profession_part'] >
+		down_left_passage( ): $apxu_samosbor_map_block_passage
+		down_left_part( ): ReturnType< $apxu_samosbor_map_block['profession_part'] >
 		down_passage_or_flight( ): $mol_view
-		down_right_part( ): ReturnType< $apxutechtop_samosbor_map_block['places_part'] >
+		down_right_part( ): ReturnType< $apxu_samosbor_map_block['places_part'] >
 		down_right_passage_type( ): string
 		down_right_passage_click( next?: any ): any
-		down_right_passage( ): $apxutechtop_samosbor_map_block_passage
-		block_effects_part( ): $apxutechtop_samosbor_map_block_part
-		down_row( ): $apxutechtop_samosbor_map_block_row
+		down_right_passage( ): $apxu_samosbor_map_block_passage
+		down_row( ): $apxu_samosbor_map_block_row
 		content( ): $mol_view
 		edit_mode( next?: boolean ): boolean
 		create_mode( next?: boolean ): boolean
@@ -6079,44 +6074,47 @@ declare namespace $ {
 		is_down_flight( next?: boolean ): boolean
 		on_connection_select( next?: any ): any
 		attr( ): ({ 
-			'direction': ReturnType< $apxutechtop_samosbor_map_block['block_direction'] >,
-			'visible': ReturnType< $apxutechtop_samosbor_map_block['visible'] >,
-			'selected': ReturnType< $apxutechtop_samosbor_map_block['selected'] >,
-			'editing': ReturnType< $apxutechtop_samosbor_map_block['edit_mode'] >,
-			'color': ReturnType< $apxutechtop_samosbor_map_block['color_letter'] >,
-			'block-type': ReturnType< $apxutechtop_samosbor_map_block['block_type'] >,
+			'direction': ReturnType< $apxu_samosbor_map_block['block_direction'] >,
+			'visible': ReturnType< $apxu_samosbor_map_block['visible'] >,
+			'selected': ReturnType< $apxu_samosbor_map_block['selected'] >,
+			'editing': ReturnType< $apxu_samosbor_map_block['edit_mode'] >,
+			'color': ReturnType< $apxu_samosbor_map_block['color_letter'] >,
+			'block-type': ReturnType< $apxu_samosbor_map_block['block_type'] >,
 		}) 
 		style( ): ({ 
-			'left': ReturnType< $apxutechtop_samosbor_map_block['left'] >,
-			'top': ReturnType< $apxutechtop_samosbor_map_block['top'] >,
+			'left': ReturnType< $apxu_samosbor_map_block['left'] >,
+			'top': ReturnType< $apxu_samosbor_map_block['top'] >,
 		}) 
 		event( ): ({ 
-			click( next?: ReturnType< $apxutechtop_samosbor_map_block['onclick'] > ): ReturnType< $apxutechtop_samosbor_map_block['onclick'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['onclick'] > ): ReturnType< $apxu_samosbor_map_block['onclick'] >,
 		}) 
 		Connection( id: any): $mol_view
 		Transition( id: any): $mol_view
 		show_connections( next?: boolean ): boolean
 		flight_icons( id: any): ({ 
-			'stairs': ReturnType< $apxutechtop_samosbor_map_block['stairs_icon'] >,
-			'elevator': ReturnType< $apxutechtop_samosbor_map_block['elevator_icon'] >,
-			'ladder_elevator': ReturnType< $apxutechtop_samosbor_map_block['ladder_elevator'] >,
+			'stairs': ReturnType< $apxu_samosbor_map_block['stairs_icon'] >,
+			'elevator': ReturnType< $apxu_samosbor_map_block['elevator_icon'] >,
+			'ladder_elevator': ReturnType< $apxu_samosbor_map_block['ladder_elevator'] >,
 		}) 
-		up_middle_passage( ): $apxutechtop_samosbor_map_block_passage
-		down_middle_passage( ): $apxutechtop_samosbor_map_block_passage
-		up_flight( ): $apxutechtop_samosbor_map_block_middle_flight
-		down_flight( ): $apxutechtop_samosbor_map_block_middle_flight
-		name_part( ): $apxutechtop_samosbor_map_block_part
-		info_part( ): $apxutechtop_samosbor_map_block_part
-		liquidator_icon( ): $apxutechtop_samosbor_map_icon_liquidator
-		repairman_icon( ): $apxutechtop_samosbor_map_icon_repairman
-		cleaner_icon( ): $apxutechtop_samosbor_map_icon_cleaner
-		factory_icon( ): $apxutechtop_samosbor_map_icon_factory
-		theatre_icon( ): $apxutechtop_samosbor_map_icon_theatre
-		party_icon( ): $apxutechtop_samosbor_map_icon_party
-		hospital_icon( ): $apxutechtop_samosbor_map_icon_hospital
-		warehouse_icon( ): $apxutechtop_samosbor_map_icon_warehouse
-		profession_part( ): $apxutechtop_samosbor_map_block_part
-		places_part( ): $apxutechtop_samosbor_map_block_part
+		up_middle_passage( ): $apxu_samosbor_map_block_passage
+		down_middle_passage( ): $apxu_samosbor_map_block_passage
+		up_flight( ): $apxu_samosbor_map_block_middle_flight
+		down_flight( ): $apxu_samosbor_map_block_middle_flight
+		name_part( ): $apxu_samosbor_map_block_part
+		info_part( ): $apxu_samosbor_map_block_part
+		liquidator_icon( ): $apxu_samosbor_map_icon_liquidator
+		repairman_icon( ): $apxu_samosbor_map_icon_repairman
+		cleaner_icon( ): $apxu_samosbor_map_icon_cleaner
+		factory_icon( ): $apxu_samosbor_map_icon_factory
+		theatre_icon( ): $apxu_samosbor_map_icon_theatre
+		party_icon( ): $apxu_samosbor_map_icon_party
+		hospital_icon( ): $apxu_samosbor_map_icon_hospital
+		warehouse_icon( ): $apxu_samosbor_map_icon_warehouse
+		profession_part( ): $apxu_samosbor_map_block_part
+		places_part( ): $apxu_samosbor_map_block_part
+		flooded_effect( ): $mol_view
+		roof_effect( ): $mol_view
+		effects_part( ): $apxu_samosbor_map_block_part
 		sub( ): readonly(any)[]
 	}
 	
@@ -6220,15 +6218,15 @@ declare namespace $.$$ {
     const TransitionPort_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
         readonly Block: (auto?: any) => {
             Value: Value;
-            remote(next?: $apxutechtop_samosbor_map_block_data | null | undefined): $apxutechtop_samosbor_map_block_data | null;
-            remote_of(peer: string | null, next?: $apxutechtop_samosbor_map_block_data | null | undefined): $apxutechtop_samosbor_map_block_data | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxutechtop_samosbor_map_block_data | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxutechtop_samosbor_map_block_data | null;
+            remote(next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
+            remote_of(peer: string | null, next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
+            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
+            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
             ensure_here(peer: string | null): void;
             ensure_area(peer: string | null, land: $hyoo_crus_land): void;
             ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $apxutechtop_samosbor_map_block_data | null;
-            local_ensure(): $apxutechtop_samosbor_map_block_data | null;
+            remote_ensure(preset?: $hyoo_crus_rank_preset): $apxu_samosbor_map_block_data | null;
+            local_ensure(): $apxu_samosbor_map_block_data | null;
             val(next?: (symbol & {
                 $hyoo_crus_ref: symbol;
             }) | null | undefined): (symbol & {
@@ -6277,16 +6275,16 @@ declare namespace $.$$ {
         } & {
             readonly Block: {
                 new (): {
-                    Value: () => typeof $apxutechtop_samosbor_map_block_data;
-                    remote(next?: $apxutechtop_samosbor_map_block_data | null | undefined): $apxutechtop_samosbor_map_block_data | null;
-                    remote_of(peer: string | null, next?: $apxutechtop_samosbor_map_block_data | null | undefined): $apxutechtop_samosbor_map_block_data | null;
-                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxutechtop_samosbor_map_block_data | null;
-                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxutechtop_samosbor_map_block_data | null;
+                    Value: () => typeof $apxu_samosbor_map_block_data;
+                    remote(next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
+                    remote_of(peer: string | null, next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
+                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
+                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
                     ensure_here(peer: string | null): void;
                     ensure_area(peer: string | null, land: $hyoo_crus_land): void;
                     ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-                    remote_ensure(preset?: $hyoo_crus_rank_preset): $apxutechtop_samosbor_map_block_data | null;
-                    local_ensure(): $apxutechtop_samosbor_map_block_data | null;
+                    remote_ensure(preset?: $hyoo_crus_rank_preset): $apxu_samosbor_map_block_data | null;
+                    local_ensure(): $apxu_samosbor_map_block_data | null;
                     val(next?: (symbol & {
                         $hyoo_crus_ref: symbol;
                     }) | null | undefined): (symbol & {
@@ -6880,7 +6878,7 @@ declare namespace $.$$ {
     };
     export class PlaceData extends PlaceData_base {
     }
-    const $apxutechtop_samosbor_map_block_data_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
+    const $apxu_samosbor_map_block_data_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
         readonly Name: (auto?: any) => $hyoo_crus_atom_str | null;
         readonly Direction: (auto?: any) => BlockDirection | null;
         readonly Type: (auto?: any) => BlockType | null;
@@ -7127,13 +7125,13 @@ declare namespace $.$$ {
             };
         };
     };
-    export class $apxutechtop_samosbor_map_block_data extends $apxutechtop_samosbor_map_block_data_base {
+    export class $apxu_samosbor_map_block_data extends $apxu_samosbor_map_block_data_base {
         name(next?: string): string;
         direction(next?: DirectionType): "left" | "right" | "up" | "down";
         block_type(next?: typeof BlockType.options[number]): "residential" | "abandoned" | "frozen" | "infected" | "destroyed";
         transitions(next?: TransitionData[]): readonly TransitionData[] | undefined;
         transition_by_position(floor: number, position: TransitionPosition): TransitionData | undefined;
-        connect(my_floor: number, my_pos: TransitionPosition, block_node: $apxutechtop_samosbor_map_block_data, another_floor: number, another_pos: TransitionPosition): void;
+        connect(my_floor: number, my_pos: TransitionPosition, block_node: $apxu_samosbor_map_block_data, another_floor: number, another_pos: TransitionPosition): void;
         remove_transition(transition: TransitionData): void;
         pos_x(next?: number): number;
         pos_y(next?: number): number;
@@ -7157,15 +7155,15 @@ declare namespace $.$$ {
     export const ru_to_eng: {
         [ru: string]: string;
     };
-    export class $apxutechtop_samosbor_map_block_passage extends $.$apxutechtop_samosbor_map_block_passage {
+    export class $apxu_samosbor_map_block_passage extends $.$apxu_samosbor_map_block_passage {
         floor_inc_value(): string;
         is_interfloor(): boolean;
         content(): $mol_view | null;
     }
-    export class $apxutechtop_samosbor_map_block extends $.$apxutechtop_samosbor_map_block {
-        block_ref(next?: $apxutechtop_samosbor_map_block_data): $apxutechtop_samosbor_map_block_data;
-        block_data(next?: $apxutechtop_samosbor_map_block_data): $apxutechtop_samosbor_map_block_data;
-        block_direction(next?: DirectionType): "left" | "right" | "up" | "down";
+    export class $apxu_samosbor_map_block extends $.$apxu_samosbor_map_block {
+        block_ref(next?: $apxu_samosbor_map_block_data): $apxu_samosbor_map_block_data;
+        block_data(next?: $apxu_samosbor_map_block_data): $apxu_samosbor_map_block_data;
+        block_direction(next?: DirectionType): DirectionType;
         pos_x(next?: number): number;
         pos_y(next?: number): number;
         left(): number;
@@ -7212,9 +7210,9 @@ declare namespace $.$$ {
         connection_highlight(position: TransitionPosition): boolean;
         create_from_connection(position: TransitionPosition, event?: PointerEvent): PointerEvent | undefined;
         has_middle_flight(): boolean;
-        left_flight_icon(): $mol_view | $apxutechtop_samosbor_map_icon_stairs | $apxutechtop_samosbor_map_icon_elevator | undefined;
+        left_flight_icon(): $mol_view | $apxu_samosbor_map_icon_stairs | $apxu_samosbor_map_icon_elevator | undefined;
         left_flight_click(event?: PointerEvent): void;
-        right_flight_icon(): $mol_view | $apxutechtop_samosbor_map_icon_stairs | $apxutechtop_samosbor_map_icon_elevator | undefined;
+        right_flight_icon(): $mol_view | $apxu_samosbor_map_icon_stairs | $apxu_samosbor_map_icon_elevator | undefined;
         right_flight_click(event?: PointerEvent): void;
         next_passage_type(current_passage_type: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
         up_left_passage_type(): string;
@@ -7230,33 +7228,35 @@ declare namespace $.$$ {
         down_right_passage_type(): string;
         down_right_passage_click(event: PointerEvent): void;
         is_up_flight(next?: boolean): boolean;
-        up_passage_or_flight(): $.$apxutechtop_samosbor_map_block_passage | $apxutechtop_samosbor_map_block_middle_flight;
+        up_passage_or_flight(): $.$apxu_samosbor_map_block_passage | $apxu_samosbor_map_block_middle_flight;
         is_down_flight(next?: boolean): boolean;
-        down_passage_or_flight(): $.$apxutechtop_samosbor_map_block_passage | $apxutechtop_samosbor_map_block_middle_flight;
-        readonly parts: $apxutechtop_samosbor_map_block_part[];
+        down_passage_or_flight(): $.$apxu_samosbor_map_block_passage | $apxu_samosbor_map_block_middle_flight;
+        readonly parts: $apxu_samosbor_map_block_part[];
         readonly dir_shift: {
             [dir in DirectionType]: number;
         };
-        up_left_part(): $apxutechtop_samosbor_map_block_part;
-        up_right_part(): $apxutechtop_samosbor_map_block_part;
-        down_right_part(): $apxutechtop_samosbor_map_block_part;
-        down_left_part(): $apxutechtop_samosbor_map_block_part;
+        up_left_part(): $apxu_samosbor_map_block_part;
+        up_right_part(): $apxu_samosbor_map_block_part;
+        down_right_part(): $apxu_samosbor_map_block_part;
+        down_left_part(): $apxu_samosbor_map_block_part;
         has_liquidator_profession(): boolean;
         has_repairman_profession(): boolean;
         has_cleaner_profession(): boolean;
         has_plumber_profession(): boolean;
-        liquidator_profession(): ReturnType<$.$apxutechtop_samosbor_map_block["liquidator_icon"]> | null;
-        repairman_profession(): $apxutechtop_samosbor_map_icon_repairman | null;
-        cleaner_profession(): $apxutechtop_samosbor_map_icon_cleaner | null;
-        plumber_profession(): $apxutechtop_samosbor_map_icon_factory | null;
+        liquidator_profession(): ReturnType<$.$apxu_samosbor_map_block["liquidator_icon"]> | null;
+        repairman_profession(): $apxu_samosbor_map_icon_repairman | null;
+        cleaner_profession(): $apxu_samosbor_map_icon_cleaner | null;
+        plumber_profession(): $apxu_samosbor_map_icon_factory | null;
         has_theatre_place(): boolean;
         has_party_place(): boolean;
         has_hospital_place(): boolean;
         has_warehouse_place(): boolean;
-        theatre_place(): $apxutechtop_samosbor_map_icon_theatre | null;
-        party_place(): $apxutechtop_samosbor_map_icon_party | null;
-        hospital_place(): $apxutechtop_samosbor_map_icon_hospital | null;
-        warehouse_place(): $apxutechtop_samosbor_map_icon_warehouse | null;
+        theatre_place(): $apxu_samosbor_map_icon_theatre | null;
+        party_place(): $apxu_samosbor_map_icon_party | null;
+        hospital_place(): $apxu_samosbor_map_icon_hospital | null;
+        warehouse_place(): $apxu_samosbor_map_icon_warehouse | null;
+        flooded(): $mol_view;
+        roof(): $mol_view;
         fence_type(next?: typeof FenceData.options[number]): string;
         fence_click(event?: PointerEvent): void;
     }
@@ -7267,26 +7267,577 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
 
-	export class $apxutechtop_samosbor_map_block_card extends $mol_view {
-		block( ): $apxutechtop_samosbor_map_block
+declare namespace $ {
+
+	export class $mol_button_major extends $mol_button_minor {
+		theme( ): string
+	}
+	
+}
+
+//# sourceMappingURL=major.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_close extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=close.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_pencil extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=pencil.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_check_icon extends $mol_check {
+	}
+	
+}
+
+//# sourceMappingURL=icon.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_trash_can extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=can.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_trash_can_outline extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=outline.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_content_copy extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=copy.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_map extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=map.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_map_marker extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=marker.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_map_marker_path extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=path.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $apxu_samosbor_map_block_card_number_input extends $mol_number {
+		minimal_height( ): number
+		sub( ): readonly(any)[]
+	}
+	
+	export class $apxu_samosbor_map_block_card_position_input extends $apxu_samosbor_map_block_card_number_input {
+		sub( ): readonly(any)[]
+	}
+	
+	export class $apxu_samosbor_map_block_card_flight_button extends $mol_button_major {
+		edit_mode( next?: boolean ): boolean
+		attr( ): ({ 
+			'edit-mode': ReturnType< $apxu_samosbor_map_block_card_flight_button['edit_mode'] >,
+		})  & ReturnType< $mol_button_major['attr'] >
+	}
+	
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_1 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_2 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_3 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_4 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['close_click'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_check_icon__Icon_apxu_samosbor_map_block_card_5 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_icon'] >
+		,
+		ReturnType< $mol_check_icon['Icon'] >
+	>
+	type $mol_check_icon__checked_apxu_samosbor_map_block_card_6 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $mol_check_icon['checked'] >
+	>
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_7 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_8 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_string__enabled_apxu_samosbor_map_block_card_9 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $mol_string['enabled'] >
+	>
+	type $mol_string__value_apxu_samosbor_map_block_card_10 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['block_name'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $apxu_samosbor_map_block_card_number_input__enabled_apxu_samosbor_map_block_card_11 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_number_input['enabled'] >
+	>
+	type $apxu_samosbor_map_block_card_number_input__value_apxu_samosbor_map_block_card_12 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['max_floor'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_number_input['value'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_13 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_card_number_input__enabled_apxu_samosbor_map_block_card_14 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_number_input['enabled'] >
+	>
+	type $apxu_samosbor_map_block_card_number_input__value_apxu_samosbor_map_block_card_15 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['min_floor'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_number_input['value'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_16 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_17 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_18 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_card_flight_button__edit_mode_apxu_samosbor_map_block_card_19 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_flight_button['edit_mode'] >
+	>
+	type $apxu_samosbor_map_block_card_flight_button__sub_apxu_samosbor_map_block_card_20 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_card_flight_button['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_21 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_card_flight_button__edit_mode_apxu_samosbor_map_block_card_22 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_flight_button['edit_mode'] >
+	>
+	type $apxu_samosbor_map_block_card_flight_button__sub_apxu_samosbor_map_block_card_23 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_card_flight_button['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_24 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_25 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_button_major__sub_apxu_samosbor_map_block_card_26 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_major['sub'] >
+	>
+	type $mol_button_major__click_apxu_samosbor_map_block_card_27 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['copy_click'] >
+		,
+		ReturnType< $mol_button_major['click'] >
+	>
+	type $mol_button_major__sub_apxu_samosbor_map_block_card_28 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_major['sub'] >
+	>
+	type $mol_button_major__click_apxu_samosbor_map_block_card_29 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['path_click'] >
+		,
+		ReturnType< $mol_button_major['click'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_30 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_31 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_card_position_input__value_apxu_samosbor_map_block_card_32 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['pos_x'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_position_input['value'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_33 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_card_position_input__value_apxu_samosbor_map_block_card_34 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['pos_y'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_position_input['value'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_35 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_card_position_input__value_apxu_samosbor_map_block_card_36 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['block_layer'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_position_input['value'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_37 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_38 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_39 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_40 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['move_click'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_41 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_button_minor['minimal_height'] >
+	>
+	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_42 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_button_minor['minimal_width'] >
+	>
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_43 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_44 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['move_click'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_45 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_button_minor['minimal_height'] >
+	>
+	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_46 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_button_minor['minimal_width'] >
+	>
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_47 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_48 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['move_click'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_49 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_button_minor['minimal_height'] >
+	>
+	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_50 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_button_minor['minimal_width'] >
+	>
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_51 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_52 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['move_click'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_53 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_button_minor['minimal_height'] >
+	>
+	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_54 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_button_minor['minimal_width'] >
+	>
+	type $apxu_samosbor_map_icon_direction__style_apxu_samosbor_map_block_card_55 = $mol_type_enforce<
+		({ 
+			'transform': ReturnType< $apxu_samosbor_map_block_card['rotation'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_icon_direction['style'] >
+	>
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_56 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['rotate_click'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_57 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_button_minor['minimal_height'] >
+	>
+	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_58 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_button_minor['minimal_width'] >
+	>
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_59 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_60 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__attr_apxu_samosbor_map_block_card_61 = $mol_type_enforce<
+		({ 
+			'edit-mode': ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >,
+		}) 
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_62 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_63 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_64 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_65 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_66 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $apxu_samosbor_map_block_card extends $mol_view {
+		stairs_icon( id: any): $apxu_samosbor_map_icon_stairs
+		elevator_icon( id: any): $apxu_samosbor_map_icon_elevator
+		ladder_icon( id: any): $apxu_samosbor_map_icon_ladder
+		left_flight_arrow( ): $apxu_samosbor_map_icon_arrow_left
+		left_flight_icons( ): readonly(any)[]
+		right_flight_icons( ): readonly(any)[]
+		right_flight_arrow( ): $apxu_samosbor_map_icon_arrow_right
+		shop_icon( ): $apxu_samosbor_map_icon_shop
+		shop_button( ): $mol_button_minor
+		misc_buttons( ): $mol_view
+		close_icon( ): $mol_icon_close
+		close_click( next?: any ): any
+		close_button( ): $mol_button_minor
+		edit_icon( ): $mol_icon_pencil
+		edit_button( ): $mol_check_icon
+		delete_icon( ): $mol_icon_trash_can_outline
+		delete_button( ): $mol_button_minor
+		control_buttons( ): $mol_view
+		block_name( next?: string ): string
+		block_name_input( ): $mol_string
+		max_floor_icon( ): $apxu_samosbor_map_icon_max_floor
+		max_floor( next?: number ): number
+		max_floor_value( ): $apxu_samosbor_map_block_card_number_input
+		max_floor_view( ): $mol_view
+		min_floor_icon( ): $apxu_samosbor_map_icon_min_floor
+		min_floor( next?: number ): number
+		min_floor_value( ): $apxu_samosbor_map_block_card_number_input
+		min_floor_view( ): $mol_view
+		block_size( ): $mol_view
+		name_size( ): $mol_view
+		flight_left_icon( ): $mol_icon_chevron_left
+		flight_left_button( ): $apxu_samosbor_map_block_card_flight_button
+		current_flight( ): readonly(any)[]
+		flight_view( ): $mol_view
+		flight_right_icon( ): $mol_icon_chevron_right
+		flight_right_button( ): $apxu_samosbor_map_block_card_flight_button
+		flights( ): $mol_view
+		block_info( ): $mol_view
+		copy_icon( ): $mol_icon_content_copy
+		copy_click( next?: any ): any
+		copy_button( ): $mol_button_major
+		path_icon( ): $mol_icon_map_marker_path
+		path_click( next?: any ): any
+		path_button( ): $mol_button_major
+		block_buttons( ): $mol_view
+		header( ): $mol_view
+		pos_x( next?: number ): number
+		pos_x_input( ): $apxu_samosbor_map_block_card_position_input
+		pos_x_view( ): $mol_view
+		pos_y( next?: number ): number
+		pos_y_input( ): $apxu_samosbor_map_block_card_position_input
+		pos_y_view( ): $mol_view
+		block_layer( next?: number ): number
+		pos_z_input( ): $apxu_samosbor_map_block_card_position_input
+		pos_z_view( ): $mol_view
+		coordinates( ): $mol_view
+		up_icon( ): $apxu_samosbor_map_icon_arrow_up
+		move_click( id: any, next?: any ): any
+		up_button( ): $mol_button_minor
+		right_icon( ): $apxu_samosbor_map_icon_arrow_right
+		right_button( ): $mol_button_minor
+		down_icon( ): $apxu_samosbor_map_icon_arrow_down
+		down_button( ): $mol_button_minor
+		left_icon( ): $apxu_samosbor_map_icon_arrow_left
+		left_button( ): $mol_button_minor
+		rotate_click( next?: any ): any
+		rotation( ): string
+		rotation_icon( ): $apxu_samosbor_map_icon_direction
+		rotate_button( ): $mol_button_minor
+		pos_controller( ): $mol_view
+		pipe( ): $mol_view
+		position_info( ): $mol_view
+		gen_floor_view( ): $mol_view
+		board_floor_view( ): $mol_view
+		roof_floor_view( ): $mol_view
+		flooded_floor_view( ): $mol_view
+		floors_info( ): $mol_view
+		professions( ): $mol_view
+		places( ): $mol_view
+		features( ): $mol_view
+		block( ): $apxu_samosbor_map_block
+		edit_mode( next?: boolean ): boolean
+		flight_icons( id: any): ({ 
+			'stairs': ReturnType< $apxu_samosbor_map_block_card['stairs_icon'] >,
+			'elevator': ReturnType< $apxu_samosbor_map_block_card['elevator_icon'] >,
+			'ladder_icon': ReturnType< $apxu_samosbor_map_block_card['ladder_icon'] >,
+		}) 
+		is_middle_flight( next?: boolean ): boolean
+		block_direction( next?: string ): string
+		left_flight_view( ): $mol_view
+		middle_flight_view( ): $mol_view
+		right_flight_view( ): $mol_view
+		sub( ): readonly(any)[]
 	}
 	
 }
 
 //# sourceMappingURL=card.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $apxu_samosbor_map_block_card extends $.$apxu_samosbor_map_block_card {
+        left_flight_icons(): readonly (any)[];
+        right_flight_icons(): readonly (any)[];
+        current_flight(): readonly (any)[];
+        rotation(): string;
+        rotate_click(event: any): void;
+        move_click(dir: DirectionType, event?: any): void;
+    }
+}
+
 declare namespace $ {
-    let $apxutechtop_samosbor_map_app_gigacluster_ref: string;
+}
+
+declare namespace $ {
+    let $apxu_samosbor_map_app_gigacluster_ref: string;
 }
 
 declare namespace $ {
 
-	type $mol_switch__value_apxutechtop_samosbor_map_app_1 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['control_type'] >
+	type $mol_switch__value_apxu_samosbor_map_app_1 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['control_type'] >
 		,
 		ReturnType< $mol_switch['value'] >
 	>
-	type $mol_switch__options_apxutechtop_samosbor_map_app_2 = $mol_type_enforce<
+	type $mol_switch__options_apxu_samosbor_map_app_2 = $mol_type_enforce<
 		({ 
 			'create': string,
 			'connect': string,
@@ -7295,357 +7846,186 @@ declare namespace $ {
 		,
 		ReturnType< $mol_switch['options'] >
 	>
-	type $mol_card__sub_apxutechtop_samosbor_map_app_3 = $mol_type_enforce<
+	type $mol_card__sub_apxu_samosbor_map_app_3 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_card['sub'] >
 	>
-	type $mol_string__value_apxutechtop_samosbor_map_app_4 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['selected_block_name'] >
+	type $mol_number__value_apxu_samosbor_map_app_4 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['current_layer'] >
 		,
-		ReturnType< $mol_string['value'] >
+		ReturnType< $mol_number['value'] >
 	>
-	type $mol_string__hint_apxutechtop_samosbor_map_app_5 = $mol_type_enforce<
-		string
+	type $apxu_samosbor_map_slider__min_value_apxu_samosbor_map_app_5 = $mol_type_enforce<
+		number
 		,
-		ReturnType< $mol_string['hint'] >
+		ReturnType< $apxu_samosbor_map_slider['min_value'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_app_6 = $mol_type_enforce<
+	type $apxu_samosbor_map_slider__max_value_apxu_samosbor_map_app_6 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $apxu_samosbor_map_slider['max_value'] >
+	>
+	type $apxu_samosbor_map_slider__value_apxu_samosbor_map_app_7 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['current_layer'] >
+		,
+		ReturnType< $apxu_samosbor_map_slider['value'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_app_8 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_switch__value_apxutechtop_samosbor_map_app_7 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['block_type_value'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options_apxutechtop_samosbor_map_app_8 = $mol_type_enforce<
-		({ 
-			'residential': string,
-			'destroyed': string,
-			'frozen': string,
-			'abandoned': string,
-			'infected': string,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $mol_labeler__title_apxutechtop_samosbor_map_app_9 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content_apxutechtop_samosbor_map_app_10 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_number__value_apxutechtop_samosbor_map_app_11 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['gen_floor'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $mol_labeler__title_apxutechtop_samosbor_map_app_12 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content_apxutechtop_samosbor_map_app_13 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_number__value_apxutechtop_samosbor_map_app_14 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['min_floor'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $mol_labeler__title_apxutechtop_samosbor_map_app_15 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content_apxutechtop_samosbor_map_app_16 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_number__value_apxutechtop_samosbor_map_app_17 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['max_floor'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $mol_labeler__title_apxutechtop_samosbor_map_app_18 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content_apxutechtop_samosbor_map_app_19 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_number__value_apxutechtop_samosbor_map_app_20 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['layer_value'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $mol_labeler__title_apxutechtop_samosbor_map_app_21 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content_apxutechtop_samosbor_map_app_22 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_number__value_apxutechtop_samosbor_map_app_23 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['pos_x_value'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $mol_labeler__title_apxutechtop_samosbor_map_app_24 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content_apxutechtop_samosbor_map_app_25 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_number__value_apxutechtop_samosbor_map_app_26 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['pos_y_value'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $mol_labeler__title_apxutechtop_samosbor_map_app_27 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content_apxutechtop_samosbor_map_app_28 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_switch__value_apxutechtop_samosbor_map_app_29 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['direction_value'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options_apxutechtop_samosbor_map_app_30 = $mol_type_enforce<
-		({ 
-			'up': string,
-			'right': string,
-			'down': string,
-			'left': string,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $mol_labeler__title_apxutechtop_samosbor_map_app_31 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content_apxutechtop_samosbor_map_app_32 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_check_box__title_apxutechtop_samosbor_map_app_33 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_check_box['title'] >
-	>
-	type $mol_check_box__checked_apxutechtop_samosbor_map_app_34 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['up_flight_value'] >
-		,
-		ReturnType< $mol_check_box['checked'] >
-	>
-	type $mol_check_box__title_apxutechtop_samosbor_map_app_35 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_check_box['title'] >
-	>
-	type $mol_check_box__checked_apxutechtop_samosbor_map_app_36 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['down_flight_value'] >
-		,
-		ReturnType< $mol_check_box['checked'] >
-	>
-	type $mol_button_minor__title_apxutechtop_samosbor_map_app_37 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_button_minor['title'] >
-	>
-	type $mol_button_minor__click_apxutechtop_samosbor_map_app_38 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['delete_block'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_card__sub_apxutechtop_samosbor_map_app_39 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_card['sub'] >
-	>
-	type $mol_number__value_apxutechtop_samosbor_map_app_40 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['current_layer'] >
-		,
-		ReturnType< $mol_number['value'] >
-	>
-	type $apxutechtop_samosbor_map_slider__min_value_apxutechtop_samosbor_map_app_41 = $mol_type_enforce<
-		number
-		,
-		ReturnType< $apxutechtop_samosbor_map_slider['min_value'] >
-	>
-	type $apxutechtop_samosbor_map_slider__max_value_apxutechtop_samosbor_map_app_42 = $mol_type_enforce<
-		number
-		,
-		ReturnType< $apxutechtop_samosbor_map_slider['max_value'] >
-	>
-	type $apxutechtop_samosbor_map_slider__value_apxutechtop_samosbor_map_app_43 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['current_layer'] >
-		,
-		ReturnType< $apxutechtop_samosbor_map_slider['value'] >
-	>
-	type $mol_view__sub_apxutechtop_samosbor_map_app_44 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $apxutechtop_samosbor_map_area__style_apxutechtop_samosbor_map_app_45 = $mol_type_enforce<
+	type $apxu_samosbor_map_area__style_apxu_samosbor_map_app_9 = $mol_type_enforce<
 		({ 
 			'width': string,
 			'height': string,
 		}) 
 		,
-		ReturnType< $apxutechtop_samosbor_map_area['style'] >
+		ReturnType< $apxu_samosbor_map_area['style'] >
 	>
-	type $apxutechtop_samosbor_map_area__items_apxutechtop_samosbor_map_app_46 = $mol_type_enforce<
+	type $apxu_samosbor_map_area__items_apxu_samosbor_map_app_10 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxutechtop_samosbor_map_area['items'] >
+		ReturnType< $apxu_samosbor_map_area['items'] >
 	>
-	type $mol_view__sub_apxutechtop_samosbor_map_app_47 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_app_11 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxutechtop_samosbor_map_block__block_data_apxutechtop_samosbor_map_app_48 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['block'] >
+	type $apxu_samosbor_map_block__block_data_apxu_samosbor_map_app_12 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['block'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block['block_data'] >
+		ReturnType< $apxu_samosbor_map_block['block_data'] >
 	>
-	type $apxutechtop_samosbor_map_block__current_layer_apxutechtop_samosbor_map_app_49 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['current_layer'] >
+	type $apxu_samosbor_map_block__current_layer_apxu_samosbor_map_app_13 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['current_layer'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block['current_layer'] >
+		ReturnType< $apxu_samosbor_map_block['current_layer'] >
 	>
-	type $apxutechtop_samosbor_map_block__onclick_apxutechtop_samosbor_map_app_50 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['block_clicked'] >
+	type $apxu_samosbor_map_block__onclick_apxu_samosbor_map_app_14 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['block_clicked'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block['onclick'] >
+		ReturnType< $apxu_samosbor_map_block['onclick'] >
 	>
-	type $apxutechtop_samosbor_map_block__on_connection_select_apxutechtop_samosbor_map_app_51 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['connection_selected'] >
+	type $apxu_samosbor_map_block__on_connection_select_apxu_samosbor_map_app_15 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['connection_selected'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block['on_connection_select'] >
+		ReturnType< $apxu_samosbor_map_block['on_connection_select'] >
 	>
-	type $apxutechtop_samosbor_map_block__show_connections_apxutechtop_samosbor_map_app_52 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__show_connections_apxu_samosbor_map_app_16 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $apxutechtop_samosbor_map_block['show_connections'] >
+		ReturnType< $apxu_samosbor_map_block['show_connections'] >
 	>
-	type $apxutechtop_samosbor_map_block__create_mode_apxutechtop_samosbor_map_app_53 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['is_create_mode'] >
+	type $apxu_samosbor_map_block__create_mode_apxu_samosbor_map_app_17 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['is_create_mode'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block['create_mode'] >
+		ReturnType< $apxu_samosbor_map_block['create_mode'] >
 	>
-	type $apxutechtop_samosbor_map_block__edit_mode_apxutechtop_samosbor_map_app_54 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['is_configure_mode'] >
+	type $apxu_samosbor_map_block__edit_mode_apxu_samosbor_map_app_18 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['is_configure_mode'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block['edit_mode'] >
+		ReturnType< $apxu_samosbor_map_block['edit_mode'] >
 	>
-	type $apxutechtop_samosbor_map_block__connect_mode_apxutechtop_samosbor_map_app_55 = $mol_type_enforce<
-		ReturnType< $apxutechtop_samosbor_map_app['is_connect_mode'] >
+	type $apxu_samosbor_map_block__selected_apxu_samosbor_map_app_19 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['block_selected'] >
 		,
-		ReturnType< $apxutechtop_samosbor_map_block['connect_mode'] >
+		ReturnType< $apxu_samosbor_map_block['selected'] >
 	>
-	type $mol_view__attr_apxutechtop_samosbor_map_app_56 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__connect_mode_apxu_samosbor_map_app_20 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['is_connect_mode'] >
+		,
+		ReturnType< $apxu_samosbor_map_block['connect_mode'] >
+	>
+	type $apxu_samosbor_map_block_card__block_name_apxu_samosbor_map_app_21 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['selected_block_name'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card['block_name'] >
+	>
+	type $apxu_samosbor_map_block_card__max_floor_apxu_samosbor_map_app_22 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['max_floor'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card['max_floor'] >
+	>
+	type $apxu_samosbor_map_block_card__min_floor_apxu_samosbor_map_app_23 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['min_floor'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card['min_floor'] >
+	>
+	type $apxu_samosbor_map_block_card__close_click_apxu_samosbor_map_app_24 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['close_click'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card['close_click'] >
+	>
+	type $apxu_samosbor_map_block_card__pos_x_apxu_samosbor_map_app_25 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['pos_x_value'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card['pos_x'] >
+	>
+	type $apxu_samosbor_map_block_card__pos_y_apxu_samosbor_map_app_26 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['pos_y_value'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card['pos_y'] >
+	>
+	type $apxu_samosbor_map_block_card__block_layer_apxu_samosbor_map_app_27 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['layer_value'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card['block_layer'] >
+	>
+	type $apxu_samosbor_map_block_card__block_apxu_samosbor_map_app_28 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['Block'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card['block'] >
+	>
+	type $mol_view__attr_apxu_samosbor_map_app_29 = $mol_type_enforce<
 		({ 
-			'direction': ReturnType< $apxutechtop_samosbor_map_app['transition_direction'] >,
+			'direction': ReturnType< $apxu_samosbor_map_app['transition_direction'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxutechtop_samosbor_map_app_57 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_app_30 = $mol_type_enforce<
 		({ 
-			'left': ReturnType< $apxutechtop_samosbor_map_app['transition_left'] >,
-			'top': ReturnType< $apxutechtop_samosbor_map_app['transition_top'] >,
+			'left': ReturnType< $apxu_samosbor_map_app['transition_left'] >,
+			'top': ReturnType< $apxu_samosbor_map_app['transition_top'] >,
 		}) 
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	export class $apxutechtop_samosbor_map_app extends $mol_view {
+	export class $apxu_samosbor_map_app extends $mol_view {
 		block( id: any): any
 		current_layer( next?: number ): number
 		block_clicked( id: any, next?: any ): any
 		connection_selected( id: any, next?: any ): any
 		is_create_mode( ): boolean
 		is_configure_mode( ): boolean
+		block_selected( id: any): boolean
 		is_connect_mode( ): boolean
+		selected_block_name( id: any, next?: string ): string
+		max_floor( id: any, next?: number ): number
+		min_floor( id: any, next?: number ): number
+		close_click( id: any, next?: any ): any
+		pos_x_value( id: any, next?: number ): number
+		pos_y_value( id: any, next?: number ): number
+		layer_value( id: any, next?: number ): number
 		transition_direction( id: any): string
 		transition_left( id: any): number
 		transition_top( id: any): number
 		control_type( next?: string ): string
 		Control_Switch( ): $mol_switch
 		Control_Panel( ): $mol_card
-		block_cards( ): readonly($apxutechtop_samosbor_map_block_card)[]
-		selected_block_name( next?: string ): string
-		name_input( ): $mol_string
-		name_setting( ): $mol_view
-		block_type_value( next?: string ): string
-		block_type_switch( ): $mol_switch
-		type_setting( ): $mol_labeler
-		gen_floor( next?: number ): number
-		gen_setting_number( ): $mol_number
-		gen_floor_setting( ): $mol_labeler
-		min_floor( next?: number ): number
-		min_setting_number( ): $mol_number
-		min_floor_setting( ): $mol_labeler
-		max_floor( next?: number ): number
-		max_setting_number( ): $mol_number
-		max_floor_setting( ): $mol_labeler
-		layer_value( next?: number ): number
-		layer_setting_number( ): $mol_number
-		layer_setting( ): $mol_labeler
-		pos_x_value( next?: number ): number
-		pos_x_setting_number( ): $mol_number
-		pos_x_setting( ): $mol_labeler
-		pos_y_value( next?: number ): number
-		pos_y_setting_number( ): $mol_number
-		pos_y_setting( ): $mol_labeler
-		direction_value( next?: string ): string
-		direction_switch( ): $mol_switch
-		direction_setting( ): $mol_labeler
-		up_flight_value( next?: boolean ): boolean
-		up_flight_setting( ): $mol_check_box
-		down_flight_value( next?: boolean ): boolean
-		down_flight_setting( ): $mol_check_box
-		delete_block( next?: any ): any
-		delete_block_button( ): $mol_button_minor
-		Block_Form( ): $mol_card
+		block_cards( ): readonly($apxu_samosbor_map_block_card)[]
 		Layer_Bar( ): $mol_number
-		Layer_Slider( ): $apxutechtop_samosbor_map_slider
+		Layer_Slider( ): $apxu_samosbor_map_slider
 		Slider_Container( ): $mol_view
 		Searcher( ): $mol_view
 		blocks( ): readonly(any)[]
-		Area( ): $apxutechtop_samosbor_map_area
+		Area( ): $apxu_samosbor_map_area
 		Canvas( ): $mol_view
-		Block( id: any): $apxutechtop_samosbor_map_block
+		Block( id: any): $apxu_samosbor_map_block
+		BlockCard( id: any): $apxu_samosbor_map_block_card
 		Transition( id: any): $mol_view
 		sub( ): readonly(any)[]
 	}
@@ -7656,11 +8036,11 @@ declare namespace $ {
 declare namespace $.$$ {
     const Gigacluster_base: Omit<typeof $hyoo_crus_home, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_home, {
         readonly Blocks: (auto?: any) => {
-            remote_list(next?: readonly $apxutechtop_samosbor_map_block_data[] | undefined): readonly $apxutechtop_samosbor_map_block_data[];
-            remote_add(item: $apxutechtop_samosbor_map_block_data): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxutechtop_samosbor_map_block_data;
-            remote_make(config: $hyoo_crus_rank_preset): $apxutechtop_samosbor_map_block_data;
-            local_make(idea?: number): $apxutechtop_samosbor_map_block_data;
+            remote_list(next?: readonly $apxu_samosbor_map_block_data[] | undefined): readonly $apxu_samosbor_map_block_data[];
+            remote_add(item: $apxu_samosbor_map_block_data): void;
+            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data;
+            remote_make(config: $hyoo_crus_rank_preset): $apxu_samosbor_map_block_data;
+            local_make(idea?: number): $apxu_samosbor_map_block_data;
             items(next?: readonly ((symbol & {
                 $hyoo_crus_ref: symbol;
             }) | null)[] | undefined): readonly ((symbol & {
@@ -7708,11 +8088,11 @@ declare namespace $.$$ {
         } & {
             readonly Blocks: {
                 new (): {
-                    remote_list(next?: readonly $apxutechtop_samosbor_map_block_data[] | undefined): readonly $apxutechtop_samosbor_map_block_data[];
-                    remote_add(item: $apxutechtop_samosbor_map_block_data): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxutechtop_samosbor_map_block_data;
-                    remote_make(config: $hyoo_crus_rank_preset): $apxutechtop_samosbor_map_block_data;
-                    local_make(idea?: number): $apxutechtop_samosbor_map_block_data;
+                    remote_list(next?: readonly $apxu_samosbor_map_block_data[] | undefined): readonly $apxu_samosbor_map_block_data[];
+                    remote_add(item: $apxu_samosbor_map_block_data): void;
+                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data;
+                    remote_make(config: $hyoo_crus_rank_preset): $apxu_samosbor_map_block_data;
+                    local_make(idea?: number): $apxu_samosbor_map_block_data;
                     items(next?: readonly ((symbol & {
                         $hyoo_crus_ref: symbol;
                     }) | null)[] | undefined): readonly ((symbol & {
@@ -7769,33 +8149,36 @@ declare namespace $.$$ {
     };
     export class Gigacluster extends Gigacluster_base {
         static global(): Gigacluster;
-        static create_block(): $apxutechtop_samosbor_map_block_data | undefined;
+        static create_block(): $apxu_samosbor_map_block_data | undefined;
         static delete_block(ref: any): void;
         static delete_all_blocks(): void;
-        static blocks(): readonly $apxutechtop_samosbor_map_block_data[] | undefined;
-        static block_by_name(block_name: string): $apxutechtop_samosbor_map_block_data | undefined;
+        static blocks(): readonly $apxu_samosbor_map_block_data[] | undefined;
+        static block_by_name(block_name: string): $apxu_samosbor_map_block_data | undefined;
         static transition(block_name: string, floor: number, position: TransitionPosition): TransitionData | undefined;
     }
-    export class $apxutechtop_samosbor_map_app extends $.$apxutechtop_samosbor_map_app {
+    export class $apxu_samosbor_map_app extends $.$apxu_samosbor_map_app {
         map_land(): $hyoo_crus_land;
-        selected_block(next?: $.$apxutechtop_samosbor_map_block | null): $.$apxutechtop_samosbor_map_block | null | undefined;
-        selected_blocks(ref: any, next?: $.$apxutechtop_samosbor_map_block | null): $.$apxutechtop_samosbor_map_block | null | undefined;
-        block_clicked(ref: any, event: any): void;
+        selected_block(next?: $.$apxu_samosbor_map_block | null): $.$apxu_samosbor_map_block | null | undefined;
+        selected_blocks(next?: symbol[]): symbol[];
+        block_selected(ref: symbol): boolean;
+        block_clicked(ref: symbol, event: any): void;
+        block_cards(): readonly ($apxu_samosbor_map_block_card)[];
         gen_floor(next?: number): number;
-        min_floor(next?: number): number;
-        max_floor(next?: number): number;
-        layer_value(next?: number): number;
-        pos_x_value(next?: number): number;
-        pos_y_value(next?: number): number;
+        min_floor(ref: symbol, next?: number): number;
+        max_floor(ref: symbol, next?: number): number;
+        close_click(ref: symbol, event?: any): void;
+        layer_value(ref: symbol, next?: number): number;
+        pos_x_value(ref: symbol, next?: number): number;
+        pos_y_value(ref: symbol, next?: number): number;
         direction_value(next?: DirectionType): string;
         block_type_value(next?: string): string;
         up_flight_value(next?: boolean): boolean;
         down_flight_value(next?: boolean): boolean;
         delete_block(): void;
-        selected_block_name(next?: string): string;
-        static block_by_name(name: string): $apxutechtop_samosbor_map_block_data | undefined;
-        static block(ref: any): $apxutechtop_samosbor_map_block_data;
-        block(ref: any): $apxutechtop_samosbor_map_block_data;
+        selected_block_name(ref: symbol, next?: string): string;
+        static block_by_name(name: string): $apxu_samosbor_map_block_data | undefined;
+        static block(ref: any): $apxu_samosbor_map_block_data;
+        block(ref: any): $apxu_samosbor_map_block_data;
         transitions(): $mol_view[];
         transition_direction(ref: any): string;
         transition_left(ref: any): number;
@@ -7824,6 +8207,7 @@ declare namespace $.$$ {
             y: number;
         };
         static absolute_direction(direction: DirectionType, position: TransitionPosition): DirectionType;
+        block_view(ref: symbol): $.$apxu_samosbor_map_block;
         blocks(): $mol_view[];
     }
     export {};

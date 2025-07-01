@@ -2934,7 +2934,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/theme/theme.css", ":root {\n\t--mol_theme_hue: 240deg;\n\t--mol_theme_hue_spread: 90deg;\n}\n\n:where([mol_theme]) {\n\tcolor: var(--mol_theme_text);\n\tfill: var(--mol_theme_text);\n\tbackground-color: var(--mol_theme_back);\n}\n\t\n:root, [mol_theme=\"$mol_theme_dark\"], :where([mol_theme=\"$mol_theme_dark\"]) [mol_theme]  {\n\n\t--mol_theme_luma: -1;\n\t--mol_theme_image: invert(1) hue-rotate( 180deg );\n\t--mol_theme_spirit: hsl( 0deg, 0%, 0%, .75 );\n\n\t--mol_theme_back: hsl( var(--mol_theme_hue), 20%, 10% );\n\t--mol_theme_card: hsl( var(--mol_theme_hue), 50%, 20%, .25 );\n\t--mol_theme_field: hsl( var(--mol_theme_hue), 50%, 8%, .25 );\n\t--mol_theme_hover: hsl( var(--mol_theme_hue), 0%, 50%, .1 );\n\t\n\t--mol_theme_text: hsl( var(--mol_theme_hue), 0%, 80% );\n\t--mol_theme_shade: hsl( var(--mol_theme_hue), 0%, 60%, 1 );\n\t--mol_theme_line: hsl( var(--mol_theme_hue), 0%, 50%, .25 );\n\t--mol_theme_focus: hsl( calc( var(--mol_theme_hue) + 180deg ), 100%, 65% );\n\t\n\t--mol_theme_control: hsl( var(--mol_theme_hue), 60%, 65% );\n\t--mol_theme_current: hsl( calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ), 60%, 65% );\n\t--mol_theme_special: hsl( calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ), 60%, 65% );\n\n} @supports( color: oklch( 0% 0 0deg ) ) {\n:root, [mol_theme=\"$mol_theme_dark\"], :where([mol_theme=\"$mol_theme_dark\"]) [mol_theme]  {\n\t\n\t--mol_theme_back: oklch( 20% .03 var(--mol_theme_hue) );\n\t--mol_theme_card: oklch( 30% .05 var(--mol_theme_hue) / .25 );\n\t--mol_theme_field: oklch( 15% 0 var(--mol_theme_hue) / .25 );\n\t--mol_theme_hover: oklch( 70% 0 var(--mol_theme_hue) / .1 );\n\t\n\t--mol_theme_text: oklch( 80% 0 var(--mol_theme_hue) );\n\t--mol_theme_shade: oklch( 60% 0 var(--mol_theme_hue) );\n\t--mol_theme_line: oklch( 60% 0 var(--mol_theme_hue) / .25 );\n\t--mol_theme_focus: oklch( 80% .2 calc( var(--mol_theme_hue) + 180deg ) );\n\t\n\t--mol_theme_control: oklch( 70% .1 var(--mol_theme_hue) );\n\t--mol_theme_current: oklch( 70% .2 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) );\n\t--mol_theme_special: oklch( 70% .2 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) );\n\n} }\n\n[mol_theme=\"$mol_theme_light\"], :where([mol_theme=\"$mol_theme_light\"]) [mol_theme] {\n\t\n\t--mol_theme_luma: 1;\n\t--mol_theme_image: none;\n\t--mol_theme_spirit: hsl( 0deg, 0%, 100%, .75 );\n\t\n\t--mol_theme_back: hsl( var(--mol_theme_hue), 20%, 92% );\n\t--mol_theme_card: hsl( var(--mol_theme_hue), 50%, 100%, .5 );\n\t--mol_theme_field: hsl( var(--mol_theme_hue), 50%, 100%, .75 );\n\t--mol_theme_hover: hsl( var(--mol_theme_hue), 0%, 50%, .1 );\n\t\n\t--mol_theme_text: hsl( var(--mol_theme_hue), 0%, 0% );\n\t--mol_theme_shade: hsl( var(--mol_theme_hue), 0%, 40%, 1 );\n\t--mol_theme_line: hsl( var(--mol_theme_hue), 0%, 50%, .25 );\n\t--mol_theme_focus: hsl( calc( var(--mol_theme_hue) + 180deg ), 100%, 40% );\n\t\n\t--mol_theme_control: hsl( var(--mol_theme_hue), 80%, 30% );\n\t--mol_theme_current: hsl( calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ), 80%, 30% );\n\t--mol_theme_special: hsl( calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ), 80%, 30% );\n\n} @supports( color: oklch( 0% 0 0deg ) ) {\n[mol_theme=\"$mol_theme_light\"], :where([mol_theme=\"$mol_theme_light\"]) [mol_theme] {\n\t--mol_theme_back: oklch( 92% .01 var(--mol_theme_hue) );\n\t--mol_theme_card: oklch( 99% .01 var(--mol_theme_hue) / .5 );\n\t--mol_theme_field: oklch( 100% 0 var(--mol_theme_hue) / .5 );\n\t--mol_theme_hover: oklch( 70% 0 var(--mol_theme_hue) / .1 );\n\t\n\t--mol_theme_text: oklch( 20% 0 var(--mol_theme_hue) );\n\t--mol_theme_shade: oklch( 60% 0 var(--mol_theme_hue) );\n\t--mol_theme_line: oklch( 50% 0 var(--mol_theme_hue) / .25 );\n\t--mol_theme_focus: oklch( 60% .2 calc( var(--mol_theme_hue) + 180deg ) );\n\t\n\t--mol_theme_control: oklch( 40% .15 var(--mol_theme_hue) );\n\t--mol_theme_current: oklch( 50% .2 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) );\n\t--mol_theme_special: oklch( 50% .2 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) );\n\n} }\n\n:where( :root, [mol_theme=\"$mol_theme_dark\"] ) [mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: oklch( 25% .075 var(--mol_theme_hue) );\n\t--mol_theme_card: oklch( 35% .1 var(--mol_theme_hue) / .25 );\n}\n:where( [mol_theme=\"$mol_theme_light\"] ) [mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: oklch( 85% .075 var(--mol_theme_hue) );\n\t--mol_theme_card: oklch( 98% .03 var(--mol_theme_hue) / .25 );\n}\n\n:where( :root, [mol_theme=\"$mol_theme_dark\"] ) [mol_theme=\"$mol_theme_current\"] {\n\t--mol_theme_back: oklch( 25% .05 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) );\n\t--mol_theme_card: oklch( 35% .1 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) / .25 );\n}\n:where( [mol_theme=\"$mol_theme_light\"] ) [mol_theme=\"$mol_theme_current\"] {\n\t--mol_theme_back: oklch( 85% .05 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) );\n\t--mol_theme_card: oklch( 98% .03 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) / .25 );\n}\n\n:where( :root, [mol_theme=\"$mol_theme_dark\"] ) [mol_theme=\"$mol_theme_special\"] {\n\t--mol_theme_back: oklch( 25% .05 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) );\n\t--mol_theme_card: oklch( 35% .1 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) / .25 );\n}\n:where( [mol_theme=\"$mol_theme_light\"] ) [mol_theme=\"$mol_theme_special\"] {\n\t--mol_theme_back: oklch( 85% .05 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) );\n\t--mol_theme_card: oklch( 98% .03 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) / .25 );\n}\n\n:where( :root, [mol_theme=\"$mol_theme_dark\"] ) [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: oklch( 35% .1 calc( var(--mol_theme_hue) + 180deg ) );\n\t--mol_theme_card: oklch( 45% .15 calc( var(--mol_theme_hue) + 180deg ) / .25 );\n}\n:where( [mol_theme=\"$mol_theme_light\"] ) [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: oklch( 83% .1 calc( var(--mol_theme_hue) + 180deg ) );\n\t--mol_theme_card: oklch( 98% .03 calc( var(--mol_theme_hue) + 180deg ) / .25 );\n}\n\n");
+    $mol_style_attach("mol/theme/theme.css", ":root {\n\t--mol_theme_hue: 240deg;\n\t--mol_theme_hue_spread: 90deg;\n\tcolor-scheme: dark light;\n}\n\n:where([mol_theme]) {\n\tcolor: var(--mol_theme_text);\n\tfill: var(--mol_theme_text);\n\tbackground-color: var(--mol_theme_back);\n}\n\t\n:root, [mol_theme=\"$mol_theme_dark\"], :where([mol_theme=\"$mol_theme_dark\"]) [mol_theme]  {\n\n\t--mol_theme_luma: -1;\n\t--mol_theme_image: invert(1) hue-rotate( 180deg );\n\t--mol_theme_spirit: hsl( 0deg, 0%, 0%, .75 );\n\n\t--mol_theme_back: hsl( var(--mol_theme_hue), 20%, 10% );\n\t--mol_theme_card: hsl( var(--mol_theme_hue), 50%, 20%, .25 );\n\t--mol_theme_field: hsl( var(--mol_theme_hue), 50%, 8%, .25 );\n\t--mol_theme_hover: hsl( var(--mol_theme_hue), 0%, 50%, .1 );\n\t\n\t--mol_theme_text: hsl( var(--mol_theme_hue), 0%, 80% );\n\t--mol_theme_shade: hsl( var(--mol_theme_hue), 0%, 60%, 1 );\n\t--mol_theme_line: hsl( var(--mol_theme_hue), 0%, 50%, .25 );\n\t--mol_theme_focus: hsl( calc( var(--mol_theme_hue) + 180deg ), 100%, 65% );\n\t\n\t--mol_theme_control: hsl( var(--mol_theme_hue), 60%, 65% );\n\t--mol_theme_current: hsl( calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ), 60%, 65% );\n\t--mol_theme_special: hsl( calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ), 60%, 65% );\n\n} @supports( color: oklch( 0% 0 0deg ) ) {\n:root, [mol_theme=\"$mol_theme_dark\"], :where([mol_theme=\"$mol_theme_dark\"]) [mol_theme]  {\n\t\n\t--mol_theme_back: oklch( 20% .03 var(--mol_theme_hue) );\n\t--mol_theme_card: oklch( 30% .05 var(--mol_theme_hue) / .25 );\n\t--mol_theme_field: oklch( 15% 0 var(--mol_theme_hue) / .25 );\n\t--mol_theme_hover: oklch( 70% 0 var(--mol_theme_hue) / .1 );\n\t\n\t--mol_theme_text: oklch( 80% 0 var(--mol_theme_hue) );\n\t--mol_theme_shade: oklch( 60% 0 var(--mol_theme_hue) );\n\t--mol_theme_line: oklch( 60% 0 var(--mol_theme_hue) / .25 );\n\t--mol_theme_focus: oklch( 80% .2 calc( var(--mol_theme_hue) + 180deg ) );\n\t\n\t--mol_theme_control: oklch( 70% .1 var(--mol_theme_hue) );\n\t--mol_theme_current: oklch( 70% .2 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) );\n\t--mol_theme_special: oklch( 70% .2 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) );\n\n} }\n\n[mol_theme=\"$mol_theme_light\"], :where([mol_theme=\"$mol_theme_light\"]) [mol_theme] {\n\t\n\t--mol_theme_luma: 1;\n\t--mol_theme_image: none;\n\t--mol_theme_spirit: hsl( 0deg, 0%, 100%, .75 );\n\t\n\t--mol_theme_back: hsl( var(--mol_theme_hue), 20%, 92% );\n\t--mol_theme_card: hsl( var(--mol_theme_hue), 50%, 100%, .5 );\n\t--mol_theme_field: hsl( var(--mol_theme_hue), 50%, 100%, .75 );\n\t--mol_theme_hover: hsl( var(--mol_theme_hue), 0%, 50%, .1 );\n\t\n\t--mol_theme_text: hsl( var(--mol_theme_hue), 0%, 0% );\n\t--mol_theme_shade: hsl( var(--mol_theme_hue), 0%, 40%, 1 );\n\t--mol_theme_line: hsl( var(--mol_theme_hue), 0%, 50%, .25 );\n\t--mol_theme_focus: hsl( calc( var(--mol_theme_hue) + 180deg ), 100%, 40% );\n\t\n\t--mol_theme_control: hsl( var(--mol_theme_hue), 80%, 30% );\n\t--mol_theme_current: hsl( calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ), 80%, 30% );\n\t--mol_theme_special: hsl( calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ), 80%, 30% );\n\n} @supports( color: oklch( 0% 0 0deg ) ) {\n[mol_theme=\"$mol_theme_light\"], :where([mol_theme=\"$mol_theme_light\"]) [mol_theme] {\n\t--mol_theme_back: oklch( 92% .01 var(--mol_theme_hue) );\n\t--mol_theme_card: oklch( 99% .01 var(--mol_theme_hue) / .5 );\n\t--mol_theme_field: oklch( 100% 0 var(--mol_theme_hue) / .5 );\n\t--mol_theme_hover: oklch( 70% 0 var(--mol_theme_hue) / .1 );\n\t\n\t--mol_theme_text: oklch( 20% 0 var(--mol_theme_hue) );\n\t--mol_theme_shade: oklch( 60% 0 var(--mol_theme_hue) );\n\t--mol_theme_line: oklch( 50% 0 var(--mol_theme_hue) / .25 );\n\t--mol_theme_focus: oklch( 60% .2 calc( var(--mol_theme_hue) + 180deg ) );\n\t\n\t--mol_theme_control: oklch( 40% .15 var(--mol_theme_hue) );\n\t--mol_theme_current: oklch( 50% .2 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) );\n\t--mol_theme_special: oklch( 50% .2 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) );\n\n} }\n\n:where( :root, [mol_theme=\"$mol_theme_dark\"] ) [mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: oklch( 25% .075 var(--mol_theme_hue) );\n\t--mol_theme_card: oklch( 35% .1 var(--mol_theme_hue) / .25 );\n}\n:where( [mol_theme=\"$mol_theme_light\"] ) [mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: oklch( 85% .075 var(--mol_theme_hue) );\n\t--mol_theme_card: oklch( 98% .03 var(--mol_theme_hue) / .25 );\n}\n\n:where( :root, [mol_theme=\"$mol_theme_dark\"] ) [mol_theme=\"$mol_theme_current\"] {\n\t--mol_theme_back: oklch( 25% .05 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) );\n\t--mol_theme_card: oklch( 35% .1 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) / .25 );\n}\n:where( [mol_theme=\"$mol_theme_light\"] ) [mol_theme=\"$mol_theme_current\"] {\n\t--mol_theme_back: oklch( 85% .05 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) );\n\t--mol_theme_card: oklch( 98% .03 calc( var(--mol_theme_hue) - var(--mol_theme_hue_spread) ) / .25 );\n}\n\n:where( :root, [mol_theme=\"$mol_theme_dark\"] ) [mol_theme=\"$mol_theme_special\"] {\n\t--mol_theme_back: oklch( 25% .05 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) );\n\t--mol_theme_card: oklch( 35% .1 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) / .25 );\n}\n:where( [mol_theme=\"$mol_theme_light\"] ) [mol_theme=\"$mol_theme_special\"] {\n\t--mol_theme_back: oklch( 85% .05 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) );\n\t--mol_theme_card: oklch( 98% .03 calc( var(--mol_theme_hue) + var(--mol_theme_hue_spread) ) / .25 );\n}\n\n:where( :root, [mol_theme=\"$mol_theme_dark\"] ) [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: oklch( 35% .1 calc( var(--mol_theme_hue) + 180deg ) );\n\t--mol_theme_card: oklch( 45% .15 calc( var(--mol_theme_hue) + 180deg ) / .25 );\n}\n:where( [mol_theme=\"$mol_theme_light\"] ) [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: oklch( 83% .1 calc( var(--mol_theme_hue) + 180deg ) );\n\t--mol_theme_card: oklch( 98% .03 calc( var(--mol_theme_hue) + 180deg ) / .25 );\n}\n\n");
 })($ || ($ = {}));
 
 ;
@@ -3614,7 +3614,7 @@ var $;
 "use strict";
 
 ;
-	($.$apxutechtop_samosbor_map_icon_stairs) = class $apxutechtop_samosbor_map_icon_stairs extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_stairs) = class $apxu_samosbor_map_icon_stairs extends ($.$mol_icon) {
 		path(){
 			return "M0.5 40.5V36.2895H7.86842V26.8158H17.3421V17.3421H26.8158V7.86842H36.2895V0.5H40.5V12.0789H31.0263V21.5526H21.5526V31.0263H12.0789V40.5H0.5Z";
 		}
@@ -3622,7 +3622,7 @@ var $;
 			return "0 0 41 41";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_cleaner) = class $apxutechtop_samosbor_map_icon_cleaner extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_cleaner) = class $apxu_samosbor_map_icon_cleaner extends ($.$mol_icon) {
 		path(){
 			return "M27.5929 0.817734L17.5955 11.1809L20.2004 13.7705L30.2711 3.38228C31.1598 1.42513 29.2897 -0.212085 27.5929 0.817734ZM13.6941 12.2007C13.7918 12.1232 13.8919 12.0558 13.992 11.9983L14.0286 11.9783C14.6023 11.6583 15.2029 11.6683 15.8328 12.1107L17.5833 13.8554L17.6101 13.8829L19.2214 15.4876C19.8879 16.1825 20.0368 16.9574 19.6682 17.8147L14.9441 30.5C6.36507 28.7428 0.417851 22.4814 0.500858 12.9306C5.19565 14.3354 9.7171 14.7953 13.6941 12.2007Z";
 		}
@@ -3630,7 +3630,7 @@ var $;
 			return "0 0 31 31";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_factory) = class $apxutechtop_samosbor_map_icon_factory extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_factory) = class $apxu_samosbor_map_icon_factory extends ($.$mol_icon) {
 		path(){
 			return "M28.4689 6.50021L19.657 13.4819V6.50021L10.4615 13.7857L9.69547 0.5H2.03205L0.5 30.5H30.5L28.4689 6.50021ZM11.9053 22.9416H8.28594V18.8926H11.9053V22.9416ZM22.186 22.9416H18.5656V18.8926H22.186V22.9416Z";
 		}
@@ -3638,7 +3638,7 @@ var $;
 			return "0 0 31 31";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_repairman) = class $apxutechtop_samosbor_map_icon_repairman extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_repairman) = class $apxu_samosbor_map_icon_repairman extends ($.$mol_icon) {
 		path(){
 			return "M27.8449 12.418C30.4201 10.1558 30.8504 7.585 30.2745 5.41791C30.2575 5.24576 30.215 5.10115 30.0598 4.99217L29.5415 4.58107C29.4517 4.50051 29.3307 4.4602 29.2096 4.47215C29.0876 4.48316 28.9769 4.54445 28.9051 4.63967L25.9241 8.39148C25.8409 8.50228 25.7066 8.56544 25.5657 8.56087L24.4838 8.63781C24.3911 8.63505 24.3012 8.603 24.2284 8.54622L22.1384 6.83142C22.0533 6.76457 21.9975 6.66935 21.9832 6.56406L21.8536 5.61555C21.8385 5.51119 21.8659 5.40496 21.9303 5.31982L24.7211 1.64946C24.8478 1.48006 24.8233 1.24663 24.6663 1.10471L23.9891 0.592955C23.8567 0.473014 23.7063 0.490416 23.5011 0.527975C21.5736 0.896939 18.2825 2.70326 17.4474 5.20082C16.7116 7.39902 16.9679 8.949 16.9679 8.949C16.9679 10.1877 16.5471 11.3816 16.0297 11.8833L1.48825 25.3975C1.45986 25.4231 1.43244 25.4478 1.40502 25.4744C0.203926 26.6371 0.205802 28.525 1.36623 29.6474C2.52665 30.7707 4.50509 30.801 5.70619 29.6373C5.762 29.5833 5.81593 29.5274 5.86604 29.4698L19.8885 14.7957C21.6135 13.3098 25.0285 14.8936 27.8449 12.418Z";
 		}
@@ -3646,7 +3646,7 @@ var $;
 			return "0 0 31 31";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_sinking) = class $apxutechtop_samosbor_map_icon_sinking extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_sinking) = class $apxu_samosbor_map_icon_sinking extends ($.$mol_icon) {
 		path(){
 			return "M0.5 30.5V27.5C1.45 27.5 2.15625 27.25 2.61875 26.75C3.08125 26.25 4.05 26 5.525 26C7 26 7.9625 26.25 8.4125 26.75C8.8625 27.25 9.5625 27.5 10.5125 27.5C11.4625 27.5 12.1625 27.25 12.6125 26.75C13.0625 26.25 14.025 26 15.5 26C16.925 26 17.8938 26.25 18.4062 26.75C18.9188 27.25 19.625 27.5 20.525 27.5C21.475 27.5 22.175 27.25 22.625 26.75C23.075 26.25 24.0375 26 25.5125 26C26.9875 26 27.95 26.25 28.4 26.75C28.85 27.25 29.55 27.5 30.5 27.5V30.5C29.05 30.5 28.0875 30.25 27.6125 29.75C27.1375 29.25 26.4375 29 25.5125 29C24.5875 29 23.8875 29.25 23.4125 29.75C22.9375 30.25 21.975 30.5 20.525 30.5C19.075 30.5 18.1063 30.25 17.6188 29.75C17.1313 29.25 16.425 29 15.5 29C14.55 29 13.85 29.25 13.4 29.75C12.95 30.25 11.9875 30.5 10.5125 30.5C9.0375 30.5 8.075 30.25 7.625 29.75C7.175 29.25 6.475 29 5.525 29C4.6 29 3.9 29.25 3.425 29.75C2.95 30.25 1.975 30.5 0.5 30.5ZM10.5125 23.75C9.0875 23.75 8.125 23.5 7.625 23C7.125 22.5 6.425 22.25 5.525 22.25C4.65 22.25 3.95 22.5 3.425 23C2.9 23.5 1.925 23.75 0.5 23.75V20.75C1.45 20.75 2.15 20.5 2.6 20C3.05 19.5 4.0125 19.25 5.4875 19.25C5.6375 19.25 5.7875 19.2563 5.9375 19.2688C6.0875 19.2812 6.225 19.3 6.35 19.325L4.925 14.075L2.8625 16.775L0.5 14.9L12.1625 0.5L29.45 7.1L28.3625 9.9125L25.2125 8.6375L28.25 19.925C28.6 20.125 28.9438 20.3125 29.2813 20.4875C29.6188 20.6625 30.025 20.75 30.5 20.75V23.75C29.075 23.725 28.1125 23.4688 27.6125 22.9813C27.1125 22.4938 26.4125 22.25 25.5125 22.25C24.5625 22.25 23.8625 22.5 23.4125 23C22.9625 23.5 22 23.75 20.525 23.75C19.1 23.75 18.1313 23.5 17.6188 23C17.1063 22.5 16.4 22.25 15.5 22.25C14.55 22.25 13.85 22.5 13.4 23C12.95 23.5 11.9875 23.75 10.5125 23.75ZM10.5125 20.75C11.2625 20.75 11.8438 20.575 12.2563 20.225C12.6688 19.875 13.3 19.6 14.15 19.4L12.7625 14.3L18.575 12.7625L20.675 20.7125C21.45 20.6625 22.0625 20.4313 22.5125 20.0188C22.9625 19.6063 23.775 19.3625 24.95 19.2875L21.725 7.25L13.1375 4.1L7.25 11.15L9.8375 20.675C9.9375 20.7 10.0438 20.7188 10.1562 20.7313C10.2688 20.7438 10.3875 20.75 10.5125 20.75Z";
 		}
@@ -3654,7 +3654,7 @@ var $;
 			return "0 0 31 31";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_roof) = class $apxutechtop_samosbor_map_icon_roof extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_roof) = class $apxu_samosbor_map_icon_roof extends ($.$mol_icon) {
 		path(){
 			return "M11.4091 25.5V16.6765H19.5909V25.5H11.4091ZM14.1364 22.5588H16.8636V19.6176H14.1364V22.5588ZM2.13636 15.2059L0.5 12.8529L15.5 0.5L20.9545 4.98529V1.97059H25.0455V8.36765L30.5 12.8529L28.8636 15.2059L15.5 4.21324L2.13636 15.2059Z";
 		}
@@ -3662,7 +3662,7 @@ var $;
 			return "0 0 31 26";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_elevator) = class $apxutechtop_samosbor_map_icon_elevator extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_elevator) = class $apxu_samosbor_map_icon_elevator extends ($.$mol_icon) {
 		path(){
 			return "M9.62131 33.3646H16.288V24.4757H18.5102V18.9201C18.5102 17.6979 18.075 16.6516 17.2046 15.7812C16.3343 14.9109 15.288 14.4757 14.0658 14.4757H11.8435C10.6213 14.4757 9.57501 14.9109 8.70464 15.7812C7.83427 16.6516 7.39909 17.6979 7.39909 18.9201V24.4757H9.62131V33.3646ZM12.9546 12.2535C13.7324 12.2535 14.3898 11.985 14.9269 11.4479C15.4639 10.9109 15.7324 10.2535 15.7324 9.47569C15.7324 8.69792 15.4639 8.04051 14.9269 7.50347C14.3898 6.96644 13.7324 6.69792 12.9546 6.69792C12.1769 6.69792 11.5195 6.96644 10.9824 7.50347C10.4454 8.04051 10.1769 8.69792 10.1769 9.47569C10.1769 10.2535 10.4454 10.9109 10.9824 11.4479C11.5195 11.985 12.1769 12.2535 12.9546 12.2535ZM22.9546 17.809H34.0658L28.5102 8.92014L22.9546 17.809ZM28.5102 31.1424L34.0658 22.2535H22.9546L28.5102 31.1424ZM5.17687 40.0312C3.95464 40.0312 2.90835 39.5961 2.03798 38.7257C1.16761 37.8553 0.732422 36.809 0.732422 35.5868V4.47569C0.732422 3.25347 1.16761 2.20718 2.03798 1.33681C2.90835 0.466435 3.95464 0.03125 5.17687 0.03125H36.288C37.5102 0.03125 38.5565 0.466435 39.4269 1.33681C40.2972 2.20718 40.7324 3.25347 40.7324 4.47569V35.5868C40.7324 36.809 40.2972 37.8553 39.4269 38.7257C38.5565 39.5961 37.5102 40.0312 36.288 40.0312H5.17687ZM5.17687 35.5868H36.288V4.47569H5.17687V35.5868Z";
 		}
@@ -3670,8 +3670,8 @@ var $;
 			return "0 0 41 41";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_abandoned) = class $apxutechtop_samosbor_map_icon_abandoned extends ($.$mol_icon_spider_web) {};
-	($.$apxutechtop_samosbor_map_icon_theatre) = class $apxutechtop_samosbor_map_icon_theatre extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_abandoned) = class $apxu_samosbor_map_icon_abandoned extends ($.$mol_icon_spider_web) {};
+	($.$apxu_samosbor_map_icon_theatre) = class $apxu_samosbor_map_icon_theatre extends ($.$mol_icon) {
 		path(){
 			return "M25.0455 8.75C25.4318 8.75 25.7557 8.60625 26.017 8.31875C26.2784 8.03125 26.4091 7.675 26.4091 7.25C26.4091 6.825 26.2784 6.46875 26.017 6.18125C25.7557 5.89375 25.4318 5.75 25.0455 5.75C24.6591 5.75 24.3352 5.89375 24.0739 6.18125C23.8125 6.46875 23.6818 6.825 23.6818 7.25C23.6818 7.675 23.8125 8.03125 24.0739 8.31875C24.3352 8.60625 24.6591 8.75 25.0455 8.75ZM19.5909 8.75C19.9773 8.75 20.3011 8.60625 20.5625 8.31875C20.8239 8.03125 20.9545 7.675 20.9545 7.25C20.9545 6.825 20.8239 6.46875 20.5625 6.18125C20.3011 5.89375 19.9773 5.75 19.5909 5.75C19.2045 5.75 18.8807 5.89375 18.6193 6.18125C18.358 6.46875 18.2273 6.825 18.2273 7.25C18.2273 7.675 18.358 8.03125 18.6193 8.31875C18.8807 8.60625 19.2045 8.75 19.5909 8.75ZM18.9091 13.85H25.7273C25.7273 12.975 25.3807 12.2812 24.6875 11.7688C23.9943 11.2563 23.2045 11 22.3182 11C21.4318 11 20.642 11.2563 19.9489 11.7688C19.2557 12.2812 18.9091 12.975 18.9091 13.85ZM8.68182 30.5C6.40909 30.5 4.47727 29.625 2.88636 27.875C1.29545 26.125 0.5 24 0.5 21.5V11H16.8636V21.5C16.8636 24 16.0682 26.125 14.4773 27.875C12.8864 29.625 10.9545 30.5 8.68182 30.5ZM8.68182 27.5C10.1818 27.5 11.4659 26.9125 12.5341 25.7375C13.6023 24.5625 14.1364 23.15 14.1364 21.5V14H3.22727V21.5C3.22727 23.15 3.76136 24.5625 4.82955 25.7375C5.89773 26.9125 7.18182 27.5 8.68182 27.5ZM22.3182 20C21.7273 20 21.142 19.9312 20.5625 19.7938C19.983 19.6562 19.4318 19.45 18.9091 19.175V15.65C19.4091 16.075 19.9489 16.4062 20.5284 16.6437C21.108 16.8813 21.7045 17 22.3182 17C23.8182 17 25.1023 16.4125 26.1705 15.2375C27.2386 14.0625 27.7727 12.65 27.7727 11V3.5H16.8636V8.75H14.1364V0.5H30.5V11C30.5 13.5 29.7045 15.625 28.1136 17.375C26.5227 19.125 24.5909 20 22.3182 20ZM5.95455 19.25C6.34091 19.25 6.66477 19.1063 6.92614 18.8188C7.1875 18.5312 7.31818 18.175 7.31818 17.75C7.31818 17.325 7.1875 16.9688 6.92614 16.6813C6.66477 16.3938 6.34091 16.25 5.95455 16.25C5.56818 16.25 5.24432 16.3938 4.98295 16.6813C4.72159 16.9688 4.59091 17.325 4.59091 17.75C4.59091 18.175 4.72159 18.5312 4.98295 18.8188C5.24432 19.1063 5.56818 19.25 5.95455 19.25ZM11.4091 19.25C11.7955 19.25 12.1193 19.1063 12.3807 18.8188C12.642 18.5312 12.7727 18.175 12.7727 17.75C12.7727 17.325 12.642 16.9688 12.3807 16.6813C12.1193 16.3938 11.7955 16.25 11.4091 16.25C11.0227 16.25 10.6989 16.3938 10.4375 16.6813C10.1761 16.9688 10.0455 17.325 10.0455 17.75C10.0455 18.175 10.1761 18.5312 10.4375 18.8188C10.6989 19.1063 11.0227 19.25 11.4091 19.25ZM8.68182 24.35C9.56818 24.35 10.358 24.0938 11.0511 23.5812C11.7443 23.0688 12.0909 22.375 12.0909 21.5H5.27273C5.27273 22.375 5.61932 23.0688 6.3125 23.5812C7.00568 24.0938 7.79545 24.35 8.68182 24.35Z";
 		}
@@ -3679,7 +3679,7 @@ var $;
 			return "0 0 31 31";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_party) = class $apxutechtop_samosbor_map_icon_party extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_party) = class $apxu_samosbor_map_icon_party extends ($.$mol_icon) {
 		path(){
 			return "M31.1666 30.1042H29.3958V15.5833C29.3958 12.155 27.5116 10.2708 24.0833 10.2708H18.0625V8.52835C18.8841 8.72668 19.7058 8.84001 20.5416 8.84001C21.8733 8.84001 23.205 8.58501 24.48 8.07501C24.8766 7.91918 25.1458 7.52251 25.1458 7.08335V2.83335C25.1458 2.47918 24.9758 2.15335 24.6783 1.95501C24.3808 1.75668 24.0125 1.71418 23.6866 1.84168C21.6608 2.64918 19.4225 2.64918 17.3966 1.84168C17.0708 1.71418 16.7025 1.75668 16.405 1.95501C16.1075 2.15335 15.9375 2.47918 15.9375 2.83335V7.08335V10.2708H9.91665C6.48831 10.2708 4.60415 12.155 4.60415 15.5833V30.1042H2.83331C2.25248 30.1042 1.77081 30.5858 1.77081 31.1667C1.77081 31.7475 2.25248 32.2292 2.83331 32.2292H5.66665H28.3333H31.1666C31.7475 32.2292 32.2291 31.7475 32.2291 31.1667C32.2291 30.5858 31.7475 30.1042 31.1666 30.1042ZM10.2566 30.1042H6.72915V18.0625H10.2566V30.1042ZM15.9233 30.1042H12.3816V18.0625H15.9233V30.1042ZM21.59 30.1042H18.0483V18.0625H21.59V30.1042ZM27.2708 30.1042H23.715V18.0625H27.2708V30.1042Z";
 		}
@@ -3687,7 +3687,7 @@ var $;
 			return "0 0 34 34";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_hospital) = class $apxutechtop_samosbor_map_icon_hospital extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_hospital) = class $apxu_samosbor_map_icon_hospital extends ($.$mol_icon) {
 		path(){
 			return "M31.1666 30.1042H2.83331C2.25248 30.1042 1.77081 30.5858 1.77081 31.1667C1.77081 31.7475 2.25248 32.2292 2.83331 32.2292H31.1666C31.7475 32.2292 32.2291 31.7475 32.2291 31.1667C32.2291 30.5858 31.7475 30.1042 31.1666 30.1042Z";
 		}
@@ -3711,9 +3711,9 @@ var $;
 			return [(this.Path1()), (this.Path2())];
 		}
 	};
-	($mol_mem(($.$apxutechtop_samosbor_map_icon_hospital.prototype), "Path1"));
-	($mol_mem(($.$apxutechtop_samosbor_map_icon_hospital.prototype), "Path2"));
-	($.$apxutechtop_samosbor_map_icon_warehouse) = class $apxutechtop_samosbor_map_icon_warehouse extends ($.$mol_icon) {
+	($mol_mem(($.$apxu_samosbor_map_icon_hospital.prototype), "Path1"));
+	($mol_mem(($.$apxu_samosbor_map_icon_hospital.prototype), "Path2"));
+	($.$apxu_samosbor_map_icon_warehouse) = class $apxu_samosbor_map_icon_warehouse extends ($.$mol_icon) {
 		view_box(){
 			return "0 0 34 34";
 		}
@@ -3721,7 +3721,7 @@ var $;
 			return "M31.1666 30.1042H29.75V14.1383C29.75 13.26 29.3533 12.4383 28.6591 11.9L26.9166 10.54L26.8883 7.06917C26.8883 6.29 26.2508 5.66667 25.4716 5.66667H20.6408L18.7425 4.19333C17.7225 3.38583 16.2775 3.38583 15.2575 4.19333L5.34081 11.9C4.64665 12.4383 4.24998 13.26 4.24998 14.1242L4.17915 30.1042H2.83331C2.25248 30.1042 1.77081 30.5858 1.77081 31.1667C1.77081 31.7475 2.25248 32.2292 2.83331 32.2292H31.1666C31.7475 32.2292 32.2291 31.7475 32.2291 31.1667C32.2291 30.5858 31.7475 30.1042 31.1666 30.1042ZM9.20831 18.0625V15.9375C9.20831 15.1583 9.84581 14.5208 10.625 14.5208H13.4583C14.2375 14.5208 14.875 15.1583 14.875 15.9375V18.0625C14.875 18.8417 14.2375 19.4792 13.4583 19.4792H10.625C9.84581 19.4792 9.20831 18.8417 9.20831 18.0625ZM20.5416 30.1042H13.4583V26.2083C13.4583 25.0325 14.4075 24.0833 15.5833 24.0833H18.4166C19.5925 24.0833 20.5416 25.0325 20.5416 26.2083V30.1042ZM24.7916 18.0625C24.7916 18.8417 24.1541 19.4792 23.375 19.4792H20.5416C19.7625 19.4792 19.125 18.8417 19.125 18.0625V15.9375C19.125 15.1583 19.7625 14.5208 20.5416 14.5208H23.375C24.1541 14.5208 24.7916 15.1583 24.7916 15.9375V18.0625Z";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_liquidator) = class $apxutechtop_samosbor_map_icon_liquidator extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_liquidator) = class $apxu_samosbor_map_icon_liquidator extends ($.$mol_icon) {
 		path1(){
 			const obj = new this.$.$mol_svg_path();
 			(obj.geometry) = () => ("M8.72648 15.4518C8.41396 15.139 7.99001 14.9632 7.54789 14.9631C7.10577 14.9629 6.6817 15.1384 6.36896 15.451C6.05622 15.7635 5.88044 16.1875 5.88028 16.6297C5.88013 17.0718 6.05561 17.496 6.36813 17.8087L6.9898 18.4288L0.999746 24.4195C0.67976 24.7396 0.5 25.1737 0.5 25.6263C0.5 26.079 0.67976 26.5131 0.999746 26.8332L4.16644 30.0002C4.48649 30.3202 4.92054 30.5 5.37312 30.5C5.82569 30.5 6.25974 30.3202 6.57979 30.0002L12.5682 24.0111L13.1882 24.6312C13.343 24.786 13.5269 24.9087 13.7291 24.9924C13.9314 25.0762 14.1482 25.1192 14.3671 25.1191C14.586 25.119 14.8028 25.0758 15.005 24.992C15.2072 24.9081 15.391 24.7853 15.5457 24.6304C15.7004 24.4755 15.8232 24.2917 15.9069 24.0894C15.9906 23.8871 16.0336 23.6703 16.0335 23.4513C16.0335 23.2324 15.9903 23.0156 15.9064 22.8134C15.8226 22.6111 15.6997 22.4274 15.5449 22.2726L8.72648 15.4518Z");
@@ -3739,9 +3739,9 @@ var $;
 			return "0 0 31 31";
 		}
 	};
-	($mol_mem(($.$apxutechtop_samosbor_map_icon_liquidator.prototype), "path1"));
-	($mol_mem(($.$apxutechtop_samosbor_map_icon_liquidator.prototype), "path2"));
-	($.$apxutechtop_samosbor_map_icon_ladder) = class $apxutechtop_samosbor_map_icon_ladder extends ($.$mol_icon) {
+	($mol_mem(($.$apxu_samosbor_map_icon_liquidator.prototype), "path1"));
+	($mol_mem(($.$apxu_samosbor_map_icon_liquidator.prototype), "path2"));
+	($.$apxu_samosbor_map_icon_ladder) = class $apxu_samosbor_map_icon_ladder extends ($.$mol_icon) {
 		path(){
 			return "M2.01543 30C1.33579 30 0.79924 29.7847 0.405768 29.3542C0.012296 28.9236 -0.0950145 28.4583 0.0838364 27.9583L9.63447 1.16667C9.77755 0.805556 10.0279 0.520833 10.3856 0.3125C10.7433 0.104167 11.1547 0 11.6197 0C12.3351 0 12.8896 0.215278 13.283 0.645833C13.6765 1.07639 13.7838 1.54167 13.605 2.04167L12.5319 5H24.6043L25.9457 1.16667C26.0888 0.805556 26.3481 0.520833 26.7237 0.3125C27.0993 0.104167 27.5196 0 27.9846 0C28.6642 0 29.2008 0.215278 29.5942 0.645833C29.9877 1.07639 30.095 1.54167 29.9162 2.04167L20.3655 28.8333C20.2224 29.1944 19.9721 29.4792 19.6144 29.6875C19.2567 29.8958 18.8453 30 18.3803 30C17.6649 30 17.1104 29.7847 16.717 29.3542C16.3235 28.9236 16.2162 28.4583 16.395 27.9583L17.4681 25H5.39571L4.05433 28.8333C3.91125 29.1944 3.65191 29.4792 3.27632 29.6875C2.90074 29.8958 2.48044 30 2.01543 30ZM9.58082 13.3333H21.5996L23.3702 8.33333H11.3514L9.58082 13.3333ZM6.62978 21.6667H18.6486L20.4192 16.6667H8.4004L6.62978 21.6667Z";
 		}
@@ -3749,7 +3749,7 @@ var $;
 			return "0 0 30 30";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_min_floor) = class $apxutechtop_samosbor_map_icon_min_floor extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_arrow_down) = class $apxu_samosbor_map_icon_arrow_down extends ($.$mol_icon) {
 		path(){
 			return "M17 23.45L24.65 15.8L22.2275 13.42L17 18.6475L11.7725 13.42L9.35 15.8L17 23.45ZM17 34.5C14.6483 34.5 12.4383 34.0537 10.37 33.1613C8.30167 32.2688 6.5025 31.0575 4.9725 29.5275C3.4425 27.9975 2.23125 26.1983 1.33875 24.13C0.44625 22.0617 0 19.8517 0 17.5C0 15.1483 0.44625 12.9383 1.33875 10.87C2.23125 8.80167 3.4425 7.0025 4.9725 5.4725C6.5025 3.9425 8.30167 2.73125 10.37 1.83875C12.4383 0.94625 14.6483 0.5 17 0.5C19.3517 0.5 21.5617 0.94625 23.63 1.83875C25.6983 2.73125 27.4975 3.9425 29.0275 5.4725C30.5575 7.0025 31.7688 8.80167 32.6613 10.87C33.5537 12.9383 34 15.1483 34 17.5C34 19.8517 33.5537 22.0617 32.6613 24.13C31.7688 26.1983 30.5575 27.9975 29.0275 29.5275C27.4975 31.0575 25.6983 32.2688 23.63 33.1613C21.5617 34.0537 19.3517 34.5 17 34.5ZM17 31.1C20.7967 31.1 24.0125 29.7825 26.6475 27.1475C29.2825 24.5125 30.6 21.2967 30.6 17.5C30.6 13.7033 29.2825 10.4875 26.6475 7.8525C24.0125 5.2175 20.7967 3.9 17 3.9C13.2033 3.9 9.9875 5.2175 7.3525 7.8525C4.7175 10.4875 3.4 13.7033 3.4 17.5C3.4 21.2967 4.7175 24.5125 7.3525 27.1475C9.9875 29.7825 13.2033 31.1 17 31.1Z";
 		}
@@ -3757,17 +3757,57 @@ var $;
 			return "0 0 34 35";
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_max_floor) = class $apxutechtop_samosbor_map_icon_max_floor extends ($.$apxutechtop_samosbor_map_icon_min_floor) {
+	($.$apxu_samosbor_map_icon_arrow_left) = class $apxu_samosbor_map_icon_arrow_left extends ($.$apxu_samosbor_map_icon_arrow_down) {
+		style(){
+			return {"transform": "rotate(90deg)"};
+		}
+	};
+	($.$apxu_samosbor_map_icon_arrow_right) = class $apxu_samosbor_map_icon_arrow_right extends ($.$apxu_samosbor_map_icon_arrow_down) {
+		style(){
+			return {"transform": "rotate(-90deg)"};
+		}
+	};
+	($.$apxu_samosbor_map_icon_arrow_up) = class $apxu_samosbor_map_icon_arrow_up extends ($.$apxu_samosbor_map_icon_arrow_down) {
 		style(){
 			return {"transform": "rotate(180deg)"};
 		}
 	};
-	($.$apxutechtop_samosbor_map_icon_generator) = class $apxutechtop_samosbor_map_icon_generator extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_min_floor) = class $apxu_samosbor_map_icon_min_floor extends ($.$apxu_samosbor_map_icon_arrow_down) {};
+	($.$apxu_samosbor_map_icon_max_floor) = class $apxu_samosbor_map_icon_max_floor extends ($.$apxu_samosbor_map_icon_min_floor) {
+		style(){
+			return {"transform": "rotate(180deg)"};
+		}
+	};
+	($.$apxu_samosbor_map_icon_generator) = class $apxu_samosbor_map_icon_generator extends ($.$mol_icon) {
 		path(){
 			return "M7 36.5L8.75 23.9H0L15.75 0.5H19.25L17.5 14.9H28L10.5 36.5H7Z";
 		}
 		view_box(){
 			return "0 0 28 37";
+		}
+	};
+	($.$apxu_samosbor_map_icon_trash) = class $apxu_samosbor_map_icon_trash extends ($.$mol_icon) {
+		path(){
+			return "M18.5 4.83333L17.4989 20.1831C17.4113 21.5275 17.3674 22.1997 17.0834 22.7094C16.8332 23.1582 16.456 23.5189 16.0014 23.7442C15.485 24 14.8259 24 13.5077 24H8.49221C7.17409 24 6.51502 24 5.99861 23.7442C5.54396 23.5189 5.16674 23.1582 4.91665 22.7094C4.63259 22.1997 4.58875 21.5275 4.50107 20.1831L3.5 4.83333M1 4.83333H21M16 4.83333L15.6617 3.79587C15.3339 2.79049 15.1699 2.2878 14.8659 1.91614C14.5974 1.58794 14.2526 1.33391 13.8631 1.17733C13.422 1 12.9037 1 11.867 1H10.133C9.09625 1 8.578 1 8.13689 1.17733C7.7474 1.33391 7.4026 1.58794 7.13411 1.91614C6.83006 2.2878 6.66615 2.79049 6.3383 3.79587L6 4.83333M13.5 9.94444V18.8889M8.5 9.94444V18.8889";
+		}
+		view_box(){
+			return "0 0 22 25";
+		}
+	};
+	($.$apxu_samosbor_map_icon_shop) = class $apxu_samosbor_map_icon_shop extends ($.$mol_icon) {
+		path(){
+			return "M6.40375 6.5625L7.3925 0H2.25L0.10125 5.625C0.035 5.825 0 6.0325 0 6.25C0 7.63 1.4375 8.75 3.21375 8.75C4.85125 8.75 6.205 7.795 6.40375 6.5625ZM11.25 8.75C13.025 8.75 14.4637 7.63 14.4637 6.25C14.4637 6.19875 14.46 6.1475 14.4575 6.09875L13.8212 0H8.67875L8.04125 6.09375C8.03829 6.14578 8.03663 6.19788 8.03625 6.25C8.03625 7.63 9.475 8.75 11.25 8.75ZM17.5 10.0575V15H5V10.065C4.4525 10.2625 3.85 10.375 3.21375 10.375C2.97 10.375 2.73375 10.3463 2.5 10.3138V18.25C2.5 19.2125 3.28625 20 4.2475 20H18.25C19.2125 20 20 19.2113 20 18.25V10.315C19.7637 10.3513 19.5253 10.3717 19.2863 10.3762C18.6767 10.3756 18.0721 10.2677 17.5 10.0575ZM22.4 5.625L20.2487 0H15.1075L16.095 6.5525C16.2875 7.79 17.6413 8.75 19.2863 8.75C21.0613 8.75 22.5 7.63 22.5 6.25C22.5 6.0325 22.465 5.825 22.4 5.625Z";
+		}
+		view_box(){
+			return "0 0 23 20";
+		}
+	};
+	($.$apxu_samosbor_map_icon_direction) = class $apxu_samosbor_map_icon_direction extends ($.$mol_icon) {
+		path(){
+			return "M8.0625 0.829064L0.5625 6.8291C0.387095 6.96953 0.245481 7.14758 0.148121 7.3501C0.0507603 7.55261 0.000140415 7.7744 0 7.9991L0 16.9992L0.00900006 17.1672C0.0389123 17.4339 0.139851 17.6877 0.301286 17.9022C0.462722 18.1166 0.678741 18.2838 0.92681 18.3863C1.17488 18.4888 1.44591 18.5229 1.71163 18.4849C1.97735 18.447 2.22802 18.3385 2.4375 18.1707L9 12.9191L15.5625 18.1692C15.783 18.3457 16.049 18.4564 16.3297 18.4885C16.6104 18.5206 16.8944 18.4728 17.1491 18.3505C17.4038 18.2283 17.6188 18.0366 17.7693 17.7975C17.9199 17.5584 17.9998 17.2817 18 16.9992V7.9991C17.9999 7.7744 17.9492 7.55261 17.8519 7.3501C17.7545 7.14758 17.6129 6.96953 17.4375 6.8291L9.9375 0.829064C9.67146 0.616058 9.34081 0.5 9 0.5C8.65919 0.5 8.32854 0.616058 8.0625 0.829064Z";
+		}
+		view_box(){
+			return "0 0 18 19";
 		}
 	};
 
@@ -4812,6 +4852,28 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$mol_icon_chevron) = class $mol_icon_chevron extends ($.$mol_icon) {
+		path(){
+			return "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_icon_chevron_left) = class $mol_icon_chevron_left extends ($.$mol_icon) {
+		path(){
+			return "M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
 	($.$mol_string) = class $mol_string extends ($.$mol_view) {
 		selection_watcher(){
 			return null;
@@ -5047,66 +5109,6 @@ var $;
 (function ($) {
     $mol_style_attach("mol/string/string.view.css", "[mol_string] {\n\tbox-sizing: border-box;\n\toutline-offset: 0;\n\tborder: none;\n\tborder-radius: var(--mol_gap_round);\n\twhite-space: pre-line;\n\toverflow: hidden;\n\ttext-overflow: ellipsis;\n\tpadding: var(--mol_gap_text);\n\ttext-align: left;\n\tposition: relative;\n\tfont: inherit;\n\tflex: 1 1 auto;\n\tbackground: transparent;\n\tmin-width: 0;\n\tcolor: inherit;\n\tbackground: var(--mol_theme_field);\n}\n\n[mol_string]:disabled:not(:placeholder-shown) {\n\tbackground-color: transparent;\n\tcolor: var(--mol_theme_text);\n}\n\n[mol_string]:where(:not(:disabled)) {\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_line);\n}\n\n[mol_string]:where(:not(:disabled)):hover {\n\tbox-shadow: inset 0 0 0 2px var(--mol_theme_line);\n\tz-index: var(--mol_layer_hover);\n}\n\n[mol_string]:focus {\n\toutline: none;\n\tz-index: var(--mol_layer_focus);\n\tcolor: var(--mol_theme_text);\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_focus);\n}\n\n[mol_string]::placeholder {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_string]::-ms-clear {\n\tdisplay: none;\n}\n");
 })($ || ($ = {}));
-
-;
-	($.$mol_labeler) = class $mol_labeler extends ($.$mol_list) {
-		label(){
-			return [(this.title())];
-		}
-		Label(){
-			const obj = new this.$.$mol_view();
-			(obj.minimal_height) = () => (32);
-			(obj.sub) = () => ((this.label()));
-			return obj;
-		}
-		content(){
-			return [];
-		}
-		Content(){
-			const obj = new this.$.$mol_view();
-			(obj.minimal_height) = () => (24);
-			(obj.sub) = () => ((this.content()));
-			return obj;
-		}
-		rows(){
-			return [(this.Label()), (this.Content())];
-		}
-	};
-	($mol_mem(($.$mol_labeler.prototype), "Label"));
-	($mol_mem(($.$mol_labeler.prototype), "Content"));
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tmin-height: 2rem;\n\tcolor: var(--mol_theme_shade);\n\tpadding: .5rem .75rem 0;\n\tgap: 0 var(--mol_gap_block);\n\tflex-wrap: wrap;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n\tpadding: var(--mol_gap_text);\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-;
-	($.$mol_icon_chevron) = class $mol_icon_chevron extends ($.$mol_icon) {
-		path(){
-			return "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
-		}
-	};
-
-
-;
-"use strict";
-
-;
-	($.$mol_icon_chevron_left) = class $mol_icon_chevron_left extends ($.$mol_icon) {
-		path(){
-			return "M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z";
-		}
-	};
-
-
-;
-"use strict";
 
 ;
 	($.$mol_icon_chevron_right) = class $mol_icon_chevron_right extends ($.$mol_icon) {
@@ -5365,38 +5367,7 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_icon_tick) = class $mol_icon_tick extends ($.$mol_icon) {
-		path(){
-			return "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
-		}
-	};
-
-
-;
-"use strict";
-
-;
-	($.$mol_check_box) = class $mol_check_box extends ($.$mol_check) {
-		Icon(){
-			const obj = new this.$.$mol_icon_tick();
-			return obj;
-		}
-	};
-	($mol_mem(($.$mol_check_box.prototype), "Icon"));
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/check/box/box.view.css", "[mol_check_box_icon] {\n\tborder-radius: var(--mol_gap_round);\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_line);\n\tcolor: var(--mol_theme_shade);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked]) > [mol_check_box_icon] {\n\tfill: transparent;\n}\n\n[mol_check]:not([disabled]) > [mol_check_box_icon] {\n\tbackground: var(--mol_theme_field);\n\tcolor: var(--mol_theme_text);\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-;
-	($.$apxutechtop_samosbor_map_slider_input) = class $apxutechtop_samosbor_map_slider_input extends ($.$mol_plugin) {
+	($.$apxu_samosbor_map_slider_input) = class $apxu_samosbor_map_slider_input extends ($.$mol_plugin) {
 		pointerdown(next){
 			if(next !== undefined) return next;
 			return null;
@@ -5452,19 +5423,19 @@ var $;
 			return {...(super.attr()), "moving": (this.moving())};
 		}
 	};
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "pointerdown"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "moving"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "x"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "y"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "delta_x"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "delta_y"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "on_drag"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "on_drag_start"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "on_drag_end"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "drag"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "drag_start"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider_input.prototype), "drag_end"));
-	($.$apxutechtop_samosbor_map_slider) = class $apxutechtop_samosbor_map_slider extends ($.$mol_view) {
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "pointerdown"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "moving"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "x"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "y"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "delta_x"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "delta_y"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "on_drag"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "on_drag_start"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "on_drag_end"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "drag"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "drag_start"));
+	($mol_mem(($.$apxu_samosbor_map_slider_input.prototype), "drag_end"));
+	($.$apxu_samosbor_map_slider) = class $apxu_samosbor_map_slider extends ($.$mol_view) {
 		all_slots(){
 			return [];
 		}
@@ -5492,7 +5463,7 @@ var $;
 			return null;
 		}
 		input_plugin(){
-			const obj = new this.$.$apxutechtop_samosbor_map_slider_input();
+			const obj = new this.$.$apxu_samosbor_map_slider_input();
 			(obj.delta_y) = (next) => ((this.delta_y(next)));
 			(obj.on_drag_start) = (next) => ((this.drag_start(next)));
 			return obj;
@@ -5581,26 +5552,26 @@ var $;
 			return [(this.Slots()), (this.Bar())];
 		}
 	};
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "Slots"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "bar_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "delta_y"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "drag_start"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "input_plugin"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_mouse_down"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_mouse_move"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_mouse_up"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_touch_start"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_touch_move"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "event_touch_end"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "Thumb"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "Bar"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "min_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "max_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "value_limited"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "step"));
-	($mol_mem(($.$apxutechtop_samosbor_map_slider.prototype), "direction"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_slider.prototype), "Slot"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "Slots"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "bar_click"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "delta_y"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "drag_start"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "input_plugin"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "event_mouse_down"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "event_mouse_move"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "event_mouse_up"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "event_touch_start"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "event_touch_move"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "event_touch_end"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "Thumb"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "Bar"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "min_value"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "max_value"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "value"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "value_limited"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "step"));
+	($mol_mem(($.$apxu_samosbor_map_slider.prototype), "direction"));
+	($mol_mem_key(($.$apxu_samosbor_map_slider.prototype), "Slot"));
 
 
 ;
@@ -5609,7 +5580,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $apxutechtop_samosbor_map_slider_input extends $.$apxutechtop_samosbor_map_slider_input {
+        class $apxu_samosbor_map_slider_input extends $.$apxu_samosbor_map_slider_input {
             delta_x(val) {
                 return val ?? 0;
             }
@@ -5648,14 +5619,14 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_slider_input.prototype, "delta_x", null);
+        ], $apxu_samosbor_map_slider_input.prototype, "delta_x", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_slider_input.prototype, "delta_y", null);
+        ], $apxu_samosbor_map_slider_input.prototype, "delta_y", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_slider_input.prototype, "drag", null);
-        $$.$apxutechtop_samosbor_map_slider_input = $apxutechtop_samosbor_map_slider_input;
+        ], $apxu_samosbor_map_slider_input.prototype, "drag", null);
+        $$.$apxu_samosbor_map_slider_input = $apxu_samosbor_map_slider_input;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
@@ -5668,7 +5639,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $apxutechtop_samosbor_map_slider extends $.$apxutechtop_samosbor_map_slider {
+        class $apxu_samosbor_map_slider extends $.$apxu_samosbor_map_slider {
             slot_count() {
                 return (this.max_value() - this.min_value()) + 1;
             }
@@ -5711,23 +5682,23 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_slider.prototype, "slot_count", null);
+        ], $apxu_samosbor_map_slider.prototype, "slot_count", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_slider.prototype, "slot_size", null);
+        ], $apxu_samosbor_map_slider.prototype, "slot_size", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_slider.prototype, "thumb_top", null);
+        ], $apxu_samosbor_map_slider.prototype, "thumb_top", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_slider.prototype, "value_limited", null);
+        ], $apxu_samosbor_map_slider.prototype, "value_limited", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_slider.prototype, "all_slots", null);
+        ], $apxu_samosbor_map_slider.prototype, "all_slots", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_slider.prototype, "drag_start", null);
-        $$.$apxutechtop_samosbor_map_slider = $apxutechtop_samosbor_map_slider;
+        ], $apxu_samosbor_map_slider.prototype, "drag_start", null);
+        $$.$apxu_samosbor_map_slider = $apxu_samosbor_map_slider;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
@@ -5735,11 +5706,11 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxutechtop/samosbor/map/slider/slider.view.css", "[apxutechtop_samosbor_map_slider] {\n\t&[direction=vertical] {\n\t\theight: 100%;\n\t}\n\n\tgap: 10px;\n}\n\n[apxutechtop_samosbor_map_slider_bar] {\n\tposition: relative;\n\n\theight: 100%;\n\tbackground-color: #D9D9D9;\n\n\tborder-radius: 5px;\n\twidth: 11px;\n\tdisplay: flex;\n\tjustify-content: center;\n\n\tpadding-top: 11.5px;\n\tpadding-bottom: 11.5px;\n\n\t&::before {\n\t\tcontent: \"\";\n\t\tbox-sizing: border-box;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tborder: 3px solid #6C757D;\n\t\tborder-radius: 5px;\n\t\tposition: absolute;\n\t\ttop: 0px;\n\t\tleft: 0px;\n\t}\n}\n\n[apxutechtop_samosbor_map_slider_thumb] {\n\tposition: relative;\n\twidth: 27px;\n\theight: 27px;\n\tborder-radius: 23px;\n\tbackground-color: #D9D9D9;\n\tjustify-content: center;\n\talign-items: center;\n\tborder: 3px solid #6C757D;\n\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: auto;\n\tline-height: 20px;\n\tletter-spacing: 0;\n\t/* text-align: center; */\n\tcolor: black;\n\ttransform: translateY(-50%);\n\n\tuser-select: none;\n\tcursor: pointer;\n}\n\n[apxutechtop_samosbor_map_slider_slots] {\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tpadding-top: 11.5px;\n\tpadding-bottom: 11.5px;\n\n\tpointer-events: none;\n}\n\n[apxutechtop_samosbor_map_slider_slot] {\n\twidth: 13px;\n\theight: 3px;\n\tbackground-color: #6C757D;\n}\n");
+    $mol_style_attach("apxu/samosbor/map/slider/slider.view.css", "[apxu_samosbor_map_slider] {\n\t&[direction=vertical] {\n\t\theight: 100%;\n\t}\n\n\tgap: 10px;\n}\n\n[apxu_samosbor_map_slider_bar] {\n\tposition: relative;\n\n\theight: 100%;\n\tbackground-color: #D9D9D9;\n\n\tborder-radius: 5px;\n\twidth: 11px;\n\tdisplay: flex;\n\tjustify-content: center;\n\n\tpadding-top: 11.5px;\n\tpadding-bottom: 11.5px;\n\n\t&::before {\n\t\tcontent: \"\";\n\t\tbox-sizing: border-box;\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\tborder: 3px solid #6C757D;\n\t\tborder-radius: 5px;\n\t\tposition: absolute;\n\t\ttop: 0px;\n\t\tleft: 0px;\n\t}\n}\n\n[apxu_samosbor_map_slider_thumb] {\n\tposition: relative;\n\twidth: 27px;\n\theight: 27px;\n\tborder-radius: 23px;\n\tbackground-color: #D9D9D9;\n\tjustify-content: center;\n\talign-items: center;\n\tborder: 3px solid #6C757D;\n\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: auto;\n\tline-height: 20px;\n\tletter-spacing: 0;\n\t/* text-align: center; */\n\tcolor: black;\n\ttransform: translateY(-50%);\n\n\tuser-select: none;\n\tcursor: pointer;\n}\n\n[apxu_samosbor_map_slider_slots] {\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tpadding-top: 11.5px;\n\tpadding-bottom: 11.5px;\n\n\tpointer-events: none;\n}\n\n[apxu_samosbor_map_slider_slot] {\n\twidth: 13px;\n\theight: 3px;\n\tbackground-color: #6C757D;\n}\n");
 })($ || ($ = {}));
 
 ;
-	($.$apxutechtop_samosbor_map_area) = class $apxutechtop_samosbor_map_area extends ($.$mol_view) {
+	($.$apxu_samosbor_map_area) = class $apxu_samosbor_map_area extends ($.$mol_view) {
 		isDragging(next){
 			if(next !== undefined) return next;
 			return false;
@@ -5800,13 +5771,13 @@ var $;
 			return [(this.Plane())];
 		}
 	};
-	($mol_mem(($.$apxutechtop_samosbor_map_area.prototype), "isDragging"));
-	($mol_mem(($.$apxutechtop_samosbor_map_area.prototype), "event_wheel"));
-	($mol_mem(($.$apxutechtop_samosbor_map_area.prototype), "event_key"));
-	($mol_mem(($.$apxutechtop_samosbor_map_area.prototype), "event_mouse_down"));
-	($mol_mem(($.$apxutechtop_samosbor_map_area.prototype), "event_mouse_move"));
-	($mol_mem(($.$apxutechtop_samosbor_map_area.prototype), "event_mouse_up"));
-	($mol_mem(($.$apxutechtop_samosbor_map_area.prototype), "Plane"));
+	($mol_mem(($.$apxu_samosbor_map_area.prototype), "isDragging"));
+	($mol_mem(($.$apxu_samosbor_map_area.prototype), "event_wheel"));
+	($mol_mem(($.$apxu_samosbor_map_area.prototype), "event_key"));
+	($mol_mem(($.$apxu_samosbor_map_area.prototype), "event_mouse_down"));
+	($mol_mem(($.$apxu_samosbor_map_area.prototype), "event_mouse_move"));
+	($mol_mem(($.$apxu_samosbor_map_area.prototype), "event_mouse_up"));
+	($mol_mem(($.$apxu_samosbor_map_area.prototype), "Plane"));
 
 
 ;
@@ -5818,7 +5789,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $apxutechtop_samosbor_map_area extends $.$apxutechtop_samosbor_map_area {
+        class $apxu_samosbor_map_area extends $.$apxu_samosbor_map_area {
             constructor() {
                 super();
                 this.log();
@@ -5938,68 +5909,68 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "position", null);
+        ], $apxu_samosbor_map_area.prototype, "position", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "pos_x", null);
+        ], $apxu_samosbor_map_area.prototype, "pos_x", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "pos_y", null);
+        ], $apxu_samosbor_map_area.prototype, "pos_y", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "position_style", null);
+        ], $apxu_samosbor_map_area.prototype, "position_style", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "transform_style", null);
+        ], $apxu_samosbor_map_area.prototype, "transform_style", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "size", null);
+        ], $apxu_samosbor_map_area.prototype, "size", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "isDragging", null);
+        ], $apxu_samosbor_map_area.prototype, "isDragging", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "dragStartPos", null);
+        ], $apxu_samosbor_map_area.prototype, "dragStartPos", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "center", null);
+        ], $apxu_samosbor_map_area.prototype, "center", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "zoom", null);
+        ], $apxu_samosbor_map_area.prototype, "zoom", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "zoomLimits", null);
+        ], $apxu_samosbor_map_area.prototype, "zoomLimits", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "scale_style", null);
+        ], $apxu_samosbor_map_area.prototype, "scale_style", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_area.prototype, "zoom_at", null);
+        ], $apxu_samosbor_map_area.prototype, "zoom_at", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_area.prototype, "zoomIn", null);
+        ], $apxu_samosbor_map_area.prototype, "zoomIn", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_area.prototype, "zoomOut", null);
+        ], $apxu_samosbor_map_area.prototype, "zoomOut", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_area.prototype, "reset", null);
+        ], $apxu_samosbor_map_area.prototype, "reset", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_area.prototype, "event_wheel", null);
+        ], $apxu_samosbor_map_area.prototype, "event_wheel", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_area.prototype, "event_mouse_down", null);
+        ], $apxu_samosbor_map_area.prototype, "event_mouse_down", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_area.prototype, "event_mouse_move", null);
+        ], $apxu_samosbor_map_area.prototype, "event_mouse_move", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_area.prototype, "event_mouse_up", null);
+        ], $apxu_samosbor_map_area.prototype, "event_mouse_up", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_area.prototype, "log", null);
-        $$.$apxutechtop_samosbor_map_area = $apxutechtop_samosbor_map_area;
+        ], $apxu_samosbor_map_area.prototype, "log", null);
+        $$.$apxu_samosbor_map_area = $apxu_samosbor_map_area;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
@@ -6007,16 +5978,16 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxutechtop/samosbor/map/area/area.view.css", "[apxutechtop_samosbor_map_area] {\n\twidth: 300px;\n\theight: 300px;\n\toverflow: hidden;\n\tborder: 2px solid seagreen;\n\tcursor: grab;\n\t&[dragging] {\n\t\tcursor: grabbing;\n\t}\n\tdisplay: block;\n}\n[apxutechtop_samosbor_map_area_plane] {\n\tposition: relative;\n\twidth: 0px;\n\theight: 0px;\n\t/* transition: translate 0.2s ease, scale 0.2s ease-out; */\n}\n");
+    $mol_style_attach("apxu/samosbor/map/area/area.view.css", "[apxu_samosbor_map_area] {\n\twidth: 300px;\n\theight: 300px;\n\toverflow: hidden;\n\tborder: 2px solid seagreen;\n\tcursor: grab;\n\t&[dragging] {\n\t\tcursor: grabbing;\n\t}\n\tdisplay: block;\n}\n[apxu_samosbor_map_area_plane] {\n\tposition: relative;\n\twidth: 0px;\n\theight: 0px;\n\t/* transition: translate 0.2s ease, scale 0.2s ease-out; */\n}\n");
 })($ || ($ = {}));
 
 ;
-	($.$apxutechtop_samosbor_map_block_row) = class $apxutechtop_samosbor_map_block_row extends ($.$mol_view) {
+	($.$apxu_samosbor_map_block_row) = class $apxu_samosbor_map_block_row extends ($.$mol_view) {
 		sub(){
 			return [null];
 		}
 	};
-	($.$apxutechtop_samosbor_map_block_part) = class $apxutechtop_samosbor_map_block_part extends ($.$mol_view) {
+	($.$apxu_samosbor_map_block_part) = class $apxu_samosbor_map_block_part extends ($.$mol_view) {
 		content(){
 			return null;
 		}
@@ -6024,8 +5995,8 @@ var $;
 			return [(this.content())];
 		}
 	};
-	($.$apxutechtop_samosbor_map_block_flight) = class $apxutechtop_samosbor_map_block_flight extends ($.$apxutechtop_samosbor_map_block_part) {};
-	($.$apxutechtop_samosbor_map_block_passage) = class $apxutechtop_samosbor_map_block_passage extends ($.$mol_view) {
+	($.$apxu_samosbor_map_block_flight) = class $apxu_samosbor_map_block_flight extends ($.$apxu_samosbor_map_block_part) {};
+	($.$apxu_samosbor_map_block_passage) = class $apxu_samosbor_map_block_passage extends ($.$mol_view) {
 		type(next){
 			if(next !== undefined) return next;
 			return "normal";
@@ -6042,7 +6013,7 @@ var $;
 			return obj;
 		}
 		stairs(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_stairs();
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
 			return obj;
 		}
 		content(){
@@ -6081,12 +6052,12 @@ var $;
 			return [(this.content())];
 		}
 	};
-	($mol_mem(($.$apxutechtop_samosbor_map_block_passage.prototype), "type"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block_passage.prototype), "floor_inc"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block_passage.prototype), "stairs"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block_passage.prototype), "InterFloor"));
-	($.$apxutechtop_samosbor_map_block_middle_flight) = class $apxutechtop_samosbor_map_block_middle_flight extends ($.$mol_view) {};
-	($.$apxutechtop_samosbor_map_block) = class $apxutechtop_samosbor_map_block extends ($.$mol_view) {
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "type"));
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "floor_inc"));
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "stairs"));
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "InterFloor"));
+	($.$apxu_samosbor_map_block_middle_flight) = class $apxu_samosbor_map_block_middle_flight extends ($.$mol_view) {};
+	($.$apxu_samosbor_map_block) = class $apxu_samosbor_map_block extends ($.$mol_view) {
 		block_direction(next){
 			if(next !== undefined) return next;
 			return "up";
@@ -6094,8 +6065,7 @@ var $;
 		visible(){
 			return true;
 		}
-		selected(next){
-			if(next !== undefined) return next;
+		selected(){
 			return false;
 		}
 		color_letter(){
@@ -6146,15 +6116,15 @@ var $;
 			return 0;
 		}
 		stairs_icon(id){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_stairs();
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
 			return obj;
 		}
 		elevator_icon(id){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_elevator();
+			const obj = new this.$.$apxu_samosbor_map_icon_elevator();
 			return obj;
 		}
 		ladder_icon(id){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_ladder();
+			const obj = new this.$.$apxu_samosbor_map_icon_ladder();
 			return obj;
 		}
 		ladder_elevator(id){
@@ -6162,20 +6132,12 @@ var $;
 			(obj.sub) = () => ([(this.ladder_icon(id)), (this.elevator_icon(id))]);
 			return obj;
 		}
-		up_middle_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		down_middle_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
 		up_flight_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_stairs();
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
 			return obj;
 		}
 		down_flight_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_stairs();
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
 			return obj;
 		}
 		block_name(next){
@@ -6196,7 +6158,7 @@ var $;
 			return obj;
 		}
 		gen_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_generator();
+			const obj = new this.$.$apxu_samosbor_map_icon_generator();
 			return obj;
 		}
 		generator_floor_value(next){
@@ -6257,6 +6219,36 @@ var $;
 			]);
 			return obj;
 		}
+		flooded_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_sinking();
+			return obj;
+		}
+		flooded_floor(){
+			return (this.min_floor());
+		}
+		flooded_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.flooded_floor())]);
+			return obj;
+		}
+		roof_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_roof();
+			return obj;
+		}
+		roof_floor(){
+			return (this.max_floor());
+		}
+		roof_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.roof_floor())]);
+			return obj;
+		}
+		flooded(){
+			return null;
+		}
+		roof(){
+			return null;
+		}
 		connections(){
 			return [];
 		}
@@ -6274,7 +6266,7 @@ var $;
 			return null;
 		}
 		left_flight(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_flight();
+			const obj = new this.$.$apxu_samosbor_map_block_flight();
 			(obj.event) = () => ({"click": (next) => (this.left_flight_click(next))});
 			(obj.sub) = () => ([(this.left_flight_icon())]);
 			return obj;
@@ -6287,7 +6279,7 @@ var $;
 			return null;
 		}
 		up_left_passage(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
 			(obj.type) = (next) => ((this.up_left_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.up_left_passage_click(next))});
 			(obj.up) = () => (true);
@@ -6312,7 +6304,7 @@ var $;
 			return null;
 		}
 		up_right_passage(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
 			(obj.type) = () => ((this.up_right_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.up_right_passage_click(next))});
 			(obj.up) = () => (true);
@@ -6324,13 +6316,13 @@ var $;
 			return null;
 		}
 		right_flight(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_flight();
+			const obj = new this.$.$apxu_samosbor_map_block_flight();
 			(obj.event) = () => ({"click": (next) => (this.right_flight_click(next))});
 			(obj.sub) = () => ([(this.right_flight_icon())]);
 			return obj;
 		}
 		up_row(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_row();
+			const obj = new this.$.$apxu_samosbor_map_block_row();
 			(obj.sub) = () => ([
 				(this.left_flight()), 
 				(this.up_left_passage()), 
@@ -6350,7 +6342,7 @@ var $;
 			return null;
 		}
 		left_passage(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
 			(obj.type) = () => ((this.left_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.left_passage_click(next))});
 			(obj.left) = () => (true);
@@ -6394,7 +6386,7 @@ var $;
 			return null;
 		}
 		right_passage(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
 			(obj.type) = () => ((this.right_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.right_passage_click(next))});
 			(obj.right) = () => (true);
@@ -6414,7 +6406,7 @@ var $;
 			return obj;
 		}
 		max_floor_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_max_floor();
+			const obj = new this.$.$apxu_samosbor_map_icon_max_floor();
 			return obj;
 		}
 		max_floor(next){
@@ -6432,7 +6424,7 @@ var $;
 			return obj;
 		}
 		min_floor_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_min_floor();
+			const obj = new this.$.$apxu_samosbor_map_icon_min_floor();
 			return obj;
 		}
 		min_floor(next){
@@ -6450,7 +6442,7 @@ var $;
 			return obj;
 		}
 		floor_part(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
+			const obj = new this.$.$apxu_samosbor_map_block_part();
 			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
 			return obj;
 		}
@@ -6462,7 +6454,7 @@ var $;
 			return null;
 		}
 		down_left_passage(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
 			(obj.type) = () => ((this.down_left_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.down_left_passage_click(next))});
 			(obj.down) = () => (true);
@@ -6487,19 +6479,15 @@ var $;
 			return null;
 		}
 		down_right_passage(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
 			(obj.type) = () => ((this.down_right_passage_type()));
 			(obj.event) = () => ({"click": (next) => (this.down_right_passage_click(next))});
 			(obj.down) = () => (true);
 			(obj.right) = () => (true);
 			return obj;
 		}
-		block_effects_part(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
-			return obj;
-		}
 		down_row(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_row();
+			const obj = new this.$.$apxu_samosbor_map_block_row();
 			(obj.sub) = () => ([
 				(this.floor_part()), 
 				(this.down_left_passage()), 
@@ -6507,7 +6495,7 @@ var $;
 				(this.down_passage_or_flight()), 
 				(this.down_right_part()), 
 				(this.down_right_passage()), 
-				(this.block_effects_part())
+				(this.effects_part())
 			]);
 			return obj;
 		}
@@ -6607,178 +6595,194 @@ var $;
 			};
 		}
 		up_middle_passage(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
 			(obj.type) = (next) => ("noway");
-			(obj.event) = () => ({"click": (next) => (this.up_middle_passage_click(next))});
 			(obj.up) = () => (true);
 			return obj;
 		}
 		down_middle_passage(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_passage();
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
 			(obj.type) = (next) => ("noway");
-			(obj.event) = () => ({"click": (next) => (this.down_middle_passage_click(next))});
 			(obj.down) = () => (true);
 			return obj;
 		}
 		up_flight(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_middle_flight();
+			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
 			(obj.sub) = () => ([(this.up_flight_icon())]);
 			return obj;
 		}
 		down_flight(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_middle_flight();
+			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
 			(obj.sub) = () => ([(this.down_flight_icon())]);
 			return obj;
 		}
 		name_part(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
+			const obj = new this.$.$apxu_samosbor_map_block_part();
 			(obj.sub) = () => ([(this.BlockName()), (this.CurrentFloor())]);
 			return obj;
 		}
 		info_part(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
+			const obj = new this.$.$apxu_samosbor_map_block_part();
 			(obj.sub) = () => ([(this.Generator())]);
 			return obj;
 		}
 		liquidator_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_liquidator();
+			const obj = new this.$.$apxu_samosbor_map_icon_liquidator();
 			return obj;
 		}
 		repairman_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_repairman();
+			const obj = new this.$.$apxu_samosbor_map_icon_repairman();
 			return obj;
 		}
 		cleaner_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_cleaner();
+			const obj = new this.$.$apxu_samosbor_map_icon_cleaner();
 			return obj;
 		}
 		factory_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_factory();
+			const obj = new this.$.$apxu_samosbor_map_icon_factory();
 			return obj;
 		}
 		theatre_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_theatre();
+			const obj = new this.$.$apxu_samosbor_map_icon_theatre();
 			return obj;
 		}
 		party_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_party();
+			const obj = new this.$.$apxu_samosbor_map_icon_party();
 			return obj;
 		}
 		hospital_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_hospital();
+			const obj = new this.$.$apxu_samosbor_map_icon_hospital();
 			return obj;
 		}
 		warehouse_icon(){
-			const obj = new this.$.$apxutechtop_samosbor_map_icon_warehouse();
+			const obj = new this.$.$apxu_samosbor_map_icon_warehouse();
 			return obj;
 		}
 		profession_part(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
+			const obj = new this.$.$apxu_samosbor_map_block_part();
 			(obj.sub) = () => ([(this.profession_wrapper())]);
 			return obj;
 		}
 		places_part(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block_part();
+			const obj = new this.$.$apxu_samosbor_map_block_part();
 			(obj.sub) = () => ([(this.places_wrapper())]);
+			return obj;
+		}
+		flooded_effect(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.flooded_icon()), (this.flooded_floor_view())]);
+			return obj;
+		}
+		roof_effect(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.roof_icon()), (this.roof_floor_view())]);
+			return obj;
+		}
+		effects_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.flooded()), (this.roof())]);
 			return obj;
 		}
 		sub(){
 			return [(this.content())];
 		}
 	};
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "block_direction"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "selected"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "block_type"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "left"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "top"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "onclick"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_block.prototype), "connection_click"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_block.prototype), "stairs_icon"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_block.prototype), "elevator_icon"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_block.prototype), "ladder_icon"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_block.prototype), "ladder_elevator"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "up_middle_passage_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_middle_passage_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "up_flight_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_flight_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "block_name"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "BlockName"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "CurrentFloor"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "gen_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "generator_floor_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "generator_floor"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "Generator"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "profession_wrapper"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "places_wrapper"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "left_flight_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "left_flight"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "up_left_passage_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "up_left_passage"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "up_passage_or_flight"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "up_right_passage_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "up_right_passage"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "right_flight_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "right_flight"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "up_row"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "left_passage_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "left_passage"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "left_crossroad"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "left_hallway"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "fence_type"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "fence_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "fence"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "right_hallway"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "right_crossroad"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "right_passage_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "right_passage"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "middle_row"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "max_floor_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "max_floor"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "max_floor_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "max_floor_view"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "min_floor_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "min_floor"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "min_floor_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "min_floor_view"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "floor_part"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_left_passage_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_left_passage"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_passage_or_flight"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_right_passage_click"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_right_passage"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "block_effects_part"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_row"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "content"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "edit_mode"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "create_mode"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "connect_mode"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "block_data"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "block_layer"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "current_layer"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "pos_x"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "pos_y"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "is_up_flight"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "is_down_flight"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "on_connection_select"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_block.prototype), "Connection"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_block.prototype), "Transition"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "show_connections"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "up_middle_passage"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_middle_passage"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "up_flight"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "down_flight"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "name_part"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "info_part"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "liquidator_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "repairman_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "cleaner_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "factory_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "theatre_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "party_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "hospital_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "warehouse_icon"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "profession_part"));
-	($mol_mem(($.$apxutechtop_samosbor_map_block.prototype), "places_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_direction"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_type"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "top"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "onclick"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "connection_click"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "stairs_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "elevator_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "ladder_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "ladder_elevator"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_flight_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_flight_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_name"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "BlockName"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "CurrentFloor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "gen_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "generator_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "generator_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "Generator"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_wrapper"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_wrapper"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_passage_or_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_crossroad"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_hallway"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_type"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_hallway"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_crossroad"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "middle_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "floor_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_passage_or_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "content"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "edit_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "create_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "connect_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_data"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_layer"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "current_layer"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pos_x"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pos_y"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_up_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_down_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "on_connection_select"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "Connection"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "Transition"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "show_connections"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_middle_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_middle_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "name_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "info_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "liquidator_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "repairman_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "cleaner_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "factory_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "theatre_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "party_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "hospital_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "warehouse_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_effect"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_effect"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "effects_part"));
 
 
 ;
@@ -13675,7 +13679,7 @@ var $;
         }
         $$.TransitionPositionData = TransitionPositionData;
         class TransitionPort extends $hyoo_crus_dict.with({
-            Block: $hyoo_crus_atom_ref_to(() => $apxutechtop_samosbor_map_block_data),
+            Block: $hyoo_crus_atom_ref_to(() => $apxu_samosbor_map_block_data),
             Floor: $hyoo_crus_atom_int,
             Position: TransitionPositionData,
         }) {
@@ -13696,9 +13700,9 @@ var $;
             }
             remove_transition() {
                 const from_block_ref = this.From(null)?.Block(null)?.val();
-                const from_block = from_block_ref && $apxutechtop_samosbor_map_app.block(from_block_ref);
+                const from_block = from_block_ref && $apxu_samosbor_map_app.block(from_block_ref);
                 const to_block_ref = this.To(null)?.Block(null)?.val();
-                const to_block = to_block_ref && $apxutechtop_samosbor_map_app.block(to_block_ref);
+                const to_block = to_block_ref && $apxu_samosbor_map_app.block(to_block_ref);
                 to_block?.Transitions(null)?.cut(this.ref());
                 from_block?.Transitions(null)?.cut(this.ref());
             }
@@ -13766,6 +13770,9 @@ var $;
                 if (transition === "right" || transition === "left") {
                     return "normal";
                 }
+                if (transition === "up_middle" || transition === "down_middle") {
+                    return "noway";
+                }
                 const property_name = FloorData.positions_map[transition];
                 const passage_type = this[property_name](null)?.Type(null)?.val();
                 return passage_type ?? "noway";
@@ -13825,7 +13832,7 @@ var $;
         }) {
         }
         $$.PlaceData = PlaceData;
-        class $apxutechtop_samosbor_map_block_data extends $hyoo_crus_entity.with({
+        class $apxu_samosbor_map_block_data extends $hyoo_crus_entity.with({
             Name: $hyoo_crus_atom_str,
             Direction: BlockDirection,
             Type: BlockType,
@@ -13927,74 +13934,74 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "name", null);
+        ], $apxu_samosbor_map_block_data.prototype, "name", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "direction", null);
+        ], $apxu_samosbor_map_block_data.prototype, "direction", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "block_type", null);
+        ], $apxu_samosbor_map_block_data.prototype, "block_type", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "transitions", null);
+        ], $apxu_samosbor_map_block_data.prototype, "transitions", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block_data.prototype, "connect", null);
+        ], $apxu_samosbor_map_block_data.prototype, "connect", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block_data.prototype, "remove_transition", null);
+        ], $apxu_samosbor_map_block_data.prototype, "remove_transition", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "pos_x", null);
+        ], $apxu_samosbor_map_block_data.prototype, "pos_x", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "pos_y", null);
+        ], $apxu_samosbor_map_block_data.prototype, "pos_y", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "layer", null);
+        ], $apxu_samosbor_map_block_data.prototype, "layer", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "min_floor", null);
+        ], $apxu_samosbor_map_block_data.prototype, "min_floor", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "max_floor", null);
+        ], $apxu_samosbor_map_block_data.prototype, "max_floor", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "generator_floor", null);
+        ], $apxu_samosbor_map_block_data.prototype, "generator_floor", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "left_flight_status", null);
+        ], $apxu_samosbor_map_block_data.prototype, "left_flight_status", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "left_flight_type", null);
+        ], $apxu_samosbor_map_block_data.prototype, "left_flight_type", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "right_flight_status", null);
+        ], $apxu_samosbor_map_block_data.prototype, "right_flight_status", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_data.prototype, "right_flight_type", null);
+        ], $apxu_samosbor_map_block_data.prototype, "right_flight_type", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block_data.prototype, "up_left_passage_type", null);
+        ], $apxu_samosbor_map_block_data.prototype, "up_left_passage_type", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block_data.prototype, "up_middle_passage_type", null);
+        ], $apxu_samosbor_map_block_data.prototype, "up_middle_passage_type", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block_data.prototype, "up_right_passage_type", null);
+        ], $apxu_samosbor_map_block_data.prototype, "up_right_passage_type", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block_data.prototype, "down_left_passage_type", null);
+        ], $apxu_samosbor_map_block_data.prototype, "down_left_passage_type", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block_data.prototype, "down_middle_passage_type", null);
+        ], $apxu_samosbor_map_block_data.prototype, "down_middle_passage_type", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block_data.prototype, "down_right_passage_type", null);
+        ], $apxu_samosbor_map_block_data.prototype, "down_right_passage_type", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block_data.prototype, "get_passage_type", null);
-        $$.$apxutechtop_samosbor_map_block_data = $apxutechtop_samosbor_map_block_data;
+        ], $apxu_samosbor_map_block_data.prototype, "get_passage_type", null);
+        $$.$apxu_samosbor_map_block_data = $apxu_samosbor_map_block_data;
         $$.block_full_cell = 380;
         $$.ru_to_eng = {
             "А": "a",
@@ -14027,7 +14034,7 @@ var $;
             "Э": "je",
             "Я": "ya",
         };
-        class $apxutechtop_samosbor_map_block_passage extends $.$apxutechtop_samosbor_map_block_passage {
+        class $apxu_samosbor_map_block_passage extends $.$apxu_samosbor_map_block_passage {
             floor_inc_value() {
                 if (this.type() === "stairs_up") {
                     return "+1";
@@ -14046,9 +14053,9 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block_passage.prototype, "is_interfloor", null);
-        $$.$apxutechtop_samosbor_map_block_passage = $apxutechtop_samosbor_map_block_passage;
-        class $apxutechtop_samosbor_map_block extends $.$apxutechtop_samosbor_map_block {
+        ], $apxu_samosbor_map_block_passage.prototype, "is_interfloor", null);
+        $$.$apxu_samosbor_map_block_passage = $apxu_samosbor_map_block_passage;
+        class $apxu_samosbor_map_block extends $.$apxu_samosbor_map_block {
             block_ref(next) {
                 return next;
             }
@@ -14107,7 +14114,7 @@ var $;
                     const from_block_ref = transition.From(null)?.Block(null)?.val();
                     if (!from_block_ref)
                         continue;
-                    const block_data = $hyoo_crus_glob.Node(from_block_ref, $apxutechtop_samosbor_map_block_data);
+                    const block_data = $hyoo_crus_glob.Node(from_block_ref, $apxu_samosbor_map_block_data);
                     if (this.block_data() === block_data) {
                         transition_views.push(this.Transition(transition.ref()));
                     }
@@ -14122,8 +14129,8 @@ var $;
                     left: { x: padding, y: 0 },
                     right: { x: -padding, y: 0 },
                 };
-                const transition_offset = $apxutechtop_samosbor_map_app.getOffset(position, this.block_direction());
-                const abs_dir = $apxutechtop_samosbor_map_app.absolute_direction(this.block_direction(), position);
+                const transition_offset = $apxu_samosbor_map_app.getOffset(position, this.block_direction());
+                const abs_dir = $apxu_samosbor_map_app.absolute_direction(this.block_direction(), position);
                 const adjustment = adjustments[abs_dir] ?? { x: 0, y: 0 };
                 const adjusted_offset = {
                     x: transition_offset.x - 50,
@@ -14135,7 +14142,7 @@ var $;
                 const node = $hyoo_crus_glob.Node(ref, TransitionData);
                 const block_ref = node.From(null)?.Block(null)?.val();
                 const block = this.block_data();
-                const absolute_direction = $apxutechtop_samosbor_map_app.absolute_direction(block.direction(), node.From(null)?.Position(null)?.val());
+                const absolute_direction = $apxu_samosbor_map_app.absolute_direction(block.direction(), node.From(null)?.Position(null)?.val());
                 if (absolute_direction === "down" || absolute_direction === "up") {
                     return "horizontal";
                 }
@@ -14191,8 +14198,8 @@ var $;
                     left: { x: padding, y: 0 },
                     right: { x: -padding, y: 0 },
                 };
-                const connectionOffset = $apxutechtop_samosbor_map_app.getOffset(position, this.block_direction());
-                const abs_dir = $apxutechtop_samosbor_map_app.absolute_direction(this.block_direction(), position);
+                const connectionOffset = $apxu_samosbor_map_app.getOffset(position, this.block_direction());
+                const abs_dir = $apxu_samosbor_map_app.absolute_direction(this.block_direction(), position);
                 const adjustment = adjustments[abs_dir] ?? { x: 0, y: 0 };
                 const adjustedOffset = {
                     x: connectionOffset.x + adjustment.x,
@@ -14222,28 +14229,28 @@ var $;
                 return port ?? undefined;
             }
             select_connection(position) {
-                const first_port = $apxutechtop_samosbor_map_block.first_port();
+                const first_port = $apxu_samosbor_map_block.first_port();
                 const is_same_port = (port) => {
                     return port.block_ref.description == this.block_data().ref().description && port.floor == this.current_floor() && port.position == position;
                 };
                 if (first_port && is_same_port(first_port)) {
-                    $apxutechtop_samosbor_map_block.first_port(null);
+                    $apxu_samosbor_map_block.first_port(null);
                     return;
                 }
                 if (this.block_data().ref() === first_port?.block_ref)
                     return;
                 if (!first_port) {
-                    $apxutechtop_samosbor_map_block.first_port({ block_ref: this.block_data().ref(), floor: this.current_floor(), position: position });
+                    $apxu_samosbor_map_block.first_port({ block_ref: this.block_data().ref(), floor: this.current_floor(), position: position });
                     return;
                 }
                 this.change_connection(position);
             }
             change_connection(position) {
-                const first_port = $apxutechtop_samosbor_map_block.first_port();
+                const first_port = $apxu_samosbor_map_block.first_port();
                 console.log("first port: ", first_port);
                 if (!first_port)
                     return;
-                const first_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxutechtop_samosbor_map_block_data);
+                const first_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxu_samosbor_map_block_data);
                 const transition = this.block_data().transition_by_position(this.current_floor(), position);
                 if (transition) {
                     if (first_block.transition_by_position(first_port.floor, first_port.position) !== transition) {
@@ -14253,15 +14260,15 @@ var $;
                     transition.remove_transition();
                 }
                 else {
-                    const another_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxutechtop_samosbor_map_block_data);
+                    const another_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxu_samosbor_map_block_data);
                     const another_floor = first_port.floor;
                     const another_position = first_port.position;
                     this.block_data().connect(this.current_floor(), position, another_block, another_floor, another_position);
                 }
-                $apxutechtop_samosbor_map_block.first_port(null);
+                $apxu_samosbor_map_block.first_port(null);
             }
             connection_highlight(position) {
-                const first_port = $apxutechtop_samosbor_map_block.first_port();
+                const first_port = $apxu_samosbor_map_block.first_port();
                 if (!first_port) {
                     return false;
                 }
@@ -14279,7 +14286,7 @@ var $;
                     console.log("pressed myself");
                     return true;
                 }
-                const first_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxutechtop_samosbor_map_block_data);
+                const first_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxu_samosbor_map_block_data);
                 const transition = first_block.transition_by_position(first_port.floor, first_port.position);
                 const current_port = (transition?.From(null)?.Block(null)?.val() === first_block.ref()) ? transition.To(null) : transition?.From(null);
                 if (!current_port) {
@@ -14309,9 +14316,9 @@ var $;
                 }
                 if (this.connect_mode())
                     return;
-                const offset = $apxutechtop_samosbor_map_app.getPositionOffset(position, this.block_direction());
-                const new_block_direction = $apxutechtop_samosbor_map_app.next_direction($apxutechtop_samosbor_map_app.next_direction($apxutechtop_samosbor_map_app.absolute_direction(this.block_direction(), position)));
-                const new_offset = $apxutechtop_samosbor_map_app.getPositionOffset("up_left", new_block_direction);
+                const offset = $apxu_samosbor_map_app.getPositionOffset(position, this.block_direction());
+                const new_block_direction = $apxu_samosbor_map_app.next_direction($apxu_samosbor_map_app.next_direction($apxu_samosbor_map_app.absolute_direction(this.block_direction(), position)));
+                const new_offset = $apxu_samosbor_map_app.getPositionOffset("up_left", new_block_direction);
                 console.log(offset);
                 const pos_x = Math.round((this.pos_x() + offset.x - new_offset.x));
                 const pos_y = Math.round((this.pos_y() + offset.y - new_offset.y));
@@ -14540,6 +14547,12 @@ var $;
             warehouse_place() {
                 return this.has_warehouse_place() ? this.warehouse_icon() : null;
             }
+            flooded() {
+                return this.flooded_effect();
+            }
+            roof() {
+                return this.roof_effect();
+            }
             fence_type(next) {
                 return this.block_data().FloorsData(null)?.key(this.current_floor()).fence_type(next) ?? "missing";
             }
@@ -14551,236 +14564,242 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "block_ref", null);
+        ], $apxu_samosbor_map_block.prototype, "block_ref", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "block_data", null);
+        ], $apxu_samosbor_map_block.prototype, "block_data", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "block_direction", null);
+        ], $apxu_samosbor_map_block.prototype, "block_direction", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "pos_x", null);
+        ], $apxu_samosbor_map_block.prototype, "pos_x", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "pos_y", null);
+        ], $apxu_samosbor_map_block.prototype, "pos_y", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "left", null);
+        ], $apxu_samosbor_map_block.prototype, "left", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "top", null);
+        ], $apxu_samosbor_map_block.prototype, "top", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "block_name", null);
+        ], $apxu_samosbor_map_block.prototype, "block_name", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "current_floor", null);
+        ], $apxu_samosbor_map_block.prototype, "current_floor", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "display_floor", null);
+        ], $apxu_samosbor_map_block.prototype, "display_floor", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "generator_floor_value", null);
+        ], $apxu_samosbor_map_block.prototype, "generator_floor_value", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "block_layer", null);
+        ], $apxu_samosbor_map_block.prototype, "block_layer", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "min_floor", null);
+        ], $apxu_samosbor_map_block.prototype, "min_floor", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "max_floor", null);
+        ], $apxu_samosbor_map_block.prototype, "max_floor", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "visible", null);
+        ], $apxu_samosbor_map_block.prototype, "visible", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "color_letter", null);
+        ], $apxu_samosbor_map_block.prototype, "color_letter", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "block_type", null);
+        ], $apxu_samosbor_map_block.prototype, "block_type", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "transitions", null);
+        ], $apxu_samosbor_map_block.prototype, "transitions", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block.prototype, "transition_pos", null);
+        ], $apxu_samosbor_map_block.prototype, "transition_pos", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block.prototype, "transition_direction", null);
+        ], $apxu_samosbor_map_block.prototype, "transition_direction", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block.prototype, "transition_hidden", null);
+        ], $apxu_samosbor_map_block.prototype, "transition_hidden", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block.prototype, "transition_left", null);
+        ], $apxu_samosbor_map_block.prototype, "transition_left", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block.prototype, "transition_top", null);
+        ], $apxu_samosbor_map_block.prototype, "transition_top", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "connections", null);
+        ], $apxu_samosbor_map_block.prototype, "connections", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block.prototype, "connection_hidden", null);
+        ], $apxu_samosbor_map_block.prototype, "connection_hidden", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block.prototype, "connection_pos", null);
+        ], $apxu_samosbor_map_block.prototype, "connection_pos", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block.prototype, "connection_left", null);
+        ], $apxu_samosbor_map_block.prototype, "connection_left", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block.prototype, "connection_top", null);
+        ], $apxu_samosbor_map_block.prototype, "connection_top", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "connection_click", null);
+        ], $apxu_samosbor_map_block.prototype, "connection_click", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "select_connection", null);
+        ], $apxu_samosbor_map_block.prototype, "select_connection", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "change_connection", null);
+        ], $apxu_samosbor_map_block.prototype, "change_connection", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_block.prototype, "connection_highlight", null);
+        ], $apxu_samosbor_map_block.prototype, "connection_highlight", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "create_from_connection", null);
+        ], $apxu_samosbor_map_block.prototype, "create_from_connection", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "has_middle_flight", null);
+        ], $apxu_samosbor_map_block.prototype, "has_middle_flight", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "left_flight_icon", null);
+        ], $apxu_samosbor_map_block.prototype, "left_flight_icon", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "left_flight_click", null);
+        ], $apxu_samosbor_map_block.prototype, "left_flight_click", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "right_flight_icon", null);
+        ], $apxu_samosbor_map_block.prototype, "right_flight_icon", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "right_flight_click", null);
+        ], $apxu_samosbor_map_block.prototype, "right_flight_click", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "up_left_passage_type", null);
+        ], $apxu_samosbor_map_block.prototype, "up_left_passage_type", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "up_left_passage_click", null);
+        ], $apxu_samosbor_map_block.prototype, "up_left_passage_click", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "up_middle_passage_type", null);
+        ], $apxu_samosbor_map_block.prototype, "up_middle_passage_type", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "up_middle_passage_click", null);
+        ], $apxu_samosbor_map_block.prototype, "up_middle_passage_click", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "up_right_passage_type", null);
+        ], $apxu_samosbor_map_block.prototype, "up_right_passage_type", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "up_right_passage_click", null);
+        ], $apxu_samosbor_map_block.prototype, "up_right_passage_click", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "down_left_passage_type", null);
+        ], $apxu_samosbor_map_block.prototype, "down_left_passage_type", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "down_left_passage_click", null);
+        ], $apxu_samosbor_map_block.prototype, "down_left_passage_click", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "down_middle_passage_type", null);
+        ], $apxu_samosbor_map_block.prototype, "down_middle_passage_type", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "down_middle_passage_click", null);
+        ], $apxu_samosbor_map_block.prototype, "down_middle_passage_click", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "down_right_passage_type", null);
+        ], $apxu_samosbor_map_block.prototype, "down_right_passage_type", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "down_right_passage_click", null);
+        ], $apxu_samosbor_map_block.prototype, "down_right_passage_click", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "is_up_flight", null);
+        ], $apxu_samosbor_map_block.prototype, "is_up_flight", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "up_passage_or_flight", null);
+        ], $apxu_samosbor_map_block.prototype, "up_passage_or_flight", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "is_down_flight", null);
+        ], $apxu_samosbor_map_block.prototype, "is_down_flight", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "down_passage_or_flight", null);
+        ], $apxu_samosbor_map_block.prototype, "down_passage_or_flight", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "up_left_part", null);
+        ], $apxu_samosbor_map_block.prototype, "up_left_part", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "up_right_part", null);
+        ], $apxu_samosbor_map_block.prototype, "up_right_part", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "down_right_part", null);
+        ], $apxu_samosbor_map_block.prototype, "down_right_part", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "down_left_part", null);
+        ], $apxu_samosbor_map_block.prototype, "down_left_part", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "has_liquidator_profession", null);
+        ], $apxu_samosbor_map_block.prototype, "has_liquidator_profession", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "has_repairman_profession", null);
+        ], $apxu_samosbor_map_block.prototype, "has_repairman_profession", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "has_cleaner_profession", null);
+        ], $apxu_samosbor_map_block.prototype, "has_cleaner_profession", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "has_plumber_profession", null);
+        ], $apxu_samosbor_map_block.prototype, "has_plumber_profession", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "liquidator_profession", null);
+        ], $apxu_samosbor_map_block.prototype, "liquidator_profession", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "repairman_profession", null);
+        ], $apxu_samosbor_map_block.prototype, "repairman_profession", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "cleaner_profession", null);
+        ], $apxu_samosbor_map_block.prototype, "cleaner_profession", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "plumber_profession", null);
+        ], $apxu_samosbor_map_block.prototype, "plumber_profession", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "has_theatre_place", null);
+        ], $apxu_samosbor_map_block.prototype, "has_theatre_place", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "has_party_place", null);
+        ], $apxu_samosbor_map_block.prototype, "has_party_place", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "has_hospital_place", null);
+        ], $apxu_samosbor_map_block.prototype, "has_hospital_place", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "has_warehouse_place", null);
+        ], $apxu_samosbor_map_block.prototype, "has_warehouse_place", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "theatre_place", null);
+        ], $apxu_samosbor_map_block.prototype, "theatre_place", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "party_place", null);
+        ], $apxu_samosbor_map_block.prototype, "party_place", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "hospital_place", null);
+        ], $apxu_samosbor_map_block.prototype, "hospital_place", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "warehouse_place", null);
+        ], $apxu_samosbor_map_block.prototype, "warehouse_place", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block.prototype, "fence_type", null);
+        ], $apxu_samosbor_map_block.prototype, "flooded", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "roof", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "fence_type", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_block.prototype, "fence_click", null);
+        ], $apxu_samosbor_map_block.prototype, "fence_click", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_block, "first_port", null);
-        $$.$apxutechtop_samosbor_map_block = $apxutechtop_samosbor_map_block;
+        ], $apxu_samosbor_map_block, "first_port", null);
+        $$.$apxu_samosbor_map_block = $apxu_samosbor_map_block;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
@@ -14788,11 +14807,764 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxutechtop/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxutechtop_samosbor_map_cluster]>*,\n[apxutechtop_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tfill: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: black;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: red;\n\t}\n\n\t&[block-type=abandoned] {\n\t\t--block-type-stroke-color: yellow;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: blue;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\topacity: 0.2;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxutechtop_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\t\tposition: absolute;\n\t\tbackground-color: #FFFFFF80;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\t\t\n\t}\n\n\t[apxutechtop_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_profession_part],\n\t[apxutechtop_samosbor_map_block_places_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxutechtop_samosbor_map_block_flight],\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_up_middle_passage],\n\t\t[apxutechtop_samosbor_map_block_down_middle_passage],\n\t\t[apxutechtop_samosbor_map_block_left_passage],\n\t\t[apxutechtop_samosbor_map_block_right_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxutechtop_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 10px 10px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxutechtop_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxutechtop_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxutechtop_samosbor_map_block_info_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_generator_floor] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_crossroad],\n\t\t\t[apxutechtop_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxutechtop_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_crossroad],\n\t\t\t[apxutechtop_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_left_hallway],\n\t\t\t[apxutechtop_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxutechtop_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxutechtop_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxutechtop_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxutechtop_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
+    $mol_style_attach("apxu/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxu_samosbor_map_cluster]>*,\n[apxu_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tfill: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: black;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: red;\n\t}\n\n\t&[block-type=abandoned] {\n\t\t--block-type-stroke-color: yellow;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: blue;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxu_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\topacity: 0.2;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxu_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\t\tposition: absolute;\n\t\tbackground-color: #FFFFFF80;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\n\t}\n\n\t[apxu_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_profession_part],\n\t[apxu_samosbor_map_block_places_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxu_samosbor_map_block_flight],\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_up_middle_passage],\n\t\t[apxu_samosbor_map_block_down_middle_passage],\n\t\t[apxu_samosbor_map_block_left_passage],\n\t\t[apxu_samosbor_map_block_right_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxu_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxu_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 10px 10px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxu_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_info_part],\n\t[apxu_samosbor_map_block_effects_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_flooded_icon] {\n\t\t\twidth: 34px;\n\t\t\theight: 34px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_roof_icon] {\n\t\t\twidth: 36px;\n\t\t\theight: 30px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_generator_floor],\n\t\t[apxu_samosbor_map_block_flooded_floor_view],\n\t\t[apxu_samosbor_map_block_roof_floor_view] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
 })($ || ($ = {}));
 
 ;
-	($.$apxutechtop_samosbor_map_app) = class $apxutechtop_samosbor_map_app extends ($.$mol_view) {
+	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
+		theme(){
+			return "$mol_theme_base";
+		}
+	};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
+	($.$mol_icon_close) = class $mol_icon_close extends ($.$mol_icon) {
+		path(){
+			return "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_icon_pencil) = class $mol_icon_pencil extends ($.$mol_icon) {
+		path(){
+			return "M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_check_icon) = class $mol_check_icon extends ($.$mol_check) {};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
+	($.$mol_icon_trash_can) = class $mol_icon_trash_can extends ($.$mol_icon) {
+		path(){
+			return "M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_icon_trash_can_outline) = class $mol_icon_trash_can_outline extends ($.$mol_icon) {
+		path(){
+			return "M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_icon_content_copy) = class $mol_icon_content_copy extends ($.$mol_icon) {
+		path(){
+			return "M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_icon_map) = class $mol_icon_map extends ($.$mol_icon) {
+		path(){
+			return "M15,19L9,16.89V5L15,7.11M20.5,3C20.44,3 20.39,3 20.34,3L15,5.1L9,3L3.36,4.9C3.15,4.97 3,5.15 3,5.38V20.5A0.5,0.5 0 0,0 3.5,21C3.55,21 3.61,21 3.66,20.97L9,18.9L15,21L20.64,19.1C20.85,19 21,18.85 21,18.62V3.5A0.5,0.5 0 0,0 20.5,3Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_icon_map_marker) = class $mol_icon_map_marker extends ($.$mol_icon) {
+		path(){
+			return "M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_icon_map_marker_path) = class $mol_icon_map_marker_path extends ($.$mol_icon) {
+		path(){
+			return "M18,15A3,3 0 0,1 21,18A3,3 0 0,1 18,21C16.69,21 15.58,20.17 15.17,19H14V17H15.17C15.58,15.83 16.69,15 18,15M18,17A1,1 0 0,0 17,18A1,1 0 0,0 18,19A1,1 0 0,0 19,18A1,1 0 0,0 18,17M18,8A1.43,1.43 0 0,0 19.43,6.57C19.43,5.78 18.79,5.14 18,5.14C17.21,5.14 16.57,5.78 16.57,6.57A1.43,1.43 0 0,0 18,8M18,2.57A4,4 0 0,1 22,6.57C22,9.56 18,14 18,14C18,14 14,9.56 14,6.57A4,4 0 0,1 18,2.57M8.83,17H10V19H8.83C8.42,20.17 7.31,21 6,21A3,3 0 0,1 3,18C3,16.69 3.83,15.58 5,15.17V14H7V15.17C7.85,15.47 8.53,16.15 8.83,17M6,17A1,1 0 0,0 5,18A1,1 0 0,0 6,19A1,1 0 0,0 7,18A1,1 0 0,0 6,17M6,3A3,3 0 0,1 9,6C9,7.31 8.17,8.42 7,8.83V10H5V8.83C3.83,8.42 3,7.31 3,6A3,3 0 0,1 6,3M6,5A1,1 0 0,0 5,6A1,1 0 0,0 6,7A1,1 0 0,0 7,6A1,1 0 0,0 6,5M11,19V17H13V19H11M7,13H5V11H7V13Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$apxu_samosbor_map_block_card_number_input) = class $apxu_samosbor_map_block_card_number_input extends ($.$mol_number) {
+		minimal_height(){
+			return 0;
+		}
+		sub(){
+			return [(this.String())];
+		}
+	};
+	($.$apxu_samosbor_map_block_card_position_input) = class $apxu_samosbor_map_block_card_position_input extends ($.$apxu_samosbor_map_block_card_number_input) {
+		sub(){
+			return [(this.String())];
+		}
+	};
+	($.$apxu_samosbor_map_block_card_flight_button) = class $apxu_samosbor_map_block_card_flight_button extends ($.$mol_button_major) {
+		edit_mode(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		attr(){
+			return {...(super.attr()), "edit-mode": (this.edit_mode())};
+		}
+	};
+	($mol_mem(($.$apxu_samosbor_map_block_card_flight_button.prototype), "edit_mode"));
+	($.$apxu_samosbor_map_block_card) = class $apxu_samosbor_map_block_card extends ($.$mol_view) {
+		stairs_icon(id){
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
+			return obj;
+		}
+		elevator_icon(id){
+			const obj = new this.$.$apxu_samosbor_map_icon_elevator();
+			return obj;
+		}
+		ladder_icon(id){
+			const obj = new this.$.$apxu_samosbor_map_icon_ladder();
+			return obj;
+		}
+		left_flight_arrow(){
+			const obj = new this.$.$apxu_samosbor_map_icon_arrow_left();
+			return obj;
+		}
+		left_flight_icons(){
+			return [];
+		}
+		right_flight_icons(){
+			return [];
+		}
+		right_flight_arrow(){
+			const obj = new this.$.$apxu_samosbor_map_icon_arrow_right();
+			return obj;
+		}
+		shop_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_shop();
+			return obj;
+		}
+		shop_button(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.shop_icon())]);
+			return obj;
+		}
+		misc_buttons(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.shop_button())]);
+			return obj;
+		}
+		close_icon(){
+			const obj = new this.$.$mol_icon_close();
+			return obj;
+		}
+		close_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		close_button(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.close_icon())]);
+			(obj.click) = (next) => ((this.close_click(next)));
+			return obj;
+		}
+		edit_icon(){
+			const obj = new this.$.$mol_icon_pencil();
+			return obj;
+		}
+		edit_button(){
+			const obj = new this.$.$mol_check_icon();
+			(obj.Icon) = () => ((this.edit_icon()));
+			(obj.checked) = (next) => ((this.edit_mode(next)));
+			return obj;
+		}
+		delete_icon(){
+			const obj = new this.$.$mol_icon_trash_can_outline();
+			return obj;
+		}
+		delete_button(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.delete_icon())]);
+			return obj;
+		}
+		control_buttons(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.close_button()), 
+				(this.edit_button()), 
+				(this.delete_button())
+			]);
+			return obj;
+		}
+		block_name(next){
+			if(next !== undefined) return next;
+			return "Л-96";
+		}
+		block_name_input(){
+			const obj = new this.$.$mol_string();
+			(obj.enabled) = () => ((this.edit_mode()));
+			(obj.value) = (next) => ((this.block_name(next)));
+			return obj;
+		}
+		max_floor_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_max_floor();
+			return obj;
+		}
+		max_floor(next){
+			if(next !== undefined) return next;
+			return 15;
+		}
+		max_floor_value(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_number_input();
+			(obj.enabled) = () => ((this.edit_mode()));
+			(obj.value) = (next) => ((this.max_floor(next)));
+			return obj;
+		}
+		max_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.max_floor_icon()), (this.max_floor_value())]);
+			return obj;
+		}
+		min_floor_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_min_floor();
+			return obj;
+		}
+		min_floor(next){
+			if(next !== undefined) return next;
+			return -15;
+		}
+		min_floor_value(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_number_input();
+			(obj.enabled) = () => ((this.edit_mode()));
+			(obj.value) = (next) => ((this.min_floor(next)));
+			return obj;
+		}
+		min_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.min_floor_icon()), (this.min_floor_value())]);
+			return obj;
+		}
+		block_size(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
+			return obj;
+		}
+		name_size(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.block_name_input()), (this.block_size())]);
+			return obj;
+		}
+		flight_left_icon(){
+			const obj = new this.$.$mol_icon_chevron_left();
+			return obj;
+		}
+		flight_left_button(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_flight_button();
+			(obj.edit_mode) = () => ((this.edit_mode()));
+			(obj.sub) = () => ([(this.flight_left_icon())]);
+			return obj;
+		}
+		current_flight(){
+			return [];
+		}
+		flight_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([...(this.current_flight())]);
+			return obj;
+		}
+		flight_right_icon(){
+			const obj = new this.$.$mol_icon_chevron_right();
+			return obj;
+		}
+		flight_right_button(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_flight_button();
+			(obj.edit_mode) = () => ((this.edit_mode()));
+			(obj.sub) = () => ([(this.flight_right_icon())]);
+			return obj;
+		}
+		flights(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.flight_left_button()), 
+				(this.flight_view()), 
+				(this.flight_right_button())
+			]);
+			return obj;
+		}
+		block_info(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.name_size()), (this.flights())]);
+			return obj;
+		}
+		copy_icon(){
+			const obj = new this.$.$mol_icon_content_copy();
+			return obj;
+		}
+		copy_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		copy_button(){
+			const obj = new this.$.$mol_button_major();
+			(obj.sub) = () => ([(this.copy_icon())]);
+			(obj.click) = (next) => ((this.copy_click(next)));
+			return obj;
+		}
+		path_icon(){
+			const obj = new this.$.$mol_icon_map_marker_path();
+			return obj;
+		}
+		path_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		path_button(){
+			const obj = new this.$.$mol_button_major();
+			(obj.sub) = () => ([(this.path_icon())]);
+			(obj.click) = (next) => ((this.path_click(next)));
+			return obj;
+		}
+		block_buttons(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.copy_button()), (this.path_button())]);
+			return obj;
+		}
+		header(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.block_info()), (this.block_buttons())]);
+			return obj;
+		}
+		pos_x(next){
+			if(next !== undefined) return next;
+			return -999;
+		}
+		pos_x_input(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_position_input();
+			(obj.value) = (next) => ((this.pos_x(next)));
+			return obj;
+		}
+		pos_x_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => (["X: ", (this.pos_x_input())]);
+			return obj;
+		}
+		pos_y(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		pos_y_input(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_position_input();
+			(obj.value) = (next) => ((this.pos_y(next)));
+			return obj;
+		}
+		pos_y_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => (["Y: ", (this.pos_y_input())]);
+			return obj;
+		}
+		block_layer(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		pos_z_input(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_position_input();
+			(obj.value) = (next) => ((this.block_layer(next)));
+			return obj;
+		}
+		pos_z_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => (["L: ", (this.pos_z_input())]);
+			return obj;
+		}
+		coordinates(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.pos_x_view()), 
+				(this.pos_y_view()), 
+				(this.pos_z_view())
+			]);
+			return obj;
+		}
+		up_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_arrow_up();
+			return obj;
+		}
+		move_click(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		up_button(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.up_icon())]);
+			(obj.click) = (next) => ((this.move_click("up", next)));
+			(obj.minimal_height) = () => (18);
+			(obj.minimal_width) = () => (18);
+			return obj;
+		}
+		right_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_arrow_right();
+			return obj;
+		}
+		right_button(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.right_icon())]);
+			(obj.click) = (next) => ((this.move_click("right", next)));
+			(obj.minimal_height) = () => (18);
+			(obj.minimal_width) = () => (18);
+			return obj;
+		}
+		down_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_arrow_down();
+			return obj;
+		}
+		down_button(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.down_icon())]);
+			(obj.click) = (next) => ((this.move_click("down", next)));
+			(obj.minimal_height) = () => (18);
+			(obj.minimal_width) = () => (18);
+			return obj;
+		}
+		left_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_arrow_left();
+			return obj;
+		}
+		left_button(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.left_icon())]);
+			(obj.click) = (next) => ((this.move_click("left", next)));
+			(obj.minimal_height) = () => (18);
+			(obj.minimal_width) = () => (18);
+			return obj;
+		}
+		rotate_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		rotation(){
+			return "rotate(0deg)";
+		}
+		rotation_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_direction();
+			(obj.style) = () => ({"transform": (this.rotation())});
+			return obj;
+		}
+		rotate_button(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.click) = (next) => ((this.rotate_click(next)));
+			(obj.minimal_height) = () => (18);
+			(obj.minimal_width) = () => (18);
+			(obj.sub) = () => ([(this.rotation_icon())]);
+			return obj;
+		}
+		pos_controller(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.up_button()), 
+				(this.right_button()), 
+				(this.down_button()), 
+				(this.left_button()), 
+				(this.rotate_button())
+			]);
+			return obj;
+		}
+		pipe(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		position_info(){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"edit-mode": (this.edit_mode())});
+			(obj.sub) = () => ([
+				(this.coordinates()), 
+				(this.pos_controller()), 
+				(this.pipe())
+			]);
+			return obj;
+		}
+		gen_floor_view(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		board_floor_view(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		roof_floor_view(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		flooded_floor_view(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		floors_info(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.gen_floor_view()), 
+				(this.board_floor_view()), 
+				(this.roof_floor_view()), 
+				(this.flooded_floor_view())
+			]);
+			return obj;
+		}
+		professions(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		places(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		features(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.professions()), (this.places())]);
+			return obj;
+		}
+		block(){
+			const obj = new this.$.$apxu_samosbor_map_block();
+			return obj;
+		}
+		edit_mode(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		flight_icons(id){
+			return {
+				"stairs": (this.stairs_icon(id)), 
+				"elevator": (this.elevator_icon(id)), 
+				"ladder_icon": (this.ladder_icon(id))
+			};
+		}
+		is_middle_flight(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		block_direction(next){
+			if(next !== undefined) return next;
+			return "up";
+		}
+		left_flight_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.left_flight_arrow()), ...(this.left_flight_icons())]);
+			return obj;
+		}
+		middle_flight_view(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		right_flight_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([...(this.right_flight_icons()), (this.right_flight_arrow())]);
+			return obj;
+		}
+		sub(){
+			return [
+				(this.misc_buttons()), 
+				(this.control_buttons()), 
+				(this.header()), 
+				(this.position_info()), 
+				(this.floors_info()), 
+				(this.features())
+			];
+		}
+	};
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "stairs_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "elevator_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "ladder_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "left_flight_arrow"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "right_flight_arrow"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "shop_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "shop_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "misc_buttons"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "close_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "close_click"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "close_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "edit_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "edit_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "delete_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "delete_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "control_buttons"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_name"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_name_input"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_size"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "name_size"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_left_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_left_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_right_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_right_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flights"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_info"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "copy_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "copy_click"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "copy_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "path_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "path_click"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "path_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_buttons"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "header"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pos_x"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pos_x_input"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pos_x_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pos_y"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pos_y_input"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pos_y_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_layer"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pos_z_input"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pos_z_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "coordinates"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "up_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "move_click"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "up_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "right_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "right_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "down_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "down_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "left_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "left_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "rotate_click"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "rotation_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "rotate_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pos_controller"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pipe"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "position_info"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "gen_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "board_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "roof_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flooded_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "floors_info"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "professions"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "places"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "features"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "edit_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "is_middle_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_direction"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "left_flight_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "middle_flight_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "right_flight_view"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $apxu_samosbor_map_block_card extends $.$apxu_samosbor_map_block_card {
+            left_flight_icons() {
+                return [this.flight_icons("left")["elevator"]];
+            }
+            right_flight_icons() {
+                return [this.flight_icons("right")["stairs"]];
+            }
+            current_flight() {
+                const side_flights = [this.left_flight_view(), this.right_flight_view()];
+                return this.is_middle_flight() ? [this.middle_flight_view] : side_flights;
+            }
+            rotation() {
+                const degree = 0;
+                const degree_map = {
+                    up: 0,
+                    right: 90,
+                    down: 180,
+                    left: 270,
+                };
+                return `rotate(${degree_map[this.block().block_direction()]}deg)`;
+            }
+            rotate_click(event) {
+                const prev_direction = this.block().block_direction();
+                const new_direction = $apxu_samosbor_map_app.next_direction(prev_direction);
+                this.block().block_direction(new_direction);
+            }
+            move_click(dir, event) {
+                console.log(dir, event);
+                const pos_map = {
+                    up: { x: 0, y: -1 },
+                    right: { x: 1, y: 0 },
+                    down: { x: 0, y: 1 },
+                    left: { x: -1, y: 0 },
+                };
+                const diff_pos = pos_map[dir];
+                this.block().pos_x(this.block().pos_x() + diff_pos.x);
+                this.block().pos_y(this.block().pos_y() + diff_pos.y);
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "rotation", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block_card.prototype, "rotate_click", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block_card.prototype, "move_click", null);
+        $$.$apxu_samosbor_map_block_card = $apxu_samosbor_map_block_card;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("apxu/samosbor/map/block/card/card.view.css", "@import url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\n@font-face {\n\tfont-family: \"Space Mono\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n[apxu_samosbor_map_block_card] {\n\tposition: relative;\n\twidth: 287px;\n\theight: 482px;\n\tbackground-color: #121212;\n\tborder-radius: 5px;\n\tpadding: 15px;\n\n\t--main-color: #676767;\n\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: flex-start;\n\talign-items: center;\n\n\t[mol_icon] {\n\t\tfilter: unset;\n\t}\n\n\tz-index: 1000;\n\n\t[mol_number] {\n\t\t[mol_string] {\n\t\t\tpadding: 3px;\n\t\t\ttext-align: right;\n\t\t}\n\n\t}\n\n\t&>* {\n\t\tborder-bottom: 3px solid var(--main-color);\n\t\tpadding: 5px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_header] {\n\twidth: 100%;\n\tdisplay: flex;\n\tflex-direction: row;\n\n\n\tdisplay: flex;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_misc_buttons] {\n\tposition: absolute;\n\tright: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n}\n\n[apxu_samosbor_map_block_card_control_buttons] {\n\tposition: absolute;\n\tleft: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n\n}\n\n[apxu_samosbor_map_block_card_edit_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_close_icon] {\n\twidth: 30px;\n\theight: 30px;\n}\n\n[apxu_samosbor_map_block_card_delete_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_block_name_input] {\n\twidth: 141px;\n\theight: 50px;\n\tpadding: 0px;\n\tflex: unset;\n\tfont-family: \"Space Mono\";\n\tfont-weight: 700;\n\tfont-size: 48px;\n\tline-height: 12px;\n\tletter-spacing: 0;\n\ttext-align: center;\n\tcolor: var(--main-color) !important;\n}\n\n[apxu_samosbor_map_block_card_block_size] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tgap: 10px;\n\twidth: 55px;\n\theight: 46px;\n\n\t&>* {\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\theight: 16px;\n\n\n\n\t\tgap: 5px;\n\n\t\t[mol_string] {\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 18px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: var(--main-color) !important;\n\t\t}\n\n\t\t&>[mol_icon] {\n\t\t\twidth: 16px;\n\t\t\theight: 16px;\n\t\t\tfill: var(--main-color);\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_info] {\n\tborder-right: 2px solid var(--main-color);\n\tpadding: 5px;\n\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_flights] {\n\twidth: 100%;\n\tjustify-content: space-between;\n\n\t&>[mol_button]:not([edit-mode]) {\n\t\tvisibility: hidden;\n\t}\n}\n\n[apxu_samosbor_map_block_card_flight_view] {\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-between;\n\tflex: 1;\n\n\t&>&>* {\n\t\twidth: 20px;\n\t\theight: 20px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_buttons] {\n\tpadding: 5px;\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_coordinates] {\n\tflex-direction: column;\n\twidth: 86px;\n\n\t[mol_button_minor] {\n\t\twidth: 10px;\n\t\theight: 15px;\n\t\tpadding: 0px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_pos_controller] {\n\tdisplay: grid;\n\tgrid-template-columns: 22px 22px 22px;\n\tgrid-template-rows: 22px 22px 22px;\n\n\t&>* {\n\t\tpadding: 0;\n\t\talign-self: center;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\twidth: 22px;\n\t\theight: 22px;\n\n\t\t&>* {\n\t\t\twidth: 18px;\n\t\t\theight: 18px;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_up_button] {\n\tgrid-area: 1 / 2 / 2 / 3;\n}\n\n[apxu_samosbor_map_block_card_right_button] {\n\tgrid-area: 2 / 3 / 3 / 4;\n}\n\n[apxu_samosbor_map_block_card_down_button] {\n\tgrid-area: 3 / 2 / 4 / 3;\n}\n\n[apxu_samosbor_map_block_card_left_button] {\n\tgrid-area: 2 / 1 / 3 / 2;\n}\n\n[apxu_samosbor_map_block_card_rotate_button] {\n\tgrid-area: 2 / 2 / 3 / 3;\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$apxu_samosbor_map_app) = class $apxu_samosbor_map_app extends ($.$mol_view) {
 		block(id){
 			return null;
 		}
@@ -14814,8 +15586,39 @@ var $;
 		is_configure_mode(){
 			return false;
 		}
+		block_selected(id){
+			return true;
+		}
 		is_connect_mode(){
 			return false;
+		}
+		selected_block_name(id, next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		max_floor(id, next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		min_floor(id, next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		close_click(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		pos_x_value(id, next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		pos_y_value(id, next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		layer_value(id, next){
+			if(next !== undefined) return next;
+			return 0;
 		}
 		transition_direction(id){
 			return "vertical";
@@ -14848,209 +15651,13 @@ var $;
 		block_cards(){
 			return [];
 		}
-		selected_block_name(next){
-			if(next !== undefined) return next;
-			return "";
-		}
-		name_input(){
-			const obj = new this.$.$mol_string();
-			(obj.value) = (next) => ((this.selected_block_name(next)));
-			(obj.hint) = () => ("Block name");
-			return obj;
-		}
-		name_setting(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.name_input())]);
-			return obj;
-		}
-		block_type_value(next){
-			if(next !== undefined) return next;
-			return "residential";
-		}
-		block_type_switch(){
-			const obj = new this.$.$mol_switch();
-			(obj.value) = (next) => ((this.block_type_value(next)));
-			(obj.options) = () => ({
-				"residential": "Жилой", 
-				"destroyed": "Разрушенный", 
-				"frozen": "Замороженный", 
-				"abandoned": "Заброшенный", 
-				"infected": "Зараженный"
-			});
-			return obj;
-		}
-		type_setting(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Тип блока");
-			(obj.content) = () => ([(this.block_type_switch())]);
-			return obj;
-		}
-		gen_floor(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		gen_setting_number(){
-			const obj = new this.$.$mol_number();
-			(obj.value) = (next) => ((this.gen_floor(next)));
-			return obj;
-		}
-		gen_floor_setting(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Этаж генератора");
-			(obj.content) = () => ([(this.gen_setting_number())]);
-			return obj;
-		}
-		min_floor(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		min_setting_number(){
-			const obj = new this.$.$mol_number();
-			(obj.value) = (next) => ((this.min_floor(next)));
-			return obj;
-		}
-		min_floor_setting(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Min floor");
-			(obj.content) = () => ([(this.min_setting_number())]);
-			return obj;
-		}
-		max_floor(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		max_setting_number(){
-			const obj = new this.$.$mol_number();
-			(obj.value) = (next) => ((this.max_floor(next)));
-			return obj;
-		}
-		max_floor_setting(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Max floor");
-			(obj.content) = () => ([(this.max_setting_number())]);
-			return obj;
-		}
-		layer_value(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		layer_setting_number(){
-			const obj = new this.$.$mol_number();
-			(obj.value) = (next) => ((this.layer_value(next)));
-			return obj;
-		}
-		layer_setting(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Zero floor height");
-			(obj.content) = () => ([(this.layer_setting_number())]);
-			return obj;
-		}
-		pos_x_value(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		pos_x_setting_number(){
-			const obj = new this.$.$mol_number();
-			(obj.value) = (next) => ((this.pos_x_value(next)));
-			return obj;
-		}
-		pos_x_setting(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Position X");
-			(obj.content) = () => ([(this.pos_x_setting_number())]);
-			return obj;
-		}
-		pos_y_value(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		pos_y_setting_number(){
-			const obj = new this.$.$mol_number();
-			(obj.value) = (next) => ((this.pos_y_value(next)));
-			return obj;
-		}
-		pos_y_setting(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Position Y");
-			(obj.content) = () => ([(this.pos_y_setting_number())]);
-			return obj;
-		}
-		direction_value(next){
-			if(next !== undefined) return next;
-			return "up";
-		}
-		direction_switch(){
-			const obj = new this.$.$mol_switch();
-			(obj.value) = (next) => ((this.direction_value(next)));
-			(obj.options) = () => ({
-				"up": "Up", 
-				"right": "Right", 
-				"down": "Down", 
-				"left": "Left"
-			});
-			return obj;
-		}
-		direction_setting(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Direction");
-			(obj.content) = () => ([(this.direction_switch())]);
-			return obj;
-		}
-		up_flight_value(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		up_flight_setting(){
-			const obj = new this.$.$mol_check_box();
-			(obj.title) = () => ("Верхний пролет по середине");
-			(obj.checked) = (next) => ((this.up_flight_value(next)));
-			return obj;
-		}
-		down_flight_value(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		down_flight_setting(){
-			const obj = new this.$.$mol_check_box();
-			(obj.title) = () => ("Нижний пролет по середине");
-			(obj.checked) = (next) => ((this.down_flight_value(next)));
-			return obj;
-		}
-		delete_block(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		delete_block_button(){
-			const obj = new this.$.$mol_button_minor();
-			(obj.title) = () => ("Delete block");
-			(obj.click) = (next) => ((this.delete_block(next)));
-			return obj;
-		}
-		Block_Form(){
-			const obj = new this.$.$mol_card();
-			(obj.sub) = () => ([
-				(this.name_setting()), 
-				(this.type_setting()), 
-				(this.gen_floor_setting()), 
-				(this.min_floor_setting()), 
-				(this.max_floor_setting()), 
-				(this.layer_setting()), 
-				(this.pos_x_setting()), 
-				(this.pos_y_setting()), 
-				(this.direction_setting()), 
-				(this.up_flight_setting()), 
-				(this.down_flight_setting()), 
-				(this.delete_block_button())
-			]);
-			return obj;
-		}
 		Layer_Bar(){
 			const obj = new this.$.$mol_number();
 			(obj.value) = (next) => ((this.current_layer(next)));
 			return obj;
 		}
 		Layer_Slider(){
-			const obj = new this.$.$apxutechtop_samosbor_map_slider();
+			const obj = new this.$.$apxu_samosbor_map_slider();
 			(obj.min_value) = (next) => (-19);
 			(obj.max_value) = (next) => (19);
 			(obj.value) = (next) => ((this.current_layer(next)));
@@ -15069,7 +15676,7 @@ var $;
 			return [];
 		}
 		Area(){
-			const obj = new this.$.$apxutechtop_samosbor_map_area();
+			const obj = new this.$.$apxu_samosbor_map_area();
 			(obj.style) = () => ({"width": "100%", "height": "100%"});
 			(obj.items) = () => ([...(this.blocks())]);
 			return obj;
@@ -15080,7 +15687,7 @@ var $;
 			return obj;
 		}
 		Block(id){
-			const obj = new this.$.$apxutechtop_samosbor_map_block();
+			const obj = new this.$.$apxu_samosbor_map_block();
 			(obj.block_data) = (next) => ((this.block(id)));
 			(obj.current_layer) = (next) => ((this.current_layer()));
 			(obj.onclick) = (next) => ((this.block_clicked(id, next)));
@@ -15088,7 +15695,20 @@ var $;
 			(obj.show_connections) = () => (true);
 			(obj.create_mode) = (next) => ((this.is_create_mode()));
 			(obj.edit_mode) = (next) => ((this.is_configure_mode()));
+			(obj.selected) = () => ((this.block_selected(id)));
 			(obj.connect_mode) = (next) => ((this.is_connect_mode()));
+			return obj;
+		}
+		BlockCard(id){
+			const obj = new this.$.$apxu_samosbor_map_block_card();
+			(obj.block_name) = (next) => ((this.selected_block_name(id, next)));
+			(obj.max_floor) = (next) => ((this.max_floor(id, next)));
+			(obj.min_floor) = (next) => ((this.min_floor(id, next)));
+			(obj.close_click) = (next) => ((this.close_click(id, next)));
+			(obj.pos_x) = (next) => ((this.pos_x_value(id, next)));
+			(obj.pos_y) = (next) => ((this.pos_y_value(id, next)));
+			(obj.block_layer) = (next) => ((this.layer_value(id, next)));
+			(obj.block) = () => ((this.Block(id)));
 			return obj;
 		}
 		Transition(id){
@@ -15101,7 +15721,6 @@ var $;
 			return [
 				(this.Control_Panel()), 
 				...(this.block_cards()), 
-				(this.Block_Form()), 
 				(this.Layer_Bar()), 
 				(this.Slider_Container()), 
 				(this.Searcher()), 
@@ -15109,74 +15728,35 @@ var $;
 			];
 		}
 	};
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "current_layer"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "block_clicked"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "connection_selected"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "control_type"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Control_Switch"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Control_Panel"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "selected_block_name"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "name_input"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "name_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "block_type_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "block_type_switch"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "type_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "gen_floor"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "gen_setting_number"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "gen_floor_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "min_floor"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "min_setting_number"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "min_floor_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "max_floor"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "max_setting_number"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "max_floor_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "layer_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "layer_setting_number"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "layer_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "pos_x_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "pos_x_setting_number"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "pos_x_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "pos_y_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "pos_y_setting_number"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "pos_y_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "direction_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "direction_switch"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "direction_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "up_flight_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "up_flight_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "down_flight_value"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "down_flight_setting"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "delete_block"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "delete_block_button"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Block_Form"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Layer_Bar"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Layer_Slider"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Slider_Container"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Searcher"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Area"));
-	($mol_mem(($.$apxutechtop_samosbor_map_app.prototype), "Canvas"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "Block"));
-	($mol_mem_key(($.$apxutechtop_samosbor_map_app.prototype), "Transition"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "current_layer"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "block_clicked"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "connection_selected"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "selected_block_name"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "max_floor"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "min_floor"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "close_click"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "pos_x_value"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "pos_y_value"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "layer_value"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "control_type"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Control_Switch"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Control_Panel"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Layer_Bar"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Layer_Slider"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Slider_Container"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Searcher"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Area"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Canvas"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "Block"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "BlockCard"));
+	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "Transition"));
 
-
-;
-	($.$apxutechtop_samosbor_map_block_card) = class $apxutechtop_samosbor_map_block_card extends ($.$mol_view) {
-		block(){
-			const obj = new this.$.$apxutechtop_samosbor_map_block();
-			return obj;
-		}
-	};
-	($mol_mem(($.$apxutechtop_samosbor_map_block_card.prototype), "block"));
-
-
-;
-"use strict";
 
 ;
 "use strict";
 var $;
 (function ($) {
-    $.$apxutechtop_samosbor_map_app_gigacluster_ref = "6H1qbbnb_3nEGhBiI";
+    $.$apxu_samosbor_map_app_gigacluster_ref = "6H1qbbnb_3nEGhBiI";
 })($ || ($ = {}));
 
 ;
@@ -15189,11 +15769,11 @@ var $;
     var $$;
     (function ($$) {
         class Gigacluster extends $hyoo_crus_home.with({
-            Blocks: $hyoo_crus_list_ref_to(() => $apxutechtop_samosbor_map_block_data),
+            Blocks: $hyoo_crus_list_ref_to(() => $apxu_samosbor_map_block_data),
         }) {
             static global() {
-                console.log($apxutechtop_samosbor_map_app_gigacluster_ref);
-                const storage = $hyoo_crus_glob.Node($hyoo_crus_ref($apxutechtop_samosbor_map_app_gigacluster_ref), Gigacluster);
+                console.log($apxu_samosbor_map_app_gigacluster_ref);
+                const storage = $hyoo_crus_glob.Node($hyoo_crus_ref($apxu_samosbor_map_app_gigacluster_ref), Gigacluster);
                 return storage;
             }
             static create_block() {
@@ -15202,12 +15782,12 @@ var $;
                 return block;
             }
             static delete_block(ref) {
-                const block = $hyoo_crus_glob.Node(ref, $apxutechtop_samosbor_map_block_data);
+                const block = $hyoo_crus_glob.Node(ref, $apxu_samosbor_map_block_data);
                 block.transitions()?.forEach((transition) => {
                     const connected_block_ref = transition.get_connected_block(ref);
                     if (!connected_block_ref)
                         return;
-                    const connected_block = $hyoo_crus_glob.Node(connected_block_ref, $apxutechtop_samosbor_map_block_data);
+                    const connected_block = $hyoo_crus_glob.Node(connected_block_ref, $apxu_samosbor_map_block_data);
                     connected_block.transitions()?.forEach((connected_transition) => {
                         if (connected_transition.get_connected_block(connected_block_ref) === ref) {
                             connected_block.Transitions(null)?.cut(connected_transition.ref());
@@ -15233,7 +15813,7 @@ var $;
                         const block_ref = port.Block(null)?.val();
                         if (!block_ref)
                             return;
-                        const name = $hyoo_crus_glob.Node(block_ref, $apxutechtop_samosbor_map_block_data).name();
+                        const name = $hyoo_crus_glob.Node(block_ref, $apxu_samosbor_map_block_data).name();
                         if (name === block_name && Number(port.Floor(null)?.val()) === floor && port.Position(null)?.val() === position) {
                             return true;
                         }
@@ -15263,44 +15843,63 @@ var $;
             $mol_mem_key
         ], Gigacluster, "block_by_name", null);
         $$.Gigacluster = Gigacluster;
-        class $apxutechtop_samosbor_map_app extends $.$apxutechtop_samosbor_map_app {
+        class $apxu_samosbor_map_app extends $.$apxu_samosbor_map_app {
             map_land() {
                 return Gigacluster.global().land();
             }
             selected_block(next) {
                 return next;
             }
-            selected_blocks(ref, next) {
-                return next;
+            selected_blocks(next) {
+                return next ?? [];
+            }
+            block_selected(ref) {
+                return this.selected_blocks().includes(ref);
             }
             block_clicked(ref, event) {
-                console.log(ref, event);
-                this.selected_block()?.selected(false);
-                if (this.selected_block() == this.Block(ref)) {
-                    this.selected_block(null);
+                const ref_str = ref.description ?? "";
+                console.log(ref_str, event);
+                const block = this.Block(ref);
+                const selected_blocks = this.selected_blocks();
+                if (this.block_selected(ref)) {
+                    this.selected_blocks(selected_blocks.filter((r) => r !== ref));
                 }
                 else {
-                    this.selected_block(this.Block(ref));
-                    this.selected_block()?.selected(true);
+                    this.selected_blocks([...selected_blocks, ref]);
                 }
+                console.log(this.selected_blocks());
+            }
+            block_cards() {
+                const cards = this.selected_blocks().map((ref) => {
+                    return this.BlockCard(ref);
+                });
+                return cards;
             }
             gen_floor(next) {
                 return this.selected_block()?.generator_floor_value(next) ?? 0;
             }
-            min_floor(next) {
-                return this.selected_block()?.min_floor(next) ?? 0;
+            min_floor(ref, next) {
+                const block = this.Block(ref);
+                return block.min_floor(next) ?? 0;
             }
-            max_floor(next) {
-                return this.selected_block()?.max_floor(next) ?? 0;
+            max_floor(ref, next) {
+                const block = this.Block(ref);
+                return block.max_floor(next) ?? 0;
             }
-            layer_value(next) {
-                return this.selected_block()?.block_layer(next) ?? 0;
+            close_click(ref, event) {
+                this.selected_blocks([...this.selected_blocks().filter((r) => r !== ref)]);
             }
-            pos_x_value(next) {
-                return this.selected_block()?.pos_x(next) ?? 0;
+            layer_value(ref, next) {
+                const block = this.Block(ref);
+                return block.block_layer(next) ?? 0;
             }
-            pos_y_value(next) {
-                return this.selected_block()?.pos_y(next) ?? 0;
+            pos_x_value(ref, next) {
+                const block = this.Block(ref);
+                return block.pos_x(next) ?? 0;
+            }
+            pos_y_value(ref, next) {
+                const block = this.Block(ref);
+                return block.pos_y(next) ?? 0;
             }
             direction_value(next) {
                 if (next?.length == 0) {
@@ -15323,18 +15922,19 @@ var $;
             delete_block() {
                 Gigacluster.delete_block(this.selected_block()?.block_data().ref());
             }
-            selected_block_name(next) {
-                return this.selected_block()?.block_name(next) ?? "";
+            selected_block_name(ref, next) {
+                const block = this.Block(ref);
+                return block.block_name(next) ?? "";
             }
             static block_by_name(name) {
                 return Gigacluster.block_by_name(name);
             }
             static block(ref) {
-                const block_node = $hyoo_crus_glob.Node(ref, $apxutechtop_samosbor_map_block_data);
+                const block_node = $hyoo_crus_glob.Node(ref, $apxu_samosbor_map_block_data);
                 return block_node;
             }
             block(ref) {
-                return $apxutechtop_samosbor_map_app.block(ref);
+                return $apxu_samosbor_map_app.block(ref);
             }
             transitions() {
                 const transitions = [];
@@ -15350,7 +15950,7 @@ var $;
                 const node = $hyoo_crus_glob.Node(ref, TransitionData);
                 const block_ref = node.From(null)?.Block(null)?.val();
                 const block = this.block(block_ref);
-                const absolute_direction = $apxutechtop_samosbor_map_app.absolute_direction(block.direction(), node.From(null)?.Position(null)?.val());
+                const absolute_direction = $apxu_samosbor_map_app.absolute_direction(block.direction(), node.From(null)?.Position(null)?.val());
                 if (absolute_direction === "down" || absolute_direction === "up") {
                     return "horizontal";
                 }
@@ -15362,7 +15962,7 @@ var $;
                 const node = $hyoo_crus_glob.Node(ref, TransitionData);
                 const block_ref = node.From(null)?.Block(null)?.val();
                 const block = this.block(block_ref);
-                const offset = $apxutechtop_samosbor_map_app.getOffset(node.From(null)?.Position(null)?.val(), block.direction());
+                const offset = $apxu_samosbor_map_app.getOffset(node.From(null)?.Position(null)?.val(), block.direction());
                 const left = block.pos_x() * block_full_cell + offset.x;
                 return left;
             }
@@ -15370,7 +15970,7 @@ var $;
                 const node = $hyoo_crus_glob.Node(ref, TransitionData);
                 const block_ref = node.From(null)?.Block(null)?.val();
                 const block = this.block(block_ref);
-                const offset = $apxutechtop_samosbor_map_app.getOffset(node.From(null)?.Position(null)?.val(), block.direction());
+                const offset = $apxu_samosbor_map_app.getOffset(node.From(null)?.Position(null)?.val(), block.direction());
                 const top = block.pos_y() * block_full_cell + offset.y;
                 return top;
             }
@@ -15477,6 +16077,9 @@ var $;
                 const directions = ["up", "right", "down", "left"];
                 return directions[(posMap[position] + dirMap[direction]) % 4];
             }
+            block_view(ref) {
+                return this.Block(ref);
+            }
             blocks() {
                 const blocks = [];
                 const block_nodes = Gigacluster.blocks();
@@ -15490,92 +16093,104 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "map_land", null);
+        ], $apxu_samosbor_map_app.prototype, "map_land", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "selected_block", null);
+        ], $apxu_samosbor_map_app.prototype, "selected_block", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "selected_blocks", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "selected_blocks", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "block_clicked", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "gen_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "min_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "max_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "layer_value", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "pos_x_value", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "pos_y_value", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "direction_value", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "block_type_value", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "up_flight_value", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "down_flight_value", null);
+        ], $apxu_samosbor_map_app.prototype, "block_selected", null);
         __decorate([
             $mol_action
-        ], $apxutechtop_samosbor_map_app.prototype, "delete_block", null);
+        ], $apxu_samosbor_map_app.prototype, "block_clicked", null);
         __decorate([
             $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "selected_block_name", null);
+        ], $apxu_samosbor_map_app.prototype, "block_cards", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "gen_floor", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "block", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "transitions", null);
+        ], $apxu_samosbor_map_app.prototype, "min_floor", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "transition_direction", null);
+        ], $apxu_samosbor_map_app.prototype, "max_floor", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_app.prototype, "close_click", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "transition_left", null);
+        ], $apxu_samosbor_map_app.prototype, "layer_value", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_app.prototype, "transition_top", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "show_connections", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "control_type", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "is_create_mode", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "is_configure_mode", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "is_connect_mode", null);
-        __decorate([
-            $mol_mem
-        ], $apxutechtop_samosbor_map_app.prototype, "blocks", null);
+        ], $apxu_samosbor_map_app.prototype, "pos_x_value", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_app, "block_by_name", null);
+        ], $apxu_samosbor_map_app.prototype, "pos_y_value", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "direction_value", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "block_type_value", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "up_flight_value", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "down_flight_value", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_app.prototype, "delete_block", null);
         __decorate([
             $mol_mem_key
-        ], $apxutechtop_samosbor_map_app, "block", null);
-        $$.$apxutechtop_samosbor_map_app = $apxutechtop_samosbor_map_app;
+        ], $apxu_samosbor_map_app.prototype, "selected_block_name", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_app.prototype, "block", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "transitions", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_app.prototype, "transition_direction", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_app.prototype, "transition_left", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_app.prototype, "transition_top", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "show_connections", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "control_type", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "is_create_mode", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "is_configure_mode", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "is_connect_mode", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_app.prototype, "block_view", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "blocks", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_app, "block_by_name", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_app, "block", null);
+        $$.$apxu_samosbor_map_app = $apxu_samosbor_map_app;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
@@ -15583,7 +16198,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxutechtop/samosbor/map/app/app.view.css", "[apxutechtop_samosbor_map_app] {\n\t--bg: #6E6E6E;\n\t--main: #585858;\n\n\t[color=a] {\n\t\t--bg: #BD9EFF;\n\t\t--main: #9A76E7;\n\t}\n\n\t[color=b] {\n\t\t--bg: #FF9E9E;\n\t\t--main: #EB6B6B;\n\t}\n\n\t[color=v] {\n\t\t--bg: #EAB27F;\n\t\t--main: #C1844D;\n\t}\n\n\t[color=g] {\n\t\t--bg: #BDC9E6;\n\t\t--main: #889DCF;\n\t}\n\n\t[color=d] {\n\t\t--bg: #8A609D;\n\t\t--main: #64367A;\n\t}\n\n\t[color=e] {\n\t\t--bg: #E4C1AD;\n\t\t--main: #CB9B7F;\n\t}\n\n\t[color=j] {\n\t\t--bg: #79C0B4;\n\t\t--main: #4EAD9D;\n\t}\n\n\t[color=z] {\n\t\t--bg: #9EE2FF;\n\t\t--main: #6AC3E9;\n\t}\n\n\t[color=i] {\n\t\t--bg: #968F66;\n\t\t--main: #7D7843;\n\t}\n\n\t[color=k] {\n\t\t--bg: #FA9B48;\n\t\t--main: #E3861B;\n\t}\n\n\t[color=l] {\n\t\t--bg: #9EA2FF;\n\t\t--main: #8388F4;\n\t}\n\n\t[color=m] {\n\t\t--bg: #E69EFF;\n\t\t--main: #CD73ED;\n\t}\n\n\t[color=n] {\n\t\t--bg: #FF9ED8;\n\t\t--main: #E96EB7;\n\t}\n\n\t[color=o] {\n\t\t--bg: #C09786;\n\t\t--main: #AA7762;\n\t}\n\n\t[color=p] {\n\t\t--bg: #6F6F6F;\n\t\t--main: #585858;\n\t}\n\n\t[color=r] {\n\t\t--bg: #93AF6E;\n\t\t--main: #789A4E;\n\t}\n\n\t[color=s] {\n\t\t--bg: #575FA8;\n\t\t--main: #353E87;\n\t}\n\n\t[color=t] {\n\t\t--bg: #6D949C;\n\t\t--main: #457681;\n\t}\n\n\t[color=u] {\n\t\t--bg: #B5C35D;\n\t\t--main: #95A62D;\n\t}\n\n\t[color=f] {\n\t\t--bg: #D4BACA;\n\t\t--main: #C696B3;\n\t}\n\n\t[color=h] {\n\t\t--bg: #D74851;\n\t\t--main: #BE2630;\n\t}\n\n\t[color=c] {\n\t\t--bg: #65BD9D;\n\t\t--main: #43A682;\n\t}\n\n\t[color=ch] {\n\t\t--bg: #D99A4F;\n\t\t--main: #C38030;\n\t}\n\n\t[color=sh] {\n\t\t--bg: #A37A55;\n\t\t--main: #926237;\n\t}\n\n\t[color=shch] {\n\t\t--bg: #31D02E;\n\t\t--main: #07B903;\n\t}\n\n\t[color=y] {\n\t\t--bg: #6C58BB;\n\t\t--main: #4832A1;\n\t}\n\n\t[color=yu] {\n\t\t--bg: #CD6597;\n\t\t--main: #B53974;\n\t}\n\n\t[color=je] {\n\t\t--bg: #689666;\n\t\t--main: #527D43;\n\t}\n\n\t[color=ya] {\n\t\t--bg: #966666;\n\t\t--main: #7D4343;\n\t}\n}\n\n[apxutechtop_samosbor_map_app] {\n\tbackground-color: #1E1E1E;\n}\n\n[apxutechtop_samosbor_map_app_canvas] {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\t/* scale: 0.5; */\n\t/* background-color: #504d4c; */\n}\n\n[apxutechtop_samosbor_map_cluster] {\n\tposition: absolute;\n}\n\n[apxutechtop_samosbor_map_app_block_connection] {\n\tposition: absolute;\n\twidth: 40px;\n\theight: 40px;\n\tbackground-color: rgb(31, 233, 58);\n\tz-index: 2000;\n\ttransform: translate(calc(var(--transition-length) * (-1 / 2) - 50%), calc(var(--transition-length) * (-1 / 2) - 50%));\n\tcursor: pointer;\n\tborder: 4px inset black;\n\tborder-radius: 10px;\n\n\t&[hidden] {\n\t\tdisplay: none;\n\t\tbackground-color: red;\n\t}\n\n\t&[highlight] {\n\t\toutline: 5px solid blue;\n\t}\n}\n\n[apxutechtop_samosbor_map_app_transition] {\n\t--transition-width: 50px;\n\t--transition-height: 50px;\n\tbox-sizing: content-box;\n\n\t&[direction=vertical] {\n\t\theight: var(--transition-width);\n\t\twidth: var(--transition-length);\n\n\t\tborder-bottom: 10px solid white;\n\t\tborder-top: 10px solid white;\n\t}\n\n\t&[direction=horizontal] {\n\t\theight: var(--transition-length);\n\t\twidth: var(--transition-width);\n\t\tborder-left: 10px solid white;\n\t\tborder-right: 10px solid white;\n\t}\n\n\tposition: absolute;\n\ttransform: translate(-50%, -50%);\n\t/* border: 5px solid white; */\n\tbackground-color: #FFFFFF80;\n}\n\n[apxutechtop_samosbor_map_app_name_setting] {\n\theight: 40px !important;\n}\n\n[mol_view_root] {\n\t--t: 25px;\n\t/* ширина внутреннего перехода */\n\t--p: 50px;\n\t/* ширина угловой части */\n\t--x: 150px;\n\t/* ширина информационной части */\n\t--fullWidth: 720px;\n\t--fullHeight: 360px;\n\t--height: 330px;\n\t/* высота блока */\n\t--width: 710px;\n\t/* ширина блока */\n\t--l: 50px;\n\t/* ширина внешнего перехода */\n\n\t--vertical-transition-width: 49px;\n\t--vertical-transition-height: 54px;\n\t--horizontal-transition-width: 54px;\n\t--horizontal-transition-height: 49px;\n\n\t--border-width: 10px;\n\t--part-width: 120px;\n\t--calc-part-width: calc(var(--part-width) + var(--border-width));\n\t--passage-width: 50px;\n\t--calc-passage-width: calc(var(--passage-width) + var(--border-width));\n\t--solo-icon-size: 50px;\n\t--duo-icon-size: 40px;\n\t--block-width: calc((var(--part-width) + var(--border-width)) * 4 + (var(--passage-width) + var(--border-width)) * 3);\n\t--transition-width: var(--passage-width);\n\t--calc-transition-width: var(--calc-passage-width);\n\t--transition-length: calc(var(--passage-width));\n\t--calc-transition-length: calc(var(--transition-length) + var(--border-width));\n\n\n\t/* Colors */\n\t--border-color: #FFFFFF;\n\t--text-color: #FFFFFF;\n}\n\n[apxutechtop_samosbor_map_app_layer_bar] {\n\t/* width: 20px;\n\theight: 80%; */\n\tposition: fixed;\n\t/* right: 10px; */\n\tjustify-self: anchor-center;\n\tbottom: 10px;\n\t/* top: 10%; */\n\t/* background-color: aqua; */\n\tborder-radius: 3px;\n\tz-index: 10;\n}\n\n[apxutechtop_samosbor_map_app_slider_container] {\n\tposition: fixed;\n\tright: 0px;\n\ttop: 0px;\n\tpadding: 10px;\n\theight: 100%;\n\twidth: 50px;\n\tz-index: 20;\n}\n\n[apxutechtop_samosbor_map_app_block_form] {\n\talign-self: anchor-center;\n\tright: 50px;\n\t/* width: 200px;\n\theight: 500px; */\n\tposition: fixed;\n\tz-index: 10;\n\tmax-height: 100%;\n\toverflow: scroll;\n\n\t[apxutechtop_samosbor_map_app_block_type_switch] {\n\t\tflex-wrap: wrap;\n\t\tflex-direction: column;\n\t}\n}\n\n[apxutechtop_samosbor_map_app_control_panel] {\n\tjustify-self: anchor-center;\n\ttop: 10px;\n\tposition: fixed;\n\tz-index: 10;\n}\n\n[apxutechtop_samosbor_map_app_access_panel] {\n\t/* align-self: anchor-center; */\n\twidth: 200px;\n\ttop: 10px;\n\tleft: 10px;\n\tposition: fixed;\n\tz-index: 10;\n\n\t[apxutechtop_samosbor_map_app_my_key] {\n\t\tword-break: break-all;\n\t}\n}\n");
+    $mol_style_attach("apxu/samosbor/map/app/app.view.css", "[apxu_samosbor_map_app] {\n\t--bg: #6E6E6E;\n\t--main: #585858;\n\n\t[color=a] {\n\t\t--bg: #BD9EFF;\n\t\t--main: #9A76E7;\n\t}\n\n\t[color=b] {\n\t\t--bg: #FF9E9E;\n\t\t--main: #EB6B6B;\n\t}\n\n\t[color=v] {\n\t\t--bg: #EAB27F;\n\t\t--main: #C1844D;\n\t}\n\n\t[color=g] {\n\t\t--bg: #BDC9E6;\n\t\t--main: #889DCF;\n\t}\n\n\t[color=d] {\n\t\t--bg: #8A609D;\n\t\t--main: #64367A;\n\t}\n\n\t[color=e] {\n\t\t--bg: #E4C1AD;\n\t\t--main: #CB9B7F;\n\t}\n\n\t[color=j] {\n\t\t--bg: #79C0B4;\n\t\t--main: #4EAD9D;\n\t}\n\n\t[color=z] {\n\t\t--bg: #9EE2FF;\n\t\t--main: #6AC3E9;\n\t}\n\n\t[color=i] {\n\t\t--bg: #968F66;\n\t\t--main: #7D7843;\n\t}\n\n\t[color=k] {\n\t\t--bg: #FA9B48;\n\t\t--main: #E3861B;\n\t}\n\n\t[color=l] {\n\t\t--bg: #9EA2FF;\n\t\t--main: #8388F4;\n\t}\n\n\t[color=m] {\n\t\t--bg: #E69EFF;\n\t\t--main: #CD73ED;\n\t}\n\n\t[color=n] {\n\t\t--bg: #FF9ED8;\n\t\t--main: #E96EB7;\n\t}\n\n\t[color=o] {\n\t\t--bg: #C09786;\n\t\t--main: #AA7762;\n\t}\n\n\t[color=p] {\n\t\t--bg: #6F6F6F;\n\t\t--main: #585858;\n\t}\n\n\t[color=r] {\n\t\t--bg: #93AF6E;\n\t\t--main: #789A4E;\n\t}\n\n\t[color=s] {\n\t\t--bg: #575FA8;\n\t\t--main: #353E87;\n\t}\n\n\t[color=t] {\n\t\t--bg: #6D949C;\n\t\t--main: #457681;\n\t}\n\n\t[color=u] {\n\t\t--bg: #B5C35D;\n\t\t--main: #95A62D;\n\t}\n\n\t[color=f] {\n\t\t--bg: #D4BACA;\n\t\t--main: #C696B3;\n\t}\n\n\t[color=h] {\n\t\t--bg: #D74851;\n\t\t--main: #BE2630;\n\t}\n\n\t[color=c] {\n\t\t--bg: #65BD9D;\n\t\t--main: #43A682;\n\t}\n\n\t[color=ch] {\n\t\t--bg: #D99A4F;\n\t\t--main: #C38030;\n\t}\n\n\t[color=sh] {\n\t\t--bg: #A37A55;\n\t\t--main: #926237;\n\t}\n\n\t[color=shch] {\n\t\t--bg: #31D02E;\n\t\t--main: #07B903;\n\t}\n\n\t[color=y] {\n\t\t--bg: #6C58BB;\n\t\t--main: #4832A1;\n\t}\n\n\t[color=yu] {\n\t\t--bg: #CD6597;\n\t\t--main: #B53974;\n\t}\n\n\t[color=je] {\n\t\t--bg: #689666;\n\t\t--main: #527D43;\n\t}\n\n\t[color=ya] {\n\t\t--bg: #966666;\n\t\t--main: #7D4343;\n\t}\n}\n\n[apxu_samosbor_map_app] {\n\tbackground-color: #1E1E1E;\n}\n\n[apxu_samosbor_map_app_canvas] {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\t/* scale: 0.5; */\n\t/* background-color: #504d4c; */\n}\n\n[apxu_samosbor_map_cluster] {\n\tposition: absolute;\n}\n\n[apxu_samosbor_map_app_block_connection] {\n\tposition: absolute;\n\twidth: 40px;\n\theight: 40px;\n\tbackground-color: rgb(31, 233, 58);\n\tz-index: 2000;\n\ttransform: translate(calc(var(--transition-length) * (-1 / 2) - 50%), calc(var(--transition-length) * (-1 / 2) - 50%));\n\tcursor: pointer;\n\tborder: 4px inset black;\n\tborder-radius: 10px;\n\n\t&[hidden] {\n\t\tdisplay: none;\n\t\tbackground-color: red;\n\t}\n\n\t&[highlight] {\n\t\toutline: 5px solid blue;\n\t}\n}\n\n[apxu_samosbor_map_app_transition] {\n\t--transition-width: 50px;\n\t--transition-height: 50px;\n\tbox-sizing: content-box;\n\n\t&[direction=vertical] {\n\t\theight: var(--transition-width);\n\t\twidth: var(--transition-length);\n\n\t\tborder-bottom: 10px solid white;\n\t\tborder-top: 10px solid white;\n\t}\n\n\t&[direction=horizontal] {\n\t\theight: var(--transition-length);\n\t\twidth: var(--transition-width);\n\t\tborder-left: 10px solid white;\n\t\tborder-right: 10px solid white;\n\t}\n\n\tposition: absolute;\n\ttransform: translate(-50%, -50%);\n\t/* border: 5px solid white; */\n\tbackground-color: #FFFFFF80;\n}\n\n[apxu_samosbor_map_app_name_setting] {\n\theight: 40px !important;\n}\n\n[mol_view_root] {\n\t--t: 25px;\n\t/* ширина внутреннего перехода */\n\t--p: 50px;\n\t/* ширина угловой части */\n\t--x: 150px;\n\t/* ширина информационной части */\n\t--fullWidth: 720px;\n\t--fullHeight: 360px;\n\t--height: 330px;\n\t/* высота блока */\n\t--width: 710px;\n\t/* ширина блока */\n\t--l: 50px;\n\t/* ширина внешнего перехода */\n\n\t--vertical-transition-width: 49px;\n\t--vertical-transition-height: 54px;\n\t--horizontal-transition-width: 54px;\n\t--horizontal-transition-height: 49px;\n\n\t--border-width: 10px;\n\t--part-width: 120px;\n\t--calc-part-width: calc(var(--part-width) + var(--border-width));\n\t--passage-width: 50px;\n\t--calc-passage-width: calc(var(--passage-width) + var(--border-width));\n\t--solo-icon-size: 50px;\n\t--duo-icon-size: 40px;\n\t--block-width: calc((var(--part-width) + var(--border-width)) * 4 + (var(--passage-width) + var(--border-width)) * 3);\n\t--transition-width: var(--passage-width);\n\t--calc-transition-width: var(--calc-passage-width);\n\t--transition-length: calc(var(--passage-width));\n\t--calc-transition-length: calc(var(--transition-length) + var(--border-width));\n\n\n\t/* Colors */\n\t--border-color: #FFFFFF;\n\t--text-color: #FFFFFF;\n}\n\n[apxu_samosbor_map_app_layer_bar] {\n\t/* width: 20px;\n\theight: 80%; */\n\tposition: fixed;\n\t/* right: 10px; */\n\tjustify-self: anchor-center;\n\tbottom: 10px;\n\t/* top: 10%; */\n\t/* background-color: aqua; */\n\tborder-radius: 3px;\n\tz-index: 10;\n}\n\n[apxu_samosbor_map_app_slider_container] {\n\tposition: fixed;\n\tright: 0px;\n\ttop: 0px;\n\tpadding: 10px;\n\theight: 100%;\n\twidth: 50px;\n\tz-index: 20;\n}\n\n[apxu_samosbor_map_app_block_form] {\n\talign-self: anchor-center;\n\tright: 50px;\n\t/* width: 200px;\n\theight: 500px; */\n\tposition: fixed;\n\tz-index: 10;\n\tmax-height: 100%;\n\toverflow: scroll;\n\n\t[apxu_samosbor_map_app_block_type_switch] {\n\t\tflex-wrap: wrap;\n\t\tflex-direction: column;\n\t}\n}\n\n[apxu_samosbor_map_app_control_panel] {\n\tjustify-self: anchor-center;\n\ttop: 10px;\n\tposition: fixed;\n\tz-index: 10;\n}\n\n[apxu_samosbor_map_app_access_panel] {\n\t/* align-self: anchor-center; */\n\twidth: 200px;\n\ttop: 10px;\n\tleft: 10px;\n\tposition: fixed;\n\tz-index: 10;\n\n\t[apxu_samosbor_map_app_my_key] {\n\t\tword-break: break-all;\n\t}\n}\n");
 })($ || ($ = {}));
 
 
