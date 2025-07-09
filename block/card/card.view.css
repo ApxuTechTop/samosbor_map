@@ -15,12 +15,10 @@
 	border-radius: 5px;
 	padding: 15px;
 
+
 	--main-color: #676767;
 
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
+
 
 	[mol_icon] {
 		filter: unset;
@@ -35,12 +33,27 @@
 		}
 
 	}
+}
+
+[apxu_samosbor_map_block_card_content] {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	overflow-y: scroll;
+	overflow-x: hidden;
 
 	&>* {
 		border-bottom: 3px solid var(--main-color);
 		padding: 5px;
+		width: 100%;
+		justify-content: center;
 	}
+
+	width: 100%;
+	height: 100%;
 }
+
 
 [apxu_samosbor_map_block_card_header] {
 	width: 100%;
@@ -60,6 +73,7 @@
 	gap: 6px;
 	padding: 5px;
 	border-bottom: none;
+	width: unset;
 
 	&>* {
 		width: 44px;
@@ -109,7 +123,7 @@
 	height: 50px;
 	padding: 0px;
 	flex: unset;
-	font-family: "Space Mono";
+	font-family: "Roboto";
 	font-weight: 700;
 	font-size: 48px;
 	line-height: 12px;
@@ -189,6 +203,7 @@
 [apxu_samosbor_map_block_card_coordinates] {
 	flex-direction: column;
 	width: 86px;
+	gap: 10px;
 
 	[mol_button_minor] {
 		width: 10px;
@@ -197,22 +212,29 @@
 	}
 }
 
+[apxu_samosbor_map_block_card_position_info] {
+	&:not([edit-mode]) {
+		display: none;
+	}
+}
+
 [apxu_samosbor_map_block_card_pos_controller] {
 	display: grid;
-	grid-template-columns: 22px 22px 22px;
-	grid-template-rows: 22px 22px 22px;
+	grid-template-columns: 30px 30px 30px;
+	grid-template-rows: 30px 30px 30px;
+	gap: 10px;
 
 	&>* {
 		padding: 0;
 		align-self: center;
 		justify-content: center;
 		align-items: center;
-		width: 22px;
-		height: 22px;
+		width: 30px;
+		height: 30px;
 
 		&>* {
-			width: 18px;
-			height: 18px;
+			width: 30px;
+			height: 30px;
 		}
 	}
 }
@@ -235,4 +257,58 @@
 
 [apxu_samosbor_map_block_card_rotate_button] {
 	grid-area: 2 / 2 / 3 / 3;
+}
+
+[apxu_samosbor_map_block_card_pipe] {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+[apxu_samosbor_map_block_card_pipe_icon] {
+	width: 30px;
+	height: 30px;
+	color: var(--main-color);
+}
+
+[apxu_samosbor_map_block_card_block_type_view] {
+	align-items: center;
+}
+
+[apxu_samosbor_map_block_card_type_select_icon] {
+	/* width: 7px; */
+	height: 6px;
+	/* margin-right: 7px; */
+}
+
+[apxu_samosbor_map_block_card_place] {
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+
+	&:not([enabled]) {
+		[apxu_samosbor_map_block_card_place_add_input] {
+			display: none;
+		}
+	}
+}
+
+[apxu_samosbor_map_block_card_place_icon] {
+	width: 24px;
+	height: 24px;
+}
+
+
+[apxu_samosbor_map_block_card_number_input] {
+	width: 4ch;
+}
+
+[apxu_samosbor_map_block_card_balcony_icon] {
+	color: var(--main-color);
+	height: 1rem;
+	align-self: center;
+}
+
+[mol_check]:not([mol_check_checked])>[apxu_samosbor_map_block_card_balcony_icon] {
+	opacity: 0.5;
 }

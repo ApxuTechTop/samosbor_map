@@ -93,9 +93,6 @@ $apxu_samosbor_map_app $mol_view
 				<= up_flight_setting $mol_check_box
 					title \Верхний пролет по середине
 					checked? <=> up_flight_value? false
-				<= down_flight_setting $mol_check_box
-					title \Нижний пролет по середине
-					checked? <=> down_flight_value? false
 				<= delete_block_button $mol_button_minor
 					title \Delete block
 					click? <=> delete_block? null

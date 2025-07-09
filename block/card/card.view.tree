@@ -12,8 +12,38 @@ $apxu_samosbor_map_block_card_flight_button $mol_button_major
 		^
 		edit-mode <= edit_mode? false
 
+$apxu_samosbor_map_block_card_place $mol_view
+	floors? /
+	enabled? true
+	attr *
+		enabled <= enabled
+	floor_input* $apxu_samosbor_map_block_card_number_input
+		enabled <= enabled
+		value? <=> floor_value*? 0
+		- submit? <=> floor_submit*? null
+	remove_floor* null
+	sub /
+		<= icon $mol_icon
+		^ floors_list /
+		<= add_input $mol_button_minor
+			click? <=> add_floor? null
+			title \+
+
+$apxu_samosbor_map_block_card_floor $mol_view
+	sub /
+		<= icon $mol_icon
+		<= input $apxu_samosbor_map_block_card_number_input
+			enabled <= enabled false
+			value? <=> floor_value? 0
+			- value_string? <=> floor_string? <= floor_value?
+			- submit? <=> floor_submit? null
+
 $apxu_samosbor_map_block_card $mol_view
 	block $apxu_samosbor_map_block
+		board_floor_value? => board_floor_value?
+		mail_floor_value? => mail_floor_value?
+		roof_floor_value? => roof_floor_value?
+		flood_floor_value? => flood_floor_value?
 	edit_mode? false
 	flight_icons* *
 		stairs <= stairs_icon* $apxu_samosbor_map_icon_stairs
@@ -30,6 +60,26 @@ $apxu_samosbor_map_block_card $mol_view
 		sub /
 			^ right_flight_icons /
 			<= right_flight_arrow $apxu_samosbor_map_icon_arrow_right
+	type_select_icon $mol_icon_triangle_down
+	some_floor *
+		board *
+			icon <= board_icon $apxu_samosbor_map_icon_board
+			value? <=> board_floor_value?
+		mail *
+			icon <= mail_icon $apxu_samosbor_map_icon_mail
+			value? <=> mail_floor_value?
+		roof *
+			icon <= roof_icon $apxu_samosbor_map_icon_roof
+			value? <=> roof_floor_value?
+		flood *
+			icon <= flood_icon $apxu_samosbor_map_icon_sinking
+			value? <=> flood_floor_value?
+	floor_view* null $apxu_samosbor_map_block_card_floor
+		sub /
+			<= floor_simple* $apxu_samosbor_map_block_card_floor
+				enabled <= edit_mode
+				floor_value? <=> floor_value*? 0
+				icon <= floor_icon* $mol_icon
 	sub /
 		<= misc_buttons $mol_view
 			sub /
@@ -45,106 +95,162 @@ $apxu_samosbor_map_block_card $mol_view
 					checked? <=> edit_mode?
 				<= delete_button $mol_button_minor
 					sub / <= delete_icon $mol_icon_trash_can_outline
-		<= header $mol_view
+		<= content $mol_view
 			sub /
-				<= block_info $mol_view
+				<= header $mol_view
 					sub /
-						<= name_size $mol_view
+						<= block_info $mol_view
 							sub /
-								<= block_name_input $mol_string
+								<= name_size $mol_view
+									sub /
+										<= block_name_input $mol_string
+											enabled <= edit_mode
+											value? <=> block_name? \Л-96
+										<= block_size $mol_view
+											sub /
+												<= max_floor_view $mol_view
+													sub /
+														<= max_floor_icon $apxu_samosbor_map_icon_max_floor
+														<= max_floor_value $apxu_samosbor_map_block_card_number_input
+															enabled <= edit_mode
+															value? <=> max_floor? 15
+												<= min_floor_view $mol_view
+													sub /
+														<= min_floor_icon $apxu_samosbor_map_icon_min_floor
+														<= min_floor_value $apxu_samosbor_map_block_card_number_input
+															enabled <= edit_mode
+															value? <=> min_floor? -15
+								<= flights $mol_view
+									sub /
+										<= flight_left_button $apxu_samosbor_map_block_card_flight_button
+											edit_mode <= edit_mode 
+											sub / <= flight_left_icon $mol_icon_chevron_left
+										<= flight_view $mol_view
+											sub /
+												^ current_flight /
+										<= flight_right_button $apxu_samosbor_map_block_card_flight_button
+											edit_mode <= edit_mode 
+											sub / <= flight_right_icon $mol_icon_chevron_right
+						<= block_buttons $mol_view
+							sub /
+								<= copy_button $mol_button_major
+									sub / <= copy_icon $mol_icon_content_copy
+									click? <=> copy_click? null
+								<= path_button $mol_button_major
+									sub / <= path_icon $mol_icon_map_marker_path
+									click? <=> path_click? null
+				<= position_info $mol_view
+					attr *
+						edit-mode <= edit_mode
+					sub /
+						<= coordinates $mol_view
+							sub /
+								<= pos_x_view $mol_view
+									sub /
+										\X: 
+										<= pos_x_input $apxu_samosbor_map_block_card_position_input
+											value? <=> pos_x? -999
+								<= pos_y_view $mol_view
+									sub /
+										\Y: 
+										<= pos_y_input $apxu_samosbor_map_block_card_position_input
+											value? <=> pos_y? 0
+								<= pos_z_view $mol_view
+									sub /
+										\L: 
+										<= pos_z_input $apxu_samosbor_map_block_card_position_input
+											value? <=> block_layer? 0
+						<= pos_controller $mol_view
+							sub /
+								<= up_button $mol_button_minor
+									sub / <= up_icon $apxu_samosbor_map_icon_arrow_up
+									click? <=> move_click*up? null
+									minimal_height 18
+									minimal_width 18
+								<= right_button $mol_button_minor
+									sub / <= right_icon $apxu_samosbor_map_icon_arrow_right
+									click? <=> move_click*right? null
+									minimal_height 18
+									minimal_width 18
+								<= down_button $mol_button_minor
+									sub / <= down_icon $apxu_samosbor_map_icon_arrow_down
+									click? <=> move_click*down? null
+									minimal_height 18
+									minimal_width 18
+								<= left_button $mol_button_minor
+									sub / <= left_icon $apxu_samosbor_map_icon_arrow_left
+									click? <=> move_click*left? null
+									minimal_height 18
+									minimal_width 18
+								<= rotate_button $mol_button_minor
+									click? <=> rotate_click? null
+									minimal_height 18
+									minimal_width 18
+									sub / <= rotation_icon $apxu_samosbor_map_icon_direction
+										style *
+											transform <= rotation \rotate(0deg)
+						<= pipe $mol_view
+							sub /
+								<= pipe_icon $apxu_samosbor_map_icon_pipe
+								<= pipe_checkbox $mol_check_box
+				<= block_type_view $mol_view
+					sub /
+						\Тип блока: 
+						<= block_type_select $mol_select
+							trigger_enabled <= edit_mode
+							enabled <= edit_mode
+							value? <=> block_type_value? \residential
+							dictionary *
+								residential \Жилой
+								destroyed \Разрушенный
+								frozen \Замороженный
+								abandoned \Заброшенный
+								infected \Зараженный
+							Trigger_icon <= current_type_select_icon null
+							Filter null
+				<= floors_info $mol_view
+					sub /
+						<= gen_floor_view $mol_view
+							sub /
+								<= gen $apxu_samosbor_map_block_card_floor
 									enabled <= edit_mode
-									value? <=> block_name? \Л-96
-								<= block_size $mol_view
-									sub /
-										<= max_floor_view $mol_view
-											sub /
-												<= max_floor_icon $apxu_samosbor_map_icon_max_floor
-												<= max_floor_value $apxu_samosbor_map_block_card_number_input
-													enabled <= edit_mode
-													value? <=> max_floor? 15
-										<= min_floor_view $mol_view
-											sub /
-												<= min_floor_icon $apxu_samosbor_map_icon_min_floor
-												<= min_floor_value $apxu_samosbor_map_block_card_number_input
-													enabled <= edit_mode
-													value? <=> min_floor? -15
-						<= flights $mol_view
-							sub /
-								<= flight_left_button $apxu_samosbor_map_block_card_flight_button
-									edit_mode <= edit_mode 
-									sub / <= flight_left_icon $mol_icon_chevron_left
-								<= flight_view $mol_view
-									sub /
-										^ current_flight /
-								<= flight_right_button $apxu_samosbor_map_block_card_flight_button
-									edit_mode <= edit_mode 
-									sub / <= flight_right_icon $mol_icon_chevron_right
-				<= block_buttons $mol_view
+									floor_value? <=> gen_floor? 0
+									icon <= gen_icon $apxu_samosbor_map_icon_generator
+						<= floor_view*board
+						<= floor_view*mail
+				<= effects_info $mol_view
 					sub /
-						<= copy_button $mol_button_major
-							sub / <= copy_icon $mol_icon_content_copy
-							click? <=> copy_click? null
-						<= path_button $mol_button_major
-							sub / <= path_icon $mol_icon_map_marker_path
-							click? <=> path_click? null
-		<= position_info $mol_view
-			attr *
-				edit-mode <= edit_mode
-			sub /
-				<= coordinates $mol_view
-					sub /
-						<= pos_x_view $mol_view
-							sub /
-								\X: 
-								<= pos_x_input $apxu_samosbor_map_block_card_position_input
-									value? <=> pos_x? -999
-						<= pos_y_view $mol_view
-							sub /
-								\Y: 
-								<= pos_y_input $apxu_samosbor_map_block_card_position_input
-									value? <=> pos_y? 0
-						<= pos_z_view $mol_view
-							sub /
-								\L: 
-								<= pos_z_input $apxu_samosbor_map_block_card_position_input
-									value? <=> block_layer? 0
-				<= pos_controller $mol_view
-					sub /
-						<= up_button $mol_button_minor
-							sub / <= up_icon $apxu_samosbor_map_icon_arrow_up
-							click? <=> move_click*up? null
-							minimal_height 18
-							minimal_width 18
-						<= right_button $mol_button_minor
-							sub / <= right_icon $apxu_samosbor_map_icon_arrow_right
-							click? <=> move_click*right? null
-							minimal_height 18
-							minimal_width 18
-						<= down_button $mol_button_minor
-							sub / <= down_icon $apxu_samosbor_map_icon_arrow_down
-							click? <=> move_click*down? null
-							minimal_height 18
-							minimal_width 18
-						<= left_button $mol_button_minor
-							sub / <= left_icon $apxu_samosbor_map_icon_arrow_left
-							click? <=> move_click*left? null
-							minimal_height 18
-							minimal_width 18
-						<= rotate_button $mol_button_minor
-							click? <=> rotate_click? null
-							minimal_height 18
-							minimal_width 18
-							sub / <= rotation_icon $apxu_samosbor_map_icon_direction
-								style *
-									transform <= rotation \rotate(0deg)
-				<= pipe $mol_view
-		<= floors_info $mol_view
-			sub /
-				<= gen_floor_view $mol_view
-				<= board_floor_view $mol_view
-				<= roof_floor_view $mol_view
-				<= flooded_floor_view $mol_view
-		<= features $mol_view
-			sub /
+						<= floor_view*roof
+						<= floor_view*flood
+						^ balcony_view / <= balcony_checkbox $mol_check_box
+							enabled <= edit_mode
+							checked? <=> has_balcony? false
+							Icon <= balcony_icon $apxu_samosbor_map_icon_balcony
 				<= professions $mol_view
+					sub /
+						<= liquidators $apxu_samosbor_map_block_card_place
+							floors <= profession_floors*liquidator /
+							icon <= liquidator_icon $apxu_samosbor_map_icon_liquidator
+							enabled <= edit_mode
+							add_floor? <=> add_profession*liquidator? null
+							remove_floor* <=> remove_floor* null
+						<= repairmans $apxu_samosbor_map_block_card_place
+							floors <= profession_floors*repairman /
+							icon <= repairman_icon $apxu_samosbor_map_icon_repairman
+							enabled <= edit_mode
+							add_floor? <=> add_profession*repairman? null
+							remove_floor* <=> remove_floor* null
+						<= cleaners $apxu_samosbor_map_block_card_place
+							floors <= profession_floors*cleaner /
+							icon <= cleaner_icon $apxu_samosbor_map_icon_cleaner
+							enabled <= edit_mode
+							add_floor? <=> add_profession*cleaner? null
+							remove_floor* <=> remove_floor* null
+						<= plumbers $apxu_samosbor_map_block_card_place
+							floors <= profession_floors*plumber /
+							icon <= plumber_icon $apxu_samosbor_map_icon_factory
+							enabled <= edit_mode
+							add_floor? <=> add_profession*plumber? null
+							remove_floor* <=> remove_floor* null
 				<= places $mol_view
+				<= features $mol_view

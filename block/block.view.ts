@@ -130,13 +130,17 @@ namespace $.$$ {
 
 	export class BlockType extends $hyoo_crus_atom_enum( [ "residential", "abandoned", "frozen", "infected", "destroyed" ] ) {}
 
-	export class ProfessionType extends $hyoo_crus_atom_enum( [ "luquidator", "repairman", "cleaner", "plumber" ] ) {}
+	export class ProfessionType extends $hyoo_crus_atom_enum( [ "liquidator", "repairman", "cleaner", "plumber" ] ) {}
 	export class ProfessionData extends $hyoo_crus_dict.with( {
 		Type: ProfessionType,
 		Floor: $hyoo_crus_atom_int,
 	} ) {}
 
-	export class PlaceType extends $hyoo_crus_atom_enum( [ "theatre", "hospital", "party", "warehouse" ] ) {}
+	export class PlaceType extends $hyoo_crus_atom_enum( [
+		"theatre", "hospital", "party", "gym",
+		"laundry", "postal", "overview", "racing", "hockey",
+		"spleef", "pool", "warehouse"
+	] ) {}
 	export class PlaceData extends $hyoo_crus_dict.with( {
 		Type: PlaceType,
 		Floor: $hyoo_crus_atom_int,
@@ -151,15 +155,20 @@ namespace $.$$ {
 		PositionY: $hyoo_crus_atom_int,
 		Layer: $hyoo_crus_atom_int,
 		Generator: $hyoo_crus_atom_int,
+		BoardFloor: $hyoo_crus_atom_int,
+		MailFloor: $hyoo_crus_atom_int,
+		RoofFloor: $hyoo_crus_atom_int,
+		FloodFloor: $hyoo_crus_atom_int,
 		MinFloor: $hyoo_crus_atom_int,
 		MaxFloor: $hyoo_crus_atom_int,
 		LeftFlight: FlightData,
 		RightFlight: FlightData,
 		FloorsData: FloorsData,
 		UpMiddleFlight: $hyoo_crus_atom_bool,
-		DownMiddleFlight: $hyoo_crus_atom_bool,
+		HasBalcony: $hyoo_crus_atom_bool,
 
 		Professions: $hyoo_crus_list_ref_to( () => ProfessionData ),
+		Places: $hyoo_crus_list_ref_to( () => PlaceData ),
 
 	} ) {
 		@$mol_mem
@@ -268,9 +277,65 @@ namespace $.$$ {
 			return this.FloorsData( null )?.key( floor, null ).DownRightPassage( null )?.Type( null )?.val( next ) ?? "noway"
 		}
 
-		@$mol_mem_key
-		get_passage_type( floor: number, position: TransitionPosition ) {
+		@$mol_mem
+		board_floor( next?: number ) {
+			const holder = this.BoardFloor( null )
+			if( !holder ) return null
+			if( next !== undefined && isNaN( next ) ) {
+				return holder.val( null )
+			}
+			const val = typeof next === "number" ? BigInt( next ) : next
+			return holder.val( val )
+		}
 
+		@$mol_mem
+		mail_floor( next?: number ) {
+			const holder = this.MailFloor( null )
+			if( !holder ) return null
+			if( next !== undefined && isNaN( next ) ) {
+				return holder.val( null )
+			}
+			const val = typeof next === "number" ? BigInt( next ) : next
+			return holder.val( val )
+		}
+
+		@$mol_mem
+		roof_floor( next?: number ) {
+			const holder = this.RoofFloor( null )
+			if( !holder ) return null
+			if( next !== undefined && isNaN( next ) ) {
+				return holder.val( null )
+			}
+			const val = typeof next === "number" ? BigInt( next ) : next
+			return holder.val( val )
+		}
+
+		@$mol_mem
+		flood_floor( next?: number ) {
+			const holder = this.FloodFloor( null )
+			if( !holder ) return null
+			if( next !== undefined && isNaN( next ) ) {
+				return holder.val( null )
+			}
+			const val = typeof next === "number" ? BigInt( next ) : next
+			return holder.val( val )
+		}
+
+		@$mol_mem_key
+		profession_floors( what: typeof ProfessionType.options[ number ] ) {
+			return this.Professions( null )?.remote_list().filter( ( data ) => data.Type( null )?.val() === what ) ?? []
+		}
+
+		@$mol_action
+		add_profession( what: typeof ProfessionType.options[ number ] ) {
+			const node = this.Professions( null )?.make( null ) // TODO права
+			node?.Type( null )?.val( what )
+			return node
+		}
+
+		@$mol_action
+		remove_profession( node: $hyoo_crus_vary_type ) {
+			this.Professions( null )?.cut( node )
 		}
 
 	}
@@ -376,6 +441,34 @@ namespace $.$$ {
 		@$mol_mem
 		generator_floor_value( next?: number ) {
 			return this.block_data().generator_floor( next )
+		}
+		@$mol_mem
+		board_floor_value( next?: number ): number | null {
+			const value = this.block_data().board_floor( next )
+			if( value === null ) return value
+			return Number( value )
+		}
+		@$mol_mem
+		mail_floor_value( next?: number ): number | null {
+			const value = this.block_data().mail_floor( next )
+			if( value === null ) return value
+			return Number( value )
+		}
+		@$mol_mem
+		roof_floor_value( next?: number ): number | null {
+			const value = this.block_data().roof_floor( next )
+			if( value === null ) return value
+			return Number( value )
+		}
+		@$mol_mem
+		flood_floor_value( next?: number ): number | null {
+			const value = this.block_data().flood_floor( next )
+			if( value === null ) return value
+			return Number( value )
+		}
+		@$mol_mem_key
+		profession_floors( what: typeof ProfessionType.options[ number ] ) {
+			return this.block_data().profession_floors( what )
 		}
 		@$mol_mem
 		block_layer( next?: number ): number {
@@ -688,7 +781,7 @@ namespace $.$$ {
 
 		@$mol_mem
 		has_middle_flight() {
-			return this.is_up_flight() || this.is_down_flight()
+			return this.is_up_flight()
 		}
 
 		@$mol_mem
@@ -840,18 +933,6 @@ namespace $.$$ {
 				return this.up_middle_passage()
 			}
 		}
-		@$mol_mem
-		is_down_flight( next?: boolean ): boolean {
-			return this.block_data().DownMiddleFlight( null )?.val( next ) ?? false
-		}
-		@$mol_mem
-		down_passage_or_flight() {
-			if( this.is_down_flight() ) {
-				return this.down_flight()
-			} else {
-				return this.down_middle_passage()
-			}
-		}
 		readonly parts = [ this.name_part(), this.info_part(), this.places_part(), this.profession_part() ]
 		readonly dir_shift: { [ dir in DirectionType ]: number } = {
 			up: 0,
@@ -959,11 +1040,11 @@ namespace $.$$ {
 
 		@$mol_mem
 		flooded() {
-			return this.flooded_effect()
+			return this.flood_floor_value() !== null ? this.flooded_effect() : null
 		}
 		@$mol_mem
 		roof() {
-			return this.roof_effect()
+			return this.roof_floor_value() !== null ? this.roof_effect() : null
 		}
 
 		@$mol_mem

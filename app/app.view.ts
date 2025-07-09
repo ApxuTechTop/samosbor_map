@@ -162,10 +162,6 @@ namespace $.$$ {
 		up_flight_value( next?: boolean ): boolean {
 			return this.selected_block()?.is_up_flight( next ) ?? false
 		}
-		@$mol_mem
-		down_flight_value( next?: boolean ): boolean {
-			return this.selected_block()?.is_down_flight( next ) ?? false
-		}
 		@$mol_action
 		delete_block() {
 			Gigacluster.delete_block( this.selected_block()?.block_data().ref() )
