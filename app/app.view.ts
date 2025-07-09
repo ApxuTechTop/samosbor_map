@@ -103,7 +103,7 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		block_cards(): readonly ( $apxu_samosbor_map_block_card )[] {
+		block_cards() {
 			const cards = this.selected_blocks().map( ( ref ) => {
 				return this.BlockCard( ref )
 			} )
