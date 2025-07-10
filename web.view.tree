@@ -383,16 +383,78 @@ $apxu_samosbor_map_slider $mol_view
 					sub /
 						<= thumb_content <= value_limited
 
+$mol_touch $mol_plugin
+	start_zoom? 0
+	start_distance? 0
+	zoom? 1
+	allow_draw true
+	allow_pan true
+	allow_zoom true
+	action_type? \
+	action_point? $mol_vector_2d<number> /
+		NaN
+		NaN
+	-
+	start_pan? /
+		0
+		0
+	pan? $mol_vector_2d<number> /
+		0
+		0
+	pointer_center $mol_vector_2d<number> /
+		NaN
+		NaN
+	-
+	start_pos? null
+	swipe_precision 16
+	-
+	swipe_right? null
+	swipe_bottom? null
+	swipe_left? null
+	swipe_top? null
+	-
+	swipe_from_right? null
+	swipe_from_bottom? null
+	swipe_from_left? null
+	swipe_from_top? null
+	-
+	swipe_to_right? null
+	swipe_to_bottom? null
+	swipe_to_left? null
+	swipe_to_top? null
+	-
+	draw_start?event null
+	draw?event null
+	draw_end?event null
+	-
+	style *
+		^
+		touch-action \none
+		overscroll-behavior \none
+	-
+	event *
+		^
+		pointerdown?event <=> event_start?event null
+		pointermove?event <=> event_move?event null
+		pointerup?event <=> event_end?event null
+		pointerleave?event <=> event_leave?event null
+		wheel?event <=> event_wheel?event null
+
 $apxu_samosbor_map_area $mol_view
 	zoom 1
 	attr *
 		dragging <= isDragging? false
-	event *
-		wheel? <=> event_wheel? null
-		keypress? <=> event_key? null
-		pointerdown? <=> event_mouse_down? null
-		pointermove? <=> event_mouse_move? null
-		pointerup? <=> event_mouse_up? null
+	- event *
+		- wheel? <=> event_wheel? null
+		- keypress? <=> event_key? null
+		- pointerdown? <=> event_mouse_down? null
+		- pointermove? <=> event_mouse_move? null
+		- pointerup? <=> event_mouse_up? null
+	plugins /
+		<= mover $mol_touch
+			allow_draw false
+			zoom? <=> cur_zoom? 1
+			pan? => cur_pan?
 	sub /$mol_view
 		<= Plane $mol_view
 			minimal_width 0
