@@ -2,12 +2,19 @@ $apxu_samosbor_map_area $mol_view
 	zoom 1
 	attr *
 		dragging <= isDragging? false
-	event *
-		wheel? <=> event_wheel? null
-		keypress? <=> event_key? null
-		pointerdown? <=> event_mouse_down? null
-		pointermove? <=> event_mouse_move? null
-		pointerup? <=> event_mouse_up? null
+	- event *
+		- wheel? <=> event_wheel? null
+		- keypress? <=> event_key? null
+		- pointerdown? <=> event_mouse_down? null
+		- pointermove? <=> event_mouse_move? null
+		- pointerup? <=> event_mouse_up? null
+	plugins /
+		<= mover $mol_touch
+			allow_draw false
+			zoom? <=> cur_zoom? 1
+			pan? <=> cur_pan? /
+				0
+				0
 	sub /$mol_view
 		<= Plane $mol_view
 			minimal_width 0

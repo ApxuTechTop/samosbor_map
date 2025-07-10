@@ -20,7 +20,7 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		position_style(): string {
-			return `${ this.pos_x() } ${ this.pos_y() }`
+			return `${ this.cur_pan()[ 0 ] }px ${ this.cur_pan()[ 1 ] }px`
 		}
 		@$mol_mem
 		transform_style(): string {
@@ -68,7 +68,7 @@ namespace $.$$ {
 
 		@$mol_mem
 		scale_style(): string {
-			return `${ this.zoom() }`
+			return `${ this.cur_zoom() }`
 		}
 		/**
 		 * 
@@ -136,51 +136,48 @@ namespace $.$$ {
 
 		@$mol_action
 		event_mouse_down( event: PointerEvent ) {
+			console.log( event )
+			if( event.defaultPrevented ) return
 			if( event.pointerType === 'mouse' && event.button !== 1 ) {
 				return
 			}
 			const element = event.target as Element | null
-			element?.setPointerCapture( event.pointerId )
+			// element?.setPointerCapture( event.pointerId )
 
 
 			this.isDragging( true )
 			this.dragStartPos( [ event.clientX, event.clientY ] )
-			event.stopPropagation()
-			event.preventDefault()
+			// event.stopPropagation()
+			// event.preventDefault()
 
 		}
 
 		@$mol_action
 		event_mouse_move( event: MouseEvent ) {
+			console.log( event )
 			if( !this.isDragging() ) return
-
-			//const movement = [event.movementX, event.movementY]
-
-
+			event.stopImmediatePropagation()
 			const currentPos = this.position()
-
 			this.position( [
 				currentPos[ 0 ] + event.movementX,
 				currentPos[ 1 ] + event.movementY
 			] )
 
-			// this.dragStartPos([currentX, currentY])
-			event.stopPropagation()
-			event.preventDefault()
 		}
 
 		@$mol_action
 		event_mouse_up( event: PointerEvent ) {
+			console.log( event )
+			if( event.defaultPrevented ) return
 			if( event.pointerType === 'mouse' && event.button !== 1 ) {
 				return
 			}
 			const element = event.target as Element | null
-			element?.releasePointerCapture( event.pointerId )
+			// element?.releasePointerCapture( event.pointerId )
 
 			this.isDragging( false )
-			event.stopPropagation()
-			event.preventDefault()
-
+			// event.stopPropagation()
+			// event.preventDefault()
 		}
 
 		@$mol_mem
