@@ -2110,9 +2110,9 @@ declare namespace $ {
 	>
 	type $mol_view__event_apxu_samosbor_map_slider_7 = $mol_type_enforce<
 		({ 
-			mousedown( next?: ReturnType< $apxu_samosbor_map_slider['event_mouse_down'] > ): ReturnType< $apxu_samosbor_map_slider['event_mouse_down'] >,
-			mousemove( next?: ReturnType< $apxu_samosbor_map_slider['event_mouse_move'] > ): ReturnType< $apxu_samosbor_map_slider['event_mouse_move'] >,
-			mouseup( next?: ReturnType< $apxu_samosbor_map_slider['event_mouse_up'] > ): ReturnType< $apxu_samosbor_map_slider['event_mouse_up'] >,
+			pointerdown( next?: ReturnType< $apxu_samosbor_map_slider['event_mouse_down'] > ): ReturnType< $apxu_samosbor_map_slider['event_mouse_down'] >,
+			pointermove( next?: ReturnType< $apxu_samosbor_map_slider['event_mouse_move'] > ): ReturnType< $apxu_samosbor_map_slider['event_mouse_move'] >,
+			pointerup( next?: ReturnType< $apxu_samosbor_map_slider['event_mouse_up'] > ): ReturnType< $apxu_samosbor_map_slider['event_mouse_up'] >,
 			touchstart( next?: ReturnType< $apxu_samosbor_map_slider['event_touch_start'] > ): ReturnType< $apxu_samosbor_map_slider['event_touch_start'] >,
 			touchmove( next?: ReturnType< $apxu_samosbor_map_slider['event_touch_move'] > ): ReturnType< $apxu_samosbor_map_slider['event_touch_move'] >,
 			touchend( next?: ReturnType< $apxu_samosbor_map_slider['event_touch_end'] > ): ReturnType< $apxu_samosbor_map_slider['event_touch_end'] >,
@@ -2153,7 +2153,7 @@ declare namespace $ {
 		delta_y( next?: number ): number
 		drag_start( next?: any ): any
 		input_plugin( ): $apxu_samosbor_map_slider_input
-		thumb_top( ): number
+		thumb_top( ): string
 		event_mouse_down( next?: any ): any
 		event_mouse_move( next?: any ): any
 		event_mouse_up( next?: any ): any
@@ -2180,7 +2180,7 @@ declare namespace $.$$ {
     class $apxu_samosbor_map_slider extends $.$apxu_samosbor_map_slider {
         slot_count(): number;
         slot_size(): number;
-        thumb_top(): number;
+        thumb_top(): string;
         value_limited(next?: number): number;
         all_slots(): readonly ($mol_view)[];
         first_value: number;

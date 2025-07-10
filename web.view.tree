@@ -372,11 +372,11 @@ $apxu_samosbor_map_slider $mol_view
 							delta_y? <=> delta_y? 0
 							on_drag_start? <=> drag_start? null
 					style *
-						top <= thumb_top 0
+						top <= thumb_top \0%
 					event *
-						mousedown? <=> event_mouse_down? null
-						mousemove? <=> event_mouse_move? null
-						mouseup? <=> event_mouse_up? null
+						pointerdown? <=> event_mouse_down? null
+						pointermove? <=> event_mouse_move? null
+						pointerup? <=> event_mouse_up? null
 						touchstart? <=> event_touch_start? null
 						touchmove? <=> event_touch_move? null
 						touchend? <=> event_touch_end? null

@@ -5504,7 +5504,7 @@ var $;
 			return obj;
 		}
 		thumb_top(){
-			return 0;
+			return "0%";
 		}
 		event_mouse_down(next){
 			if(next !== undefined) return next;
@@ -5538,9 +5538,9 @@ var $;
 			(obj.plugins) = () => ([(this.input_plugin())]);
 			(obj.style) = () => ({"top": (this.thumb_top())});
 			(obj.event) = () => ({
-				"mousedown": (next) => (this.event_mouse_down(next)), 
-				"mousemove": (next) => (this.event_mouse_move(next)), 
-				"mouseup": (next) => (this.event_mouse_up(next)), 
+				"pointerdown": (next) => (this.event_mouse_down(next)), 
+				"pointermove": (next) => (this.event_mouse_move(next)), 
+				"pointerup": (next) => (this.event_mouse_up(next)), 
 				"touchstart": (next) => (this.event_touch_start(next)), 
 				"touchmove": (next) => (this.event_touch_move(next)), 
 				"touchend": (next) => (this.event_touch_end(next))
@@ -5642,10 +5642,10 @@ var $;
             }
             pointerdown(event) {
                 this.drag_start(event);
-                const mousemove = new $mol_dom_listener(this.$.$mol_dom_context.document, 'mousemove', $mol_wire_async(event => {
+                const mousemove = new $mol_dom_listener(this.$.$mol_dom_context.document, 'pointermove', $mol_wire_async(event => {
                     this.drag(event);
                 }));
-                const mouseup = new $mol_dom_listener(this.$.$mol_dom_context.document, 'mouseup', $mol_wire_async(event => {
+                const mouseup = new $mol_dom_listener(this.$.$mol_dom_context.document, 'pointerup', $mol_wire_async(event => {
                     this.drag_end(event);
                     mouseup?.destructor();
                     mousemove?.destructor();
@@ -5660,7 +5660,13 @@ var $;
         ], $apxu_samosbor_map_slider_input.prototype, "delta_y", null);
         __decorate([
             $mol_action
+        ], $apxu_samosbor_map_slider_input.prototype, "drag_start", null);
+        __decorate([
+            $mol_action
         ], $apxu_samosbor_map_slider_input.prototype, "drag", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_slider_input.prototype, "drag_end", null);
         $$.$apxu_samosbor_map_slider_input = $apxu_samosbor_map_slider_input;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -5683,7 +5689,7 @@ var $;
                 return (dom.offsetHeight - 24) / (this.slot_count() - 1);
             }
             thumb_top() {
-                return (this.max_value() - this.value_limited()) * this.slot_size();
+                return (this.max_value() - this.value_limited()) / (this.slot_count() - 1) * 100 + "%";
             }
             value_limited(next = this.value()) {
                 if (next < this.min_value()) {
@@ -15229,16 +15235,16 @@ var $;
                 return this.parts[shift];
             }
             has_liquidator_profession() {
-                return Math.random() < 0.5;
+                return this.profession_floors("liquidator").length > 0;
             }
             has_repairman_profession() {
-                return Math.random() < 0.5;
+                return this.profession_floors("repairman").length > 0;
             }
             has_cleaner_profession() {
-                return Math.random() < 0.5;
+                return this.profession_floors("cleaner").length > 0;
             }
             has_plumber_profession() {
-                return Math.random() < 0.5;
+                return this.profession_floors("plumber").length > 0;
             }
             liquidator_profession() {
                 return this.has_liquidator_profession() ? this.liquidator_icon() : null;
