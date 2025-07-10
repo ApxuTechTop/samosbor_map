@@ -1007,19 +1007,19 @@ namespace $.$$ {
 
 		@$mol_mem
 		has_liquidator_profession() {
-			return Math.random() < 0.5
+			return this.profession_floors( "liquidator" ).length > 0
 		}
 		@$mol_mem
 		has_repairman_profession() {
-			return Math.random() < 0.5
+			return this.profession_floors( "repairman" ).length > 0
 		}
 		@$mol_mem
 		has_cleaner_profession() {
-			return Math.random() < 0.5
+			return this.profession_floors( "cleaner" ).length > 0
 		}
 		@$mol_mem
 		has_plumber_profession() {
-			return Math.random() < 0.5
+			return this.profession_floors( "plumber" ).length > 0
 		}
 
 		@$mol_mem

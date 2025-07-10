@@ -14,6 +14,7 @@ namespace $.$$ {
 		start_event?: PointerEvent
 		start_pos?: { x: number, y: number }
 
+		@$mol_action
 		drag_start( event: PointerEvent ) {
 			this.start_event = event
 			this.start_pos = { x: this.x(), y: this.y() }
@@ -29,6 +30,7 @@ namespace $.$$ {
 			this.on_drag( event )
 		}
 
+		@$mol_action
 		drag_end( event: PointerEvent ) {
 			this.moving( false )
 			this.on_drag_end( event )
@@ -40,7 +42,7 @@ namespace $.$$ {
 
 			const mousemove = new $mol_dom_listener(
 				this.$.$mol_dom_context.document,
-				'mousemove',
+				'pointermove',
 				$mol_wire_async( event => {
 					this.drag( event )
 				} ),
@@ -48,7 +50,7 @@ namespace $.$$ {
 
 			const mouseup = new $mol_dom_listener(
 				this.$.$mol_dom_context.document,
-				'mouseup',
+				'pointerup',
 				$mol_wire_async( event => {
 					this.drag_end( event )
 					mouseup?.destructor()

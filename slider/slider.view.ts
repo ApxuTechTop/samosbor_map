@@ -12,8 +12,8 @@ namespace $.$$ {
 			return ( dom.offsetHeight - 24 ) / ( this.slot_count() - 1 )
 		}
 		@$mol_mem
-		thumb_top(): number {
-			return ( this.max_value() - this.value_limited() ) * this.slot_size()
+		thumb_top(): string {
+			return ( this.max_value() - this.value_limited() ) / ( this.slot_count() - 1 ) * 100 + "%"
 		}
 
 		@$mol_mem
