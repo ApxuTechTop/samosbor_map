@@ -3704,7 +3704,7 @@ var $;
 	};
 	($mol_mem(($.$apxu_samosbor_map_icon_hospital.prototype), "Path1"));
 	($mol_mem(($.$apxu_samosbor_map_icon_hospital.prototype), "Path2"));
-	($.$apxu_samosbor_map_icon_warehouse) = class $apxu_samosbor_map_icon_warehouse extends ($.$mol_icon) {
+	($.$apxu_samosbor_map_icon_house) = class $apxu_samosbor_map_icon_house extends ($.$mol_icon) {
 		view_box(){
 			return "0 0 34 34";
 		}
@@ -5797,9 +5797,9 @@ var $;
 			return {
 				"wheel": (next) => (this.event_wheel(next)), 
 				"keypress": (next) => (this.event_key(next)), 
-				"mousedown": (next) => (this.event_mouse_down(next)), 
-				"mousemove": (next) => (this.event_mouse_move(next)), 
-				"mouseup": (next) => (this.event_mouse_up(next))
+				"pointerdown": (next) => (this.event_mouse_down(next)), 
+				"pointermove": (next) => (this.event_mouse_move(next)), 
+				"pointerup": (next) => (this.event_mouse_up(next))
 			};
 		}
 		sub(){
@@ -5913,13 +5913,15 @@ var $;
                 }
             }
             event_mouse_down(event) {
-                console.log(event);
-                if (event.button === 1) {
-                    this.isDragging(true);
-                    this.dragStartPos([event.clientX, event.clientY]);
-                    event.stopPropagation();
-                    event.preventDefault();
+                if (event.pointerType === 'mouse' && event.button !== 1) {
+                    return;
                 }
+                const element = event.target;
+                element?.setPointerCapture(event.pointerId);
+                this.isDragging(true);
+                this.dragStartPos([event.clientX, event.clientY]);
+                event.stopPropagation();
+                event.preventDefault();
             }
             event_mouse_move(event) {
                 if (!this.isDragging())
@@ -5929,13 +5931,18 @@ var $;
                     currentPos[0] + event.movementX,
                     currentPos[1] + event.movementY
                 ]);
+                event.stopPropagation();
                 event.preventDefault();
             }
             event_mouse_up(event) {
-                if (event.button === 1) {
-                    this.isDragging(false);
-                    event.preventDefault();
+                if (event.pointerType === 'mouse' && event.button !== 1) {
+                    return;
                 }
+                const element = event.target;
+                element?.releasePointerCapture(event.pointerId);
+                this.isDragging(false);
+                event.stopPropagation();
+                event.preventDefault();
             }
             log() {
                 console.log(this.zoom());
@@ -6241,7 +6248,7 @@ var $;
 		hospital_place(){
 			return null;
 		}
-		warehouse_place(){
+		safe_place(){
 			return null;
 		}
 		places_wrapper(){
@@ -6250,7 +6257,7 @@ var $;
 				(this.theatre_place()), 
 				(this.party_place()), 
 				(this.hospital_place()), 
-				(this.warehouse_place())
+				(this.safe_place())
 			]);
 			return obj;
 		}
@@ -6578,6 +6585,9 @@ var $;
 		profession_floors(id){
 			return [];
 		}
+		safe_floors(){
+			return [];
+		}
 		pos_x(next){
 			if(next !== undefined) return next;
 			return 0;
@@ -6694,8 +6704,8 @@ var $;
 			const obj = new this.$.$apxu_samosbor_map_icon_hospital();
 			return obj;
 		}
-		warehouse_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_warehouse();
+		house_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_house();
 			return obj;
 		}
 		profession_part(){
@@ -6819,7 +6829,7 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "theatre_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "party_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "hospital_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "warehouse_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "house_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_part"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_part"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_effect"));
@@ -14031,6 +14041,40 @@ var $;
             remove_profession(node) {
                 this.Professions(null)?.cut(node);
             }
+            place_floors(what) {
+                return this.Places(null)?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
+            }
+            safe_floors() {
+                const safe_place_types = [
+                    "theatre", "party", "gym", "overview",
+                    "racing", "hockey", "spleef", "pool", "warehouse"
+                ];
+                const safe_places = this.Places(null)?.remote_list()
+                    .filter((place) => {
+                    const place_type = place.Type(null)?.val();
+                    if (!place_type)
+                        return;
+                    return safe_place_types.includes(place_type);
+                }) ?? [];
+                const safe_profession_types = ["liquidator", "plumber"];
+                const safe_professions = this.Professions(null)?.remote_list()
+                    .filter((profession) => {
+                    const profession_type = profession.Type(null)?.val();
+                    if (!profession_type)
+                        return;
+                    return safe_profession_types.includes(profession_type);
+                }) ?? [];
+                const all_safe_places = [];
+                return all_safe_places.concat(safe_places).concat(safe_professions);
+            }
+            add_place(what) {
+                const node = this.Places(null)?.make(null);
+                node?.Type(null)?.val(what);
+                return node;
+            }
+            remove_place(node) {
+                this.Places(null)?.cut(node);
+            }
         }
         __decorate([
             $mol_mem
@@ -14119,6 +14163,18 @@ var $;
         __decorate([
             $mol_action
         ], $apxu_samosbor_map_block_data.prototype, "remove_profession", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block_data.prototype, "place_floors", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_data.prototype, "safe_floors", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block_data.prototype, "add_place", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block_data.prototype, "remove_place", null);
         $$.$apxu_samosbor_map_block_data = $apxu_samosbor_map_block_data;
         $$.block_full_cell = 380;
         $$.ru_to_eng = {
@@ -14233,6 +14289,9 @@ var $;
             }
             profession_floors(what) {
                 return this.block_data().profession_floors(what);
+            }
+            safe_floors() {
+                return this.block_data().safe_floors();
             }
             block_layer(next) {
                 return this.block_data().layer(next);
@@ -14666,7 +14725,7 @@ var $;
             has_hospital_place() {
                 return Math.random() < 0.5;
             }
-            has_warehouse_place() {
+            has_safe_place() {
                 return Math.random() < 0.5;
             }
             theatre_place() {
@@ -14678,8 +14737,8 @@ var $;
             hospital_place() {
                 return this.has_hospital_place() ? this.hospital_icon() : null;
             }
-            warehouse_place() {
-                return this.has_warehouse_place() ? this.warehouse_icon() : null;
+            safe_place() {
+                return this.has_safe_place() ? this.house_icon() : null;
             }
             flooded() {
                 return this.flood_floor_value() !== null ? this.flooded_effect() : null;
@@ -14744,6 +14803,9 @@ var $;
         __decorate([
             $mol_mem_key
         ], $apxu_samosbor_map_block.prototype, "profession_floors", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "safe_floors", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "block_layer", null);
@@ -14914,7 +14976,7 @@ var $;
         ], $apxu_samosbor_map_block.prototype, "has_hospital_place", null);
         __decorate([
             $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_warehouse_place", null);
+        ], $apxu_samosbor_map_block.prototype, "has_safe_place", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "theatre_place", null);
@@ -14926,7 +14988,7 @@ var $;
         ], $apxu_samosbor_map_block.prototype, "hospital_place", null);
         __decorate([
             $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "warehouse_place", null);
+        ], $apxu_samosbor_map_block.prototype, "safe_place", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "flooded", null);
@@ -17488,8 +17550,24 @@ var $;
 			]);
 			return obj;
 		}
+		safe_floors(){
+			return [];
+		}
+		house_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_house();
+			return obj;
+		}
+		safes(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_place();
+			(obj.floors) = () => ((this.safe_floors()));
+			(obj.icon) = () => ((this.house_icon()));
+			(obj.enabled) = () => ((this.edit_mode()));
+			(obj.remove_floor) = (id) => ((this.remove_floor(id)));
+			return obj;
+		}
 		places(){
 			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.safes())]);
 			return obj;
 		}
 		features(){
@@ -17669,6 +17747,8 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "plumber_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "plumbers"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "professions"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "house_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "safes"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "places"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "features"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "content"));
@@ -17738,6 +17818,11 @@ var $;
                 const data = this.block().block_data();
                 data.remove_profession(node.ref());
             }
+            safe_floors() {
+                const safe_floors = this.block().safe_floors();
+                console.log(safe_floors);
+                return safe_floors;
+            }
             rotation() {
                 const degree = 0;
                 const degree_map = {
@@ -17801,6 +17886,9 @@ var $;
         __decorate([
             $mol_mem_key
         ], $apxu_samosbor_map_block_card.prototype, "remove_floor", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "safe_floors", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block_card.prototype, "rotation", null);
