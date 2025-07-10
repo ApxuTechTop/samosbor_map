@@ -5,9 +5,9 @@ $apxu_samosbor_map_area $mol_view
 	event *
 		wheel? <=> event_wheel? null
 		keypress? <=> event_key? null
-		mousedown? <=> event_mouse_down? null
-		mousemove? <=> event_mouse_move? null
-		mouseup? <=> event_mouse_up? null
+		pointerdown? <=> event_mouse_down? null
+		pointermove? <=> event_mouse_move? null
+		pointerup? <=> event_mouse_up? null
 	sub /$mol_view
 		<= Plane $mol_view
 			minimal_width 0

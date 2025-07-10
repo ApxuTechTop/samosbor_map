@@ -47,6 +47,12 @@ namespace $.$$ {
 			data.remove_profession( node.ref() )
 		}
 		@$mol_mem
+		safe_floors() {
+			const safe_floors = this.block().safe_floors()
+			console.log( safe_floors )
+			return safe_floors
+		}
+		@$mol_mem
 		rotation(): string {
 			const degree = 0
 			const degree_map: { [ dir in DirectionType ]: number } = {

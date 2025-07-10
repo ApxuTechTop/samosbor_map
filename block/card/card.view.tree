@@ -253,4 +253,10 @@ $apxu_samosbor_map_block_card $mol_view
 							add_floor? <=> add_profession*plumber? null
 							remove_floor* <=> remove_floor* null
 				<= places $mol_view
+					sub /
+						<= safes $apxu_samosbor_map_block_card_place
+							floors <= safe_floors /
+							icon <= house_icon $apxu_samosbor_map_icon_house
+							enabled <= edit_mode
+							remove_floor* <=> remove_floor* null
 				<= features $mol_view

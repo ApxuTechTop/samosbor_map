@@ -12,19 +12,19 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		pos_x( next?: string ): string {
-			return this.position()[0] + "px"
+			return this.position()[ 0 ] + "px"
 		}
 		@$mol_mem
 		pos_y( next?: string ): string {
-			return this.position()[1] + "px"
+			return this.position()[ 1 ] + "px"
 		}
 		@$mol_mem
 		position_style(): string {
-			return `${this.pos_x()} ${this.pos_y()}`
+			return `${ this.pos_x() } ${ this.pos_y() }`
 		}
 		@$mol_mem
 		transform_style(): string {
-			const transform = `${this.position_style()} ${this.scale_style()}`
+			const transform = `${ this.position_style() } ${ this.scale_style() }`
 			return transform
 		}
 
@@ -68,7 +68,7 @@ namespace $.$$ {
 
 		@$mol_mem
 		scale_style(): string {
-			return `${this.zoom()}`
+			return `${ this.zoom() }`
 		}
 		/**
 		 * 
@@ -76,61 +76,46 @@ namespace $.$$ {
 		 * @param offset точка в координатах области масштабирования
 		 */
 		@$mol_action
-		zoom_at(new_zoom: number, offset: {x: number, y: number} = {x: this.position()[0], y: this.position()[1]}) {
-			const current_zoom = this.zoom();
-			const zoom_delta = new_zoom - current_zoom;
-			
-			const [area_pos_x, area_pos_y] = this.position();
-			
+		zoom_at( new_zoom: number, offset: { x: number, y: number } = { x: this.position()[ 0 ], y: this.position()[ 1 ] } ) {
+			const current_zoom = this.zoom()
+			const zoom_delta = new_zoom - current_zoom
+
+			const [ area_pos_x, area_pos_y ] = this.position()
+
 			// Правильное преобразование: (мышь - смещение) / масштаб
-			const plane_x = (offset.x - area_pos_x)  / current_zoom;
-			const plane_y = (offset.y - area_pos_y ) / current_zoom;
-			
+			const plane_x = ( offset.x - area_pos_x ) / current_zoom
+			const plane_y = ( offset.y - area_pos_y ) / current_zoom
+
 			// Корректировка смещения для сохранения точки под курсором:
-			const dx = plane_x * zoom_delta;
-			const dy = plane_y * zoom_delta;
-			
-			this.zoom(new_zoom);
-			this.position([area_pos_x - dx, area_pos_y - dy]);
-			
+			const dx = plane_x * zoom_delta
+			const dy = plane_y * zoom_delta
+
+			this.zoom( new_zoom )
+			this.position( [ area_pos_x - dx, area_pos_y - dy ] )
+
 		}
 
 		@$mol_action
-		zoomIn(cursor_x: number, cursor_y: number) {
+		zoomIn( cursor_x: number, cursor_y: number ) {
 			const [ min, max ] = this.zoomLimits()
 			const currentZoom = this.zoom()
 			const newZoom = Math.min( max, currentZoom * 1.2 )
-			this.zoom_at(newZoom, {x: cursor_x, y: cursor_y})
+			this.zoom_at( newZoom, { x: cursor_x, y: cursor_y } )
 		}
 
 		@$mol_action
-		zoomOut(cursor_x: number, cursor_y: number) {
+		zoomOut( cursor_x: number, cursor_y: number ) {
 			const [ min, max ] = this.zoomLimits()
 			const currentZoom = this.zoom()
 			const newZoom = Math.max( min, currentZoom / 1.2 )
-			this.zoom_at(newZoom, {x: cursor_x, y: cursor_y})
+			this.zoom_at( newZoom, { x: cursor_x, y: cursor_y } )
 		}
-
-		
 
 		@$mol_action
 		reset() {
 			this.position( [ 0, 0 ] )
 			this.zoom( 1 )
 		}
-
-		// @ $mol_mem
-		// styleForZoomComponent(): { [key: string]: string | number; } {
-		// 	const pos = this.position()
-		// 	const center = this.center()
-
-		// 	return {
-		// 		...this.style(),
-		// 		left: (center[0] + pos[0] * this.zoom()) + 'px',
-		// 		top: (center[1] + pos[1] * this.zoom()) + 'px',
-		// 		transform: `scale(${this.zoom()})`,
-		// 	}
-		// }
 
 		@$mol_action
 		event_wheel( event: WheelEvent ) {
@@ -139,45 +124,30 @@ namespace $.$$ {
 			console.log( event )
 
 			const zoom_position_x = event.offsetX
-			const zoom_position_y = event.offsetY;
+			const zoom_position_y = event.offsetY
 
 
 			if( event.deltaY >= 0 ) {
-				this.zoomOut(event.pageX, event.pageY)
+				this.zoomOut( event.pageX, event.pageY )
 			} else {
-				this.zoomIn(event.pageX, event.pageY)
+				this.zoomIn( event.pageX, event.pageY )
 			}
 		}
 
-		// @ $mol_action
-		// event_key( event: KeyboardEvent ) {
-		// 	// if( event.defaultPrevented ) return
-
-		// 	console.log(event)
-		// 	if( event.key === 'a' ) {
-		// 		this.position( [ this.position()[0] - 20, this.position()[1] ] )
-		// 	}
-		// 	if( event.key === 'd' ) {
-		// 		this.position( [ this.position()[0] + 20, this.position()[1] ] )
-		// 	}
-		// 	if( event.key === 'w' ) {
-		// 		this.position( [ this.position()[0], this.position()[1] - 20 ] )
-		// 	}
-		// 	if( event.key === 's' ) {
-		// 		this.position( [ this.position()[0], this.position()[1] + 20 ] )
-		// 	}
-		// }
-
 		@$mol_action
-		event_mouse_down( event: MouseEvent ) {
-			console.log( event )
-			
-			if( event.button === 1 ) {
-				this.isDragging( true )
-				this.dragStartPos( [ event.clientX, event.clientY ] )
-				event.stopPropagation();
-				event.preventDefault()
+		event_mouse_down( event: PointerEvent ) {
+			if( event.pointerType === 'mouse' && event.button !== 1 ) {
+				return
 			}
+			const element = event.target as Element | null
+			element?.setPointerCapture( event.pointerId )
+
+
+			this.isDragging( true )
+			this.dragStartPos( [ event.clientX, event.clientY ] )
+			event.stopPropagation()
+			event.preventDefault()
+
 		}
 
 		@$mol_action
@@ -195,15 +165,22 @@ namespace $.$$ {
 			] )
 
 			// this.dragStartPos([currentX, currentY])
+			event.stopPropagation()
 			event.preventDefault()
 		}
 
 		@$mol_action
-		event_mouse_up( event: MouseEvent ) {
-			if( event.button === 1 ) {
-				this.isDragging( false )
-				event.preventDefault()
+		event_mouse_up( event: PointerEvent ) {
+			if( event.pointerType === 'mouse' && event.button !== 1 ) {
+				return
 			}
+			const element = event.target as Element | null
+			element?.releasePointerCapture( event.pointerId )
+
+			this.isDragging( false )
+			event.stopPropagation()
+			event.preventDefault()
+
 		}
 
 		@$mol_mem

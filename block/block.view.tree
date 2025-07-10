@@ -45,6 +45,7 @@ $apxu_samosbor_map_block $mol_view
 	roof_floor_value? null number
 	flood_floor_value? null number
 	profession_floors* /
+	safe_floors /
 	pos_x? 0
 	pos_y? 0
 	is_up_flight? false
@@ -122,7 +123,7 @@ $apxu_samosbor_map_block $mol_view
 	theatre_icon $apxu_samosbor_map_icon_theatre
 	party_icon $apxu_samosbor_map_icon_party
 	hospital_icon $apxu_samosbor_map_icon_hospital
-	warehouse_icon $apxu_samosbor_map_icon_warehouse
+	house_icon $apxu_samosbor_map_icon_house
 	profession_part $apxu_samosbor_map_block_part
 		sub /
 			<= profession_wrapper $mol_view
@@ -138,7 +139,7 @@ $apxu_samosbor_map_block $mol_view
 					<= theatre_place null
 					<= party_place null
 					<= hospital_place null
-					<= warehouse_place null
+					<= safe_place null
 	flooded_effect $mol_view
 		sub /
 			<= flooded_icon $apxu_samosbor_map_icon_sinking

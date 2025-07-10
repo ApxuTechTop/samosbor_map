@@ -338,6 +338,43 @@ namespace $.$$ {
 			this.Professions( null )?.cut( node )
 		}
 
+		@$mol_mem_key
+		place_floors( what: typeof PlaceType.options[ number ] ) {
+			return this.Places( null )?.remote_list().filter( ( data ) => data.Type( null )?.val() === what ) ?? []
+		}
+		@$mol_mem
+		safe_floors() {
+			const safe_place_types: typeof PlaceType.options[ number ][] = [
+				"theatre", "party", "gym", "overview",
+				"racing", "hockey", "spleef", "pool", "warehouse"
+			]
+			const safe_places = this.Places( null )?.remote_list()
+				.filter( ( place ) => {
+					const place_type = place.Type( null )?.val()
+					if( !place_type ) return
+					return safe_place_types.includes( place_type )
+				} ) ?? []
+			const safe_profession_types: typeof ProfessionType.options[ number ][] = [ "liquidator", "plumber" ]
+			const safe_professions = this.Professions( null )?.remote_list()
+				.filter( ( profession ) => {
+					const profession_type = profession.Type( null )?.val()
+					if( !profession_type ) return
+					return safe_profession_types.includes( profession_type )
+				} ) ?? []
+			const all_safe_places: ( PlaceData | ProfessionData )[] = []
+			return all_safe_places.concat( safe_places ).concat( safe_professions )
+		}
+		@$mol_action
+		add_place( what: typeof PlaceType.options[ number ] ) {
+			const node = this.Places( null )?.make( null ) // TODO права
+			node?.Type( null )?.val( what )
+			return node
+		}
+		@$mol_action
+		remove_place( node: $hyoo_crus_vary_type ) {
+			this.Places( null )?.cut( node )
+		}
+
 	}
 	export const block_full_cell = 380
 	export const ru_to_eng: { [ ru: string ]: string } = {
@@ -469,6 +506,10 @@ namespace $.$$ {
 		@$mol_mem_key
 		profession_floors( what: typeof ProfessionType.options[ number ] ) {
 			return this.block_data().profession_floors( what )
+		}
+		@$mol_mem
+		safe_floors() {
+			return this.block_data().safe_floors()
 		}
 		@$mol_mem
 		block_layer( next?: number ): number {
@@ -1014,7 +1055,7 @@ namespace $.$$ {
 			return Math.random() < 0.5
 		}
 		@$mol_mem
-		has_warehouse_place() {
+		has_safe_place() {
 			return Math.random() < 0.5
 		}
 
@@ -1034,8 +1075,8 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		warehouse_place() {
-			return this.has_warehouse_place() ? this.warehouse_icon() : null
+		safe_place() {
+			return this.has_safe_place() ? this.house_icon() : null
 		}
 
 		@$mol_mem
