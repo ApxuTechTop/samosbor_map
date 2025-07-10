@@ -257,6 +257,6 @@ $apxu_samosbor_map_block_card $mol_view
 						<= safes $apxu_samosbor_map_block_card_place
 							floors <= safe_floors /
 							icon <= house_icon $apxu_samosbor_map_icon_house
-							enabled <= edit_mode
+							enabled false
 							remove_floor* <=> remove_floor* null
 				<= features $mol_view
