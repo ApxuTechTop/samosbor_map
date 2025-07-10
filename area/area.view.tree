@@ -12,9 +12,7 @@ $apxu_samosbor_map_area $mol_view
 		<= mover $mol_touch
 			allow_draw false
 			zoom? <=> cur_zoom? 1
-			pan? <=> cur_pan? /
-				0
-				0
+			pan? => cur_pan?
 	sub /$mol_view
 		<= Plane $mol_view
 			minimal_width 0
