@@ -6566,820 +6566,6 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$apxu_samosbor_map_block_row) = class $apxu_samosbor_map_block_row extends ($.$mol_view) {
-		sub(){
-			return [null];
-		}
-	};
-	($.$apxu_samosbor_map_block_part) = class $apxu_samosbor_map_block_part extends ($.$mol_view) {
-		content(){
-			return null;
-		}
-		sub(){
-			return [(this.content())];
-		}
-	};
-	($.$apxu_samosbor_map_block_flight) = class $apxu_samosbor_map_block_flight extends ($.$apxu_samosbor_map_block_part) {};
-	($.$apxu_samosbor_map_block_passage) = class $apxu_samosbor_map_block_passage extends ($.$mol_view) {
-		type(next){
-			if(next !== undefined) return next;
-			return "normal";
-		}
-		flex_direction(){
-			return "column";
-		}
-		floor_inc_value(){
-			return "0";
-		}
-		floor_inc(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.floor_inc_value())]);
-			return obj;
-		}
-		stairs(){
-			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
-			return obj;
-		}
-		content(){
-			return null;
-		}
-		up(){
-			return false;
-		}
-		right(){
-			return false;
-		}
-		down(){
-			return false;
-		}
-		left(){
-			return false;
-		}
-		attr(){
-			return {
-				"type": (this.type()), 
-				"up": (this.up()), 
-				"right": (this.right()), 
-				"down": (this.down()), 
-				"left": (this.left())
-			};
-		}
-		style(){
-			return {"flex-direction": (this.flex_direction())};
-		}
-		InterFloor(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.floor_inc()), (this.stairs())]);
-			return obj;
-		}
-		sub(){
-			return [(this.content())];
-		}
-	};
-	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "type"));
-	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "floor_inc"));
-	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "stairs"));
-	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "InterFloor"));
-	($.$apxu_samosbor_map_block_middle_flight) = class $apxu_samosbor_map_block_middle_flight extends ($.$mol_view) {};
-	($.$apxu_samosbor_map_block) = class $apxu_samosbor_map_block extends ($.$mol_view) {
-		block_direction(next){
-			if(next !== undefined) return next;
-			return "up";
-		}
-		visible(){
-			return true;
-		}
-		selected(){
-			return false;
-		}
-		color_letter(){
-			return "b";
-		}
-		block_type(next){
-			if(next !== undefined) return next;
-			return "destroyed";
-		}
-		left(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		top(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		onclick(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		connection_hidden(id){
-			return false;
-		}
-		connection_highlight(id){
-			return false;
-		}
-		connection_left(id){
-			return 0;
-		}
-		connection_top(id){
-			return 0;
-		}
-		connection_click(id, next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		transition_hidden(id){
-			return false;
-		}
-		transition_direction(id){
-			return "vertical";
-		}
-		transition_left(id){
-			return 0;
-		}
-		transition_top(id){
-			return 0;
-		}
-		stairs_icon(id){
-			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
-			return obj;
-		}
-		elevator_icon(id){
-			const obj = new this.$.$apxu_samosbor_map_icon_elevator();
-			return obj;
-		}
-		ladder_icon(id){
-			const obj = new this.$.$apxu_samosbor_map_icon_ladder();
-			return obj;
-		}
-		ladder_elevator(id){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.ladder_icon(id)), (this.elevator_icon(id))]);
-			return obj;
-		}
-		up_flight_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
-			return obj;
-		}
-		down_flight_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
-			return obj;
-		}
-		block_name(next){
-			if(next !== undefined) return next;
-			return "А-00";
-		}
-		BlockName(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.block_name())]);
-			return obj;
-		}
-		display_floor(){
-			return "?";
-		}
-		CurrentFloor(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => (["Эт. ", (this.display_floor())]);
-			return obj;
-		}
-		gen_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_generator();
-			return obj;
-		}
-		generator_floor_value(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		generator_floor(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.generator_floor_value())]);
-			return obj;
-		}
-		Generator(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.gen_icon()), (this.generator_floor())]);
-			return obj;
-		}
-		liquidator_profession(){
-			return null;
-		}
-		repairman_profession(){
-			return null;
-		}
-		cleaner_profession(){
-			return null;
-		}
-		plumber_profession(){
-			return null;
-		}
-		profession_wrapper(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.liquidator_profession()), 
-				(this.repairman_profession()), 
-				(this.cleaner_profession()), 
-				(this.plumber_profession())
-			]);
-			return obj;
-		}
-		theatre_place(){
-			return null;
-		}
-		party_place(){
-			return null;
-		}
-		hospital_place(){
-			return null;
-		}
-		safe_place(){
-			return null;
-		}
-		places_wrapper(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.theatre_place()), 
-				(this.party_place()), 
-				(this.hospital_place()), 
-				(this.safe_place())
-			]);
-			return obj;
-		}
-		flooded_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_sinking();
-			return obj;
-		}
-		flooded_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.flood_floor_value())]);
-			return obj;
-		}
-		roof_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_roof();
-			return obj;
-		}
-		roof_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.roof_floor_value())]);
-			return obj;
-		}
-		flooded(){
-			return null;
-		}
-		roof(){
-			return null;
-		}
-		connections(){
-			return [];
-		}
-		connections_list(){
-			return (this.connections());
-		}
-		transitions(){
-			return [];
-		}
-		transitions_list(){
-			return (this.transitions());
-		}
-		left_flight_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		left_flight(){
-			const obj = new this.$.$apxu_samosbor_map_block_flight();
-			(obj.event) = () => ({"click": (next) => (this.left_flight_click(next))});
-			(obj.sub) = () => ([(this.left_flight_icon())]);
-			return obj;
-		}
-		up_left_passage_type(){
-			return "noway";
-		}
-		up_left_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		up_left_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = (next) => ((this.up_left_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.up_left_passage_click(next))});
-			(obj.up) = () => (true);
-			(obj.left) = () => (true);
-			return obj;
-		}
-		up_left_part(){
-			return (this.name_part());
-		}
-		up_passage_or_flight(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		up_right_part(){
-			return (this.info_part());
-		}
-		up_right_passage_type(){
-			return "noway";
-		}
-		up_right_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		up_right_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.up_right_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.up_right_passage_click(next))});
-			(obj.up) = () => (true);
-			(obj.right) = () => (true);
-			return obj;
-		}
-		right_flight_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		right_flight(){
-			const obj = new this.$.$apxu_samosbor_map_block_flight();
-			(obj.event) = () => ({"click": (next) => (this.right_flight_click(next))});
-			(obj.sub) = () => ([(this.right_flight_icon())]);
-			return obj;
-		}
-		up_row(){
-			const obj = new this.$.$apxu_samosbor_map_block_row();
-			(obj.sub) = () => ([
-				(this.left_flight()), 
-				(this.up_left_passage()), 
-				(this.up_left_part()), 
-				(this.up_passage_or_flight()), 
-				(this.up_right_part()), 
-				(this.up_right_passage()), 
-				(this.right_flight())
-			]);
-			return obj;
-		}
-		left_passage_type(){
-			return "normal";
-		}
-		left_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		left_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.left_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.left_passage_click(next))});
-			(obj.left) = () => (true);
-			return obj;
-		}
-		left_crossroad(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		left_hallway(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		fence_type(next){
-			if(next !== undefined) return next;
-			return "hole";
-		}
-		fence_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		fence(){
-			const obj = new this.$.$mol_view();
-			(obj.attr) = () => ({"type": (this.fence_type())});
-			(obj.event) = () => ({"click": (next) => (this.fence_click(next))});
-			return obj;
-		}
-		right_hallway(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		right_crossroad(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		right_passage_type(){
-			return "normal";
-		}
-		right_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		right_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.right_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.right_passage_click(next))});
-			(obj.right) = () => (true);
-			return obj;
-		}
-		middle_row(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.left_passage()), 
-				(this.left_crossroad()), 
-				(this.left_hallway()), 
-				(this.fence()), 
-				(this.right_hallway()), 
-				(this.right_crossroad()), 
-				(this.right_passage())
-			]);
-			return obj;
-		}
-		max_floor_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_max_floor();
-			return obj;
-		}
-		max_floor(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		max_floor_value(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.max_floor())]);
-			return obj;
-		}
-		max_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.max_floor_icon()), (this.max_floor_value())]);
-			return obj;
-		}
-		min_floor_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_min_floor();
-			return obj;
-		}
-		min_floor(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		min_floor_value(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.min_floor())]);
-			return obj;
-		}
-		min_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.min_floor_icon()), (this.min_floor_value())]);
-			return obj;
-		}
-		floor_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
-			return obj;
-		}
-		down_left_passage_type(){
-			return "noway";
-		}
-		down_left_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		down_left_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.down_left_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.down_left_passage_click(next))});
-			(obj.down) = () => (true);
-			(obj.left) = () => (true);
-			return obj;
-		}
-		down_left_part(){
-			return (this.profession_part());
-		}
-		down_right_part(){
-			return (this.places_part());
-		}
-		down_right_passage_type(){
-			return "noway";
-		}
-		down_right_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		down_right_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.down_right_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.down_right_passage_click(next))});
-			(obj.down) = () => (true);
-			(obj.right) = () => (true);
-			return obj;
-		}
-		down_row(){
-			const obj = new this.$.$apxu_samosbor_map_block_row();
-			(obj.sub) = () => ([
-				(this.floor_part()), 
-				(this.down_left_passage()), 
-				(this.down_left_part()), 
-				(this.down_middle_passage()), 
-				(this.down_right_part()), 
-				(this.down_right_passage()), 
-				(this.effects_part())
-			]);
-			return obj;
-		}
-		content(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				...(this.connections_list()), 
-				...(this.transitions_list()), 
-				(this.up_row()), 
-				(this.middle_row()), 
-				(this.down_row())
-			]);
-			return obj;
-		}
-		edit_mode(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		create_mode(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		connect_mode(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		block_data(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		block_layer(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		current_layer(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		board_floor_value(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		mail_floor_value(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		roof_floor_value(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		flood_floor_value(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		profession_floors(id){
-			return [];
-		}
-		safe_floors(){
-			return [];
-		}
-		pos_x(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		pos_y(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		is_up_flight(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		on_connection_select(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		attr(){
-			return {
-				"direction": (this.block_direction()), 
-				"visible": (this.visible()), 
-				"selected": (this.selected()), 
-				"editing": (this.edit_mode()), 
-				"color": (this.color_letter()), 
-				"block-type": (this.block_type())
-			};
-		}
-		style(){
-			return {"left": (this.left()), "top": (this.top())};
-		}
-		event(){
-			return {"click": (next) => (this.onclick(next))};
-		}
-		Connection(id){
-			const obj = new this.$.$mol_view();
-			(obj.attr) = () => ({"hidden": (this.connection_hidden(id)), "highlight": (this.connection_highlight(id))});
-			(obj.style) = () => ({"left": (this.connection_left(id)), "top": (this.connection_top(id))});
-			(obj.event) = () => ({"click": (next) => (this.connection_click(id, next))});
-			return obj;
-		}
-		Transition(id){
-			const obj = new this.$.$mol_view();
-			(obj.attr) = () => ({"hidden": (this.transition_hidden(id)), "direction": (this.transition_direction(id))});
-			(obj.style) = () => ({"left": (this.transition_left(id)), "top": (this.transition_top(id))});
-			return obj;
-		}
-		show_connections(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		flight_icons(id){
-			return {
-				"stairs": (this.stairs_icon(id)), 
-				"elevator": (this.elevator_icon(id)), 
-				"ladder_elevator": (this.ladder_elevator(id))
-			};
-		}
-		up_middle_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = (next) => ("noway");
-			(obj.up) = () => (true);
-			return obj;
-		}
-		down_middle_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = (next) => ("noway");
-			(obj.down) = () => (true);
-			return obj;
-		}
-		up_flight(){
-			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
-			(obj.sub) = () => ([(this.up_flight_icon())]);
-			return obj;
-		}
-		down_flight(){
-			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
-			(obj.sub) = () => ([(this.down_flight_icon())]);
-			return obj;
-		}
-		name_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.BlockName()), (this.CurrentFloor())]);
-			return obj;
-		}
-		info_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.Generator())]);
-			return obj;
-		}
-		liquidator_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_liquidator();
-			return obj;
-		}
-		repairman_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_repairman();
-			return obj;
-		}
-		cleaner_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_cleaner();
-			return obj;
-		}
-		factory_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_factory();
-			return obj;
-		}
-		theatre_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_theatre();
-			return obj;
-		}
-		party_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_party();
-			return obj;
-		}
-		hospital_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_hospital();
-			return obj;
-		}
-		house_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_house();
-			return obj;
-		}
-		profession_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.profession_wrapper())]);
-			return obj;
-		}
-		places_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.places_wrapper())]);
-			return obj;
-		}
-		flooded_effect(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.flooded_icon()), (this.flooded_floor_view())]);
-			return obj;
-		}
-		roof_effect(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.roof_icon()), (this.roof_floor_view())]);
-			return obj;
-		}
-		effects_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.flooded()), (this.roof())]);
-			return obj;
-		}
-		sub(){
-			return [(this.content())];
-		}
-	};
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_direction"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_type"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "top"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "onclick"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "connection_click"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "stairs_icon"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "elevator_icon"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "ladder_icon"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "ladder_elevator"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_flight_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_flight_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_name"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "BlockName"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "CurrentFloor"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "gen_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "generator_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "generator_floor"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "Generator"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_wrapper"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_wrapper"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_passage_or_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_row"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_crossroad"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_hallway"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_type"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_hallway"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_crossroad"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "middle_row"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "floor_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_row"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "content"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "edit_mode"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "create_mode"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "connect_mode"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_data"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_layer"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "current_layer"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "board_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "mail_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flood_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pos_x"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pos_y"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_up_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "on_connection_select"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "Connection"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "Transition"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "show_connections"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_middle_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_middle_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "name_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "info_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "liquidator_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "repairman_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "cleaner_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "factory_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "theatre_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "party_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "hospital_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "house_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_effect"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_effect"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "effects_part"));
-
-
-;
 "use strict";
 
 ;
@@ -14136,6 +13322,820 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$apxu_samosbor_map_block_row) = class $apxu_samosbor_map_block_row extends ($.$mol_view) {
+		sub(){
+			return [null];
+		}
+	};
+	($.$apxu_samosbor_map_block_part) = class $apxu_samosbor_map_block_part extends ($.$mol_view) {
+		content(){
+			return null;
+		}
+		sub(){
+			return [(this.content())];
+		}
+	};
+	($.$apxu_samosbor_map_block_flight) = class $apxu_samosbor_map_block_flight extends ($.$apxu_samosbor_map_block_part) {};
+	($.$apxu_samosbor_map_block_passage) = class $apxu_samosbor_map_block_passage extends ($.$mol_view) {
+		type(next){
+			if(next !== undefined) return next;
+			return "normal";
+		}
+		flex_direction(){
+			return "column";
+		}
+		floor_inc_value(){
+			return "0";
+		}
+		floor_inc(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.floor_inc_value())]);
+			return obj;
+		}
+		stairs(){
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
+			return obj;
+		}
+		content(){
+			return null;
+		}
+		up(){
+			return false;
+		}
+		right(){
+			return false;
+		}
+		down(){
+			return false;
+		}
+		left(){
+			return false;
+		}
+		attr(){
+			return {
+				"type": (this.type()), 
+				"up": (this.up()), 
+				"right": (this.right()), 
+				"down": (this.down()), 
+				"left": (this.left())
+			};
+		}
+		style(){
+			return {"flex-direction": (this.flex_direction())};
+		}
+		InterFloor(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.floor_inc()), (this.stairs())]);
+			return obj;
+		}
+		sub(){
+			return [(this.content())];
+		}
+	};
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "type"));
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "floor_inc"));
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "stairs"));
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "InterFloor"));
+	($.$apxu_samosbor_map_block_middle_flight) = class $apxu_samosbor_map_block_middle_flight extends ($.$mol_view) {};
+	($.$apxu_samosbor_map_block) = class $apxu_samosbor_map_block extends ($.$mol_view) {
+		block_direction(next){
+			if(next !== undefined) return next;
+			return "up";
+		}
+		visible(){
+			return true;
+		}
+		selected(){
+			return false;
+		}
+		color_letter(){
+			return "b";
+		}
+		block_type(next){
+			if(next !== undefined) return next;
+			return "destroyed";
+		}
+		left(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		top(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		onclick(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		connection_hidden(id){
+			return false;
+		}
+		connection_highlight(id){
+			return false;
+		}
+		connection_left(id){
+			return 0;
+		}
+		connection_top(id){
+			return 0;
+		}
+		connection_click(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		transition_hidden(id){
+			return false;
+		}
+		transition_direction(id){
+			return "vertical";
+		}
+		transition_left(id){
+			return 0;
+		}
+		transition_top(id){
+			return 0;
+		}
+		stairs_icon(id){
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
+			return obj;
+		}
+		elevator_icon(id){
+			const obj = new this.$.$apxu_samosbor_map_icon_elevator();
+			return obj;
+		}
+		ladder_icon(id){
+			const obj = new this.$.$apxu_samosbor_map_icon_ladder();
+			return obj;
+		}
+		ladder_elevator(id){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.ladder_icon(id)), (this.elevator_icon(id))]);
+			return obj;
+		}
+		up_flight_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
+			return obj;
+		}
+		down_flight_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
+			return obj;
+		}
+		block_name(next){
+			if(next !== undefined) return next;
+			return "А-00";
+		}
+		BlockName(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.block_name())]);
+			return obj;
+		}
+		display_floor(){
+			return "?";
+		}
+		CurrentFloor(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => (["Эт. ", (this.display_floor())]);
+			return obj;
+		}
+		gen_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_generator();
+			return obj;
+		}
+		generator_floor_value(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		generator_floor(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.generator_floor_value())]);
+			return obj;
+		}
+		Generator(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.gen_icon()), (this.generator_floor())]);
+			return obj;
+		}
+		liquidator_profession(){
+			return null;
+		}
+		repairman_profession(){
+			return null;
+		}
+		cleaner_profession(){
+			return null;
+		}
+		plumber_profession(){
+			return null;
+		}
+		profession_wrapper(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.liquidator_profession()), 
+				(this.repairman_profession()), 
+				(this.cleaner_profession()), 
+				(this.plumber_profession())
+			]);
+			return obj;
+		}
+		theatre_place(){
+			return null;
+		}
+		party_place(){
+			return null;
+		}
+		hospital_place(){
+			return null;
+		}
+		safe_place(){
+			return null;
+		}
+		places_wrapper(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.theatre_place()), 
+				(this.party_place()), 
+				(this.hospital_place()), 
+				(this.safe_place())
+			]);
+			return obj;
+		}
+		flooded_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_sinking();
+			return obj;
+		}
+		flooded_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.flood_floor_value())]);
+			return obj;
+		}
+		roof_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_roof();
+			return obj;
+		}
+		roof_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.roof_floor_value())]);
+			return obj;
+		}
+		flooded(){
+			return null;
+		}
+		roof(){
+			return null;
+		}
+		connections(){
+			return [];
+		}
+		connections_list(){
+			return (this.connections());
+		}
+		transitions(){
+			return [];
+		}
+		transitions_list(){
+			return (this.transitions());
+		}
+		left_flight_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		left_flight(){
+			const obj = new this.$.$apxu_samosbor_map_block_flight();
+			(obj.event) = () => ({"click": (next) => (this.left_flight_click(next))});
+			(obj.sub) = () => ([(this.left_flight_icon())]);
+			return obj;
+		}
+		up_left_passage_type(){
+			return "noway";
+		}
+		up_left_passage_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		up_left_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = (next) => ((this.up_left_passage_type()));
+			(obj.event) = () => ({"click": (next) => (this.up_left_passage_click(next))});
+			(obj.up) = () => (true);
+			(obj.left) = () => (true);
+			return obj;
+		}
+		up_left_part(){
+			return (this.name_part());
+		}
+		up_passage_or_flight(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		up_right_part(){
+			return (this.info_part());
+		}
+		up_right_passage_type(){
+			return "noway";
+		}
+		up_right_passage_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		up_right_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.up_right_passage_type()));
+			(obj.event) = () => ({"click": (next) => (this.up_right_passage_click(next))});
+			(obj.up) = () => (true);
+			(obj.right) = () => (true);
+			return obj;
+		}
+		right_flight_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		right_flight(){
+			const obj = new this.$.$apxu_samosbor_map_block_flight();
+			(obj.event) = () => ({"click": (next) => (this.right_flight_click(next))});
+			(obj.sub) = () => ([(this.right_flight_icon())]);
+			return obj;
+		}
+		up_row(){
+			const obj = new this.$.$apxu_samosbor_map_block_row();
+			(obj.sub) = () => ([
+				(this.left_flight()), 
+				(this.up_left_passage()), 
+				(this.up_left_part()), 
+				(this.up_passage_or_flight()), 
+				(this.up_right_part()), 
+				(this.up_right_passage()), 
+				(this.right_flight())
+			]);
+			return obj;
+		}
+		left_passage_type(){
+			return "normal";
+		}
+		left_passage_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		left_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.left_passage_type()));
+			(obj.event) = () => ({"click": (next) => (this.left_passage_click(next))});
+			(obj.left) = () => (true);
+			return obj;
+		}
+		left_crossroad(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		left_hallway(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		fence_type(next){
+			if(next !== undefined) return next;
+			return "hole";
+		}
+		fence_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		fence(){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"type": (this.fence_type())});
+			(obj.event) = () => ({"click": (next) => (this.fence_click(next))});
+			return obj;
+		}
+		right_hallway(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		right_crossroad(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		right_passage_type(){
+			return "normal";
+		}
+		right_passage_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		right_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.right_passage_type()));
+			(obj.event) = () => ({"click": (next) => (this.right_passage_click(next))});
+			(obj.right) = () => (true);
+			return obj;
+		}
+		middle_row(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.left_passage()), 
+				(this.left_crossroad()), 
+				(this.left_hallway()), 
+				(this.fence()), 
+				(this.right_hallway()), 
+				(this.right_crossroad()), 
+				(this.right_passage())
+			]);
+			return obj;
+		}
+		max_floor_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_max_floor();
+			return obj;
+		}
+		max_floor(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		max_floor_value(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.max_floor())]);
+			return obj;
+		}
+		max_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.max_floor_icon()), (this.max_floor_value())]);
+			return obj;
+		}
+		min_floor_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_min_floor();
+			return obj;
+		}
+		min_floor(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		min_floor_value(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.min_floor())]);
+			return obj;
+		}
+		min_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.min_floor_icon()), (this.min_floor_value())]);
+			return obj;
+		}
+		floor_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
+			return obj;
+		}
+		down_left_passage_type(){
+			return "noway";
+		}
+		down_left_passage_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		down_left_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.down_left_passage_type()));
+			(obj.event) = () => ({"click": (next) => (this.down_left_passage_click(next))});
+			(obj.down) = () => (true);
+			(obj.left) = () => (true);
+			return obj;
+		}
+		down_left_part(){
+			return (this.profession_part());
+		}
+		down_right_part(){
+			return (this.places_part());
+		}
+		down_right_passage_type(){
+			return "noway";
+		}
+		down_right_passage_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		down_right_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.down_right_passage_type()));
+			(obj.event) = () => ({"click": (next) => (this.down_right_passage_click(next))});
+			(obj.down) = () => (true);
+			(obj.right) = () => (true);
+			return obj;
+		}
+		down_row(){
+			const obj = new this.$.$apxu_samosbor_map_block_row();
+			(obj.sub) = () => ([
+				(this.floor_part()), 
+				(this.down_left_passage()), 
+				(this.down_left_part()), 
+				(this.down_middle_passage()), 
+				(this.down_right_part()), 
+				(this.down_right_passage()), 
+				(this.effects_part())
+			]);
+			return obj;
+		}
+		content(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				...(this.connections_list()), 
+				...(this.transitions_list()), 
+				(this.up_row()), 
+				(this.middle_row()), 
+				(this.down_row())
+			]);
+			return obj;
+		}
+		edit_mode(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		create_mode(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		connect_mode(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		block_data(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		block_layer(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		current_layer(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		board_floor_value(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		mail_floor_value(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		roof_floor_value(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		flood_floor_value(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		profession_floors(id){
+			return [];
+		}
+		safe_floors(){
+			return [];
+		}
+		pos_x(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		pos_y(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		is_up_flight(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		on_connection_select(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		attr(){
+			return {
+				"direction": (this.block_direction()), 
+				"visible": (this.visible()), 
+				"selected": (this.selected()), 
+				"editing": (this.edit_mode()), 
+				"color": (this.color_letter()), 
+				"block-type": (this.block_type())
+			};
+		}
+		style(){
+			return {"left": (this.left()), "top": (this.top())};
+		}
+		event(){
+			return {"click": (next) => (this.onclick(next))};
+		}
+		Connection(id){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"hidden": (this.connection_hidden(id)), "highlight": (this.connection_highlight(id))});
+			(obj.style) = () => ({"left": (this.connection_left(id)), "top": (this.connection_top(id))});
+			(obj.event) = () => ({"click": (next) => (this.connection_click(id, next))});
+			return obj;
+		}
+		Transition(id){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"hidden": (this.transition_hidden(id)), "direction": (this.transition_direction(id))});
+			(obj.style) = () => ({"left": (this.transition_left(id)), "top": (this.transition_top(id))});
+			return obj;
+		}
+		show_connections(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		flight_icons(id){
+			return {
+				"stairs": (this.stairs_icon(id)), 
+				"elevator": (this.elevator_icon(id)), 
+				"ladder_elevator": (this.ladder_elevator(id))
+			};
+		}
+		up_middle_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = (next) => ("noway");
+			(obj.up) = () => (true);
+			return obj;
+		}
+		down_middle_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = (next) => ("noway");
+			(obj.down) = () => (true);
+			return obj;
+		}
+		up_flight(){
+			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
+			(obj.sub) = () => ([(this.up_flight_icon())]);
+			return obj;
+		}
+		down_flight(){
+			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
+			(obj.sub) = () => ([(this.down_flight_icon())]);
+			return obj;
+		}
+		name_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.BlockName()), (this.CurrentFloor())]);
+			return obj;
+		}
+		info_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.Generator())]);
+			return obj;
+		}
+		liquidator_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_liquidator();
+			return obj;
+		}
+		repairman_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_repairman();
+			return obj;
+		}
+		cleaner_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_cleaner();
+			return obj;
+		}
+		factory_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_factory();
+			return obj;
+		}
+		theatre_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_theatre();
+			return obj;
+		}
+		party_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_party();
+			return obj;
+		}
+		hospital_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_hospital();
+			return obj;
+		}
+		house_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_house();
+			return obj;
+		}
+		profession_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.profession_wrapper())]);
+			return obj;
+		}
+		places_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.places_wrapper())]);
+			return obj;
+		}
+		flooded_effect(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.flooded_icon()), (this.flooded_floor_view())]);
+			return obj;
+		}
+		roof_effect(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.roof_icon()), (this.roof_floor_view())]);
+			return obj;
+		}
+		effects_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.flooded()), (this.roof())]);
+			return obj;
+		}
+		sub(){
+			return [(this.content())];
+		}
+	};
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_direction"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_type"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "top"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "onclick"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "connection_click"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "stairs_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "elevator_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "ladder_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "ladder_elevator"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_flight_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_flight_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_name"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "BlockName"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "CurrentFloor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "gen_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "generator_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "generator_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "Generator"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_wrapper"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_wrapper"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_passage_or_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_crossroad"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_hallway"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_type"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_hallway"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_crossroad"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "middle_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "floor_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "content"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "edit_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "create_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "connect_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_data"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_layer"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "current_layer"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "board_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "mail_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flood_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pos_x"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pos_y"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_up_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "on_connection_select"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "Connection"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "Transition"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "show_connections"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_middle_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_middle_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "name_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "info_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "liquidator_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "repairman_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "cleaner_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "factory_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "theatre_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "party_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "hospital_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "house_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_effect"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_effect"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "effects_part"));
+
+
+;
 "use strict";
 var $;
 (function ($) {
@@ -14258,6 +14258,465 @@ var $;
 
 ;
 "use strict";
+var $;
+(function ($) {
+    $.TransitionPositions = ["up_left", "up_middle", "up_right", "right", "down_right", "down_middle", "down_left", "left"];
+    class BlockDirection extends $hyoo_crus_atom_enum(["up", "right", "down", "left"]) {
+    }
+    $.BlockDirection = BlockDirection;
+    class TransitionPositionData extends $hyoo_crus_atom_enum($.TransitionPositions) {
+    }
+    $.TransitionPositionData = TransitionPositionData;
+    class TransitionPort extends $hyoo_crus_dict.with({
+        Block: $hyoo_crus_atom_ref_to(() => $apxu_samosbor_map_block_data),
+        Floor: $hyoo_crus_atom_int,
+        Position: TransitionPositionData,
+    }) {
+        is_correct(floor, position) {
+            return this.Floor(null)?.val() === BigInt(floor) && this.Position(null)?.val() === position;
+        }
+    }
+    $.TransitionPort = TransitionPort;
+    class TransitionData extends $hyoo_crus_dict.with({
+        From: TransitionPort,
+        To: TransitionPort
+    }) {
+        get_connected_block(ref) {
+            if (this.From(null)?.Block(null)?.val() === ref) {
+                return this.To(null)?.Block()?.val();
+            }
+            return this.From(null)?.Block(null)?.val();
+        }
+        remove_transition() {
+            const from_block_ref = this.From(null)?.Block(null)?.val();
+            const from_block = from_block_ref && this.$.$apxu_samosbor_map_app.block(from_block_ref);
+            const to_block_ref = this.To(null)?.Block(null)?.val();
+            const to_block = to_block_ref && this.$.$apxu_samosbor_map_app.block(to_block_ref);
+            to_block?.Transitions(null)?.cut(this.ref());
+            from_block?.Transitions(null)?.cut(this.ref());
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], TransitionData.prototype, "get_connected_block", null);
+    __decorate([
+        $mol_action
+    ], TransitionData.prototype, "remove_transition", null);
+    $.TransitionData = TransitionData;
+    class FlightType extends $hyoo_crus_atom_enum(["stairs", "elevator", "ladder_elevator"]) {
+    }
+    $.FlightType = FlightType;
+    class FlightStatus extends $hyoo_crus_atom_enum(["free", "blocked"]) {
+    }
+    $.FlightStatus = FlightStatus;
+    class FlightData extends $hyoo_crus_dict.with({
+        Type: FlightType,
+        Status: FlightStatus,
+    }) {
+    }
+    $.FlightData = FlightData;
+    class PassageType extends $hyoo_crus_atom_enum(["noway", "normal", "stairs_up", "stairs_down"]) {
+    }
+    $.PassageType = PassageType;
+    class PassageStatus extends $hyoo_crus_atom_enum(["free", "blocked", "danger"]) {
+    }
+    $.PassageStatus = PassageStatus;
+    class PassageData extends $hyoo_crus_dict.with({
+        Type: PassageType,
+        Status: PassageStatus,
+    }) {
+    }
+    $.PassageData = PassageData;
+    const PassageDirections = {
+        UpLeftPassage: PassageData,
+        UpMiddlePassage: PassageData,
+        UpRightPassage: PassageData,
+        LeftPassage: PassageData,
+        RightPassage: PassageData,
+        DownLeftPassage: PassageData,
+        DownMiddlePassage: PassageData,
+        DownRightPassage: PassageData,
+    };
+    const FenceTypes = ["missing", "hole", "solid"];
+    class FenceData extends $hyoo_crus_atom_enum(FenceTypes) {
+    }
+    $.FenceData = FenceData;
+    class FloorData extends $hyoo_crus_dict.with({
+        ...PassageDirections,
+        Fence: FenceData
+    }) {
+        static positions_map = {
+            up_left: "UpLeftPassage",
+            up_middle: "UpMiddlePassage",
+            up_right: "UpRightPassage",
+            right: "RightPassage",
+            down_right: "DownRightPassage",
+            down_middle: "DownMiddlePassage",
+            down_left: "DownLeftPassage",
+            left: "LeftPassage"
+        };
+        get_passage_type(transition) {
+            if (transition === "right" || transition === "left") {
+                return "normal";
+            }
+            if (transition === "up_middle" || transition === "down_middle") {
+                return "noway";
+            }
+            const property_name = FloorData.positions_map[transition];
+            const passage_type = this[property_name](null)?.Type(null)?.val();
+            return passage_type ?? "noway";
+        }
+        is_passage_free(transition) {
+            const passage_type = this.get_passage_type(transition);
+            if (!passage_type)
+                return false;
+            if (passage_type === "noway")
+                return false;
+            return true;
+        }
+        fence_type(next) {
+            return this.Fence(null)?.val(next) ?? "missing";
+        }
+        set_next_fence_type() {
+            const current_type = this.fence_type();
+            const id = FenceTypes.indexOf(current_type);
+            const new_type = FenceTypes[(id + 1) % FenceTypes.length];
+            this.fence_type(new_type);
+        }
+    }
+    __decorate([
+        $mol_mem_key
+    ], FloorData.prototype, "get_passage_type", null);
+    __decorate([
+        $mol_mem_key
+    ], FloorData.prototype, "is_passage_free", null);
+    __decorate([
+        $mol_mem
+    ], FloorData.prototype, "fence_type", null);
+    __decorate([
+        $mol_action
+    ], FloorData.prototype, "set_next_fence_type", null);
+    $.FloorData = FloorData;
+    class FloorsData extends $hyoo_crus_dict_to(FloorData) {
+    }
+    $.FloorsData = FloorsData;
+    class BlockType extends $hyoo_crus_atom_enum(["residential", "abandoned", "frozen", "infected", "destroyed"]) {
+    }
+    $.BlockType = BlockType;
+    class ProfessionType extends $hyoo_crus_atom_enum(["liquidator", "repairman", "cleaner", "plumber"]) {
+    }
+    $.ProfessionType = ProfessionType;
+    class ProfessionData extends $hyoo_crus_dict.with({
+        Type: ProfessionType,
+        Floor: $hyoo_crus_atom_int,
+    }) {
+    }
+    $.ProfessionData = ProfessionData;
+    class PlaceType extends $hyoo_crus_atom_enum([
+        "theatre", "hospital", "party", "gym",
+        "laundry", "postal", "overview", "racing", "hockey",
+        "spleef", "pool", "warehouse"
+    ]) {
+    }
+    $.PlaceType = PlaceType;
+    class PlaceData extends $hyoo_crus_dict.with({
+        Type: PlaceType,
+        Floor: $hyoo_crus_atom_int,
+    }) {
+    }
+    $.PlaceData = PlaceData;
+    class $apxu_samosbor_map_block_data extends $hyoo_crus_entity.with({
+        Name: $hyoo_crus_atom_str,
+        Direction: BlockDirection,
+        Type: BlockType,
+        Transitions: $hyoo_crus_list_ref_to(() => TransitionData),
+        PositionX: $hyoo_crus_atom_int,
+        PositionY: $hyoo_crus_atom_int,
+        Layer: $hyoo_crus_atom_int,
+        Generator: $hyoo_crus_atom_int,
+        BoardFloor: $hyoo_crus_atom_int,
+        MailFloor: $hyoo_crus_atom_int,
+        RoofFloor: $hyoo_crus_atom_int,
+        FloodFloor: $hyoo_crus_atom_int,
+        MinFloor: $hyoo_crus_atom_int,
+        MaxFloor: $hyoo_crus_atom_int,
+        LeftFlight: FlightData,
+        RightFlight: FlightData,
+        FloorsData: FloorsData,
+        UpMiddleFlight: $hyoo_crus_atom_bool,
+        HasBalcony: $hyoo_crus_atom_bool,
+        Professions: $hyoo_crus_list_ref_to(() => ProfessionData),
+        Places: $hyoo_crus_list_ref_to(() => PlaceData),
+    }) {
+        name(next) {
+            return this.Name(null)?.val(next) ?? "N-00";
+        }
+        direction(next) {
+            return this.Direction(null)?.val(next) ?? "up";
+        }
+        block_type(next) {
+            return this.Type(null)?.val(next) ?? "residential";
+        }
+        transitions(next) {
+            return this.Transitions(null)?.remote_list(next);
+        }
+        transition_by_position(floor, position) {
+            return this.transitions()?.find((transition) => {
+                return (transition.From(null)?.Block(null)?.val() === this.ref() && transition.From(null)?.is_correct(floor, position)) || transition.To(null)?.Block(null)?.val() === this.ref() && transition.To(null)?.is_correct(floor, position);
+            });
+        }
+        connect(my_floor, my_pos, block_node, another_floor, another_pos) {
+            const trans = this.Transitions(null)?.make({ '': $hyoo_crus_rank_read });
+            if (!trans)
+                return;
+            block_node.Transitions(null)?.add(trans.ref());
+            trans.From(null)?.Floor(null)?.val(BigInt(my_floor));
+            trans.From(null)?.Position(null)?.val(my_pos);
+            trans.From(null)?.Block(null)?.val(this.ref());
+            trans.To(null)?.Floor(null)?.val(BigInt(another_floor));
+            trans.To(null)?.Position(null)?.val(another_pos);
+            trans.To(null)?.Block(null)?.val(block_node.ref());
+        }
+        remove_transition(transition) {
+        }
+        pos_x(next) {
+            return Number(this.PositionX(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+        }
+        pos_y(next) {
+            return Number(this.PositionY(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+        }
+        layer(next) {
+            return Number(this.Layer(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+        }
+        min_floor(next) {
+            return Number(this.MinFloor(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+        }
+        max_floor(next) {
+            return Number(this.MaxFloor(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+        }
+        generator_floor(next) {
+            return Number(this.Generator(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+        }
+        left_flight_status(next) {
+            return this.LeftFlight(null)?.Status(null)?.val(next);
+        }
+        left_flight_type(next) {
+            return this.LeftFlight(null)?.Type(null)?.val(next) ?? "stairs";
+        }
+        right_flight_status(next) {
+            return this.RightFlight(null)?.Status(null)?.val(next);
+        }
+        right_flight_type(next) {
+            return this.RightFlight(null)?.Type(null)?.val(next) ?? "stairs";
+        }
+        up_left_passage_type(floor, next) {
+            return this.FloorsData(null)?.key(floor, null).UpLeftPassage(null)?.Type(null)?.val(next) ?? "noway";
+        }
+        up_middle_passage_type(floor, next) {
+            return this.FloorsData(null)?.key(floor, null).UpMiddlePassage(null)?.Type(null)?.val(next) ?? "noway";
+        }
+        up_right_passage_type(floor, next) {
+            return this.FloorsData(null)?.key(floor, null).UpRightPassage(null)?.Type(null)?.val(next) ?? "noway";
+        }
+        down_left_passage_type(floor, next) {
+            return this.FloorsData(null)?.key(floor, null).DownLeftPassage(null)?.Type(null)?.val(next) ?? "noway";
+        }
+        down_middle_passage_type(floor, next) {
+            return this.FloorsData(null)?.key(floor, null).DownMiddlePassage(null)?.Type(null)?.val(next) ?? "noway";
+        }
+        down_right_passage_type(floor, next) {
+            return this.FloorsData(null)?.key(floor, null).DownRightPassage(null)?.Type(null)?.val(next) ?? "noway";
+        }
+        board_floor(next) {
+            const holder = this.BoardFloor(null);
+            if (!holder)
+                return null;
+            if (next !== undefined && isNaN(next)) {
+                return holder.val(null);
+            }
+            const val = typeof next === "number" ? BigInt(next) : next;
+            return holder.val(val);
+        }
+        mail_floor(next) {
+            const holder = this.MailFloor(null);
+            if (!holder)
+                return null;
+            if (next !== undefined && isNaN(next)) {
+                return holder.val(null);
+            }
+            const val = typeof next === "number" ? BigInt(next) : next;
+            return holder.val(val);
+        }
+        roof_floor(next) {
+            const holder = this.RoofFloor(null);
+            if (!holder)
+                return null;
+            if (next !== undefined && isNaN(next)) {
+                return holder.val(null);
+            }
+            const val = typeof next === "number" ? BigInt(next) : next;
+            return holder.val(val);
+        }
+        flood_floor(next) {
+            const holder = this.FloodFloor(null);
+            if (!holder)
+                return null;
+            if (next !== undefined && isNaN(next)) {
+                return holder.val(null);
+            }
+            const val = typeof next === "number" ? BigInt(next) : next;
+            return holder.val(val);
+        }
+        profession_floors(what) {
+            return this.Professions(null)?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
+        }
+        add_profession(what) {
+            const node = this.Professions(null)?.make(null);
+            node?.Type(null)?.val(what);
+            return node;
+        }
+        remove_profession(node) {
+            this.Professions(null)?.cut(node);
+        }
+        place_floors(what) {
+            return this.Places(null)?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
+        }
+        safe_floors() {
+            const safe_place_types = [
+                "theatre", "party", "gym", "overview",
+                "racing", "hockey", "spleef", "pool", "warehouse"
+            ];
+            const safe_places = this.Places(null)?.remote_list()
+                .filter((place) => {
+                const place_type = place.Type(null)?.val();
+                if (!place_type)
+                    return;
+                return safe_place_types.includes(place_type);
+            }) ?? [];
+            const safe_profession_types = ["liquidator", "plumber"];
+            const safe_professions = this.Professions(null)?.remote_list()
+                .filter((profession) => {
+                const profession_type = profession.Type(null)?.val();
+                if (!profession_type)
+                    return;
+                return safe_profession_types.includes(profession_type);
+            }) ?? [];
+            const all_safe_places = [];
+            return all_safe_places.concat(safe_places).concat(safe_professions);
+        }
+        add_place(what) {
+            const node = this.Places(null)?.make(null);
+            node?.Type(null)?.val(what);
+            return node;
+        }
+        remove_place(node) {
+            this.Places(null)?.cut(node);
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "name", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "direction", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "block_type", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "transitions", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "connect", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "remove_transition", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "pos_x", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "pos_y", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "layer", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "min_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "max_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "generator_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "left_flight_status", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "left_flight_type", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "right_flight_status", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "right_flight_type", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "up_left_passage_type", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "up_middle_passage_type", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "up_right_passage_type", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "down_left_passage_type", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "down_middle_passage_type", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "down_right_passage_type", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "board_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "mail_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "roof_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "flood_floor", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "profession_floors", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "add_profession", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "remove_profession", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "place_floors", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "safe_floors", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "add_place", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "remove_place", null);
+    $.$apxu_samosbor_map_block_data = $apxu_samosbor_map_block_data;
+})($ || ($ = {}));
+
+;
+"use strict";
 
 ;
 "use strict";
@@ -14265,459 +14724,6 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        $$.TransitionPositions = ["up_left", "up_middle", "up_right", "right", "down_right", "down_middle", "down_left", "left"];
-        class BlockDirection extends $hyoo_crus_atom_enum(["up", "right", "down", "left"]) {
-        }
-        $$.BlockDirection = BlockDirection;
-        class TransitionPositionData extends $hyoo_crus_atom_enum($$.TransitionPositions) {
-        }
-        $$.TransitionPositionData = TransitionPositionData;
-        class TransitionPort extends $hyoo_crus_dict.with({
-            Block: $hyoo_crus_atom_ref_to(() => $apxu_samosbor_map_block_data),
-            Floor: $hyoo_crus_atom_int,
-            Position: TransitionPositionData,
-        }) {
-            is_correct(floor, position) {
-                return this.Floor(null)?.val() === BigInt(floor) && this.Position(null)?.val() === position;
-            }
-        }
-        $$.TransitionPort = TransitionPort;
-        class TransitionData extends $hyoo_crus_dict.with({
-            From: TransitionPort,
-            To: TransitionPort
-        }) {
-            get_connected_block(ref) {
-                if (this.From(null)?.Block(null)?.val() === ref) {
-                    return this.To(null)?.Block()?.val();
-                }
-                return this.From(null)?.Block(null)?.val();
-            }
-            remove_transition() {
-                const from_block_ref = this.From(null)?.Block(null)?.val();
-                const from_block = from_block_ref && $apxu_samosbor_map_app.block(from_block_ref);
-                const to_block_ref = this.To(null)?.Block(null)?.val();
-                const to_block = to_block_ref && $apxu_samosbor_map_app.block(to_block_ref);
-                to_block?.Transitions(null)?.cut(this.ref());
-                from_block?.Transitions(null)?.cut(this.ref());
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], TransitionData.prototype, "get_connected_block", null);
-        __decorate([
-            $mol_action
-        ], TransitionData.prototype, "remove_transition", null);
-        $$.TransitionData = TransitionData;
-        class FlightType extends $hyoo_crus_atom_enum(["stairs", "elevator", "ladder_elevator"]) {
-        }
-        $$.FlightType = FlightType;
-        class FlightStatus extends $hyoo_crus_atom_enum(["free", "blocked"]) {
-        }
-        $$.FlightStatus = FlightStatus;
-        class FlightData extends $hyoo_crus_dict.with({
-            Type: FlightType,
-            Status: FlightStatus,
-        }) {
-        }
-        $$.FlightData = FlightData;
-        class PassageType extends $hyoo_crus_atom_enum(["noway", "normal", "stairs_up", "stairs_down"]) {
-        }
-        $$.PassageType = PassageType;
-        class PassageStatus extends $hyoo_crus_atom_enum(["free", "blocked", "danger"]) {
-        }
-        $$.PassageStatus = PassageStatus;
-        class PassageData extends $hyoo_crus_dict.with({
-            Type: PassageType,
-            Status: PassageStatus,
-        }) {
-        }
-        $$.PassageData = PassageData;
-        const PassageDirections = {
-            UpLeftPassage: PassageData,
-            UpMiddlePassage: PassageData,
-            UpRightPassage: PassageData,
-            LeftPassage: PassageData,
-            RightPassage: PassageData,
-            DownLeftPassage: PassageData,
-            DownMiddlePassage: PassageData,
-            DownRightPassage: PassageData,
-        };
-        const FenceTypes = ["missing", "hole", "solid"];
-        class FenceData extends $hyoo_crus_atom_enum(FenceTypes) {
-        }
-        $$.FenceData = FenceData;
-        class FloorData extends $hyoo_crus_dict.with({
-            ...PassageDirections,
-            Fence: FenceData
-        }) {
-            static positions_map = {
-                up_left: "UpLeftPassage",
-                up_middle: "UpMiddlePassage",
-                up_right: "UpRightPassage",
-                right: "RightPassage",
-                down_right: "DownRightPassage",
-                down_middle: "DownMiddlePassage",
-                down_left: "DownLeftPassage",
-                left: "LeftPassage"
-            };
-            get_passage_type(transition) {
-                if (transition === "right" || transition === "left") {
-                    return "normal";
-                }
-                if (transition === "up_middle" || transition === "down_middle") {
-                    return "noway";
-                }
-                const property_name = FloorData.positions_map[transition];
-                const passage_type = this[property_name](null)?.Type(null)?.val();
-                return passage_type ?? "noway";
-            }
-            is_passage_free(transition) {
-                const passage_type = this.get_passage_type(transition);
-                if (!passage_type)
-                    return false;
-                if (passage_type === "noway")
-                    return false;
-                return true;
-            }
-            fence_type(next) {
-                return this.Fence(null)?.val(next) ?? "missing";
-            }
-            set_next_fence_type() {
-                const current_type = this.fence_type();
-                const id = FenceTypes.indexOf(current_type);
-                const new_type = FenceTypes[(id + 1) % FenceTypes.length];
-                this.fence_type(new_type);
-            }
-        }
-        __decorate([
-            $mol_mem_key
-        ], FloorData.prototype, "get_passage_type", null);
-        __decorate([
-            $mol_mem_key
-        ], FloorData.prototype, "is_passage_free", null);
-        __decorate([
-            $mol_mem
-        ], FloorData.prototype, "fence_type", null);
-        __decorate([
-            $mol_action
-        ], FloorData.prototype, "set_next_fence_type", null);
-        $$.FloorData = FloorData;
-        class FloorsData extends $hyoo_crus_dict_to(FloorData) {
-        }
-        $$.FloorsData = FloorsData;
-        class BlockType extends $hyoo_crus_atom_enum(["residential", "abandoned", "frozen", "infected", "destroyed"]) {
-        }
-        $$.BlockType = BlockType;
-        class ProfessionType extends $hyoo_crus_atom_enum(["liquidator", "repairman", "cleaner", "plumber"]) {
-        }
-        $$.ProfessionType = ProfessionType;
-        class ProfessionData extends $hyoo_crus_dict.with({
-            Type: ProfessionType,
-            Floor: $hyoo_crus_atom_int,
-        }) {
-        }
-        $$.ProfessionData = ProfessionData;
-        class PlaceType extends $hyoo_crus_atom_enum([
-            "theatre", "hospital", "party", "gym",
-            "laundry", "postal", "overview", "racing", "hockey",
-            "spleef", "pool", "warehouse"
-        ]) {
-        }
-        $$.PlaceType = PlaceType;
-        class PlaceData extends $hyoo_crus_dict.with({
-            Type: PlaceType,
-            Floor: $hyoo_crus_atom_int,
-        }) {
-        }
-        $$.PlaceData = PlaceData;
-        class $apxu_samosbor_map_block_data extends $hyoo_crus_entity.with({
-            Name: $hyoo_crus_atom_str,
-            Direction: BlockDirection,
-            Type: BlockType,
-            Transitions: $hyoo_crus_list_ref_to(() => TransitionData),
-            PositionX: $hyoo_crus_atom_int,
-            PositionY: $hyoo_crus_atom_int,
-            Layer: $hyoo_crus_atom_int,
-            Generator: $hyoo_crus_atom_int,
-            BoardFloor: $hyoo_crus_atom_int,
-            MailFloor: $hyoo_crus_atom_int,
-            RoofFloor: $hyoo_crus_atom_int,
-            FloodFloor: $hyoo_crus_atom_int,
-            MinFloor: $hyoo_crus_atom_int,
-            MaxFloor: $hyoo_crus_atom_int,
-            LeftFlight: FlightData,
-            RightFlight: FlightData,
-            FloorsData: FloorsData,
-            UpMiddleFlight: $hyoo_crus_atom_bool,
-            HasBalcony: $hyoo_crus_atom_bool,
-            Professions: $hyoo_crus_list_ref_to(() => ProfessionData),
-            Places: $hyoo_crus_list_ref_to(() => PlaceData),
-        }) {
-            name(next) {
-                return this.Name(null)?.val(next) ?? "N-00";
-            }
-            direction(next) {
-                return this.Direction(null)?.val(next) ?? "up";
-            }
-            block_type(next) {
-                return this.Type(null)?.val(next) ?? "residential";
-            }
-            transitions(next) {
-                return this.Transitions(null)?.remote_list(next);
-            }
-            transition_by_position(floor, position) {
-                return this.transitions()?.find((transition) => {
-                    return (transition.From(null)?.Block(null)?.val() === this.ref() && transition.From(null)?.is_correct(floor, position)) || transition.To(null)?.Block(null)?.val() === this.ref() && transition.To(null)?.is_correct(floor, position);
-                });
-            }
-            connect(my_floor, my_pos, block_node, another_floor, another_pos) {
-                const trans = this.Transitions(null)?.make({ '': $hyoo_crus_rank_read });
-                if (!trans)
-                    return;
-                block_node.Transitions(null)?.add(trans.ref());
-                trans.From(null)?.Floor(null)?.val(BigInt(my_floor));
-                trans.From(null)?.Position(null)?.val(my_pos);
-                trans.From(null)?.Block(null)?.val(this.ref());
-                trans.To(null)?.Floor(null)?.val(BigInt(another_floor));
-                trans.To(null)?.Position(null)?.val(another_pos);
-                trans.To(null)?.Block(null)?.val(block_node.ref());
-            }
-            remove_transition(transition) {
-            }
-            pos_x(next) {
-                return Number(this.PositionX(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
-            }
-            pos_y(next) {
-                return Number(this.PositionY(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
-            }
-            layer(next) {
-                return Number(this.Layer(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
-            }
-            min_floor(next) {
-                return Number(this.MinFloor(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
-            }
-            max_floor(next) {
-                return Number(this.MaxFloor(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
-            }
-            generator_floor(next) {
-                return Number(this.Generator(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
-            }
-            left_flight_status(next) {
-                return this.LeftFlight(null)?.Status(null)?.val(next);
-            }
-            left_flight_type(next) {
-                return this.LeftFlight(null)?.Type(null)?.val(next) ?? "stairs";
-            }
-            right_flight_status(next) {
-                return this.RightFlight(null)?.Status(null)?.val(next);
-            }
-            right_flight_type(next) {
-                return this.RightFlight(null)?.Type(null)?.val(next) ?? "stairs";
-            }
-            up_left_passage_type(floor, next) {
-                return this.FloorsData(null)?.key(floor, null).UpLeftPassage(null)?.Type(null)?.val(next) ?? "noway";
-            }
-            up_middle_passage_type(floor, next) {
-                return this.FloorsData(null)?.key(floor, null).UpMiddlePassage(null)?.Type(null)?.val(next) ?? "noway";
-            }
-            up_right_passage_type(floor, next) {
-                return this.FloorsData(null)?.key(floor, null).UpRightPassage(null)?.Type(null)?.val(next) ?? "noway";
-            }
-            down_left_passage_type(floor, next) {
-                return this.FloorsData(null)?.key(floor, null).DownLeftPassage(null)?.Type(null)?.val(next) ?? "noway";
-            }
-            down_middle_passage_type(floor, next) {
-                return this.FloorsData(null)?.key(floor, null).DownMiddlePassage(null)?.Type(null)?.val(next) ?? "noway";
-            }
-            down_right_passage_type(floor, next) {
-                return this.FloorsData(null)?.key(floor, null).DownRightPassage(null)?.Type(null)?.val(next) ?? "noway";
-            }
-            board_floor(next) {
-                const holder = this.BoardFloor(null);
-                if (!holder)
-                    return null;
-                if (next !== undefined && isNaN(next)) {
-                    return holder.val(null);
-                }
-                const val = typeof next === "number" ? BigInt(next) : next;
-                return holder.val(val);
-            }
-            mail_floor(next) {
-                const holder = this.MailFloor(null);
-                if (!holder)
-                    return null;
-                if (next !== undefined && isNaN(next)) {
-                    return holder.val(null);
-                }
-                const val = typeof next === "number" ? BigInt(next) : next;
-                return holder.val(val);
-            }
-            roof_floor(next) {
-                const holder = this.RoofFloor(null);
-                if (!holder)
-                    return null;
-                if (next !== undefined && isNaN(next)) {
-                    return holder.val(null);
-                }
-                const val = typeof next === "number" ? BigInt(next) : next;
-                return holder.val(val);
-            }
-            flood_floor(next) {
-                const holder = this.FloodFloor(null);
-                if (!holder)
-                    return null;
-                if (next !== undefined && isNaN(next)) {
-                    return holder.val(null);
-                }
-                const val = typeof next === "number" ? BigInt(next) : next;
-                return holder.val(val);
-            }
-            profession_floors(what) {
-                return this.Professions(null)?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
-            }
-            add_profession(what) {
-                const node = this.Professions(null)?.make(null);
-                node?.Type(null)?.val(what);
-                return node;
-            }
-            remove_profession(node) {
-                this.Professions(null)?.cut(node);
-            }
-            place_floors(what) {
-                return this.Places(null)?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
-            }
-            safe_floors() {
-                const safe_place_types = [
-                    "theatre", "party", "gym", "overview",
-                    "racing", "hockey", "spleef", "pool", "warehouse"
-                ];
-                const safe_places = this.Places(null)?.remote_list()
-                    .filter((place) => {
-                    const place_type = place.Type(null)?.val();
-                    if (!place_type)
-                        return;
-                    return safe_place_types.includes(place_type);
-                }) ?? [];
-                const safe_profession_types = ["liquidator", "plumber"];
-                const safe_professions = this.Professions(null)?.remote_list()
-                    .filter((profession) => {
-                    const profession_type = profession.Type(null)?.val();
-                    if (!profession_type)
-                        return;
-                    return safe_profession_types.includes(profession_type);
-                }) ?? [];
-                const all_safe_places = [];
-                return all_safe_places.concat(safe_places).concat(safe_professions);
-            }
-            add_place(what) {
-                const node = this.Places(null)?.make(null);
-                node?.Type(null)?.val(what);
-                return node;
-            }
-            remove_place(node) {
-                this.Places(null)?.cut(node);
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "name", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "direction", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "block_type", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "transitions", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block_data.prototype, "connect", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block_data.prototype, "remove_transition", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "pos_x", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "pos_y", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "layer", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "min_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "max_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "generator_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "left_flight_status", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "left_flight_type", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "right_flight_status", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "right_flight_type", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block_data.prototype, "up_left_passage_type", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block_data.prototype, "up_middle_passage_type", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block_data.prototype, "up_right_passage_type", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block_data.prototype, "down_left_passage_type", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block_data.prototype, "down_middle_passage_type", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block_data.prototype, "down_right_passage_type", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "board_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "mail_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "roof_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "flood_floor", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block_data.prototype, "profession_floors", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block_data.prototype, "add_profession", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block_data.prototype, "remove_profession", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block_data.prototype, "place_floors", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_data.prototype, "safe_floors", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block_data.prototype, "add_place", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block_data.prototype, "remove_place", null);
-        $$.$apxu_samosbor_map_block_data = $apxu_samosbor_map_block_data;
         $$.block_full_cell = 380;
         $$.ru_to_eng = {
             "А": "a",
@@ -14922,7 +14928,7 @@ var $;
                     return [];
                 }
                 const connections = [];
-                for (const position of $$.TransitionPositions) {
+                for (const position of TransitionPositions) {
                     const connection = this.Connection(position);
                     connections.push(connection);
                 }
@@ -18103,7 +18109,7 @@ var $;
 			const obj = new this.$.$apxu_samosbor_map_block_card_place();
 			(obj.floors) = () => ((this.safe_floors()));
 			(obj.icon) = () => ((this.house_icon()));
-			(obj.enabled) = () => ((this.edit_mode()));
+			(obj.enabled) = () => (false);
 			(obj.remove_floor) = (id) => ((this.remove_floor(id)));
 			return obj;
 		}
