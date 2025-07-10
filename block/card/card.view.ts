@@ -52,6 +52,22 @@ namespace $.$$ {
 			console.log( safe_floors )
 			return safe_floors
 		}
+		@$mol_mem_key
+		place_floors( what: string ) {
+			return this.block().place_floors( what )
+		}
+		@$mol_action
+		add_place( what: typeof PlaceType.options[ number ], event?: any ) {
+			const data: $apxu_samosbor_map_block_data = this.block().block_data()
+			const node = data.Places( null )?.make( null ) // TODO права
+			node?.Type( null )?.val( what )
+			return node
+		}
+		@$mol_action
+		remove_place( node: PlaceData ) {
+			const data: $apxu_samosbor_map_block_data = this.block().block_data()
+			data.remove_place( node.ref() )
+		}
 		@$mol_mem
 		rotation(): string {
 			const degree = 0

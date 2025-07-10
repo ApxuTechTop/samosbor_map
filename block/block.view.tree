@@ -45,6 +45,7 @@ $apxu_samosbor_map_block $mol_view
 	roof_floor_value? null number
 	flood_floor_value? null number
 	profession_floors* /
+	place_floors* /
 	safe_floors /
 	pos_x? 0
 	pos_y? 0
@@ -120,8 +121,8 @@ $apxu_samosbor_map_block $mol_view
 	repairman_icon $apxu_samosbor_map_icon_repairman
 	cleaner_icon $apxu_samosbor_map_icon_cleaner
 	factory_icon $apxu_samosbor_map_icon_factory
-	theatre_icon $apxu_samosbor_map_icon_theatre
-	party_icon $apxu_samosbor_map_icon_party
+	postal_icon $apxu_samosbor_map_icon_postal
+	laundry_icon $apxu_samosbor_map_icon_laundry
 	hospital_icon $apxu_samosbor_map_icon_hospital
 	house_icon $apxu_samosbor_map_icon_house
 	profession_part $apxu_samosbor_map_block_part
@@ -136,10 +137,14 @@ $apxu_samosbor_map_block $mol_view
 		sub /
 			<= places_wrapper $mol_view
 				sub /
+					<= safe_place null
+					<= hospital_place null
+					<= laundry_place null
+					<= postal_place null
 					<= theatre_place null
 					<= party_place null
-					<= hospital_place null
-					<= safe_place null
+					
+					
 	flooded_effect $mol_view
 		sub /
 			<= flooded_icon $apxu_samosbor_map_icon_sinking

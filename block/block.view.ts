@@ -136,6 +136,10 @@ namespace $.$$ {
 		safe_floors() {
 			return this.block_data().safe_floors()
 		}
+		@$mol_mem_key
+		place_floors( what: typeof PlaceType.options[ number ] ) {
+			return this.block_data().place_floors( what )
+		}
 		@$mol_mem
 		block_layer( next?: number ): number {
 			return this.block_data().layer( next )
@@ -668,30 +672,30 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		has_theatre_place() {
-			return Math.random() < 0.5
+		has_postal_place() {
+			return this.place_floors( "postal" ).length > 0
 		}
 		@$mol_mem
-		has_party_place() {
-			return Math.random() < 0.5
+		has_laundry_place() {
+			return this.place_floors( "laundry" ).length > 0
 		}
 		@$mol_mem
 		has_hospital_place() {
-			return Math.random() < 0.5
+			return this.place_floors( "hospital" ).length > 0
 		}
 		@$mol_mem
 		has_safe_place() {
-			return Math.random() < 0.5
+			return this.safe_floors().length > 0
 		}
 
 		@$mol_mem
-		theatre_place() {
-			return this.has_theatre_place() ? this.theatre_icon() : null
+		postal_place() {
+			return this.has_postal_place() ? this.postal_icon() : null
 		}
 
 		@$mol_mem
-		party_place() {
-			return this.has_party_place() ? this.party_icon() : null
+		laundry_place() {
+			return this.has_laundry_place() ? this.laundry_icon() : null
 		}
 
 		@$mol_mem

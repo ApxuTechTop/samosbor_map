@@ -44,7 +44,7 @@
 	}
 
 	[mol_icon] {
-		fill: white;
+		color: white;
 		filter: unset;
 		z-index: 100;
 	}

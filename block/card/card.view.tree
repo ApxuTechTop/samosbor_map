@@ -259,4 +259,22 @@ $apxu_samosbor_map_block_card $mol_view
 							icon <= house_icon $apxu_samosbor_map_icon_house
 							enabled false
 							remove_floor* <=> remove_floor* null
+						<= hospitals $apxu_samosbor_map_block_card_place
+							floors <= place_floors*hospital /
+							icon <= hospital_icon $apxu_samosbor_map_icon_hospital
+							enabled <= edit_mode
+							add_floor? <=> add_place*hospital? null
+							remove_floor* <=> remove_place* null
+						<= laundrys $apxu_samosbor_map_block_card_place
+							floors <= place_floors*laundry /
+							icon <= laundry_icon $apxu_samosbor_map_icon_laundry
+							enabled <= edit_mode
+							add_floor? <=> add_place*laundry? null
+							remove_floor* <=> remove_place* null
+						<= postals $apxu_samosbor_map_block_card_place
+							floors <= place_floors*postal /
+							icon <= postal_icon $apxu_samosbor_map_icon_postal
+							enabled <= edit_mode
+							add_floor? <=> add_place*postal? null
+							remove_floor* <=> remove_place* null
 				<= features $mol_view
