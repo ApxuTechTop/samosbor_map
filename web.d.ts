@@ -1116,23 +1116,9 @@ declare namespace $ {
 		view_box( ): string
 	}
 	
-	type $mol_svg_path__geometry_apxu_samosbor_map_icon_hospital_1 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_icon_hospital['path'] >
-		,
-		ReturnType< $mol_svg_path['geometry'] >
-	>
-	type $mol_svg_path__geometry_apxu_samosbor_map_icon_hospital_2 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_icon_hospital['path2'] >
-		,
-		ReturnType< $mol_svg_path['geometry'] >
-	>
 	export class $apxu_samosbor_map_icon_hospital extends $mol_icon {
-		path( ): string
-		Path1( ): $mol_svg_path
-		path2( ): string
-		Path2( ): $mol_svg_path
 		view_box( ): string
-		sub( ): readonly(any)[]
+		path( ): string
 	}
 	
 	export class $apxu_samosbor_map_icon_house extends $mol_icon {
@@ -1242,6 +1228,23 @@ declare namespace $ {
 	}
 	
 	export class $apxu_samosbor_map_icon_balcony extends $mol_icon {
+		path( ): string
+		view_box( ): string
+	}
+	
+	export class $apxu_samosbor_map_icon_laundry extends $mol_icon {
+		path( ): string
+		view_box( ): string
+		style( ): ({ 
+			'fill': string,
+			'stroke': string,
+			'stroke-width': string,
+			'stroke-linecap': string,
+			'stroke-linejoin': string,
+		}) 
+	}
+	
+	export class $apxu_samosbor_map_icon_postal extends $mol_icon {
 		path( ): string
 		view_box( ): string
 	}
@@ -7359,10 +7362,12 @@ declare namespace $ {
 		cleaner_profession( ): any
 		plumber_profession( ): any
 		profession_wrapper( ): $mol_view
+		safe_place( ): any
+		hospital_place( ): any
+		laundry_place( ): any
+		postal_place( ): any
 		theatre_place( ): any
 		party_place( ): any
-		hospital_place( ): any
-		safe_place( ): any
 		places_wrapper( ): $mol_view
 		flooded_icon( ): $apxu_samosbor_map_icon_sinking
 		flooded_floor_view( ): $mol_view
@@ -7432,6 +7437,7 @@ declare namespace $ {
 		roof_floor_value( next?: number | null ): number | null
 		flood_floor_value( next?: number | null ): number | null
 		profession_floors( id: any): readonly(any)[]
+		place_floors( id: any): readonly(any)[]
 		safe_floors( ): readonly(any)[]
 		pos_x( next?: number ): number
 		pos_y( next?: number ): number
@@ -7470,8 +7476,8 @@ declare namespace $ {
 		repairman_icon( ): $apxu_samosbor_map_icon_repairman
 		cleaner_icon( ): $apxu_samosbor_map_icon_cleaner
 		factory_icon( ): $apxu_samosbor_map_icon_factory
-		theatre_icon( ): $apxu_samosbor_map_icon_theatre
-		party_icon( ): $apxu_samosbor_map_icon_party
+		postal_icon( ): $apxu_samosbor_map_icon_postal
+		laundry_icon( ): $apxu_samosbor_map_icon_laundry
 		hospital_icon( ): $apxu_samosbor_map_icon_hospital
 		house_icon( ): $apxu_samosbor_map_icon_house
 		profession_part( ): $apxu_samosbor_map_block_part
@@ -7513,6 +7519,7 @@ declare namespace $.$$ {
         flood_floor_value(next?: number): number | null;
         profession_floors(what: typeof ProfessionType.options[number]): ProfessionData[];
         safe_floors(): (ProfessionData | PlaceData)[];
+        place_floors(what: typeof PlaceType.options[number]): PlaceData[];
         block_layer(next?: number): number;
         min_floor(next?: number): number;
         max_floor(next?: number): number;
@@ -7586,12 +7593,12 @@ declare namespace $.$$ {
         repairman_profession(): $apxu_samosbor_map_icon_repairman | null;
         cleaner_profession(): $apxu_samosbor_map_icon_cleaner | null;
         plumber_profession(): $apxu_samosbor_map_icon_factory | null;
-        has_theatre_place(): boolean;
-        has_party_place(): boolean;
+        has_postal_place(): boolean;
+        has_laundry_place(): boolean;
         has_hospital_place(): boolean;
         has_safe_place(): boolean;
-        theatre_place(): $apxu_samosbor_map_icon_theatre | null;
-        party_place(): $apxu_samosbor_map_icon_party | null;
+        postal_place(): $apxu_samosbor_map_icon_postal | null;
+        laundry_place(): $apxu_samosbor_map_icon_laundry | null;
         hospital_place(): $apxu_samosbor_map_icon_hospital | null;
         safe_place(): $apxu_samosbor_map_icon_house | null;
         flooded(): $mol_view | null;
@@ -9293,22 +9300,97 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['remove_floor'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_112 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__floors_apxu_samosbor_map_block_card_112 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['place_floors'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['floors'] >
+	>
+	type $apxu_samosbor_map_block_card_place__icon_apxu_samosbor_map_block_card_113 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['hospital_icon'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['icon'] >
+	>
+	type $apxu_samosbor_map_block_card_place__enabled_apxu_samosbor_map_block_card_114 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['enabled'] >
+	>
+	type $apxu_samosbor_map_block_card_place__add_floor_apxu_samosbor_map_block_card_115 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['add_place'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['add_floor'] >
+	>
+	type $apxu_samosbor_map_block_card_place__remove_floor_apxu_samosbor_map_block_card_116 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['remove_place'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['remove_floor'] >
+	>
+	type $apxu_samosbor_map_block_card_place__floors_apxu_samosbor_map_block_card_117 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['place_floors'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['floors'] >
+	>
+	type $apxu_samosbor_map_block_card_place__icon_apxu_samosbor_map_block_card_118 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['laundry_icon'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['icon'] >
+	>
+	type $apxu_samosbor_map_block_card_place__enabled_apxu_samosbor_map_block_card_119 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['enabled'] >
+	>
+	type $apxu_samosbor_map_block_card_place__add_floor_apxu_samosbor_map_block_card_120 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['add_place'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['add_floor'] >
+	>
+	type $apxu_samosbor_map_block_card_place__remove_floor_apxu_samosbor_map_block_card_121 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['remove_place'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['remove_floor'] >
+	>
+	type $apxu_samosbor_map_block_card_place__floors_apxu_samosbor_map_block_card_122 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['place_floors'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['floors'] >
+	>
+	type $apxu_samosbor_map_block_card_place__icon_apxu_samosbor_map_block_card_123 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['postal_icon'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['icon'] >
+	>
+	type $apxu_samosbor_map_block_card_place__enabled_apxu_samosbor_map_block_card_124 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['enabled'] >
+	>
+	type $apxu_samosbor_map_block_card_place__add_floor_apxu_samosbor_map_block_card_125 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['add_place'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['add_floor'] >
+	>
+	type $apxu_samosbor_map_block_card_place__remove_floor_apxu_samosbor_map_block_card_126 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['remove_place'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['remove_floor'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_127 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_113 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_128 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_114 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_129 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_115 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_130 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
@@ -9428,6 +9510,15 @@ declare namespace $ {
 		safe_floors( ): readonly(any)[]
 		house_icon( ): $apxu_samosbor_map_icon_house
 		safes( ): $apxu_samosbor_map_block_card_place
+		place_floors( id: any): readonly(any)[]
+		hospital_icon( ): $apxu_samosbor_map_icon_hospital
+		add_place( id: any, next?: any ): any
+		remove_place( id: any): any
+		hospitals( ): $apxu_samosbor_map_block_card_place
+		laundry_icon( ): $apxu_samosbor_map_icon_laundry
+		laundrys( ): $apxu_samosbor_map_block_card_place
+		postal_icon( ): $apxu_samosbor_map_icon_postal
+		postals( ): $apxu_samosbor_map_block_card_place
 		places( ): $mol_view
 		features( ): $mol_view
 		content( ): $mol_view
@@ -9482,6 +9573,9 @@ declare namespace $.$$ {
         add_profession(what: typeof ProfessionType.options[number], event?: any): void;
         remove_floor(node: ProfessionData): void;
         safe_floors(): readonly any[];
+        place_floors(what: string): readonly any[];
+        add_place(what: typeof PlaceType.options[number], event?: any): PlaceData | undefined;
+        remove_place(node: PlaceData): void;
         rotation(): string;
         rotate_click(event: any): void;
         move_click(dir: DirectionType, event?: any): void;
