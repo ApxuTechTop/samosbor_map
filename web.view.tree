@@ -937,6 +937,7 @@ $apxu_samosbor_map_block_card_flight_button $mol_button_major
 		edit-mode <= edit_mode? false
 
 $apxu_samosbor_map_block_card_place $mol_view
+	minimal_width 28
 	floors? /
 	enabled? true
 	attr *
@@ -1004,6 +1005,18 @@ $apxu_samosbor_map_block_card $mol_view
 				enabled <= edit_mode
 				floor_value? <=> floor_value*? 0
 				icon <= floor_icon* $mol_icon
+	place_icons *
+		theatre <= icon_theatre $apxu_samosbor_map_icon_theatre
+		hospital <= icon_hospital $apxu_samosbor_map_icon_hospital
+		party <= icon_party $apxu_samosbor_map_icon_party
+		gym <= icon_party $apxu_samosbor_map_icon_party
+		overview <= icon_party $apxu_samosbor_map_icon_party
+	place_floor* $apxu_samosbor_map_block_card_place
+		floors <= place_floors* /
+		icon <= place_icon* $mol_icon
+		enabled <= edit_mode
+		add_floor? <=> add_place*? null
+		remove_floor* <=> remove_place* null
 	sub /
 		<= misc_buttons $mol_view
 			sub /
@@ -1202,6 +1215,8 @@ $apxu_samosbor_map_block_card $mol_view
 							add_floor? <=> add_place*postal? null
 							remove_floor* <=> remove_place* null
 				<= features $mol_view
+					sub /
+						^ other_places /
 
 $apxu_samosbor_map_app $mol_view
 	Block* $apxu_samosbor_map_block

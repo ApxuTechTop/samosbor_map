@@ -8707,6 +8707,7 @@ declare namespace $ {
 		floors_list( ): readonly(any)[]
 		add_floor( next?: any ): any
 		add_input( ): $mol_button_minor
+		minimal_width( ): number
 		floors( next?: readonly(any)[] ): readonly(any)[]
 		enabled( next?: boolean ): boolean
 		attr( ): ({ 
@@ -9395,6 +9396,36 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['sub'] >
 	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_131 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_card_place__floors_apxu_samosbor_map_block_card_132 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['place_floors'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['floors'] >
+	>
+	type $apxu_samosbor_map_block_card_place__icon_apxu_samosbor_map_block_card_133 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['place_icon'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['icon'] >
+	>
+	type $apxu_samosbor_map_block_card_place__enabled_apxu_samosbor_map_block_card_134 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['enabled'] >
+	>
+	type $apxu_samosbor_map_block_card_place__add_floor_apxu_samosbor_map_block_card_135 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['add_place'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['add_floor'] >
+	>
+	type $apxu_samosbor_map_block_card_place__remove_floor_apxu_samosbor_map_block_card_136 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['remove_place'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['remove_floor'] >
+	>
 	export class $apxu_samosbor_map_block_card extends $mol_view {
 		board_floor_value( next?: ReturnType< ReturnType< $apxu_samosbor_map_block_card['block'] >['board_floor_value'] > ): ReturnType< ReturnType< $apxu_samosbor_map_block_card['block'] >['board_floor_value'] >
 		mail_floor_value( next?: ReturnType< ReturnType< $apxu_samosbor_map_block_card['block'] >['mail_floor_value'] > ): ReturnType< ReturnType< $apxu_samosbor_map_block_card['block'] >['mail_floor_value'] >
@@ -9414,6 +9445,13 @@ declare namespace $ {
 		floor_value( id: any, next?: number ): number
 		floor_icon( id: any): $mol_icon
 		floor_simple( id: any): $apxu_samosbor_map_block_card_floor
+		icon_theatre( ): $apxu_samosbor_map_icon_theatre
+		icon_hospital( ): $apxu_samosbor_map_icon_hospital
+		icon_party( ): $apxu_samosbor_map_icon_party
+		place_floors( id: any): readonly(any)[]
+		place_icon( id: any): $mol_icon
+		add_place( id: any, next?: any ): any
+		remove_place( id: any): any
 		shop_icon( ): $apxu_samosbor_map_icon_shop
 		shop_button( ): $mol_button_minor
 		misc_buttons( ): $mol_view
@@ -9510,16 +9548,14 @@ declare namespace $ {
 		safe_floors( ): readonly(any)[]
 		house_icon( ): $apxu_samosbor_map_icon_house
 		safes( ): $apxu_samosbor_map_block_card_place
-		place_floors( id: any): readonly(any)[]
 		hospital_icon( ): $apxu_samosbor_map_icon_hospital
-		add_place( id: any, next?: any ): any
-		remove_place( id: any): any
 		hospitals( ): $apxu_samosbor_map_block_card_place
 		laundry_icon( ): $apxu_samosbor_map_icon_laundry
 		laundrys( ): $apxu_samosbor_map_block_card_place
 		postal_icon( ): $apxu_samosbor_map_icon_postal
 		postals( ): $apxu_samosbor_map_block_card_place
 		places( ): $mol_view
+		other_places( ): readonly(any)[]
 		features( ): $mol_view
 		content( ): $mol_view
 		block( ): $apxu_samosbor_map_block
@@ -9554,6 +9590,14 @@ declare namespace $ {
 			}) ,
 		}) 
 		floor_view( id: any): $apxu_samosbor_map_block_card_floor | null
+		place_icons( ): ({ 
+			'theatre': ReturnType< $apxu_samosbor_map_block_card['icon_theatre'] >,
+			'hospital': ReturnType< $apxu_samosbor_map_block_card['icon_hospital'] >,
+			'party': ReturnType< $apxu_samosbor_map_block_card['icon_party'] >,
+			'gym': ReturnType< $apxu_samosbor_map_block_card['icon_party'] >,
+			'overview': ReturnType< $apxu_samosbor_map_block_card['icon_party'] >,
+		}) 
+		place_floor( id: any): $apxu_samosbor_map_block_card_place
 		sub( ): readonly(any)[]
 	}
 	
@@ -9585,6 +9629,8 @@ declare namespace $.$$ {
         floor_icon(what: keyof ReturnType<typeof this.some_floor>): $mol_icon;
         floor_view(what: any): $apxu_samosbor_map_block_card_floor | null;
         balcony_view(): ($mol_check_box | null)[];
+        place_icon(id: typeof PlaceType.options[number]): never;
+        other_places(): $mol_view[];
     }
 }
 
