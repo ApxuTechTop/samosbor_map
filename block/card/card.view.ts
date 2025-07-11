@@ -135,5 +135,25 @@ namespace $.$$ {
 			const visible = this.edit_mode() || this.has_balcony()
 			return [ visible ? this.balcony_checkbox() : null ]
 		}
+
+		place_icon( id: typeof PlaceType.options[ number ] ) {
+			const icons = this.place_icons()
+			return icons[ id as any as keyof typeof this.place_icons ]
+		}
+
+		@$mol_mem
+		other_places() {
+			const places: $mol_view[] = []
+			const other_place_types = [ "theatre", "party", "gym",
+				"overview", "racing", "hockey",
+				"spleef", "pool", "warehouse" ]
+
+			for( const place_type of other_place_types ) {
+				const some_place = this.place_floor( place_type )
+				places.push( some_place )
+			}
+
+			return places
+		}
 	}
 }

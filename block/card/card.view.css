@@ -29,7 +29,7 @@
 	[mol_number] {
 		[mol_string] {
 			padding: 3px;
-			text-align: right;
+			/* text-align: right; */
 		}
 
 	}
@@ -286,6 +286,18 @@
 	align-items: center;
 	gap: 5px;
 
+	width: 28px;
+	min-width: unset;
+
+	[mol_icon] {
+		width: 24px;
+		height: 24px;
+	}
+
+	[mol_string] {
+		text-align: center;
+	}
+
 	&:not([enabled]) {
 		[apxu_samosbor_map_block_card_place_add_input] {
 			display: none;
@@ -311,4 +323,16 @@
 
 [mol_check]:not([mol_check_checked])>[apxu_samosbor_map_block_card_balcony_icon] {
 	opacity: 0.5;
+}
+
+[apxu_samosbor_map_block_card_professions] {
+	gap: 30px;
+}
+[apxu_samosbor_map_block_card_places] {
+	gap: 30px;
+}
+
+[apxu_samosbor_map_block_card_features] {
+	gap: 15px;
+	flex-wrap: wrap;
 }
