@@ -18,8 +18,14 @@ namespace $.$$ {
 			console.log( "Gigacluster ref: ", $apxu_samosbor_map_app_gigacluster_ref )
 			console.log( "Lord key: ", $hyoo_crus_auth.current().lord() )
 			const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( $apxu_samosbor_map_app_gigacluster_ref ), Gigacluster ) // используем мой home
-			//storage.land().give($hyoo_crus_auth.from( "public key" ), $hyoo_crus_rank_post("just"))
+			//Gigacluster.global().Blocks(null).land().give($hyoo_crus_auth.from( "_yFEB-e3xOz2U0tgJO32xBwWg0yQILJLGv3fAw6sa7ocQ7PptmL7Ec_659TctBpDaF-4ovTEQN-_ncSA7i-qfk" ), $hyoo_crus_rank_post("just"))
+			console.log( "Gigacluster gifts: " )
 			for( const [ key, val ] of storage.land().gift.entries() ) {
+
+				console.log( "Gift: ", key, val, $hyoo_crus_rank_tier[ storage.land().lord_rank( $hyoo_crus_ref( key ) ) & 0b0_1111_0000 ] )
+			}
+			console.log( "Gigacluster.Blocks() gifts: " )
+			for( const [ key, val ] of storage.Blocks( null )?.land().gift.entries() ?? [] ) {
 
 				console.log( "Gift: ", key, val, $hyoo_crus_rank_tier[ storage.land().lord_rank( $hyoo_crus_ref( key ) ) & 0b0_1111_0000 ] )
 			}
