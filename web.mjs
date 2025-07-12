@@ -18797,15 +18797,30 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
+        class RoleInfo extends $hyoo_crus_dict.with({
+            Name: $hyoo_crus_atom_str,
+            Peers: $hyoo_crus_list_str
+        }) {
+        }
+        $$.RoleInfo = RoleInfo;
+        class Roles extends $hyoo_crus_dict.with({}) {
+        }
+        $$.Roles = Roles;
         class Gigacluster extends $hyoo_crus_home.with({
             Blocks: $hyoo_crus_list_ref_to(() => $apxu_samosbor_map_block_data),
         }) {
             static global() {
-                console.log($apxu_samosbor_map_app_gigacluster_ref);
+                console.log("Public key: ", this.$.$hyoo_crus_auth.current().public().toString());
+                console.log("Gigacluster ref: ", $apxu_samosbor_map_app_gigacluster_ref);
+                console.log("Lord key: ", $hyoo_crus_auth.current().lord());
                 const storage = $hyoo_crus_glob.Node($hyoo_crus_ref($apxu_samosbor_map_app_gigacluster_ref), Gigacluster);
+                for (const [key, val] of storage.land().gift.entries()) {
+                    console.log("Gift: ", key, val, $hyoo_crus_rank_tier[storage.land().lord_rank($hyoo_crus_ref(key)) & 0b0_1111_0000]);
+                }
                 return storage;
             }
             static create_block() {
+                this.global().Blocks(null)?.land().gift.entries();
                 const block = this.global().Blocks(null)?.make({ '': $hyoo_crus_rank_post("just") });
                 console.log("created", block);
                 return block;
@@ -18832,7 +18847,7 @@ var $;
                 return this.global().Blocks(null)?.remote_list();
             }
             static block_by_name(block_name) {
-                return this.global().Blocks(null)?.remote_list().find((block) => block.name() === block_name);
+                return this.blocks()?.find((block) => block.name() === block_name);
             }
             static transition(block_name, floor, position) {
                 return this.block_by_name(block_name)?.transitions()?.find((trans) => {
@@ -19109,7 +19124,6 @@ var $;
             blocks() {
                 const blocks = [];
                 const block_nodes = Gigacluster.blocks();
-                console.log(block_nodes);
                 for (const block_data of block_nodes ?? []) {
                     const block_view = this.Block(block_data.land_ref());
                     blocks.push(block_view);

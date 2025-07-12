@@ -9845,6 +9845,26 @@ declare namespace $ {
 
 //# sourceMappingURL=app.view.tree.d.ts.map
 declare namespace $.$$ {
+    const RoleInfo_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
+        readonly Name: (auto?: any) => $hyoo_crus_atom_str | null;
+        readonly Peers: (auto?: any) => $hyoo_crus_list_str | null;
+    }>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        } & {
+            readonly Name: typeof $hyoo_crus_atom_str;
+            readonly Peers: typeof $hyoo_crus_list_str;
+        };
+    };
+    export class RoleInfo extends RoleInfo_base {
+    }
+    const Roles_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {}>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        };
+    };
+    export class Roles extends Roles_base {
+    }
     const Gigacluster_base: Omit<typeof $hyoo_crus_home, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_home, {
         readonly Blocks: (auto?: any) => {
             remote_list(next?: readonly $apxu_samosbor_map_block_data[] | undefined): readonly $apxu_samosbor_map_block_data[];
