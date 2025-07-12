@@ -1,20 +1,36 @@
 namespace $.$$ {
 
+	export class RoleInfo extends $hyoo_crus_dict.with( {
+		Name: $hyoo_crus_atom_str,
+		Peers: $hyoo_crus_list_str
+	} ) {}
+	export class Roles extends $hyoo_crus_dict.with( {} ) {}
 
 	export class Gigacluster extends $hyoo_crus_home.with( {
 		Blocks: $hyoo_crus_list_ref_to( () => $apxu_samosbor_map_block_data ),
 	} ) {
 		@$mol_mem
 		static global() {
+			console.log( "Public key: ", this.$.$hyoo_crus_auth.current().public().toString() )
 			// const storage = $hyoo_crus_glob.home( Gigacluster )
 			// const ref = storage.ref().description
 			// console.log( "global ref:", ref )
-			console.log( $apxu_samosbor_map_app_gigacluster_ref )
+			console.log( "Gigacluster ref: ", $apxu_samosbor_map_app_gigacluster_ref )
+			console.log( "Lord key: ", $hyoo_crus_auth.current().lord() )
 			const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( $apxu_samosbor_map_app_gigacluster_ref ), Gigacluster ) // используем мой home
+			//storage.land().give($hyoo_crus_auth.from( "public key" ), $hyoo_crus_rank_post("just"))
+			for( const [ key, val ] of storage.land().gift.entries() ) {
+
+				console.log( "Gift: ", key, val, $hyoo_crus_rank_tier[ storage.land().lord_rank( $hyoo_crus_ref( key ) ) & 0b0_1111_0000 ] )
+			}
 			return storage
 		}
 		@$mol_action
 		static create_block() {
+			this.global().Blocks( null )?.land().gift.entries()
+			/*
+			const block = this.global().Blocks( null )?.make( { '': $hyoo_crus_rank_read( "just" ), ...roles.researcher.ranks } )
+			*/
 			const block = this.global().Blocks( null )?.make( { '': $hyoo_crus_rank_post( "just" ) } )
 			console.log( "created", block )
 			return block
@@ -45,7 +61,7 @@ namespace $.$$ {
 		}
 		@$mol_mem_key
 		static block_by_name( block_name: string ) {
-			return this.global().Blocks( null )?.remote_list().find( ( block ) => block.name() === block_name )
+			return this.blocks()?.find( ( block ) => block.name() === block_name )
 		}
 		static transition( block_name: string, floor: number, position: TransitionPosition ) {
 			return this.block_by_name( block_name )?.transitions()?.find( ( trans ) => {
@@ -349,7 +365,6 @@ namespace $.$$ {
 		blocks() {
 			const blocks: $mol_view[] = []
 			const block_nodes = Gigacluster.blocks()
-			console.log( block_nodes )
 			for( const block_data of block_nodes ?? [] ) {
 				const block_view = this.Block( block_data.land_ref() )
 				blocks.push( block_view )
