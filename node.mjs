@@ -18871,7 +18871,12 @@ var $;
                 console.log("Gigacluster ref: ", $apxu_samosbor_map_app_gigacluster_ref);
                 console.log("Lord key: ", $hyoo_crus_auth.current().lord());
                 const storage = $hyoo_crus_glob.Node($hyoo_crus_ref($apxu_samosbor_map_app_gigacluster_ref), Gigacluster);
+                console.log("Gigacluster gifts: ");
                 for (const [key, val] of storage.land().gift.entries()) {
+                    console.log("Gift: ", key, val, $hyoo_crus_rank_tier[storage.land().lord_rank($hyoo_crus_ref(key)) & 0b0_1111_0000]);
+                }
+                console.log("Gigacluster.Blocks() gifts: ");
+                for (const [key, val] of storage.Blocks(null)?.land().gift.entries() ?? []) {
                     console.log("Gift: ", key, val, $hyoo_crus_rank_tier[storage.land().lord_rank($hyoo_crus_ref(key)) & 0b0_1111_0000]);
                 }
                 return storage;
