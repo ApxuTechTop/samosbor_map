@@ -157,7 +157,6 @@ namespace $.$$ {
 		position_style(): string {
 			const pan = this.pan().map( ( v ) => Math.round( v ) )
 			const str = `${ pan[ 0 ] }px ${ pan[ 1 ] }px`
-			console.log( str )
 			return str
 		}
 		left_flight_icons(): readonly ( any )[] {
