@@ -18867,7 +18867,6 @@ var $;
             position_style() {
                 const pan = this.pan().map((v) => Math.round(v));
                 const str = `${pan[0]}px ${pan[1]}px`;
-                console.log(str);
                 return str;
             }
             left_flight_icons() {
@@ -19433,6 +19432,7 @@ var $;
                 const storage = $hyoo_crus_glob.Node($hyoo_crus_ref($apxu_samosbor_map_app_gigacluster_ref), Gigacluster);
                 const is_admin = storage.ref() === this.$.$hyoo_crus_auth.current().lord();
                 if (is_admin) {
+                    storage.land().give($hyoo_crus_auth.from($apxu_samosbor_map_app_my_public_key), $hyoo_crus_rank_rule);
                     storage.land().give(null, $hyoo_crus_rank_join("just"));
                     Roles.global().keys_ranks().map(({ key, rank }) => {
                         if (storage.land().lord_rank($hyoo_crus_auth.current().lord()) >= $hyoo_crus_rank_rule) {
