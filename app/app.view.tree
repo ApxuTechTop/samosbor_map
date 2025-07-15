@@ -35,6 +35,8 @@ $apxu_samosbor_map_app $mol_view
 		<= RolesController $mol_expander
 			label / \Роли
 			content /
+				<= Right $hyoo_crus_land_rights
+					land <= map_land null
 				<= CartographerRole $mol_expander
 					label / \Картографы
 					content /
