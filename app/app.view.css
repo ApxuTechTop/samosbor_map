@@ -313,3 +313,17 @@
 		word-break: break-all;
 	}
 }
+
+[apxu_samosbor_map_app_pubkey] {
+	z-index: 10;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+}
+
+[apxu_samosbor_map_app_rolescontroller] {
+	z-index: 10;
+	position: fixed;
+	left: 0px;
+	top: 40px;
+}

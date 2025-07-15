@@ -20,6 +20,26 @@ namespace $.$$ {
 	}
 
 	export class $apxu_samosbor_map_block_card extends $.$apxu_samosbor_map_block_card {
+		@$mol_action
+		delete_block( next?: any ) {
+			const data = this.block().block_data() as $apxu_samosbor_map_block_data
+			Gigacluster.delete_block( data.ref() )
+		}
+		// @$mol_mem
+		// pan_left(): number {
+		// 	return this.pan()[ 0 ]
+		// }
+		// @$mol_mem
+		// pan_top() {
+		// 	return this.pan()[ 1 ]
+		// }
+		@$mol_mem
+		position_style(): string {
+			const pan = this.pan().map( ( v ) => Math.round( v ) )
+			const str = `${ pan[ 0 ] }px ${ pan[ 1 ] }px`
+			console.log( str )
+			return str
+		}
 		left_flight_icons(): readonly ( any )[] {
 			return [ this.flight_icons( "left" )[ "elevator" ] ]
 		}

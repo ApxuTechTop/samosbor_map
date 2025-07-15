@@ -135,8 +135,9 @@ namespace $ {
 		Type: PlaceType,
 		Floor: $hyoo_crus_atom_int,
 	} ) {}
+	// $apxu_samosbor_map_app_researcher.use()
 
-	export class $apxu_samosbor_map_block_data extends $hyoo_crus_entity.with( {
+	export class $apxu_samosbor_map_block_data extends ( $hyoo_crus_entity.with( {
 		Name: $hyoo_crus_atom_str,
 		Direction: BlockDirection,
 		Type: BlockType,
@@ -160,7 +161,7 @@ namespace $ {
 		Professions: $hyoo_crus_list_ref_to( () => ProfessionData ),
 		Places: $hyoo_crus_list_ref_to( () => PlaceData ),
 
-	} ) {
+	} ) ) {
 		@$mol_mem
 		name( next?: string ) {
 			return this.Name( null )?.val( next ) ?? "N-00"
@@ -186,7 +187,8 @@ namespace $ {
 
 		@$mol_action
 		connect( my_floor: number, my_pos: TransitionPosition, block_node: $apxu_samosbor_map_block_data, another_floor: number, another_pos: TransitionPosition ) {
-			const trans = this.Transitions( null )?.make( { '': $hyoo_crus_rank_read } )
+			const trans = this.Transitions( null )?.make( this.land() )
+
 			if( !trans ) return
 			block_node.Transitions( null )?.add( trans.ref() )
 			trans.From( null )?.Floor( null )?.val( BigInt( my_floor ) )
@@ -318,7 +320,7 @@ namespace $ {
 
 		@$mol_action
 		add_profession( what: typeof ProfessionType.options[ number ] ) {
-			const node = this.Professions( null )?.make( null ) // TODO права
+			const node = this.Professions( null )?.make( this.land() ) // TODO права
 			node?.Type( null )?.val( what )
 			return node
 		}
@@ -356,7 +358,7 @@ namespace $ {
 		}
 		@$mol_action
 		add_place( what: typeof PlaceType.options[ number ] ) {
-			const node = this.Places( null )?.make( null ) // TODO права
+			const node = this.Places( null )?.make( this.land() ) // TODO права
 			node?.Type( null )?.val( what )
 			return node
 		}

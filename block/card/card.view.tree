@@ -40,6 +40,15 @@ $apxu_samosbor_map_block_card_floor $mol_view
 			- submit? <=> floor_submit? null
 
 $apxu_samosbor_map_block_card $mol_view
+	plugins /
+		<= mover $mol_touch
+			allow_draw false
+			allow_zoom false
+			pan? => pan?
+	style *
+		translate <= position_style \
+		- top <= pan_top 0
+		- left <= pan_left 0
 	block $apxu_samosbor_map_block
 		board_floor_value? => board_floor_value?
 		mail_floor_value? => mail_floor_value?
@@ -107,6 +116,7 @@ $apxu_samosbor_map_block_card $mol_view
 					Icon <= edit_icon $mol_icon_pencil
 					checked? <=> edit_mode?
 				<= delete_button $mol_button_minor
+					click? <=> delete_block? null
 					sub / <= delete_icon $mol_icon_trash_can_outline
 		<= content $mol_view
 			sub /

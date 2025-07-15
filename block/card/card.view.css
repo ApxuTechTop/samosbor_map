@@ -14,6 +14,7 @@
 	background-color: #121212;
 	border-radius: 5px;
 	padding: 15px;
+	user-select: none;
 
 
 	--main-color: #676767;
@@ -328,6 +329,7 @@
 [apxu_samosbor_map_block_card_professions] {
 	gap: 30px;
 }
+
 [apxu_samosbor_map_block_card_places] {
 	gap: 30px;
 }

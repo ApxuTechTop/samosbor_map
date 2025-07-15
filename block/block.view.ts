@@ -440,8 +440,8 @@ namespace $.$$ {
 			const pos_y = Math.round( ( this.pos_y() + offset.y - new_offset.y ) )
 			const new_block_node = Gigacluster.create_block()
 			if( !new_block_node ) return
-			new_block_node.up_left_passage_type( 0, "normal" )
-			this.block_data().connect( this.current_floor(), position, new_block_node, 0, "up_left" )
+			// new_block_node.up_left_passage_type( 0, "normal" )
+			// this.block_data().connect( this.current_floor(), position, new_block_node, 0, "up_left" )
 			new_block_node.name( new_block_name )
 			new_block_node.direction( new_block_direction )
 			new_block_node.pos_x( pos_x )

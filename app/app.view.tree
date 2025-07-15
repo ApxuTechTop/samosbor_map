@@ -32,6 +32,37 @@ $apxu_samosbor_map_app $mol_view
 					text <= person_key \
 				<= map_rights $hyoo_crus_land_rights
 					land <= map_land
+		<= RolesController $mol_expander
+			label / \Роли
+			content /
+				<= CartographerRole $mol_expander
+					label / \Картографы
+					content /
+						<= key_input $mol_bar
+							sub /
+								<= pub_key_string $mol_string
+									value? <=> pub_key_value? \
+								<= submit_key $mol_button_minor
+									click? <=> add_public_key? null
+									sub / <= sumbit_icon $mol_icon_plus
+						^ lords /
+							<= Lord*0 $mol_view
+								sub /
+									<= lord_string* $mol_string
+										hint <= lord_ref* \
+										value? <=> lord_name*? \
+									<= copy_key* $mol_button_copy
+										text <= lord_key* \
+									<= Gift_rank* $mol_select
+										value? <=> gift_rank*? \deny
+										dictionary *
+											deny @ \🛑 Deny
+											read @ \👀 Read
+											join @ \📢 Join
+											post @ \✍ Post
+											rule @ \👑 Rule
+		<= PubKey $mol_button_copy
+			text <= public_key \pub key
 		<= Control_Panel $mol_card
 			sub /
 				<= Control_Switch $mol_switch
