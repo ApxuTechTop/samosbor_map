@@ -19812,7 +19812,7 @@ var $;
                 return lords;
             }
             lord_ref(role) {
-                return role.ref().description;
+                return $hyoo_crus_auth.from(this.lord_key(role)).lord().description;
             }
             lord_name(role, next) {
                 return role.Name(null)?.val(next) ?? "";
