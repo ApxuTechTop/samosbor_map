@@ -8908,20 +8908,23 @@ declare namespace $ {
 		sub( ): readonly(any)[]
 	}
 	
+	export class $apxu_samosbor_map_block_card_touch extends $mol_touch {
+	}
+	
 	type __apxu_samosbor_map_block_card_1 = $mol_type_enforce<
 		Parameters< $apxu_samosbor_map_block_card['pan'] >[0]
 		,
 		Parameters< ReturnType< $apxu_samosbor_map_block_card['mover'] >['pan'] >[0]
 	>
-	type $mol_touch__allow_draw_apxu_samosbor_map_block_card_2 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_touch__allow_draw_apxu_samosbor_map_block_card_2 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $mol_touch['allow_draw'] >
+		ReturnType< $apxu_samosbor_map_block_card_touch['allow_draw'] >
 	>
-	type $mol_touch__allow_zoom_apxu_samosbor_map_block_card_3 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_touch__allow_zoom_apxu_samosbor_map_block_card_3 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $mol_touch['allow_zoom'] >
+		ReturnType< $apxu_samosbor_map_block_card_touch['allow_zoom'] >
 	>
 	type __apxu_samosbor_map_block_card_4 = $mol_type_enforce<
 		Parameters< $apxu_samosbor_map_block_card['board_floor_value'] >[0]
@@ -9620,7 +9623,7 @@ declare namespace $ {
 	>
 	export class $apxu_samosbor_map_block_card extends $mol_view {
 		pan( next?: ReturnType< ReturnType< $apxu_samosbor_map_block_card['mover'] >['pan'] > ): ReturnType< ReturnType< $apxu_samosbor_map_block_card['mover'] >['pan'] >
-		mover( ): $mol_touch
+		mover( ): $apxu_samosbor_map_block_card_touch
 		position_style( ): string
 		board_floor_value( next?: ReturnType< ReturnType< $apxu_samosbor_map_block_card['block'] >['board_floor_value'] > ): ReturnType< ReturnType< $apxu_samosbor_map_block_card['block'] >['board_floor_value'] >
 		mail_floor_value( next?: ReturnType< ReturnType< $apxu_samosbor_map_block_card['block'] >['mail_floor_value'] > ): ReturnType< ReturnType< $apxu_samosbor_map_block_card['block'] >['mail_floor_value'] >
@@ -9805,6 +9808,9 @@ declare namespace $ {
 
 //# sourceMappingURL=card.view.tree.d.ts.map
 declare namespace $.$$ {
+    class $apxu_samosbor_map_block_card_touch extends $.$apxu_samosbor_map_block_card_touch {
+        event_coords(event: PointerEvent | WheelEvent): $mol_vector_2d<number>;
+    }
     class $apxu_samosbor_map_block_card_place extends $.$apxu_samosbor_map_block_card_place {
         floors_list(): readonly (any)[];
         floor_value(node: ProfessionData, next?: number): number;

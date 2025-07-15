@@ -17842,12 +17842,13 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card_floor.prototype), "icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_floor.prototype), "floor_value"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_floor.prototype), "input"));
+	($.$apxu_samosbor_map_block_card_touch) = class $apxu_samosbor_map_block_card_touch extends ($.$mol_touch) {};
 	($.$apxu_samosbor_map_block_card) = class $apxu_samosbor_map_block_card extends ($.$mol_view) {
 		pan(next){
 			return (this.mover().pan(next));
 		}
 		mover(){
-			const obj = new this.$.$mol_touch();
+			const obj = new this.$.$apxu_samosbor_map_block_card_touch();
 			(obj.allow_draw) = () => (false);
 			(obj.allow_zoom) = () => (false);
 			return obj;
@@ -18769,6 +18770,12 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
+        class $apxu_samosbor_map_block_card_touch extends $.$apxu_samosbor_map_block_card_touch {
+            event_coords(event) {
+                return new $mol_vector_2d(Math.round(event.pageX), Math.round(event.pageY));
+            }
+        }
+        $$.$apxu_samosbor_map_block_card_touch = $apxu_samosbor_map_block_card_touch;
         class $apxu_samosbor_map_block_card_place extends $.$apxu_samosbor_map_block_card_place {
             floors_list() {
                 const floors_data = this.floors();
