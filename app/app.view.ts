@@ -76,6 +76,7 @@ namespace $.$$ {
 			const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( $apxu_samosbor_map_app_gigacluster_ref ), Gigacluster ) // используем мой home
 			const is_admin = storage.ref() === this.$.$hyoo_crus_auth.current().lord()
 			if( is_admin ) {
+				console.log("Apxu rank", storage.land().lord_rank(this.$.$hyoo_crus_auth.current().lord()))
 				storage.land().give( $hyoo_crus_auth.from( $apxu_samosbor_map_app_my_public_key ), $hyoo_crus_rank_rule )
 				storage.land().give( null, $hyoo_crus_rank_join( "just" ) )
 				Roles.global().keys_ranks().map( ( { key, rank } ) => {
