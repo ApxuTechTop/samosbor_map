@@ -39,9 +39,11 @@ $apxu_samosbor_map_block_card_floor $mol_view
 			- value_string? <=> floor_string? <= floor_value?
 			- submit? <=> floor_submit? null
 
+$apxu_samosbor_map_block_card_touch $mol_touch
+
 $apxu_samosbor_map_block_card $mol_view
 	plugins /
-		<= mover $mol_touch
+		<= mover $apxu_samosbor_map_block_card_touch
 			allow_draw false
 			allow_zoom false
 			pan? => pan?

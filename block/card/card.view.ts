@@ -1,4 +1,12 @@
 namespace $.$$ {
+	export class $apxu_samosbor_map_block_card_touch extends $.$apxu_samosbor_map_block_card_touch {
+		event_coords( event: PointerEvent | WheelEvent ) {
+			return new $mol_vector_2d(
+				Math.round( event.pageX ),
+				Math.round( event.pageY ),
+			)
+		}
+	}
 	export class $apxu_samosbor_map_block_card_place extends $.$apxu_samosbor_map_block_card_place {
 		@$mol_mem
 		floors_list(): readonly ( any )[] {
@@ -33,6 +41,8 @@ namespace $.$$ {
 		// pan_top() {
 		// 	return this.pan()[ 1 ]
 		// }
+
+
 		@$mol_mem
 		position_style(): string {
 			const pan = this.pan().map( ( v ) => Math.round( v ) )
