@@ -168,6 +168,51 @@ $apxu_samosbor_map_icon_postal $mol_icon
 	path \M17.3 20.4V22.8C17.3 23.14 17.185 23.425 16.955 23.655C16.725 23.885 16.44 24 16.1 24H1.7C1.36 24 1.075 23.885 0.845 23.655C0.615 23.425 0.5 23.14 0.5 22.8V13.2C0.5 12.86 0.615 12.575 0.845 12.345C1.075 12.115 1.36 12 1.7 12H5.3V7.2C5.3 5.2 6 3.5 7.4 2.1C8.8 0.7 10.5 0 12.5 0H17.3C19.3 0 21 0.7 22.4 2.1C23.8 3.5 24.5 5.2 24.5 7.2V20.4H17.3ZM17.3 18H22.1V7.2C22.1 5.88 21.63 4.75 20.69 3.81C19.75 2.87 18.62 2.4 17.3 2.4H12.5C11.18 2.4 10.05 2.87 9.11 3.81C8.17 4.75 7.7 5.88 7.7 7.2V12H16.1C16.44 12 16.725 12.115 16.955 12.345C17.185 12.575 17.3 12.86 17.3 13.2V18ZM10.1 9.6V7.2H19.7V9.6H10.1ZM8.9 17.82L14.9 14.4H2.9L8.9 17.82ZM8.9 19.92L2.9 16.5V21.6H14.9V16.5L8.9 19.92Z
 	view_box \0 0 25 24
 
+$mol_hotkey $mol_plugin
+	event *
+		^
+		keydown?event <=> keydown?event null
+	key *
+	mod_ctrl false
+	mod_alt false
+	mod_shift false
+
+$mol_string $mol_view
+	dom_name \input
+	enabled true
+	minimal_height 40
+	autocomplete false
+	selection? /number
+		0
+		0
+	auto /
+		<= selection_watcher null
+		<= error_report null
+	field *
+		^
+		disabled <= disabled false
+		value <= value_changed? <=> value? \
+		placeholder <= hint_visible <= hint \
+		spellcheck <= spellcheck true
+		autocomplete <= autocomplete_native \
+		selectionEnd <= selection_end 0
+		selectionStart <= selection_start 0
+		inputMode <= keyboard \text
+		enterkeyhint <= enter \go
+	attr *
+		^
+		maxlength <= length_max +Infinity
+		type <= type? \text
+	event *
+		^
+		input?event <=> event_change?event null
+	plugins /
+		<= Submit $mol_hotkey
+			mod_ctrl <= submit_with_ctrl false
+			key * enter?event <=> submit?event null
+
+$mol_icon_plus $mol_icon path \M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z
+
 $mol_speck $mol_view
 	minimal_width 12
 	attr *
@@ -205,6 +250,60 @@ $mol_button_typed $mol_button
 
 $mol_button_minor $mol_button_typed
 
+$mol_bar $mol_view
+
+$mol_icon_clipboard $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3
+
+$mol_icon_clipboard_outline $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7Z
+
+$mol_button_copy $mol_button_minor
+	blobs /$mol_blob
+		<= text_blob? $mol_blob /
+			/BlobPart <= text <= title
+			* type \text/plain
+		<= html_blob? $mol_blob /
+			/BlobPart <= html \
+			* type \text/html
+	data *
+	sub /
+		<= Icon $mol_icon_clipboard_outline
+		<= title \
+
+
+$mol_pop $mol_view
+	showed? false
+	align_vert \
+	align_hor \
+	prefer \vert
+	sub /
+		<= Anchor null
+	sub_visible /
+		<= Anchor
+		<= Bubble $mol_pop_bubble
+			align <= align \bottom_center
+			content <= bubble_content /$mol_view_content
+			height_max <= height_max 9999
+
+$mol_pop_bubble $mol_view
+	sub <= content /$mol_view_content
+	style *
+		^
+		maxHeight <= height_max 9999
+	attr *
+		^
+		mol_pop_align <= align \
+		tabindex 0
+
+$mol_scroll $mol_view
+	scroll_top? 0
+	scroll_left? 0
+	attr *
+		^
+		tabindex <= tabindex -1
+	event *
+		^
+		scroll?event <=> event_scroll?event null
+
 $mol_check $mol_button_minor
 	attr *
 		^
@@ -217,6 +316,175 @@ $mol_check $mol_button_minor
 			<= Title $mol_view
 				sub /
 					<= title \
+
+$mol_pick $mol_pop
+	event *
+		^
+		keydown?event <=> keydown?event null
+	Anchor <= Trigger $mol_check
+		minimal_width 40
+		minimal_height 40
+		enabled <= trigger_enabled true
+		checked? <=> showed?
+		clicks? <=> clicks? null
+		sub <= trigger_content /$mol_view_content
+			<= title
+		hint <= hint \
+
+$mol_paragraph $mol_view
+	line_height 24
+	letter_width 7
+	width_limit +Infinity
+	row_width 0
+	sub / <= title
+
+$mol_dimmer $mol_paragraph
+	haystack \
+	needle \
+	sub <= parts /$mol_view_content
+	Low* $mol_paragraph
+		sub /
+			<= string* \
+	High* $mol_paragraph
+		sub /
+			<= string* \
+
+$mol_nav $mol_plugin
+	cycle? false
+	-
+	mod_ctrl false
+	mod_shift false
+	mod_alt false
+	-
+	keys_x? /
+	keys_y? /
+	-
+	current_x? null
+	current_y? null
+	-
+	event_up?event null
+	event_down?event null
+	event_left?event null
+	event_right?event null
+	event *
+		^
+		keydown?event <=> event_key?event null
+
+$mol_list $mol_view
+	render_visible_only true
+	render_over 0
+	sub <= rows /$mol_view
+	Empty $mol_view
+	Gap_before $mol_view style * paddingTop <= gap_before 0
+	Gap_after $mol_view style * paddingTop <= gap_after 0
+	item_height_min* 1
+	item_width_min* 1
+	view_window /
+		0
+		0
+
+$mol_icon_close $mol_icon path \M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z
+
+$mol_search $mol_pop
+	query? \
+	suggests /string
+	plugins /$mol_plugin
+		^
+		<= Hotkey $mol_hotkey
+			key * escape? <=> clear? null
+		<= Nav $mol_nav
+			keys_y <= nav_components /$mol_view
+			current_y?component <=> nav_focused?component null
+	showed? <=> suggests_showed? false
+	align_hor \right
+	Anchor $mol_view
+		sub <= anchor_content /
+			<= Query $mol_string
+				value? <=> query? \
+				hint <= hint @ \Search...
+				submit?event <=> submit?event null
+				enabled <= enabled true
+				keyboard <= keyboard \search
+				enter <= enter \search
+				bring => bring
+			<= Clear $mol_button_minor
+				hint @ \Clear
+				enabled <= enabled true
+				click?event <=> clear?event null
+				sub /
+					<= Clear_icon $mol_icon_close
+	bubble_content /$mol_view_content
+		<= Bubble_pane $mol_scroll
+			sub /
+				<= Menu $mol_list
+					rows <= menu_items /$mol_view
+	Suggest* $mol_button_minor
+		click?event <=> suggest_select*?event null
+		sub <= suggest_content* /$mol_view_content
+			<= Suggest_label* $mol_dimmer
+				haystack <= suggest_label* \
+				needle <= query? \
+
+$mol_icon_dots_vertical $mol_icon path \M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z
+
+$mol_select $mol_pick
+	dictionary? *
+	options /string
+	value? \
+	option_label_default \
+	Option_row* $mol_button_minor
+		enabled <= enabled true
+		event_click?event <=> event_select*?event null
+		sub <= option_content* /
+			<= Option_label* $mol_dimmer
+				haystack <= option_label* \
+				needle <= filter_pattern? \
+	No_options $mol_view
+		sub /
+			<= no_options_message @ \No options
+	plugins /
+		^
+		<= Nav $mol_nav
+			keys_y <= nav_components /$mol_view
+			current_y?component <=> option_focused?component null
+			cycle? <=> nav_cycle? true
+	hint @ \Pick..
+	bubble_content /
+		<= Filter
+		<= Bubble_pane $mol_scroll
+			sub /
+				<= Menu $mol_list
+					rows <= menu_content /$mol_view
+	Filter $mol_search
+		query? <=> filter_pattern? \
+		hint <= filter_hint @ \Filter..
+		submit?event <=> submit?event null
+		enabled <= enabled true
+	Trigger_icon $mol_icon_dots_vertical
+
+$mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
+
+$mol_check_expand $mol_check
+	Icon $mol_icon_chevron
+	level 0
+	style *
+		^
+		paddingLeft <= level_style \0px
+	checked? <=> expanded? false
+	enabled <= expandable false
+
+$mol_expander $mol_list
+	rows /
+		<= Label $mol_view
+			sub /
+				<= Trigger $mol_check_expand
+					checked? <=> expanded? false
+					expandable <= expandable true
+					label <= label /
+						<= title
+				<= Tools null
+		<= Content $mol_list
+			rows <= content /
 
 $mol_check_list $mol_view
 	dictionary *
@@ -234,19 +502,6 @@ $mol_check_list $mol_view
 $mol_switch $mol_check_list
 	value? \
 
-$mol_list $mol_view
-	render_visible_only true
-	render_over 0
-	sub <= rows /$mol_view
-	Empty $mol_view
-	Gap_before $mol_view style * paddingTop <= gap_before 0
-	Gap_after $mol_view style * paddingTop <= gap_after 0
-	item_height_min* 1
-	item_width_min* 1
-	view_window /
-		0
-		0
-
 $mol_card $mol_list
 	attr *
 		^
@@ -260,52 +515,7 @@ $mol_card $mol_list
 			sub /
 				<= status_text <= status \
 
-$mol_hotkey $mol_plugin
-	event *
-		^
-		keydown?event <=> keydown?event null
-	key *
-	mod_ctrl false
-	mod_alt false
-	mod_shift false
-
-$mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
-
 $mol_icon_chevron_left $mol_icon path \M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z
-
-$mol_string $mol_view
-	dom_name \input
-	enabled true
-	minimal_height 40
-	autocomplete false
-	selection? /number
-		0
-		0
-	auto /
-		<= selection_watcher null
-		<= error_report null
-	field *
-		^
-		disabled <= disabled false
-		value <= value_changed? <=> value? \
-		placeholder <= hint_visible <= hint \
-		spellcheck <= spellcheck true
-		autocomplete <= autocomplete_native \
-		selectionEnd <= selection_end 0
-		selectionStart <= selection_start 0
-		inputMode <= keyboard \text
-		enterkeyhint <= enter \go
-	attr *
-		^
-		maxlength <= length_max +Infinity
-		type <= type? \text
-	event *
-		^
-		input?event <=> event_change?event null
-	plugins /
-		<= Submit $mol_hotkey
-			mod_ctrl <= submit_with_ctrl false
-			key * enter?event <=> submit?event null
 
 $mol_icon_chevron_right $mol_icon path \M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z
 
@@ -731,8 +941,6 @@ $apxu_samosbor_map_block $mol_view
 $mol_button_major $mol_button_minor
 	theme \$mol_theme_base
 
-$mol_icon_close $mol_icon path \M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z
-
 $mol_icon_pencil $mol_icon path \M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z
 
 $mol_check_icon $mol_check
@@ -753,170 +961,6 @@ $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
 
 $mol_check_box $mol_check
 	Icon $mol_icon_tick
-
-$mol_pop $mol_view
-	showed? false
-	align_vert \
-	align_hor \
-	prefer \vert
-	sub /
-		<= Anchor null
-	sub_visible /
-		<= Anchor
-		<= Bubble $mol_pop_bubble
-			align <= align \bottom_center
-			content <= bubble_content /$mol_view_content
-			height_max <= height_max 9999
-
-$mol_pop_bubble $mol_view
-	sub <= content /$mol_view_content
-	style *
-		^
-		maxHeight <= height_max 9999
-	attr *
-		^
-		mol_pop_align <= align \
-		tabindex 0
-
-$mol_scroll $mol_view
-	scroll_top? 0
-	scroll_left? 0
-	attr *
-		^
-		tabindex <= tabindex -1
-	event *
-		^
-		scroll?event <=> event_scroll?event null
-
-$mol_pick $mol_pop
-	event *
-		^
-		keydown?event <=> keydown?event null
-	Anchor <= Trigger $mol_check
-		minimal_width 40
-		minimal_height 40
-		enabled <= trigger_enabled true
-		checked? <=> showed?
-		clicks? <=> clicks? null
-		sub <= trigger_content /$mol_view_content
-			<= title
-		hint <= hint \
-
-$mol_paragraph $mol_view
-	line_height 24
-	letter_width 7
-	width_limit +Infinity
-	row_width 0
-	sub / <= title
-
-$mol_dimmer $mol_paragraph
-	haystack \
-	needle \
-	sub <= parts /$mol_view_content
-	Low* $mol_paragraph
-		sub /
-			<= string* \
-	High* $mol_paragraph
-		sub /
-			<= string* \
-
-$mol_nav $mol_plugin
-	cycle? false
-	-
-	mod_ctrl false
-	mod_shift false
-	mod_alt false
-	-
-	keys_x? /
-	keys_y? /
-	-
-	current_x? null
-	current_y? null
-	-
-	event_up?event null
-	event_down?event null
-	event_left?event null
-	event_right?event null
-	event *
-		^
-		keydown?event <=> event_key?event null
-
-$mol_search $mol_pop
-	query? \
-	suggests /string
-	plugins /$mol_plugin
-		^
-		<= Hotkey $mol_hotkey
-			key * escape? <=> clear? null
-		<= Nav $mol_nav
-			keys_y <= nav_components /$mol_view
-			current_y?component <=> nav_focused?component null
-	showed? <=> suggests_showed? false
-	align_hor \right
-	Anchor $mol_view
-		sub <= anchor_content /
-			<= Query $mol_string
-				value? <=> query? \
-				hint <= hint @ \Search...
-				submit?event <=> submit?event null
-				enabled <= enabled true
-				keyboard <= keyboard \search
-				enter <= enter \search
-				bring => bring
-			<= Clear $mol_button_minor
-				hint @ \Clear
-				enabled <= enabled true
-				click?event <=> clear?event null
-				sub /
-					<= Clear_icon $mol_icon_close
-	bubble_content /$mol_view_content
-		<= Bubble_pane $mol_scroll
-			sub /
-				<= Menu $mol_list
-					rows <= menu_items /$mol_view
-	Suggest* $mol_button_minor
-		click?event <=> suggest_select*?event null
-		sub <= suggest_content* /$mol_view_content
-			<= Suggest_label* $mol_dimmer
-				haystack <= suggest_label* \
-				needle <= query? \
-
-$mol_icon_dots_vertical $mol_icon path \M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z
-
-$mol_select $mol_pick
-	dictionary? *
-	options /string
-	value? \
-	option_label_default \
-	Option_row* $mol_button_minor
-		enabled <= enabled true
-		event_click?event <=> event_select*?event null
-		sub <= option_content* /
-			<= Option_label* $mol_dimmer
-				haystack <= option_label* \
-				needle <= filter_pattern? \
-	No_options $mol_view
-		sub /
-			<= no_options_message @ \No options
-	plugins /
-		^
-		<= Nav $mol_nav
-			keys_y <= nav_components /$mol_view
-			current_y?component <=> option_focused?component null
-			cycle? <=> nav_cycle? true
-	hint @ \Pick..
-	bubble_content /
-		<= Filter
-		<= Bubble_pane $mol_scroll
-			sub /
-				<= Menu $mol_list
-					rows <= menu_content /$mol_view
-	Filter $mol_search
-		query? <=> filter_pattern? \
-		hint <= filter_hint @ \Filter..
-		submit?event <=> submit?event null
-		enabled <= enabled true
-	Trigger_icon $mol_icon_dots_vertical
 
 $mol_icon_triangle $mol_icon path \M1,21H23L12,2
 
@@ -964,6 +1008,15 @@ $apxu_samosbor_map_block_card_floor $mol_view
 			- submit? <=> floor_submit? null
 
 $apxu_samosbor_map_block_card $mol_view
+	plugins /
+		<= mover $mol_touch
+			allow_draw false
+			allow_zoom false
+			pan? => pan?
+	style *
+		translate <= position_style \
+		- top <= pan_top 0
+		- left <= pan_left 0
 	block $apxu_samosbor_map_block
 		board_floor_value? => board_floor_value?
 		mail_floor_value? => mail_floor_value?
@@ -1031,6 +1084,7 @@ $apxu_samosbor_map_block_card $mol_view
 					Icon <= edit_icon $mol_icon_pencil
 					checked? <=> edit_mode?
 				<= delete_button $mol_button_minor
+					click? <=> delete_block? null
 					sub / <= delete_icon $mol_icon_trash_can_outline
 		<= content $mol_view
 			sub /
@@ -1252,6 +1306,37 @@ $apxu_samosbor_map_app $mol_view
 					text <= person_key \
 				<= map_rights $hyoo_crus_land_rights
 					land <= map_land
+		<= RolesController $mol_expander
+			label / \Роли
+			content /
+				<= CartographerRole $mol_expander
+					label / \Картографы
+					content /
+						<= key_input $mol_bar
+							sub /
+								<= pub_key_string $mol_string
+									value? <=> pub_key_value? \
+								<= submit_key $mol_button_minor
+									click? <=> add_public_key? null
+									sub / <= sumbit_icon $mol_icon_plus
+						^ lords /
+							<= Lord*0 $mol_view
+								sub /
+									<= lord_string* $mol_string
+										hint <= lord_ref* \
+										value? <=> lord_name*? \
+									<= copy_key* $mol_button_copy
+										text <= lord_key* \
+									<= Gift_rank* $mol_select
+										value? <=> gift_rank*? \deny
+										dictionary *
+											deny @ \🛑 Deny
+											read @ \👀 Read
+											join @ \📢 Join
+											post @ \✍ Post
+											rule @ \👑 Rule
+		<= PubKey $mol_button_copy
+			text <= public_key \pub key
 		<= Control_Panel $mol_card
 			sub /
 				<= Control_Switch $mol_switch

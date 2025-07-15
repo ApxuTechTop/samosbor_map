@@ -1,4 +1,9 @@
 {
+	"$apxu_samosbor_map_app_Gift_rank_dictionary_deny": "🛑 Deny",
+	"$apxu_samosbor_map_app_Gift_rank_dictionary_join": "📢 Join",
+	"$apxu_samosbor_map_app_Gift_rank_dictionary_post": "✍ Post",
+	"$apxu_samosbor_map_app_Gift_rank_dictionary_read": "👀 Read",
+	"$apxu_samosbor_map_app_Gift_rank_dictionary_rule": "👑 Rule",
 	"$mol_search_Clear_hint": "Clear",
 	"$mol_search_hint": "Search...",
 	"$mol_select_filter_hint": "Filter..",
