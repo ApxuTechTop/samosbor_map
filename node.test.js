@@ -19349,7 +19349,7 @@ var $;
 (function ($) {
     $.$apxu_samosbor_map_app_gigacluster_ref = "6H1qbbnb_3nEGhBiI";
     $.$apxu_samosbor_map_app_roles_ref = "6H1qbbnb_3nEGhBiI";
-    $.$apxu_samosbor_map_app_my_public_key = "_2Ksi5cPXe4wiT6vrUFLg0iJ1_x9y6zpY5bO4I1bNIINz7cHgATPJwQ08aZLFDc-e6pr8YPX8bymALGR-IbaW8";
+    $.$apxu_samosbor_map_app_my_public_key = "_xrofWptudvecQaEGIikmweIH69LCyGGgtl1JTUbYDkUb4c5QDnIm23WQFp10KQQDH1DJad9-961T5oMsPPpZ4";
 })($ || ($ = {}));
 
 ;
@@ -19432,6 +19432,7 @@ var $;
                 const storage = $hyoo_crus_glob.Node($hyoo_crus_ref($apxu_samosbor_map_app_gigacluster_ref), Gigacluster);
                 const is_admin = storage.ref() === this.$.$hyoo_crus_auth.current().lord();
                 if (is_admin) {
+                    console.log("Apxu rank", storage.land().lord_rank(this.$.$hyoo_crus_auth.current().lord()));
                     storage.land().give($hyoo_crus_auth.from($apxu_samosbor_map_app_my_public_key), $hyoo_crus_rank_rule);
                     storage.land().give(null, $hyoo_crus_rank_join("just"));
                     Roles.global().keys_ranks().map(({ key, rank }) => {
@@ -25701,6 +25702,7 @@ var $;
 (function ($) {
     $.$apxu_samosbor_map_app_gigacluster_ref = "rIuXD13u_MIkær61B";
     $.$apxu_samosbor_map_app_roles_ref = "rIuXD13u_MIkær61B";
+    $.$apxu_samosbor_map_app_my_public_key = "_2Ksi5cPXe4wiT6vrUFLg0iJ1_x9y6zpY5bO4I1bNIINz7cHgATPJwQ08aZLFDc-e6pr8YPX8bymALGR-IbaW8";
 })($ || ($ = {}));
 
 

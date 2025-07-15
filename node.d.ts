@@ -9802,7 +9802,7 @@ declare namespace $ {
 declare namespace $ {
     let $apxu_samosbor_map_app_gigacluster_ref: string;
     let $apxu_samosbor_map_app_roles_ref: string;
-    const $apxu_samosbor_map_app_my_public_key = "_2Ksi5cPXe4wiT6vrUFLg0iJ1_x9y6zpY5bO4I1bNIINz7cHgATPJwQ08aZLFDc-e6pr8YPX8bymALGR-IbaW8";
+    let $apxu_samosbor_map_app_my_public_key: string;
 }
 
 declare namespace $ {
