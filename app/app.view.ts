@@ -207,7 +207,7 @@ namespace $.$$ {
 
 		@$mol_mem_key
 		lord_ref( role: RoleInfo ): string {
-			return role.ref().description!
+			return $hyoo_crus_auth.from(this.lord_key(role)).lord().description!
 		}
 		@$mol_mem_key
 		lord_name( role: RoleInfo, next?: string ): string {
