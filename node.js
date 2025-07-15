@@ -19584,9 +19584,9 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$apxu_samosbor_map_app_gigacluster_ref = "6H1qbbnb_3nEGhBiI";
-    $.$apxu_samosbor_map_app_roles_ref = "6H1qbbnb_3nEGhBiI";
-    $.$apxu_samosbor_map_app_my_public_key = "_xrofWptudvecQaEGIikmweIH69LCyGGgtl1JTUbYDkUb4c5QDnIm23WQFp10KQQDH1DJad9-961T5oMsPPpZ4";
+    $.$apxu_samosbor_map_app_gigacluster_ref = "MTrHG0xQ_1vO5NBzk";
+    $.$apxu_samosbor_map_app_roles_ref = "MTrHG0xQ_1vO5NBzk";
+    $.$apxu_samosbor_map_app_my_public_key = "_3QxOscbTFDW87k0HOTD-LjjF-n0RFl-0XPcr6-pYbw4s_DXPzwqRJMkE9gzW8JrgmBmk5M6kNpIy0WZ1ZxxsE";
 })($ || ($ = {}));
 
 ;
