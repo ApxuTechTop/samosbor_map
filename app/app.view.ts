@@ -76,11 +76,15 @@ namespace $.$$ {
 			const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( $apxu_samosbor_map_app_gigacluster_ref ), Gigacluster ) // используем мой home
 			const is_admin = storage.ref() === this.$.$hyoo_crus_auth.current().lord()
 			if( is_admin ) {
-				storage.land().give($hyoo_crus_auth.from($apxu_samosbor_map_app_my_public_key), $hyoo_crus_rank_rule)
+				storage.land().give( $hyoo_crus_auth.from( $apxu_samosbor_map_app_my_public_key ), $hyoo_crus_rank_rule )
 				storage.land().give( null, $hyoo_crus_rank_join( "just" ) )
 				Roles.global().keys_ranks().map( ( { key, rank } ) => {
 					if( storage.land().lord_rank( $hyoo_crus_auth.current().lord() ) >= $hyoo_crus_rank_rule ) {
-						storage.land().lord_rank( $hyoo_crus_auth.from( key ).lord(), rank )
+						try {
+							storage.land().lord_rank( $hyoo_crus_auth.from( key ).lord(), rank )
+						} catch( e ) {
+							console.error( e )
+						}
 					} else {
 						console.log( "CAN NOT SET RANK", storage.land(), $hyoo_crus_auth.current().lord(), storage.land().lord_rank( $hyoo_crus_auth.current().lord() ) )
 					}
@@ -90,7 +94,12 @@ namespace $.$$ {
 			storage.blocks()?.map( ( block ) => {
 				Roles.global().keys_ranks().map( ( { key, rank } ) => {
 					if( block.land().lord_rank( $hyoo_crus_auth.current().lord() ) >= $hyoo_crus_rank_rule ) {
-						block.land().lord_rank( $hyoo_crus_auth.from( key ).lord(), rank )
+						try {
+							block.land().lord_rank( $hyoo_crus_auth.from( key ).lord(), rank )
+						} catch( e ) {
+							console.error( e )
+						}
+
 					} else {
 						console.log( "CAN NOT SET RANK", storage.land(), $hyoo_crus_auth.current().lord(), storage.land().lord_rank( $hyoo_crus_auth.current().lord() ) )
 					}
