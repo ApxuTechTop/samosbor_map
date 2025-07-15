@@ -168,6 +168,19 @@ $apxu_samosbor_map_icon_postal $mol_icon
 	path \M17.3 20.4V22.8C17.3 23.14 17.185 23.425 16.955 23.655C16.725 23.885 16.44 24 16.1 24H1.7C1.36 24 1.075 23.885 0.845 23.655C0.615 23.425 0.5 23.14 0.5 22.8V13.2C0.5 12.86 0.615 12.575 0.845 12.345C1.075 12.115 1.36 12 1.7 12H5.3V7.2C5.3 5.2 6 3.5 7.4 2.1C8.8 0.7 10.5 0 12.5 0H17.3C19.3 0 21 0.7 22.4 2.1C23.8 3.5 24.5 5.2 24.5 7.2V20.4H17.3ZM17.3 18H22.1V7.2C22.1 5.88 21.63 4.75 20.69 3.81C19.75 2.87 18.62 2.4 17.3 2.4H12.5C11.18 2.4 10.05 2.87 9.11 3.81C8.17 4.75 7.7 5.88 7.7 7.2V12H16.1C16.44 12 16.725 12.115 16.955 12.345C17.185 12.575 17.3 12.86 17.3 13.2V18ZM10.1 9.6V7.2H19.7V9.6H10.1ZM8.9 17.82L14.9 14.4H2.9L8.9 17.82ZM8.9 19.92L2.9 16.5V21.6H14.9V16.5L8.9 19.92Z
 	view_box \0 0 25 24
 
+$mol_list $mol_view
+	render_visible_only true
+	render_over 0
+	sub <= rows /$mol_view
+	Empty $mol_view
+	Gap_before $mol_view style * paddingTop <= gap_before 0
+	Gap_after $mol_view style * paddingTop <= gap_after 0
+	item_height_min* 1
+	item_width_min* 1
+	view_window /
+		0
+		0
+
 $mol_hotkey $mol_plugin
 	event *
 		^
@@ -250,25 +263,17 @@ $mol_button_typed $mol_button
 
 $mol_button_minor $mol_button_typed
 
-$mol_bar $mol_view
+$mol_avatar $mol_icon
+	view_box \0 0 24 24
+	id \
+	path \M 12 12 l 0 0 M 0 0 l 0 0 M 24 24 l 0 0 M 0 24 l 0 0 M 24 0 l 0 0
 
-$mol_icon_clipboard $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3
-
-$mol_icon_clipboard_outline $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7Z
-
-$mol_button_copy $mol_button_minor
-	blobs /$mol_blob
-		<= text_blob? $mol_blob /
-			/BlobPart <= text <= title
-			* type \text/plain
-		<= html_blob? $mol_blob /
-			/BlobPart <= html \
-			* type \text/html
-	data *
-	sub /
-		<= Icon $mol_icon_clipboard_outline
-		<= title \
-
+$mol_paragraph $mol_view
+	line_height 24
+	letter_width 7
+	width_limit +Infinity
+	row_width 0
+	sub / <= title
 
 $mol_pop $mol_view
 	showed? false
@@ -331,13 +336,6 @@ $mol_pick $mol_pop
 			<= title
 		hint <= hint \
 
-$mol_paragraph $mol_view
-	line_height 24
-	letter_width 7
-	width_limit +Infinity
-	row_width 0
-	sub / <= title
-
 $mol_dimmer $mol_paragraph
 	haystack \
 	needle \
@@ -369,19 +367,6 @@ $mol_nav $mol_plugin
 	event *
 		^
 		keydown?event <=> event_key?event null
-
-$mol_list $mol_view
-	render_visible_only true
-	render_over 0
-	sub <= rows /$mol_view
-	Empty $mol_view
-	Gap_before $mol_view style * paddingTop <= gap_before 0
-	Gap_after $mol_view style * paddingTop <= gap_after 0
-	item_height_min* 1
-	item_width_min* 1
-	view_window /
-		0
-		0
 
 $mol_icon_close $mol_icon path \M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z
 
@@ -461,6 +446,54 @@ $mol_select $mol_pick
 		submit?event <=> submit?event null
 		enabled <= enabled true
 	Trigger_icon $mol_icon_dots_vertical
+
+$hyoo_crus_land_rights $mol_list
+	land $hyoo_crus_land
+	rows /
+		<= Add $mol_view sub /
+			<= Add_key $mol_string
+				hint @ \Public key
+				value? <=> add_key? \
+				submit? <=> add_commit? null
+			<= Add_commit $mol_button_minor
+				click? <=> add_commit? null
+				sub /
+					<= Add_commit_icon $mol_icon_plus
+		^ gifts /
+			<= Gift*0 $mol_view sub /
+				<= Gift_peer* $mol_view sub /
+					<= Gift_avatar* $mol_avatar
+						id <= peer_id* \
+					<= Gift_name* $mol_paragraph
+						title <= peer_name* \
+				<= Gift_rank* $mol_select
+					value? <=> gift_rank*? \deny
+					dictionary *
+						deny @ \🛑 Deny
+						read @ \👀 Read
+						join @ \📢 Join
+						post @ \✍ Post
+						rule @ \👑 Rule
+
+$mol_bar $mol_view
+
+$mol_icon_clipboard $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3
+
+$mol_icon_clipboard_outline $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7Z
+
+$mol_button_copy $mol_button_minor
+	blobs /$mol_blob
+		<= text_blob? $mol_blob /
+			/BlobPart <= text <= title
+			* type \text/plain
+		<= html_blob? $mol_blob /
+			/BlobPart <= html \
+			* type \text/html
+	data *
+	sub /
+		<= Icon $mol_icon_clipboard_outline
+		<= title \
+
 
 $mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
 
@@ -1311,6 +1344,8 @@ $apxu_samosbor_map_app $mol_view
 		<= RolesController $mol_expander
 			label / \Роли
 			content /
+				<= Right $hyoo_crus_land_rights
+					land <= map_land null
 				<= CartographerRole $mol_expander
 					label / \Картографы
 					content /
