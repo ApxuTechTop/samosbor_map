@@ -19388,7 +19388,12 @@ var $;
                     storage.land().give(null, $hyoo_crus_rank_join("just"));
                     Roles.global().keys_ranks().map(({ key, rank }) => {
                         if (storage.land().lord_rank($hyoo_crus_auth.current().lord()) >= $hyoo_crus_rank_rule) {
-                            storage.land().lord_rank($hyoo_crus_auth.from(key).lord(), rank);
+                            try {
+                                storage.land().lord_rank($hyoo_crus_auth.from(key).lord(), rank);
+                            }
+                            catch (e) {
+                                console.error(e);
+                            }
                         }
                         else {
                             console.log("CAN NOT SET RANK", storage.land(), $hyoo_crus_auth.current().lord(), storage.land().lord_rank($hyoo_crus_auth.current().lord()));
@@ -19398,7 +19403,12 @@ var $;
                 storage.blocks()?.map((block) => {
                     Roles.global().keys_ranks().map(({ key, rank }) => {
                         if (block.land().lord_rank($hyoo_crus_auth.current().lord()) >= $hyoo_crus_rank_rule) {
-                            block.land().lord_rank($hyoo_crus_auth.from(key).lord(), rank);
+                            try {
+                                block.land().lord_rank($hyoo_crus_auth.from(key).lord(), rank);
+                            }
+                            catch (e) {
+                                console.error(e);
+                            }
                         }
                         else {
                             console.log("CAN NOT SET RANK", storage.land(), $hyoo_crus_auth.current().lord(), storage.land().lord_rank($hyoo_crus_auth.current().lord()));
