@@ -18714,7 +18714,7 @@ var $;
     var $$;
     (function ($$) {
         class $apxu_samosbor_map_block_card_touch extends $.$apxu_samosbor_map_block_card_touch {
-            event_coords(event) {
+            event_coords2(event) {
                 return new $mol_vector_2d(Math.round(event.pageX), Math.round(event.pageY));
             }
             event_move(event) {

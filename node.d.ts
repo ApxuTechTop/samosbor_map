@@ -9762,7 +9762,7 @@ declare namespace $ {
 //# sourceMappingURL=card.view.tree.d.ts.map
 declare namespace $.$$ {
     class $apxu_samosbor_map_block_card_touch extends $.$apxu_samosbor_map_block_card_touch {
-        event_coords(event: PointerEvent | WheelEvent): $mol_vector_2d<number>;
+        event_coords2(event: PointerEvent | WheelEvent): $mol_vector_2d<number>;
         event_move(event: PointerEvent): void;
     }
     class $apxu_samosbor_map_block_card_place extends $.$apxu_samosbor_map_block_card_place {
