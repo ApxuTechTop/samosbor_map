@@ -18,12 +18,6 @@
 	pack samosbor git \https://github.com/ApxuTechTop/samosbor
 \/apxu/samosbor
 	pack map git \https://github.com/ApxuTechTop/samosbor_map.git
-\/mol
-	pack icon git \https://github.com/nin-jin/mol_icon.git
-\/mol/view
-	include \/mol/view/tree/test
-\/apxu/samosbor/map
-	deploy \apxu/samosbor/map/icons/copy.svg
 \/hyoo
 	pack about git \https://github.com/hyoo-ru/about.hyoo.ru.git
 	pack artist git \https://github.com/hyoo-ru/artist.hyoo.ru.git
@@ -89,3 +83,9 @@
 	pack home git \https://github.com/hyoo-ru/hyoo.ru.git
 	pack idea git \https://github.com/hyoo-ru/idea.hyoo.ru.git
 	pack intern git \https://github.com/hyoo-ru/intern.hyoo.ru.git
+\/mol
+	pack icon git \https://github.com/nin-jin/mol_icon.git
+\/mol/view
+	include \/mol/view/tree/test
+\/apxu/samosbor/map
+	deploy \apxu/samosbor/map/icons/copy.svg
