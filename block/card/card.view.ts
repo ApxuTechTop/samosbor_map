@@ -135,7 +135,13 @@ namespace $.$$ {
 			return val
 		}
 	}
-
+	const flight_type_map: {
+		[ key in typeof FlightType.options[ number ] ]: typeof FlightType.options[ number ]
+	} = {
+		stairs: "elevator",
+		elevator: "ladder_elevator",
+		ladder_elevator: "stairs"
+	}
 	export class $apxu_samosbor_map_block_card extends $.$apxu_samosbor_map_block_card {
 		@$mol_action
 		delete_block( next?: any ) {
@@ -170,12 +176,41 @@ namespace $.$$ {
 			const str = `${ pan[ 0 ] }px ${ pan[ 1 ] }px`
 			return str
 		}
+		@$mol_mem
 		left_flight_icons(): readonly ( any )[] {
-			return [ this.flight_icons( "left" )[ "elevator" ] ]
+			const flight_type = this.block().block_data().left_flight_type()
+			const flight_icon_map: { [ flight_type in typeof flight_type ]: $mol_icon[] } = {
+				"elevator": [ this.flight_icons( "left" )[ "elevator" ] ],
+				"ladder_elevator": [ this.flight_icons( "left" )[ "elevator" ], this.flight_icons( "left" )[ "ladder_icon" ] ],
+				"stairs": [ this.flight_icons( "left" )[ "stairs" ] ]
+			}
+			return flight_icon_map[ flight_type ]
 		}
+		@$mol_action
+		left_flight_click() {
+			if( !this.edit_mode() ) return
+			const current_flight_type = this.block().block_data().left_flight_type()
+			const next_flight_type = flight_type_map[ current_flight_type ]
+			this.block().block_data().left_flight_type( next_flight_type )
+		}
+		@$mol_mem
 		right_flight_icons(): readonly ( any )[] {
-			return [ this.flight_icons( "right" )[ "stairs" ] ]
+			const flight_type = this.block().block_data().right_flight_type()
+			const flight_icon_map: { [ flight_type in typeof flight_type ]: $mol_icon[] } = {
+				"elevator": [ this.flight_icons( "right" )[ "elevator" ] ],
+				"ladder_elevator": [ this.flight_icons( "right" )[ "elevator" ], this.flight_icons( "right" )[ "ladder_icon" ] ],
+				"stairs": [ this.flight_icons( "right" )[ "stairs" ] ]
+			}
+			return flight_icon_map[ flight_type ]
 		}
+		@$mol_action
+		right_flight_click() {
+			if( !this.edit_mode() ) return
+			const current_flight_type = this.block().block_data().right_flight_type()
+			const next_flight_type = flight_type_map[ current_flight_type ]
+			this.block().block_data().right_flight_type( next_flight_type )
+		}
+		@$mol_mem
 		current_flight(): readonly ( any )[] {
 			const side_flights = [ this.left_flight_view(), this.right_flight_view() ]
 			return this.is_middle_flight() ? [ this.middle_flight_view ] : side_flights

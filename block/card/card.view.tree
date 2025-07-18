@@ -67,11 +67,15 @@ $apxu_samosbor_map_block_card $mol_view
 	is_middle_flight? false
 	block_direction? \up
 	left_flight_view $mol_view
+		event *
+			click? <=> left_flight_click? null
 		sub /
 			<= left_flight_arrow $apxu_samosbor_map_icon_arrow_left
 			^ left_flight_icons /
 	middle_flight_view $mol_view
 	right_flight_view $mol_view
+		event *
+			click? <=> right_flight_click? null
 		sub /
 			^ right_flight_icons /
 			<= right_flight_arrow $apxu_samosbor_map_icon_arrow_right
@@ -158,12 +162,16 @@ $apxu_samosbor_map_block_card $mol_view
 								<= flights $mol_view
 									sub /
 										<= flight_left_button $apxu_samosbor_map_block_card_flight_button
+											minimal_width 19
+											minimal_height 28
 											edit_mode <= edit_mode 
 											sub / <= flight_left_icon $mol_icon_chevron_left
 										<= flight_view $mol_view
 											sub /
 												^ current_flight /
 										<= flight_right_button $apxu_samosbor_map_block_card_flight_button
+											minimal_width 19
+											minimal_height 28
 											edit_mode <= edit_mode 
 											sub / <= flight_right_icon $mol_icon_chevron_right
 						<= block_buttons $mol_view
