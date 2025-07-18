@@ -725,6 +725,7 @@ namespace $.$$ {
 		}
 		@$mol_action
 		fence_click( event?: PointerEvent ) {
+			if( !this.edit_mode() ) return
 			event?.stopImmediatePropagation()
 			event?.preventDefault()
 			this.block_data().FloorsData( null )?.key( this.current_floor() ).set_next_fence_type()
