@@ -16522,6 +16522,11 @@ var $;
 			const obj = new this.$.$apxu_samosbor_map_gigacluster();
 			return obj;
 		}
+		block_data(next){
+			if(next !== undefined) return next;
+			const obj = new this.$.$apxu_samosbor_map_block_data();
+			return obj;
+		}
 		edit_mode(next){
 			if(next !== undefined) return next;
 			return false;
@@ -16533,10 +16538,6 @@ var $;
 		connect_mode(next){
 			if(next !== undefined) return next;
 			return false;
-		}
-		block_data(next){
-			if(next !== undefined) return next;
-			return null;
 		}
 		block_layer(next){
 			if(next !== undefined) return next;
@@ -16792,10 +16793,10 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "content"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "map"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "gigacluster"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_data"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "edit_mode"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "create_mode"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "connect_mode"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_data"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_layer"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "current_layer"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "board_floor_value"));
@@ -19640,6 +19641,9 @@ var $;
                 const icons = this.place_icons();
                 return icons[id];
             }
+            block_type_value(next) {
+                return this.block().block_data().block_type(next);
+            }
             other_places() {
                 const places = [];
                 const other_place_types = ["postal", "laundry", "gym",
@@ -19712,6 +19716,9 @@ var $;
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block_card.prototype, "balcony_view", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "block_type_value", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block_card.prototype, "other_places", null);

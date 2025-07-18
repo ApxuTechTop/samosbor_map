@@ -9227,10 +9227,10 @@ declare namespace $ {
 		content( ): $mol_view
 		map( ): $apxu_samosbor_map
 		gigacluster( ): $apxu_samosbor_map_gigacluster
+		block_data( next?: $apxu_samosbor_map_block_data ): $apxu_samosbor_map_block_data
 		edit_mode( next?: boolean ): boolean
 		create_mode( next?: boolean ): boolean
 		connect_mode( next?: boolean ): boolean
-		block_data( next?: any ): any
 		block_layer( next?: number ): number
 		current_layer( next?: number ): number
 		board_floor_value( next?: number | null ): number | null
@@ -10502,7 +10502,7 @@ declare namespace $.$$ {
         delete_block(next?: any): void;
         edit_button_visible(): $mol_check_icon[];
         delete_button_visible(): $mol_button_minor[];
-        block_land(): any;
+        block_land(): $hyoo_crus_land;
         rights_visible(): readonly (any)[];
         position_style(): string;
         left_flight_icons(): readonly (any)[];
@@ -10525,6 +10525,7 @@ declare namespace $.$$ {
         floor_view(what: any): $apxu_samosbor_map_block_card_floor | null;
         balcony_view(): ($mol_check_box | null)[];
         place_icon(id: typeof PlaceType.options[number]): never;
+        block_type_value(next?: typeof BlockType.options[number]): string;
         other_places(): $mol_view[];
     }
 }
