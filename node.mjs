@@ -20005,7 +20005,7 @@ var $;
             }
             is_editor() {
                 const role = this.current_map().roles().lord_role(this.$.$hyoo_crus_auth.current().public().toString());
-                return role === "cartographer" || role === "researcher";
+                return role === "cartographer" || role === "researcher" || this.is_admin();
             }
             role_controller_visible() {
                 if (this.is_admin()) {
