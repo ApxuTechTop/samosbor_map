@@ -686,6 +686,14 @@ namespace $.$$ {
 			return this.place_floors( "hospital" ).length > 0
 		}
 		@$mol_mem
+		has_party_place() {
+			return this.place_floors( "party" ).length > 0
+		}
+		@$mol_mem
+		has_theatre_place() {
+			return this.place_floors( "theatre" ).length > 0
+		}
+		@$mol_mem
 		has_safe_place() {
 			return this.safe_floors().length > 0
 		}
@@ -696,8 +704,13 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		laundry_place() {
-			return this.has_laundry_place() ? this.laundry_icon() : null
+		party_place() {
+			return this.has_party_place() ? this.party_icon() : null
+		}
+
+		@$mol_mem
+		theatre_place() {
+			return this.has_theatre_place() ? this.theatre_icon() : null
 		}
 
 		@$mol_mem

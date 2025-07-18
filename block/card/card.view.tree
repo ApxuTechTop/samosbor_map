@@ -99,8 +99,15 @@ $apxu_samosbor_map_block_card $mol_view
 		theatre <= icon_theatre $apxu_samosbor_map_icon_theatre
 		hospital <= icon_hospital $apxu_samosbor_map_icon_hospital
 		party <= icon_party $apxu_samosbor_map_icon_party
-		gym <= icon_party $apxu_samosbor_map_icon_party
-		overview <= icon_party $apxu_samosbor_map_icon_party
+		gym <= icon_gym $apxu_samosbor_map_icon_gym
+		overview <= icon_overview $apxu_samosbor_map_icon_overview
+		racing <= icon_racing $apxu_samosbor_map_icon_racing
+		hockey <= icon_hockey $apxu_samosbor_map_icon_hockey
+		spleef <= icon_spleef $apxu_samosbor_map_icon_spleef
+		pool <= icon_pool $apxu_samosbor_map_icon_pool
+		warehouse <= icon_warehouse $apxu_samosbor_map_icon_warehouse
+		postal <= icon_postal $apxu_samosbor_map_icon_postal
+		laundry <= icon_laundry $apxu_samosbor_map_icon_laundry
 	place_floor* $apxu_samosbor_map_block_card_place
 		floors <= place_floors* /
 		icon <= place_icon* $mol_icon
@@ -293,13 +300,15 @@ $apxu_samosbor_map_block_card $mol_view
 							enabled <= edit_mode
 							add_floor? <=> add_place*hospital? null
 							remove_floor* <=> remove_place* null
-						<= laundrys $apxu_samosbor_map_block_card_place
+						<= place_floor*party
+						<= place_floor*theatre
+						- <= laundrys $apxu_samosbor_map_block_card_place
 							floors <= place_floors*laundry /
 							icon <= laundry_icon $apxu_samosbor_map_icon_laundry
 							enabled <= edit_mode
 							add_floor? <=> add_place*laundry? null
 							remove_floor* <=> remove_place* null
-						<= postals $apxu_samosbor_map_block_card_place
+						- <= postals $apxu_samosbor_map_block_card_place
 							floors <= place_floors*postal /
 							icon <= postal_icon $apxu_samosbor_map_icon_postal
 							enabled <= edit_mode

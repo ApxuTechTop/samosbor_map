@@ -292,7 +292,7 @@ namespace $.$$ {
 		@$mol_mem
 		other_places() {
 			const places: $mol_view[] = []
-			const other_place_types = [ "theatre", "party", "gym",
+			const other_place_types = [ "postal", "laundry", "gym",
 				"overview", "racing", "hockey",
 				"spleef", "pool", "warehouse" ]
 

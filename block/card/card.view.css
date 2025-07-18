@@ -46,7 +46,8 @@
 
 	&>* {
 		border-bottom: 3px solid var(--main-color);
-		padding: 5px;
+		padding-top: 5px;
+		padding-bottom: 5px;
 		width: 100%;
 		justify-content: center;
 	}
@@ -337,6 +338,7 @@
 [apxu_samosbor_map_block_card_features] {
 	gap: 15px;
 	flex-wrap: wrap;
+	justify-content: flex-start;
 }
 
 [apxu_samosbor_map_block_card_rights] {
