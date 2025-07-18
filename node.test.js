@@ -19971,8 +19971,8 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$apxu_samosbor_map_app_storage_ref = "";
-    $.$apxu_samosbor_map_app_my_public_key = "_3QxOscbTFDW87k0HOTD-LjjF-n0RFl-0XPcr6-pYbw4s_DXPzwqRJMkE9gzW8JrgmBmk5M6kNpIy0WZ1ZxxsE";
+    $.$apxu_samosbor_map_app_storage_ref = "QmLw5lJT_3uA1hzjn";
+    $.$apxu_samosbor_map_app_my_public_key = "_-lCYvDmUlPe4DWHOOeJ7BFeIEJuI-lHCJept_u19SAUWGIg-uRgUgcxEHw-wSCL6deScK98QcwnFBEKVKpD-Q";
 })($ || ($ = {}));
 
 ;
