@@ -34,10 +34,10 @@ $apxu_samosbor_map_block_middle_flight $mol_view
 $apxu_samosbor_map_block $mol_view
 	map $apxu_samosbor_map
 	gigacluster $apxu_samosbor_map_gigacluster
+	block_data? $apxu_samosbor_map_block_data
 	edit_mode? false
 	create_mode? false
 	connect_mode? false
-	block_data? null
 	block_layer? 0
 	current_layer? 0
 	min_floor? 0

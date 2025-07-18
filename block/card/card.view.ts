@@ -139,7 +139,7 @@ namespace $.$$ {
 	export class $apxu_samosbor_map_block_card extends $.$apxu_samosbor_map_block_card {
 		@$mol_action
 		delete_block( next?: any ) {
-			const data = this.block().block_data() as $apxu_samosbor_map_block_data
+			const data = this.block().block_data()
 			this.gigacluster().delete_block( data.ref() )
 		}
 
@@ -287,6 +287,11 @@ namespace $.$$ {
 		place_icon( id: typeof PlaceType.options[ number ] ) {
 			const icons = this.place_icons()
 			return icons[ id as any as keyof typeof this.place_icons ]
+		}
+
+		@$mol_mem
+		block_type_value( next?: typeof BlockType.options[ number ] ): string {
+			return this.block().block_data().block_type( next )
 		}
 
 		@$mol_mem
