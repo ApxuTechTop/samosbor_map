@@ -15057,11 +15057,15 @@ var $;
             drag_start(event) {
                 this.start_event = event;
                 this.start_pos = { x: this.x(), y: this.y() };
+                event.stopImmediatePropagation();
+                event.preventDefault();
+                this.dom_node().setPointerCapture(event.pointerId);
                 this.moving(true);
                 this.on_drag_start(event);
             }
             drag(event) {
-                console.log("drag");
+                event.stopImmediatePropagation();
+                event.preventDefault();
                 this.x(this.start_pos.x + this.delta_x(event.x - this.start_event.x));
                 this.y(this.start_pos.y + this.delta_y(event.y - this.start_event.y));
                 this.on_drag(event);
@@ -15069,6 +15073,7 @@ var $;
             drag_end(event) {
                 this.moving(false);
                 this.on_drag_end(event);
+                this.dom_node().releasePointerCapture(event.pointerId);
             }
             pointerdown(event) {
                 this.drag_start(event);
