@@ -17,7 +17,7 @@ namespace $.$$ {
 		@$mol_mem
 		is_editor() {
 			const role = this.current_map().roles().lord_role( this.$.$hyoo_crus_auth.current().public().toString() )
-			return role === "cartographer" || role === "researcher" // TODO
+			return role === "cartographer" || role === "researcher" || this.is_admin() // TODO
 		}
 		@$mol_mem
 		role_controller_visible(): readonly ( any )[] {
