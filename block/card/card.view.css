@@ -338,3 +338,10 @@
 	gap: 15px;
 	flex-wrap: wrap;
 }
+
+[apxu_samosbor_map_block_card_rights] {
+	position: absolute;
+	top: 100%;
+	left: auto;
+	right: auto
+}

@@ -417,8 +417,9 @@ namespace $.$$ {
 			const new_block_name = `N-${ Math.floor( Math.random() * 100 ) }`
 			const block_name = this.block_name()
 			const floor_num = this.current_floor()
-
-			const trans = Gigacluster.transition( block_name, floor_num, position )
+			console.log( this, this.gigacluster(), this.block_data() )
+			const trans = this.gigacluster().transition( this.block_data(), floor_num, position )
+			console.log( trans )
 			if( this.connect_mode() ) {
 				this.on_connection_select( position )
 			}
@@ -438,7 +439,8 @@ namespace $.$$ {
 			console.log( offset )
 			const pos_x = Math.round( ( this.pos_x() + offset.x - new_offset.x ) )
 			const pos_y = Math.round( ( this.pos_y() + offset.y - new_offset.y ) )
-			const new_block_node = Gigacluster.create_block()
+			const new_block_node = this.gigacluster().create_block()
+			console.log( new_block_node )
 			if( !new_block_node ) return
 			// new_block_node.up_left_passage_type( 0, "normal" )
 			// this.block_data().connect( this.current_floor(), position, new_block_node, 0, "up_left" )

@@ -9,6 +9,7 @@ $apxu_samosbor_map_app $mol_view
 		edit_mode? <= is_configure_mode false
 		selected <= block_selected* true
 		connect_mode? <= is_connect_mode false
+		gigacluster <= gigacluster $apxu_samosbor_map_gigacluster
 	BlockCard* $apxu_samosbor_map_block_card
 		block_name? <=> selected_block_name*? \
 		max_floor? <=> max_floor*? 0
@@ -18,6 +19,9 @@ $apxu_samosbor_map_app $mol_view
 		pos_y? <=> pos_y_value*? 0
 		block_layer? <=> layer_value*? 0
 		block <= Block*
+		is_admin <= is_admin false
+		is_editor <= is_editor false
+		gigacluster <= gigacluster $apxu_samosbor_map_gigacluster
 	Transition* $mol_view
 		attr *
 			direction <= transition_direction* \vertical
@@ -32,12 +36,36 @@ $apxu_samosbor_map_app $mol_view
 					text <= person_key \
 				<= map_rights $hyoo_crus_land_rights
 					land <= map_land
-		<= RolesController $mol_expander
+		^ role_controller_visible / <= RolesController $mol_expander
 			label / \Роли
 			content /
 				<= Right $hyoo_crus_land_rights
-					land <= map_land null
-				<= CartographerRole $mol_expander
+					land <= gigacluster_land null
+				<= key_input $mol_bar
+					sub /
+						<= pub_key_string $mol_string
+							value? <=> pub_key_value? \
+						<= submit_key $mol_button_minor
+							click? <=> add_public_key? null
+							sub / <= sumbit_icon $mol_icon_plus
+				<= LordsList $mol_list
+					rows /
+						^ lord_selects /
+							<= LordRole*0 $mol_bar
+								sub /
+									<= lord_name* $mol_string
+										hint <= lord_ref_value* \
+										value? <=> lord_description*? \
+									<= lord_ref_copy* $mol_button_copy
+										text <= lord_ref_value* \
+									<= role_select* $mol_select
+										value? <=> lord_role_value*? \traveler
+										dictionary *
+											no_role \Нет роли
+											cartographer \Картограф
+											researcher \Исследователь
+											traveler \Путник
+				- <= CartographerRole $mol_expander
 					label / \Картографы
 					content /
 						<= key_input $mol_bar
@@ -50,9 +78,6 @@ $apxu_samosbor_map_app $mol_view
 						^ lords /
 							<= Lord*0 $mol_view
 								sub /
-									<= lord_string* $mol_string
-										hint <= lord_ref* \
-										value? <=> lord_name*? \
 									<= copy_key* $mol_button_copy
 										text <= lord_key* \
 									<= Gift_rank* $mol_select
@@ -65,7 +90,7 @@ $apxu_samosbor_map_app $mol_view
 											rule @ \👑 Rule
 		<= PubKey $mol_button_copy
 			text <= public_key \pub key
-		<= Control_Panel $mol_card
+		^ control_panel_visible / <= Control_Panel $mol_card
 			sub /
 				<= Control_Switch $mol_switch
 					value? <=> control_type? \
@@ -147,3 +172,12 @@ $apxu_samosbor_map_app $mol_view
 					items /
 						^ blocks /
 						- ^ transitions /
+						- <= test_item $mol_button_minor
+							enabled false
+							plugins /
+								<= test_mover $mol_touch
+									allow_zoom false
+									allow_draw false
+									pan => test_pan
+							style *
+								translate <= test_translate \

@@ -35,7 +35,6 @@ namespace $.$$ {
 			if( action_type === 'pan' ) {
 
 				this.dom_node().setPointerCapture( event.pointerId )
-				console.log( start_pan[ 0 ], pos[ 0 ], start_pos[ 0 ] )
 				this.pan(
 					new $mol_vector_2d(
 						start_pan[ 0 ] + pos[ 0 ] - start_pos[ 0 ],
@@ -141,17 +140,29 @@ namespace $.$$ {
 		@$mol_action
 		delete_block( next?: any ) {
 			const data = this.block().block_data() as $apxu_samosbor_map_block_data
-			Gigacluster.delete_block( data.ref() )
+			this.gigacluster().delete_block( data.ref() )
 		}
-		// @$mol_mem
-		// pan_left(): number {
-		// 	return this.pan()[ 0 ]
-		// }
-		// @$mol_mem
-		// pan_top() {
-		// 	return this.pan()[ 1 ]
-		// }
 
+		@$mol_mem
+		edit_button_visible() {
+			return this.is_editor() ? [ this.edit_button() ] : []
+		}
+		@$mol_mem
+		delete_button_visible() {
+			return this.is_editor() ? [ this.delete_button() ] : []
+		}
+
+		@$mol_mem
+		block_land() {
+			return this.block().block_data().land()
+		}
+
+		@$mol_mem
+		rights_visible(): readonly ( any )[] {
+			const is_admin = this.is_admin()
+			if( is_admin ) return [ this.rights() ]
+			return []
+		}
 
 		@$mol_mem
 		position_style(): string {
@@ -188,7 +199,6 @@ namespace $.$$ {
 		@$mol_mem
 		safe_floors() {
 			const safe_floors = this.block().safe_floors()
-			console.log( safe_floors )
 			return safe_floors
 		}
 		@$mol_mem_key
@@ -228,7 +238,6 @@ namespace $.$$ {
 
 		@$mol_action
 		move_click( dir: DirectionType, event?: any ) {
-			console.log( dir, event )
 			const pos_map: { [ dir in DirectionType ]: { x: number, y: number } } = {
 				up: { x: 0, y: -1 },
 				right: { x: 1, y: 0 },

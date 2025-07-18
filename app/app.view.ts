@@ -1,233 +1,96 @@
 namespace $.$$ {
 
-	// export const $apxu_samosbor_map_app_cart_role = $apxu_role.make( {} )
-	// $apxu_samosbor_map_app_cart_role.name( "cartographer" )
-	// export const $apxu_samosbor_map_app_researcher_role = $apxu_role.expand( $apxu_samosbor_map_app_cart_role )
-	// $apxu_samosbor_map_app_researcher_role.name( "researcher" )
-	// $apxu_samosbor_map_app_cart_role.only_rank( $hyoo_crus_rank_post( "just" ) )
-	// $apxu_samosbor_map_app_cart_role.public_keys( [ ...$apxu_samosbor_map_app_cart_role.public_keys(), "_0aFYgTVXCq0RF70bPZjO4DByGc2IwQsdhnX-T_0SwklMYOem_ml3Fq5ohkpTYtacibnawDxY5YytCrM8NfICU" ] )
-	// console.log( "PUBLIC KEYS", $apxu_samosbor_map_app_cart_role.public_keys() )
-	// $apxu_samosbor_map_app_cart_role.ruler( "_2Ksi5cPXe4wiT6vrUFLg0iJ1_x9y6zpY5bO4I1bNIINz7cHgATPJwQ08aZLFDc-e6pr8YPX8bymALGR-IbaW8" )
-
-	export class RoleInfo extends $hyoo_crus_dict.with( {
-		Key: $hyoo_crus_atom_str,
-		Name: $hyoo_crus_atom_str,
-		Rank: $hyoo_crus_atom_int,
-	} ) {
-
-	}
-	export class Roles extends $hyoo_crus_home.with( {
-		Cartographers: $hyoo_crus_list_ref_to( () => RoleInfo )
-	} ) {
-		@$mol_mem
-		static global() {
-			const storage = $apxu_samosbor_map_app_roles_ref ? $hyoo_crus_glob.Node( $hyoo_crus_ref( $apxu_samosbor_map_app_roles_ref ), Roles ) : $hyoo_crus_glob.home( Roles )
-			if( storage.land().lord_rank( $hyoo_crus_auth.current().lord() ) >= $hyoo_crus_rank_rule ) {
-				storage.land().give( null, $hyoo_crus_rank_read )
-			}
-			const ref = storage.ref()
-			console.log( "Roles ref: ", ref.description )
-
-			return storage
-		}
-		@$mol_mem
-		get_roles() {
-			return this.Cartographers( null )?.remote_list() ?? []
-		}
-		@$mol_action
-		add_key( key: string ) {
-			const role_info = this.Cartographers( null )?.make( { '': $hyoo_crus_rank_read } )
-			role_info?.Key( null )?.val( key )
-			return role_info
-		}
-		@$mol_mem
-		keys_ranks() {
-			const roles = this.get_roles()
-			return roles.map( ( role ) => {
-				const rank = role.Rank( null )?.val()
-				return { key: role.Key( null )?.val()!, rank: ( rank ? Number( rank ) : $hyoo_crus_rank_post( "just" ) ) as typeof $hyoo_crus_rank.Value }
-			} )
-		}
-		@$mol_mem
-		public_keys() {
-			const roles = this.get_roles()
-			const keys = roles.map( ( role ) => {
-				return role.Key( null )?.val()!
-			} )
-			return keys
-		}
-	}
-
-	export class Gigacluster extends ( $hyoo_crus_home.with( {
-		Blocks: $hyoo_crus_list_ref_to( () => $apxu_samosbor_map_block_data ),
-	} ) ) {
-		@$mol_mem
-		static is_admin() {
-			return this.global().ref() === this.$.$hyoo_crus_auth.current().lord()
-		}
-		@$mol_mem
-		static global() {
-			// const storage = $hyoo_crus_glob.home( Gigacluster )
-			// const ref = storage.ref().description
-			// console.log( "global ref:", ref )
-			console.log( "Public key: ", this.$.$hyoo_crus_auth.current().public().toString() )
-			console.log( "Gigacluster ref: ", $apxu_samosbor_map_app_gigacluster_ref )
-			console.log( "Lord key: ", $hyoo_crus_auth.current().lord() )
-			const storage = $hyoo_crus_glob.Node( $hyoo_crus_ref( $apxu_samosbor_map_app_gigacluster_ref ), Gigacluster ) // используем мой home
-			const is_admin = storage.ref() === this.$.$hyoo_crus_auth.current().lord()
-			if( is_admin ) {
-				console.log("Apxu rank", storage.land().lord_rank(this.$.$hyoo_crus_auth.current().lord()))
-				storage.land().give( $hyoo_crus_auth.from( $apxu_samosbor_map_app_my_public_key ), $hyoo_crus_rank_rule )
-				storage.land().give( null, $hyoo_crus_rank_join( "just" ) )
-				Roles.global().keys_ranks().map( ( { key, rank } ) => {
-					if( storage.land().lord_rank( $hyoo_crus_auth.current().lord() ) >= $hyoo_crus_rank_rule ) {
-						try {
-							storage.land().lord_rank( $hyoo_crus_auth.from( key ).lord(), rank )
-						} catch( e ) {
-							console.error( e )
-						}
-					} else {
-						console.log( "CAN NOT SET RANK", storage.land(), $hyoo_crus_auth.current().lord(), storage.land().lord_rank( $hyoo_crus_auth.current().lord() ) )
-					}
-
-				} )
-			}
-			storage.blocks()?.map( ( block ) => {
-				Roles.global().keys_ranks().map( ( { key, rank } ) => {
-					if( block.land().lord_rank( $hyoo_crus_auth.current().lord() ) >= $hyoo_crus_rank_rule ) {
-						try {
-							block.land().lord_rank( $hyoo_crus_auth.from( key ).lord(), rank )
-						} catch( e ) {
-							console.error( e )
-						}
-
-					} else {
-						console.log( "CAN NOT SET RANK", storage.land(), $hyoo_crus_auth.current().lord(), storage.land().lord_rank( $hyoo_crus_auth.current().lord() ) )
-					}
-
-				} )
-			} )
-			return storage
-		}
-
-		@$mol_action
-		give_rights( land: $hyoo_crus_land, public_key: string, rank = $hyoo_crus_rank_post( "just" ) ) {
-			land.give( $hyoo_crus_auth.from( public_key ), rank )
-		}
-
-		@$mol_action
-		static create_block() {
-			this.global().Blocks( null )?.land().gift.entries()
-			const block = this.global().Blocks( null )?.make( { '': $hyoo_crus_rank_join( "just" ), [ $apxu_samosbor_map_app_my_public_key ]: $hyoo_crus_rank_rule } )
-			console.log( "created", block )
-			return block
-		}
-		@$mol_action
-		static delete_block( ref: any ) {
-			// TODO пройтись по соединениям и удалить их
-			const block = $hyoo_crus_glob.Node( ref, $apxu_samosbor_map_block_data )
-			block.transitions()?.forEach( ( transition ) => {
-				const connected_block_ref = transition.get_connected_block( ref )
-				if( !connected_block_ref ) return
-				const connected_block = $hyoo_crus_glob.Node( connected_block_ref, $apxu_samosbor_map_block_data )
-				connected_block.transitions()?.forEach( ( connected_transition ) => {
-					if( connected_transition.get_connected_block( connected_block_ref ) === ref ) {
-						connected_block.Transitions( null )?.cut( connected_transition.ref() )
-					}
-				} )
-			} )
-			this.global().Blocks( null )?.cut( ref )
-		}
-		@$mol_action
-		static delete_all_blocks() {
-			this.blocks()?.map( ( node ) => this.delete_block( node.ref() ) )
-		}
-		@$mol_mem
-		blocks() {
-			const blocks = this.Blocks( null )?.remote_list()
-			blocks?.map( ( block ) => {
-				if( block.land().lord_rank( $hyoo_crus_auth.current().lord() ) >= $hyoo_crus_rank_rule ) {
-					block.land().lord_rank( $hyoo_crus_auth.from( $apxu_samosbor_map_app_my_public_key ).lord(), $hyoo_crus_rank_rule )
-				}
-			} )
-			return blocks
-		}
-		@$mol_mem
-		static blocks() {
-			const blocks = this.global().Blocks( null )?.remote_list()
-			return blocks
-		}
-		@$mol_mem_key
-		static block_by_name( block_name: string ) {
-			return this.blocks()?.find( ( block ) => block.name() === block_name )
-		}
-		static transition( block_name: string, floor: number, position: TransitionPosition ) {
-			return this.block_by_name( block_name )?.transitions()?.find( ( trans ) => {
-				const check = ( port: TransitionPort | undefined | null ) => {
-					if( !port ) return
-					const block_ref = port.Block( null )?.val()
-					if( !block_ref ) return
-					const name = $hyoo_crus_glob.Node( block_ref, $apxu_samosbor_map_block_data ).name()
-					if( name === block_name && Number( port.Floor( null )?.val() ) === floor && port.Position( null )?.val() === position ) {
-						return true
-					}
-				}
-				if( check( trans.From( null ) ) || check( trans.To( null ) ) ) {
-					return true
-				}
-			} )
-		}
-	}
-
-
 	export class $apxu_samosbor_map_app extends $.$apxu_samosbor_map_app {
 
 		@$mol_mem
-		map_land() {
-			return Gigacluster.global().land()
+		current_map() {
+			return $apxu_samosbor_map_storage.current()
 		}
-
+		@$mol_mem
+		gigacluster() {
+			return this.current_map().gigacluster()!
+		}
+		@$mol_mem
+		gigacluster_land() {
+			return this.gigacluster()?.land()
+		}
+		@$mol_mem
+		is_editor() {
+			const role = this.current_map().roles().lord_role( this.$.$hyoo_crus_auth.current().public().toString() )
+			return role === "cartographer" || role === "researcher" // TODO
+		}
+		@$mol_mem
+		role_controller_visible(): readonly ( any )[] {
+			if( this.is_admin() ) {
+				return [ this.RolesController() ]
+			}
+			return []
+		}
+		@$mol_mem
+		control_panel_visible(): readonly ( any )[] {
+			return this.is_editor() || this.is_admin() ? [ this.Control_Panel() ] : []
+		}
 		@$mol_mem
 		is_admin() {
-			return Gigacluster.global().ref() === this.$.$hyoo_crus_auth.current().lord()
+			return $apxu_samosbor_map_storage.global().ref() === this.$.$hyoo_crus_auth.current().lord()
 		}
 		@$mol_action
 		add_public_key( e?: any ) {
 			const pub_key = this.pub_key_value()
-			Roles.global().add_key( pub_key )
+			this.current_map().roles().add_key( pub_key )
 		}
+		// @$mol_mem
+		// lords() {
+		// 	const roles = Roles.global().get_roles()
+		// 	const lords = roles.map( ( role ) => {
+		// 		return this.Lord( role )
+		// 	} )
+		// 	return lords
+		// }
+
 		@$mol_mem
-		lords() {
-			const roles = Roles.global().get_roles()
-			const lords = roles.map( ( role ) => {
-				return this.Lord( role )
+		lord_selects() {
+			const roles = this.current_map().roles()
+
+			return roles.get_rights()!.map( ( right ) => {
+				return this.LordRole( right.key() )
 			} )
-			return lords
 		}
 
 		@$mol_mem_key
-		lord_ref( role: RoleInfo ): string {
-			return $hyoo_crus_auth.from(this.lord_key(role)).lord().description!
+		lord_role_value( pub_key: string, next?: typeof $apxu_samosbor_map_role.options[ number ] ): string {
+			const role = this.current_map().roles().lord_role( pub_key, next ) ?? "no_role"
+			console.log( role )
+			return role
+		}
+
+		@$mol_mem_key
+		lord_ref_value( pub_key: string ): string {
+			return $hyoo_crus_auth.from( pub_key ).lord().description!
 		}
 		@$mol_mem_key
-		lord_name( role: RoleInfo, next?: string ): string {
-			return role.Name( null )?.val( next ) ?? ""
+		lord_description( pub_key: string, next?: string ): string {
+			return this.current_map().roles().lord_rights( pub_key )?.description( next ) ?? ""
 		}
-		@$mol_mem_key
-		lord_key( role: RoleInfo ): string {
-			return role.Key( null )?.val() ?? ""
-		}
-		@$mol_mem_key
-		gift_rank( role: RoleInfo, next?: keyof typeof $hyoo_crus_rank_tier ): string {
-			const role_rank = role.Rank( null )?.val( next ? BigInt( $hyoo_crus_rank_make( next, 'just' ) ) : undefined )
-			if( role_rank == null ) {
-				return "post"
-			}
-			const rank = Number( role_rank )
-			if( next ) {
-			}
-			return $hyoo_crus_rank_tier[ ( next ? $hyoo_crus_rank_make( next, 'just' ) : rank ) & 0b0_1111_0000 ]
-		}
+		// @$mol_mem_key
+		// lord_name( role: RoleInfo, next?: string ): string {
+		// 	return role.Name( null )?.val( next ) ?? ""
+		// }
+		// @$mol_mem_key
+		// lord_key( role: RoleInfo ): string {
+		// 	return role.Key( null )?.val() ?? ""
+		// }
+		// @$mol_mem_key
+		// gift_rank( role: RoleInfo, next?: keyof typeof $hyoo_crus_rank_tier ): string {
+		// 	const role_rank = role.Rank( null )?.val( next ? BigInt( $hyoo_crus_rank_make( next, 'just' ) ) : undefined )
+		// 	if( role_rank == null ) {
+		// 		return "post"
+		// 	}
+		// 	const rank = Number( role_rank )
+		// 	if( next ) {
+		// 	}
+		// 	return $hyoo_crus_rank_tier[ ( next ? $hyoo_crus_rank_make( next, 'just' ) : rank ) & 0b0_1111_0000 ]
+		// }
 
 		@$mol_mem
 		public_key() {
@@ -325,7 +188,7 @@ namespace $.$$ {
 		}
 		@$mol_action
 		delete_block() {
-			Gigacluster.delete_block( this.selected_block()?.block_data().ref() )
+			this.gigacluster()?.delete_block( this.selected_block()?.block_data().ref() )
 		}
 		@$mol_mem_key
 		selected_block_name( ref: symbol, next?: string ) {
@@ -333,10 +196,6 @@ namespace $.$$ {
 			return block.block_name( next ) ?? ""
 		}
 
-		@$mol_mem_key
-		static block_by_name( name: string ) {
-			return Gigacluster.block_by_name( name )
-		}
 		@$mol_mem_key
 		static block( ref: any ) {
 			const block_node = $hyoo_crus_glob.Node( ref, $apxu_samosbor_map_block_data )
@@ -349,7 +208,7 @@ namespace $.$$ {
 		@$mol_mem
 		transitions() {
 			const transitions: $mol_view[] = []
-			for( const block of Gigacluster.blocks() ?? [] ) {
+			for( const block of this.current_map()?.blocks() ?? [] ) {
 				for( const transition of block.transitions() ?? [] ) {
 					const trans_view = this.Transition( transition.ref() )
 					transitions.push( trans_view )
@@ -509,7 +368,7 @@ namespace $.$$ {
 		@$mol_mem
 		blocks() {
 			const blocks: $mol_view[] = []
-			const block_nodes = Gigacluster.blocks()
+			const block_nodes = this.current_map().blocks()
 			for( const block_data of block_nodes ?? [] ) {
 				const block_view = this.Block( block_data.land_ref() )
 				blocks.push( block_view )
@@ -517,5 +376,10 @@ namespace $.$$ {
 
 			return blocks
 		}
+
+		// @$mol_mem
+		// test_translate() {
+		// 	return `${this.test_pan()[0]}px ${this.test_pan()[1]}px`
+		// }
 	}
 }

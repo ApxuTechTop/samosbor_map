@@ -57,6 +57,9 @@ $apxu_samosbor_map_block_card $mol_view
 		roof_floor_value? => roof_floor_value?
 		flood_floor_value? => flood_floor_value?
 	edit_mode? false
+	gigacluster $apxu_samosbor_map_gigacluster
+	is_admin? false
+	is_editor? false
 	flight_icons* *
 		stairs <= stairs_icon* $apxu_samosbor_map_icon_stairs
 		elevator <= elevator_icon* $apxu_samosbor_map_icon_elevator
@@ -114,10 +117,10 @@ $apxu_samosbor_map_block_card $mol_view
 				<= close_button $mol_button_minor
 					sub / <= close_icon $mol_icon_close
 					click? <=> close_click? null
-				<= edit_button $mol_check_icon
+				^ edit_button_visible / <= edit_button $mol_check_icon
 					Icon <= edit_icon $mol_icon_pencil
 					checked? <=> edit_mode?
-				<= delete_button $mol_button_minor
+				^ delete_button_visible / <= delete_button $mol_button_minor
 					click? <=> delete_block? null
 					sub / <= delete_icon $mol_icon_trash_can_outline
 		<= content $mol_view
@@ -305,3 +308,5 @@ $apxu_samosbor_map_block_card $mol_view
 				<= features $mol_view
 					sub /
 						^ other_places /
+		^ rights_visible / <= rights $hyoo_crus_land_rights
+			land <= block_land $hyoo_crus_land

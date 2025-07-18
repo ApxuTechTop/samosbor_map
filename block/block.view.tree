@@ -32,6 +32,8 @@ $apxu_samosbor_map_block_passage $mol_view
 $apxu_samosbor_map_block_middle_flight $mol_view
 
 $apxu_samosbor_map_block $mol_view
+	map $apxu_samosbor_map
+	gigacluster $apxu_samosbor_map_gigacluster
 	edit_mode? false
 	create_mode? false
 	connect_mode? false
