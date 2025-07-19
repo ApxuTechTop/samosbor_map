@@ -171,7 +171,7 @@ $apxu_samosbor_map_block $mol_view
 						<= left_flight $apxu_samosbor_map_block_flight
 							event *
 								click? <=> left_flight_click? null
-							status <= flight_status*left
+							status <= flight_status*left \free
 							sub /
 								<= left_flight_icon
 						<= up_left_passage $apxu_samosbor_map_block_passage
@@ -192,7 +192,7 @@ $apxu_samosbor_map_block $mol_view
 						<= right_flight $apxu_samosbor_map_block_flight
 							event *
 								click? <=> right_flight_click? null
-							status <= flight_status*right
+							status <= flight_status*right \free
 							sub /
 								<= right_flight_icon
 				<= middle_row $mol_view
