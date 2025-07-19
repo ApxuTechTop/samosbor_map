@@ -8650,7 +8650,6 @@ var $;
         }
         lord_role(key, next) {
             const finded = this.lord_rights(key);
-            console.log(finded);
             if (next === "no_role") {
                 if (finded) {
                     this.Rights(true)?.cut(finded.ref());
@@ -8683,7 +8682,6 @@ var $;
         }
         preset_no_current(role) {
             const preset = { ...this.preset(role) };
-            console.log("no current preset", preset);
             delete preset[$hyoo_crus_auth.current().public().toString()];
             return preset;
         }
@@ -10370,7 +10368,6 @@ var $;
         }
         gigacluster() {
             const gigacluster = this.Gigacluster(null)?.ensure({ '': $hyoo_crus_rank_join("just") });
-            console.log("SET create_block for gigacluster");
             gigacluster.create_block = () => this.create_block();
             const can_rule = gigacluster?.land().lord_rank($hyoo_crus_auth.current().lord()) == $hyoo_crus_rank_rule;
             const roles = this.roles();
@@ -10383,10 +10380,8 @@ var $;
             return gigacluster;
         }
         create_block() {
-            console.log("CREATE FROM MAP");
             const roles = this.roles();
             const researchers_preset = roles.preset_no_current("researcher");
-            console.log(researchers_preset);
             const current_auth = $hyoo_crus_auth.current();
             const block = this.gigacluster()?.Blocks(true)?.make({ ...researchers_preset, '': $hyoo_crus_rank_join("just") });
             console.log("created", block);
@@ -10404,7 +10399,6 @@ var $;
                 if (can_rule) {
                     Object.entries(researchers_preset).map(([key, rank]) => {
                         const auth = $hyoo_crus_auth.from(key);
-                        console.log(auth.lord(), rank);
                         const is_owner = land.ref().description == auth.lord().description;
                         if (!is_owner) {
                             land.lord_rank(auth.lord(), rank);
@@ -15900,8 +15894,6 @@ var $;
                 this.isDragging(false);
             }
             log() {
-                console.log(this.zoom());
-                console.log(this.isDragging());
             }
         }
         __decorate([
@@ -18661,6 +18653,22 @@ var $;
 			const obj = new this.$.$apxu_samosbor_map_icon_gallery();
 			return obj;
 		}
+		icon_liquidator(){
+			const obj = new this.$.$apxu_samosbor_map_icon_liquidator();
+			return obj;
+		}
+		icon_repairman(){
+			const obj = new this.$.$apxu_samosbor_map_icon_repairman();
+			return obj;
+		}
+		icon_cleaner(){
+			const obj = new this.$.$apxu_samosbor_map_icon_cleaner();
+			return obj;
+		}
+		icon_plumber(){
+			const obj = new this.$.$apxu_samosbor_map_icon_factory();
+			return obj;
+		}
 		place_floors(id){
 			return [];
 		}
@@ -18673,6 +18681,16 @@ var $;
 			return null;
 		}
 		remove_place(id){
+			return null;
+		}
+		profession_floors(id){
+			return [];
+		}
+		add_profession(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		remove_floor(id){
 			return null;
 		}
 		shop_icon(){
@@ -19135,77 +19153,19 @@ var $;
 			]);
 			return obj;
 		}
-		profession_floors(id){
+		effects_info_visible(){
+			return [(this.effects_info())];
+		}
+		profession_places(){
 			return [];
-		}
-		liquidator_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_liquidator();
-			return obj;
-		}
-		add_profession(id, next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		remove_floor(id){
-			return null;
-		}
-		liquidators(){
-			const obj = new this.$.$apxu_samosbor_map_block_card_place();
-			(obj.floors) = () => ((this.profession_floors("liquidator")));
-			(obj.icon) = () => ((this.liquidator_icon()));
-			(obj.enabled) = () => ((this.edit_mode()));
-			(obj.add_floor) = (next) => ((this.add_profession("liquidator", next)));
-			(obj.remove_floor) = (id) => ((this.remove_floor(id)));
-			return obj;
-		}
-		repairman_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_repairman();
-			return obj;
-		}
-		repairmans(){
-			const obj = new this.$.$apxu_samosbor_map_block_card_place();
-			(obj.floors) = () => ((this.profession_floors("repairman")));
-			(obj.icon) = () => ((this.repairman_icon()));
-			(obj.enabled) = () => ((this.edit_mode()));
-			(obj.add_floor) = (next) => ((this.add_profession("repairman", next)));
-			(obj.remove_floor) = (id) => ((this.remove_floor(id)));
-			return obj;
-		}
-		cleaner_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_cleaner();
-			return obj;
-		}
-		cleaners(){
-			const obj = new this.$.$apxu_samosbor_map_block_card_place();
-			(obj.floors) = () => ((this.profession_floors("cleaner")));
-			(obj.icon) = () => ((this.cleaner_icon()));
-			(obj.enabled) = () => ((this.edit_mode()));
-			(obj.add_floor) = (next) => ((this.add_profession("cleaner", next)));
-			(obj.remove_floor) = (id) => ((this.remove_floor(id)));
-			return obj;
-		}
-		plumber_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_factory();
-			return obj;
-		}
-		plumbers(){
-			const obj = new this.$.$apxu_samosbor_map_block_card_place();
-			(obj.floors) = () => ((this.profession_floors("plumber")));
-			(obj.icon) = () => ((this.plumber_icon()));
-			(obj.enabled) = () => ((this.edit_mode()));
-			(obj.add_floor) = (next) => ((this.add_profession("plumber", next)));
-			(obj.remove_floor) = (id) => ((this.remove_floor(id)));
-			return obj;
 		}
 		professions(){
 			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.liquidators()), 
-				(this.repairmans()), 
-				(this.cleaners()), 
-				(this.plumbers())
-			]);
+			(obj.sub) = () => ([...(this.profession_places())]);
 			return obj;
+		}
+		professions_visible(){
+			return [(this.professions())];
 		}
 		safe_floors(){
 			return [];
@@ -19222,28 +19182,16 @@ var $;
 			(obj.remove_floor) = (id) => ((this.remove_floor(id)));
 			return obj;
 		}
-		hospital_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_hospital();
-			return obj;
-		}
-		hospitals(){
-			const obj = new this.$.$apxu_samosbor_map_block_card_place();
-			(obj.floors) = () => ((this.place_floors("hospital")));
-			(obj.icon) = () => ((this.hospital_icon()));
-			(obj.enabled) = () => ((this.edit_mode()));
-			(obj.add_floor) = (next) => ((this.add_place("hospital", next)));
-			(obj.remove_floor) = (id) => ((this.remove_place(id)));
-			return obj;
+		important_places(){
+			return [(this.safes())];
 		}
 		places(){
 			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.safes()), 
-				(this.hospitals()), 
-				(this.place_floor("party")), 
-				(this.place_floor("theatre"))
-			]);
+			(obj.sub) = () => ([...(this.important_places())]);
 			return obj;
+		}
+		places_visible(){
+			return [(this.places())];
 		}
 		other_places(){
 			return [];
@@ -19253,6 +19201,9 @@ var $;
 			(obj.sub) = () => ([...(this.other_places())]);
 			return obj;
 		}
+		features_visible(){
+			return [(this.features())];
+		}
 		content(){
 			const obj = new this.$.$mol_view();
 			(obj.sub) = () => ([
@@ -19260,10 +19211,10 @@ var $;
 				(this.position_info()), 
 				(this.block_type_view()), 
 				(this.floors_info()), 
-				(this.effects_info()), 
-				(this.professions()), 
-				(this.places()), 
-				(this.features())
+				...(this.effects_info_visible()), 
+				...(this.professions_visible()), 
+				...(this.places_visible()), 
+				...(this.features_visible())
 			]);
 			return obj;
 		}
@@ -19365,7 +19316,11 @@ var $;
 				"laundry": (this.icon_laundry()), 
 				"shower": (this.icon_shower()), 
 				"toilet": (this.icon_toilet()), 
-				"gallery": (this.icon_gallery())
+				"gallery": (this.icon_gallery()), 
+				"liquidator": (this.icon_liquidator()), 
+				"repairman": (this.icon_repairman()), 
+				"cleaner": (this.icon_cleaner()), 
+				"plumber": (this.icon_plumber())
 			};
 		}
 		place_floor(id){
@@ -19375,6 +19330,15 @@ var $;
 			(obj.enabled) = () => ((this.edit_mode()));
 			(obj.add_floor) = (next) => ((this.add_place(id, next)));
 			(obj.remove_floor) = (id) => ((this.remove_place(id)));
+			return obj;
+		}
+		profession_floor(id){
+			const obj = new this.$.$apxu_samosbor_map_block_card_place();
+			(obj.floors) = () => ((this.profession_floors(id)));
+			(obj.icon) = () => ((this.place_icon(id)));
+			(obj.enabled) = () => ((this.edit_mode()));
+			(obj.add_floor) = (next) => ((this.add_profession(id, next)));
+			(obj.remove_floor) = (id) => ((this.remove_floor(id)));
 			return obj;
 		}
 		sub(){
@@ -19418,8 +19382,13 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_shower"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_toilet"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_gallery"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_liquidator"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_repairman"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_cleaner"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_plumber"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "place_icon"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "add_place"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "add_profession"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "shop_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "shop_button"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "misc_buttons"));
@@ -19500,20 +19469,9 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "balcony_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "balcony_checkbox"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "effects_info"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "liquidator_icon"));
-	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "add_profession"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "liquidators"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "repairman_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "repairmans"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "cleaner_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "cleaners"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "plumber_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "plumbers"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "professions"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "house_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "safes"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "hospital_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "hospitals"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "places"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "features"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "content"));
@@ -19530,6 +19488,7 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "right_flight_view"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "type_select_icon"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "place_floor"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "profession_floor"));
 
 
 ;
@@ -19823,9 +19782,55 @@ var $;
                     "spleef", "pool", "warehouse", "gallery"];
                 for (const place_type of other_place_types) {
                     const some_place = this.place_floor(place_type);
-                    places.push(some_place);
+                    if (some_place.floors().length > 0 || this.edit_mode()) {
+                        console.log("added");
+                        places.push(some_place);
+                    }
                 }
                 return places;
+            }
+            effects_info_visible() {
+                if (isNaN(this.floor_value("roof")) && isNaN(this.floor_value("flood"))
+                    && this.has_balcony() === false && !this.edit_mode()) {
+                    return [];
+                }
+                return [this.effects_info()];
+            }
+            profession_places() {
+                const profession_types = ["liquidator", "repairman", "cleaner", "plumber"];
+                return profession_types.filter((what) => {
+                    return this.profession_floors(what).length > 0 || this.edit_mode();
+                }).map((what) => {
+                    return this.profession_floor(what);
+                });
+            }
+            professions_visible() {
+                const profession_types = ["liquidator", "repairman", "cleaner", "plumber"];
+                if (profession_types.filter((what) => {
+                    return this.profession_floors(what).length > 0 || this.edit_mode();
+                }).length > 0) {
+                    return [this.professions()];
+                }
+                return [];
+            }
+            important_places() {
+                const places = [this.safes(), this.place_floor("hospital"), this.place_floor("party"), this.place_floor("theatre")];
+                return places.filter((place) => {
+                    return place.floors().length > 0 || this.edit_mode();
+                });
+            }
+            places_visible() {
+                if (this.important_places().length > 0) {
+                    return [this.places()];
+                }
+                return [];
+            }
+            features_visible() {
+                console.log(this.other_places());
+                if (this.other_places().length > 0) {
+                    return [this.features()];
+                }
+                return [];
             }
         }
         __decorate([
@@ -19921,6 +19926,24 @@ var $;
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block_card.prototype, "other_places", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "effects_info_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "profession_places", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "professions_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "important_places", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "places_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "features_visible", null);
         $$.$apxu_samosbor_map_block_card = $apxu_samosbor_map_block_card;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
