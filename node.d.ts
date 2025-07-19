@@ -344,6 +344,10 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_guid(length?: number, exists?: (id: string) => boolean): string;
+}
+
+declare namespace $ {
     enum $mol_wire_cursor {
         stale = -1,
         doubt = -2,
@@ -354,6 +358,8 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_wire_pub extends Object {
+        constructor(id?: string);
+        [Symbol.toStringTag]: string;
         data: unknown[];
         static get [Symbol.species](): ArrayConstructor;
         protected sub_from: number;
@@ -461,7 +467,6 @@ declare namespace $ {
         static plan_task: $mol_after_tick | null;
         static plan(): void;
         static sync(): void;
-        [Symbol.toStringTag]: string;
         cache: Result | Error | Promise<Result | Error>;
         get args(): Args;
         result(): Result | undefined;
@@ -724,10 +729,6 @@ declare namespace $ {
         public(): $mol_crypto_key_public;
         sign(data: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
     }
-}
-
-declare namespace $ {
-    function $mol_guid(length?: number, exists?: (id: string) => boolean): string;
 }
 
 declare namespace $ {
@@ -8112,6 +8113,7 @@ declare namespace $ {
         set_next_fence_type(): void;
         flight_status(what: "left" | "right", next?: typeof FlightStatus.options[number]): "free" | "blocked";
         next_flight_status(what: "left" | "right"): void;
+        all_passages(): ("noway" | "normal" | "stairs_up" | "stairs_down")[];
     }
     const FloorsData_base: {
         new (): {
@@ -8740,6 +8742,7 @@ declare namespace $ {
         safe_floors(): (ProfessionData | PlaceData)[];
         add_place(what: typeof PlaceType.options[number]): PlaceData | undefined;
         remove_place(node: $hyoo_crus_vary_type): void;
+        all_passages(floor: number): ("noway" | "normal" | "stairs_up" | "stairs_down")[] | undefined;
     }
     export {};
 }
@@ -9055,12 +9058,19 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_block_row['sub'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_48 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_48 = $mol_type_enforce<
+		({ 
+			'interfloor': ReturnType< $apxu_samosbor_map_block['has_interfloor'] >,
+		}) 
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_49 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__attr_apxu_samosbor_map_block_49 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_50 = $mol_type_enforce<
 		({ 
 			'hidden': ReturnType< $apxu_samosbor_map_block['connection_hidden'] >,
 			'highlight': ReturnType< $apxu_samosbor_map_block['connection_highlight'] >,
@@ -9068,7 +9078,7 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxu_samosbor_map_block_50 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_block_51 = $mol_type_enforce<
 		({ 
 			'left': ReturnType< $apxu_samosbor_map_block['connection_left'] >,
 			'top': ReturnType< $apxu_samosbor_map_block['connection_top'] >,
@@ -9076,14 +9086,14 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $mol_view__event_apxu_samosbor_map_block_51 = $mol_type_enforce<
+	type $mol_view__event_apxu_samosbor_map_block_52 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxu_samosbor_map_block['connection_click'] > ): ReturnType< $apxu_samosbor_map_block['connection_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $mol_view__attr_apxu_samosbor_map_block_52 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_53 = $mol_type_enforce<
 		({ 
 			'hidden': ReturnType< $apxu_samosbor_map_block['transition_hidden'] >,
 			'direction': ReturnType< $apxu_samosbor_map_block['transition_direction'] >,
@@ -9091,7 +9101,7 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxu_samosbor_map_block_53 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_block_54 = $mol_type_enforce<
 		({ 
 			'left': ReturnType< $apxu_samosbor_map_block['transition_left'] >,
 			'top': ReturnType< $apxu_samosbor_map_block['transition_top'] >,
@@ -9099,40 +9109,35 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_54 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_55 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_55 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_56 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['up'] >
 	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_56 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_57 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_57 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_58 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['down'] >
-	>
-	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_58 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
 	>
 	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_59 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
 	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_60 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_60 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
 	>
 	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_61 = $mol_type_enforce<
 		readonly(any)[]
@@ -9149,17 +9154,22 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_block_part['sub'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_64 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_64 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $mol_view['sub'] >
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
 	>
 	type $mol_view__sub_apxu_samosbor_map_block_65 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_66 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_66 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_67 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_part['sub'] >
@@ -9213,6 +9223,7 @@ declare namespace $ {
 		roof_floor_view( ): $mol_view
 		flooded( ): any
 		roof( ): any
+		has_interfloor( ): boolean
 		connections( ): readonly(any)[]
 		connections_list( ): ReturnType< $apxu_samosbor_map_block['connections'] >
 		transitions( ): readonly(any)[]
@@ -9365,6 +9376,7 @@ declare namespace $.$$ {
         min_floor(next?: number): number;
         max_floor(next?: number): number;
         visible(): boolean;
+        has_interfloor(): boolean;
         color_letter(): string;
         block_type(next?: typeof BlockType.options[number]): typeof BlockType.options[number];
         transitions(): $mol_view[];
