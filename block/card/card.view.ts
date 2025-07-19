@@ -203,6 +203,16 @@ namespace $.$$ {
 			}
 			return flight_icon_map[ flight_type ]
 		}
+		@$mol_mem
+		middle_flight_icons(): readonly ( any )[] {
+			const flight_type = this.block().block_data().middle_flight_type()
+			const flight_icon_map: { [ flight_type in typeof flight_type ]: $mol_icon[] } = {
+				"elevator": [ this.flight_icons( "middle" )[ "elevator" ] ],
+				"ladder_elevator": [ this.flight_icons( "middle" )[ "elevator" ], this.flight_icons( "middle" )[ "ladder_icon" ] ],
+				"stairs": [ this.flight_icons( "middle" )[ "stairs" ] ]
+			}
+			return flight_icon_map[ flight_type ]
+		}
 		@$mol_action
 		right_flight_click() {
 			if( !this.edit_mode() ) return
@@ -210,10 +220,26 @@ namespace $.$$ {
 			const next_flight_type = flight_type_map[ current_flight_type ]
 			this.block().block_data().right_flight_type( next_flight_type )
 		}
+		@$mol_action
+		middle_flight_click() {
+			if( !this.edit_mode() ) return
+			const current_flight_type = this.block().block_data().middle_flight_type()
+			const next_flight_type = flight_type_map[ current_flight_type ]
+			this.block().block_data().middle_flight_type( next_flight_type )
+		}
+		@$mol_mem
+		is_middle_flight( next?: boolean ): boolean {
+			return this.block().is_up_flight( next )
+		}
+		@$mol_action
+		change_flight_click() {
+			if( !this.edit_mode() ) return
+			this.block().is_up_flight( !this.block().is_up_flight() )
+		}
 		@$mol_mem
 		current_flight(): readonly ( any )[] {
 			const side_flights = [ this.left_flight_view(), this.right_flight_view() ]
-			return this.is_middle_flight() ? [ this.middle_flight_view ] : side_flights
+			return this.block().is_up_flight() ? [ this.middle_flight_view() ] : side_flights
 		}
 		@$mol_mem_key
 		profession_floors( what: string ) {

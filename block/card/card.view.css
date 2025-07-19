@@ -193,6 +193,11 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+
+	&[middle] {
+		justify-content: center;
+	}
+
 	flex: 1;
 
 	&>* {

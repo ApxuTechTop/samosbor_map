@@ -483,6 +483,16 @@ namespace $.$$ {
 			}
 			return this.flight_icons( "right" )[ flight_type ]
 		}
+		@$mol_mem
+		middle_flight_icons(): readonly ( any )[] {
+			const flight_type = this.block_data().middle_flight_type()
+			const flight_icon_map: { [ flight_type in typeof flight_type ]: $mol_icon[] } = {
+				"elevator": [ this.flight_icons( "middle" )[ "elevator" ] ],
+				"ladder_elevator": [ this.flight_icons( "middle" )[ "elevator" ], this.ladder_icon( "middle" ) ],
+				"stairs": [ this.flight_icons( "middle" )[ "stairs" ] ]
+			}
+			return flight_icon_map[ flight_type ]
+		}
 
 		@$mol_action
 		right_flight_click( event?: PointerEvent ) {
@@ -595,7 +605,7 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		is_up_flight( next?: boolean ): boolean {
-			return this.block_data().UpMiddleFlight( null )?.val( next ) ?? false
+			return this.block_data().IsMiddleFlight( null )?.val( next ) ?? false
 		}
 		@$mol_mem
 		up_passage_or_flight() {

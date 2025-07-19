@@ -552,6 +552,7 @@
 		[apxu_samosbor_map_block_middle_flight] {
 			width: var(--passage-width);
 			height: var(--part-width);
+			flex-direction: column;
 		}
 
 		[apxu_samosbor_map_block_middle_row] {
@@ -654,6 +655,7 @@
 		[apxu_samosbor_map_block_middle_flight] {
 			height: var(--passage-width);
 			width: var(--part-width);
+			flex-direction: row;
 		}
 
 		[apxu_samosbor_map_block_middle_row] {

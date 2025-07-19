@@ -155,7 +155,8 @@ namespace $ {
 		LeftFlight: FlightData,
 		RightFlight: FlightData,
 		FloorsData: FloorsData,
-		UpMiddleFlight: $hyoo_crus_atom_bool,
+		IsMiddleFlight: $hyoo_crus_atom_bool,
+		MiddleFlight: FlightData,
 		HasBalcony: $hyoo_crus_atom_bool,
 
 		Professions: $hyoo_crus_list_ref_to( () => ProfessionData ),
@@ -242,6 +243,11 @@ namespace $ {
 		@$mol_mem
 		right_flight_type( next?: typeof FlightType.options[ number ] ) {
 			return this.RightFlight( null )?.Type( null )?.val( next ) ?? "stairs"
+		}
+
+		@$mol_mem
+		middle_flight_type( next?: typeof FlightType.options[ number ] ) {
+			return this.MiddleFlight( null )?.Type( null )?.val( next ) ?? "stairs"
 		}
 
 		@$mol_mem_key

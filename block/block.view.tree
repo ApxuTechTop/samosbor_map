@@ -101,7 +101,8 @@ $apxu_samosbor_map_block $mol_view
 		down true
 	up_flight $apxu_samosbor_map_block_middle_flight
 		sub /
-			<= up_flight_icon $apxu_samosbor_map_icon_stairs
+			^ middle_flight_icons /
+				<= up_flight_icon $apxu_samosbor_map_icon_stairs
 	down_flight $apxu_samosbor_map_block_middle_flight
 		sub /
 			<= down_flight_icon $apxu_samosbor_map_icon_stairs
