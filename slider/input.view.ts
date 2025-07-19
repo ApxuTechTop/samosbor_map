@@ -28,7 +28,6 @@ namespace $.$$ {
 		@$mol_action
 		drag( event: PointerEvent ) {
 			event.stopImmediatePropagation()
-			event.preventDefault()
 			this.x( this.start_pos!.x + this.delta_x( event.x - this.start_event!.x ) )
 			this.y( this.start_pos!.y + this.delta_y( event.y - this.start_event!.y ) )
 			this.on_drag( event )

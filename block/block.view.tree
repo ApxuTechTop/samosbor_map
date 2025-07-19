@@ -163,6 +163,8 @@ $apxu_samosbor_map_block $mol_view
 			<= roof null
 	sub /
 		<= content $mol_view
+			attr *
+				interfloor <= has_interfloor false
 			sub /
 				^ connections_list <= connections /
 				^ transitions_list <= transitions /

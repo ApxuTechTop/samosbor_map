@@ -135,6 +135,13 @@ namespace $ {
 			this.flight_status( what, new_status )
 		}
 
+		@$mol_mem
+		all_passages() {
+			return TransitionPositions.map( ( pos ) => {
+				return this.get_passage_type( pos )
+			} )
+		}
+
 	}
 
 	export class FloorsData extends $hyoo_crus_dict_to( FloorData ) {}
@@ -401,6 +408,11 @@ namespace $ {
 		@$mol_action
 		remove_place( node: $hyoo_crus_vary_type ) {
 			this.Places( null )?.cut( node )
+		}
+
+		@$mol_mem_key
+		all_passages( floor: number ) {
+			return this.FloorsData( true )?.key( floor, true ).all_passages()
 		}
 
 	}

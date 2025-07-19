@@ -70,8 +70,13 @@
 	}
 
 	&:not([visible]) {
-		[apxu_samosbor_map_block_content] {
-			opacity: 0.2;
+		[apxu_samosbor_map_block_content]:not([interfloor]) {
+			visibility: hidden;
+			z-index: 500;
+		}
+
+		[apxu_samosbor_map_block_content][interfloor] {
+			opacity: 0.3;
 			z-index: 500;
 		}
 	}

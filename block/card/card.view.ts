@@ -121,7 +121,7 @@ namespace $.$$ {
 		floors_list(): readonly ( any )[] {
 			const floors_data: readonly ProfessionData[] = this.floors()
 			return floors_data.toSorted( ( a, b ) => {
-				return Number( a.Floor( null )?.val() ) - Number( b.Floor( null )?.val() )
+				return Number( b.Floor( null )?.val() ) - Number( a.Floor( null )?.val() )
 			} ).map( ( profession_node: ProfessionData, i ) => {
 				return this.floor_input( profession_node )
 			} )

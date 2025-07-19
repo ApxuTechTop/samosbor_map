@@ -94,7 +94,7 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		current_floor(): number {
-			return this.current_layer() - this.block_layer()
+			return Math.max( this.min_floor(), Math.min( this.current_layer() - this.block_layer(), this.max_floor() ) ) // TODO поправить для межэтажных
 		}
 		@$mol_mem
 		display_floor(): string {
@@ -154,7 +154,18 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		visible(): boolean {
-			return ( this.min_floor() <= this.current_floor() ) && ( this.current_floor() <= this.max_floor() )
+			const real_floor = this.current_layer() - this.block_layer()
+			return ( this.min_floor() <= real_floor ) && ( real_floor <= this.max_floor() )
+		}
+		@$mol_mem
+		has_interfloor() {
+			const real_floor = this.current_layer() - this.block_layer()
+			const bottom_passages = this.block_data().all_passages( real_floor - 1 )
+			const top_passages = this.block_data().all_passages( real_floor + 1 )
+			if( top_passages?.includes( "stairs_down" ) || bottom_passages?.includes( "stairs_up" ) ) {
+				return true
+			}
+			return false
 		}
 		@$mol_mem
 		color_letter(): string {
@@ -448,6 +459,7 @@ namespace $.$$ {
 			new_block_node.direction( new_block_direction )
 			new_block_node.pos_x( pos_x )
 			new_block_node.pos_y( pos_y )
+			new_block_node.layer( this.current_layer() )
 			return event
 		}
 
