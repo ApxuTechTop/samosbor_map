@@ -10327,6 +10327,22 @@ var $;
 			return "0 0 20 24";
 		}
 	};
+	($.$apxu_samosbor_map_icon_shower) = class $apxu_samosbor_map_icon_shower extends ($.$mol_icon) {
+		path(){
+			return "M3 5.18281C3 4.25469 3.75469 3.5 4.68281 3.5C5.12813 3.5 5.55469 3.67812 5.87344 3.99219L6.63281 4.75156C5.64844 6.575 5.81719 8.85312 7.14375 10.5172L7.07812 10.5781C6.6375 11.0188 6.6375 11.7312 7.07812 12.1672C7.51875 12.6031 8.23125 12.6078 8.66719 12.1672L16.1719 4.67188C16.6125 4.23125 16.6125 3.51875 16.1719 3.08281C15.7312 2.64687 15.0188 2.64219 14.5828 3.08281L14.5219 3.14375C12.8578 1.81719 10.575 1.64844 8.75625 2.63281L7.99219 1.87344C7.11562 0.992188 5.925 0.5 4.68281 0.5C2.09531 0.5 0 2.59531 0 5.18281V20C0 20.8297 0.670312 21.5 1.5 21.5C2.32969 21.5 3 20.8297 3 20V5.18281ZM12 15.5C12.3978 15.5 12.7794 15.342 13.0607 15.0607C13.342 14.7794 13.5 14.3978 13.5 14C13.5 13.6022 13.342 13.2206 13.0607 12.9393C12.7794 12.658 12.3978 12.5 12 12.5C11.6022 12.5 11.2206 12.658 10.9393 12.9393C10.658 13.2206 10.5 13.6022 10.5 14C10.5 14.3978 10.658 14.7794 10.9393 15.0607C11.2206 15.342 11.6022 15.5 12 15.5ZM15 18.5C15 18.1022 14.842 17.7206 14.5607 17.4393C14.2794 17.158 13.8978 17 13.5 17C13.1022 17 12.7206 17.158 12.4393 17.4393C12.158 17.7206 12 18.1022 12 18.5C12 18.8978 12.158 19.2794 12.4393 19.5607C12.7206 19.842 13.1022 20 13.5 20C13.8978 20 14.2794 19.842 14.5607 19.5607C14.842 19.2794 15 18.8978 15 18.5ZM15 12.5C15.3978 12.5 15.7794 12.342 16.0607 12.0607C16.342 11.7794 16.5 11.3978 16.5 11C16.5 10.6022 16.342 10.2206 16.0607 9.93934C15.7794 9.65804 15.3978 9.5 15 9.5C14.6022 9.5 14.2206 9.65804 13.9393 9.93934C13.658 10.2206 13.5 10.6022 13.5 11C13.5 11.3978 13.658 11.7794 13.9393 12.0607C14.2206 12.342 14.6022 12.5 15 12.5ZM18 15.5C18 15.1022 17.842 14.7206 17.5607 14.4393C17.2794 14.158 16.8978 14 16.5 14C16.1022 14 15.7206 14.158 15.4393 14.4393C15.158 14.7206 15 15.1022 15 15.5C15 15.8978 15.158 16.2794 15.4393 16.5607C15.7206 16.842 16.1022 17 16.5 17C16.8978 17 17.2794 16.842 17.5607 16.5607C17.842 16.2794 18 15.8978 18 15.5ZM18 9.5C18.3978 9.5 18.7794 9.34196 19.0607 9.06066C19.342 8.77936 19.5 8.39782 19.5 8C19.5 7.60218 19.342 7.22064 19.0607 6.93934C18.7794 6.65804 18.3978 6.5 18 6.5C17.6022 6.5 17.2206 6.65804 16.9393 6.93934C16.658 7.22064 16.5 7.60218 16.5 8C16.5 8.39782 16.658 8.77936 16.9393 9.06066C17.2206 9.34196 17.6022 9.5 18 9.5ZM21 12.5C21 12.1022 20.842 11.7206 20.5607 11.4393C20.2794 11.158 19.8978 11 19.5 11C19.1022 11 18.7206 11.158 18.4393 11.4393C18.158 11.7206 18 12.1022 18 12.5C18 12.8978 18.158 13.2794 18.4393 13.5607C18.7206 13.842 19.1022 14 19.5 14C19.8978 14 20.2794 13.842 20.5607 13.5607C20.842 13.2794 21 12.8978 21 12.5ZM22.5 11C22.8978 11 23.2794 10.842 23.5607 10.5607C23.842 10.2794 24 9.89782 24 9.5C24 9.10218 23.842 8.72064 23.5607 8.43934C23.2794 8.15804 22.8978 8 22.5 8C22.1022 8 21.7206 8.15804 21.4393 8.43934C21.158 8.72064 21 9.10218 21 9.5C21 9.89782 21.158 10.2794 21.4393 10.5607C21.7206 10.842 22.1022 11 22.5 11Z";
+		}
+		view_box(){
+			return "0 0 24 22";
+		}
+	};
+	($.$apxu_samosbor_map_icon_toilet) = class $apxu_samosbor_map_icon_toilet extends ($.$mol_icon) {
+		path(){
+			return "M19.5547 0C21.3317 0 22.5514 1.50938 23.2579 3.03709C23.9557 4.55258 24.3798 6.53004 24.4372 8.67006L24.4434 9.16626V20.7769C24.4435 20.9415 24.4103 21.1046 24.3459 21.2561C24.2814 21.4077 24.187 21.5447 24.0683 21.6588C23.9496 21.773 23.809 21.8619 23.655 21.9204C23.5011 21.9789 23.3369 22.0056 23.1723 21.999L23.0208 21.9819L19.5547 21.405L16.0886 21.9819C15.9419 22.0064 15.792 22.0039 15.6462 21.9746L15.502 21.9367L12.2217 20.8429L8.94138 21.9367C8.76932 21.994 8.58666 22.0123 8.40665 21.9903C8.22663 21.9683 8.05378 21.9065 7.90062 21.8093C7.74746 21.7122 7.61783 21.5822 7.52113 21.4288C7.42443 21.2754 7.3631 21.1024 7.34156 20.9223L7.33301 20.7769V17.1996C6.68404 17.8718 5.87129 18.3325 4.88867 18.3325C3.11164 18.3325 1.89192 16.8231 1.1855 15.2954C0.435092 13.6638 0 11.4957 0 9.16626C0 6.83681 0.43387 4.66868 1.1855 3.03709C1.85892 1.57782 3.00164 0.136883 4.65035 0.00977722L4.88867 0H19.5547ZM19.5547 2.44434H8.28874C8.39874 2.63988 8.49896 2.83787 8.59062 3.03709C9.34347 4.66868 9.77734 6.83681 9.77734 9.16626V19.0817L11.8355 18.3948C12.0862 18.3113 12.3572 18.3113 12.6079 18.3948L15.9872 19.5217L19.3542 18.9595C19.4862 18.9375 19.6231 18.9375 19.7551 18.9595L21.999 19.3347V9.16626C21.999 7.10813 21.6116 5.30421 21.0372 4.06126C20.4163 2.71321 19.8028 2.44434 19.5547 2.44434ZM4.88867 2.44434C4.64057 2.44434 4.02704 2.71321 3.40618 4.06126C2.83176 5.30421 2.44434 7.10813 2.44434 9.16626C2.44434 11.2244 2.83176 13.0283 3.40618 14.2713C4.02704 15.6193 4.64057 15.8882 4.88867 15.8882C5.13677 15.8882 5.7503 15.6193 6.37116 14.2713C6.94558 13.0283 7.33301 11.2244 7.33301 9.16626C7.33301 7.10813 6.94558 5.30421 6.37116 4.06126C5.7503 2.71321 5.13677 2.44434 4.88867 2.44434ZM4.88867 6.72192C5.56331 6.72192 6.11084 7.81576 6.11084 9.16626C6.11084 10.5168 5.56331 11.6106 4.88867 11.6106C4.21403 11.6106 3.6665 10.5168 3.6665 9.16626C3.6665 7.81576 4.21403 6.72192 4.88867 6.72192Z";
+		}
+		view_box(){
+			return "0 0 25 22";
+		}
+	};
 
 
 ;
@@ -16107,6 +16123,9 @@ var $;
 			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
 			return obj;
 		}
+		middle_flight_icons(){
+			return [(this.up_flight_icon())];
+		}
 		down_flight_icon(){
 			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
 			return obj;
@@ -16171,10 +16190,10 @@ var $;
 		safe_place(){
 			return null;
 		}
-		hospital_place(){
+		theatre_place(){
 			return null;
 		}
-		theatre_place(){
+		hospital_place(){
 			return null;
 		}
 		party_place(){
@@ -16184,8 +16203,8 @@ var $;
 			const obj = new this.$.$mol_view();
 			(obj.sub) = () => ([
 				(this.safe_place()), 
-				(this.hospital_place()), 
 				(this.theatre_place()), 
+				(this.hospital_place()), 
 				(this.party_place())
 			]);
 			return obj;
@@ -16599,7 +16618,7 @@ var $;
 		}
 		up_flight(){
 			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
-			(obj.sub) = () => ([(this.up_flight_icon())]);
+			(obj.sub) = () => ([...(this.middle_flight_icons())]);
 			return obj;
 		}
 		down_flight(){
@@ -16631,14 +16650,6 @@ var $;
 		}
 		factory_icon(){
 			const obj = new this.$.$apxu_samosbor_map_icon_factory();
-			return obj;
-		}
-		postal_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_postal();
-			return obj;
-		}
-		laundry_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_laundry();
 			return obj;
 		}
 		party_icon(){
@@ -16777,8 +16788,6 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "repairman_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "cleaner_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "factory_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "postal_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "laundry_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "party_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "theatre_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "hospital_icon"));
@@ -16949,7 +16958,7 @@ var $;
     class PlaceType extends $hyoo_crus_atom_enum([
         "theatre", "hospital", "party", "gym",
         "laundry", "postal", "overview", "racing", "hockey",
-        "spleef", "pool", "warehouse"
+        "spleef", "pool", "warehouse", "shower", "toilet"
     ]) {
     }
     $.PlaceType = PlaceType;
@@ -16977,7 +16986,8 @@ var $;
         LeftFlight: FlightData,
         RightFlight: FlightData,
         FloorsData: FloorsData,
-        UpMiddleFlight: $hyoo_crus_atom_bool,
+        IsMiddleFlight: $hyoo_crus_atom_bool,
+        MiddleFlight: FlightData,
         HasBalcony: $hyoo_crus_atom_bool,
         Professions: $hyoo_crus_list_ref_to(() => ProfessionData),
         Places: $hyoo_crus_list_ref_to(() => PlaceData),
@@ -17042,6 +17052,9 @@ var $;
         }
         right_flight_type(next) {
             return this.RightFlight(null)?.Type(null)?.val(next) ?? "stairs";
+        }
+        middle_flight_type(next) {
+            return this.MiddleFlight(null)?.Type(null)?.val(next) ?? "stairs";
         }
         up_left_passage_type(floor, next) {
             return this.FloorsData(null)?.key(floor, null).UpLeftPassage(null)?.Type(null)?.val(next) ?? "noway";
@@ -17195,6 +17208,9 @@ var $;
     __decorate([
         $mol_mem
     ], $apxu_samosbor_map_block_data.prototype, "right_flight_type", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "middle_flight_type", null);
     __decorate([
         $mol_mem_key
     ], $apxu_samosbor_map_block_data.prototype, "up_left_passage_type", null);
@@ -17649,6 +17665,15 @@ var $;
                 }
                 return this.flight_icons("right")[flight_type];
             }
+            middle_flight_icons() {
+                const flight_type = this.block_data().middle_flight_type();
+                const flight_icon_map = {
+                    "elevator": [this.flight_icons("middle")["elevator"]],
+                    "ladder_elevator": [this.flight_icons("middle")["elevator"], this.ladder_icon("middle")],
+                    "stairs": [this.flight_icons("middle")["stairs"]]
+                };
+                return flight_icon_map[flight_type];
+            }
             right_flight_click(event) {
                 if (!this.edit_mode())
                     return;
@@ -17745,7 +17770,7 @@ var $;
                 this.block_data().down_right_passage_type(floor, next_passage_type);
             }
             is_up_flight(next) {
-                return this.block_data().UpMiddleFlight(null)?.val(next) ?? false;
+                return this.block_data().IsMiddleFlight(null)?.val(next) ?? false;
             }
             up_passage_or_flight() {
                 if (this.is_up_flight()) {
@@ -17802,12 +17827,6 @@ var $;
             plumber_profession() {
                 return this.has_plumber_profession() ? this.factory_icon() : null;
             }
-            has_postal_place() {
-                return this.place_floors("postal").length > 0;
-            }
-            has_laundry_place() {
-                return this.place_floors("laundry").length > 0;
-            }
             has_hospital_place() {
                 return this.place_floors("hospital").length > 0;
             }
@@ -17819,9 +17838,6 @@ var $;
             }
             has_safe_place() {
                 return this.safe_floors().length > 0;
-            }
-            postal_place() {
-                return this.has_postal_place() ? this.postal_icon() : null;
             }
             party_place() {
                 return this.has_party_place() ? this.party_icon() : null;
@@ -17985,6 +18001,9 @@ var $;
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "right_flight_icon", null);
         __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "middle_flight_icons", null);
+        __decorate([
             $mol_action
         ], $apxu_samosbor_map_block.prototype, "right_flight_click", null);
         __decorate([
@@ -18067,12 +18086,6 @@ var $;
         ], $apxu_samosbor_map_block.prototype, "plumber_profession", null);
         __decorate([
             $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_postal_place", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_laundry_place", null);
-        __decorate([
-            $mol_mem
         ], $apxu_samosbor_map_block.prototype, "has_hospital_place", null);
         __decorate([
             $mol_mem
@@ -18083,9 +18096,6 @@ var $;
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "has_safe_place", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "postal_place", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "party_place", null);
@@ -18121,7 +18131,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxu/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxu_samosbor_map_cluster]>*,\n[apxu_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tcolor: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: black;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: red;\n\t}\n\n\t&[block-type=abandoned] {\n\t\t--block-type-stroke-color: yellow;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: blue;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxu_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\topacity: 0.2;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxu_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\t\tposition: absolute;\n\t\tbackground-color: #FFFFFF80;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\n\t}\n\n\t[apxu_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_profession_part],\n\t[apxu_samosbor_map_block_places_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxu_samosbor_map_block_flight],\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_up_middle_passage],\n\t\t[apxu_samosbor_map_block_down_middle_passage],\n\t\t[apxu_samosbor_map_block_left_passage],\n\t\t[apxu_samosbor_map_block_right_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxu_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxu_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 10px 10px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxu_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_info_part],\n\t[apxu_samosbor_map_block_effects_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_flooded_icon] {\n\t\t\twidth: 34px;\n\t\t\theight: 34px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_roof_icon] {\n\t\t\twidth: 36px;\n\t\t\theight: 30px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_generator_floor],\n\t\t[apxu_samosbor_map_block_flooded_floor_view],\n\t\t[apxu_samosbor_map_block_roof_floor_view] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
+    $mol_style_attach("apxu/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxu_samosbor_map_cluster]>*,\n[apxu_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tcolor: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: black;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: red;\n\t}\n\n\t&[block-type=abandoned] {\n\t\t--block-type-stroke-color: yellow;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: blue;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxu_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\topacity: 0.2;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxu_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\t\tposition: absolute;\n\t\tbackground-color: #FFFFFF80;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\n\t}\n\n\t[apxu_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_profession_part],\n\t[apxu_samosbor_map_block_places_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxu_samosbor_map_block_flight],\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_up_middle_passage],\n\t\t[apxu_samosbor_map_block_down_middle_passage],\n\t\t[apxu_samosbor_map_block_left_passage],\n\t\t[apxu_samosbor_map_block_right_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxu_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxu_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 10px 10px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxu_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_info_part],\n\t[apxu_samosbor_map_block_effects_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_flooded_icon] {\n\t\t\twidth: 34px;\n\t\t\theight: 34px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_roof_icon] {\n\t\t\twidth: 36px;\n\t\t\theight: 30px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_generator_floor],\n\t\t[apxu_samosbor_map_block_flooded_floor_view],\n\t\t[apxu_samosbor_map_block_roof_floor_view] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -18444,6 +18454,17 @@ var $;
 		left_flight_icons(){
 			return [];
 		}
+		middle_flight_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		middle_stairs_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
+			return obj;
+		}
+		middle_flight_icons(){
+			return [(this.middle_stairs_icon())];
+		}
 		right_flight_click(next){
 			if(next !== undefined) return next;
 			return null;
@@ -18532,6 +18553,14 @@ var $;
 		}
 		icon_laundry(){
 			const obj = new this.$.$apxu_samosbor_map_icon_laundry();
+			return obj;
+		}
+		icon_shower(){
+			const obj = new this.$.$apxu_samosbor_map_icon_shower();
+			return obj;
+		}
+		icon_toilet(){
+			const obj = new this.$.$apxu_samosbor_map_icon_toilet();
 			return obj;
 		}
 		place_floors(id){
@@ -18677,19 +18706,29 @@ var $;
 			const obj = new this.$.$mol_icon_chevron_left();
 			return obj;
 		}
+		change_flight_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
 		flight_left_button(){
 			const obj = new this.$.$apxu_samosbor_map_block_card_flight_button();
 			(obj.minimal_width) = () => (19);
 			(obj.minimal_height) = () => (28);
 			(obj.edit_mode) = () => ((this.edit_mode()));
 			(obj.sub) = () => ([(this.flight_left_icon())]);
+			(obj.click) = (next) => ((this.change_flight_click(next)));
 			return obj;
+		}
+		is_middle_flight(next){
+			if(next !== undefined) return next;
+			return false;
 		}
 		current_flight(){
 			return [];
 		}
 		flight_view(){
 			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"middle": (this.is_middle_flight())});
 			(obj.sub) = () => ([...(this.current_flight())]);
 			return obj;
 		}
@@ -18703,6 +18742,7 @@ var $;
 			(obj.minimal_height) = () => (28);
 			(obj.edit_mode) = () => ((this.edit_mode()));
 			(obj.sub) = () => ([(this.flight_right_icon())]);
+			(obj.click) = (next) => ((this.change_flight_click(next)));
 			return obj;
 		}
 		flights(){
@@ -19175,10 +19215,6 @@ var $;
 				"ladder_icon": (this.ladder_icon(id))
 			};
 		}
-		is_middle_flight(next){
-			if(next !== undefined) return next;
-			return false;
-		}
 		block_direction(next){
 			if(next !== undefined) return next;
 			return "up";
@@ -19191,6 +19227,8 @@ var $;
 		}
 		middle_flight_view(){
 			const obj = new this.$.$mol_view();
+			(obj.event) = () => ({"click": (next) => (this.middle_flight_click(next))});
+			(obj.sub) = () => ([...(this.middle_flight_icons())]);
 			return obj;
 		}
 		right_flight_view(){
@@ -19227,7 +19265,9 @@ var $;
 				"pool": (this.icon_pool()), 
 				"warehouse": (this.icon_warehouse()), 
 				"postal": (this.icon_postal()), 
-				"laundry": (this.icon_laundry())
+				"laundry": (this.icon_laundry()), 
+				"shower": (this.icon_shower()), 
+				"toilet": (this.icon_toilet())
 			};
 		}
 		place_floor(id){
@@ -19254,6 +19294,8 @@ var $;
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "ladder_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "left_flight_click"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "left_flight_arrow"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "middle_flight_click"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "middle_stairs_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "right_flight_click"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "right_flight_arrow"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "board_icon"));
@@ -19275,6 +19317,8 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_warehouse"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_postal"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_laundry"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_shower"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "icon_toilet"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "place_icon"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "add_place"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "shop_icon"));
@@ -19302,7 +19346,9 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_size"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "name_size"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_left_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "change_flight_click"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_left_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "is_middle_flight"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_view"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_right_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_right_button"));
@@ -19379,7 +19425,6 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "gigacluster"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "is_admin"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "is_editor"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "is_middle_flight"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_direction"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "left_flight_view"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "middle_flight_view"));
@@ -19549,6 +19594,15 @@ var $;
                 };
                 return flight_icon_map[flight_type];
             }
+            middle_flight_icons() {
+                const flight_type = this.block().block_data().middle_flight_type();
+                const flight_icon_map = {
+                    "elevator": [this.flight_icons("middle")["elevator"]],
+                    "ladder_elevator": [this.flight_icons("middle")["elevator"], this.flight_icons("middle")["ladder_icon"]],
+                    "stairs": [this.flight_icons("middle")["stairs"]]
+                };
+                return flight_icon_map[flight_type];
+            }
             right_flight_click() {
                 if (!this.edit_mode())
                     return;
@@ -19556,9 +19610,24 @@ var $;
                 const next_flight_type = flight_type_map[current_flight_type];
                 this.block().block_data().right_flight_type(next_flight_type);
             }
+            middle_flight_click() {
+                if (!this.edit_mode())
+                    return;
+                const current_flight_type = this.block().block_data().middle_flight_type();
+                const next_flight_type = flight_type_map[current_flight_type];
+                this.block().block_data().middle_flight_type(next_flight_type);
+            }
+            is_middle_flight(next) {
+                return this.block().is_up_flight(next);
+            }
+            change_flight_click() {
+                if (!this.edit_mode())
+                    return;
+                this.block().is_up_flight(!this.block().is_up_flight());
+            }
             current_flight() {
                 const side_flights = [this.left_flight_view(), this.right_flight_view()];
-                return this.is_middle_flight() ? [this.middle_flight_view] : side_flights;
+                return this.block().is_up_flight() ? [this.middle_flight_view()] : side_flights;
             }
             profession_floors(what) {
                 return this.block().profession_floors(what);
@@ -19650,7 +19719,7 @@ var $;
             }
             other_places() {
                 const places = [];
-                const other_place_types = ["postal", "laundry", "gym",
+                const other_place_types = ["laundry", "shower", "toilet", "postal", "gym",
                     "overview", "racing", "hockey",
                     "spleef", "pool", "warehouse"];
                 for (const place_type of other_place_types) {
@@ -19688,8 +19757,20 @@ var $;
             $mol_mem
         ], $apxu_samosbor_map_block_card.prototype, "right_flight_icons", null);
         __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "middle_flight_icons", null);
+        __decorate([
             $mol_action
         ], $apxu_samosbor_map_block_card.prototype, "right_flight_click", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block_card.prototype, "middle_flight_click", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "is_middle_flight", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block_card.prototype, "change_flight_click", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block_card.prototype, "current_flight", null);
@@ -19749,7 +19830,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxu/samosbor/map/block/card/card.view.css", "@import url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\n@font-face {\n\tfont-family: \"Space Mono\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n[apxu_samosbor_map_block_card] {\n\tposition: relative;\n\twidth: 287px;\n\theight: 482px;\n\tbackground-color: #121212;\n\tborder-radius: 5px;\n\tpadding: 15px;\n\tuser-select: none;\n\n\n\t--main-color: #676767;\n\t--edit-color: #1e1e1e;\n\n\n\n\t[mol_icon] {\n\t\tfilter: unset;\n\t}\n\n\tz-index: 1000;\n\n\t[mol_number] {\n\t\t[mol_string] {\n\t\t\tpadding: 3px;\n\t\t\t/* text-align: right; */\n\t\t}\n\n\t}\n}\n\n[apxu_samosbor_map_block_card_content] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: flex-start;\n\talign-items: center;\n\toverflow-y: scroll;\n\toverflow-x: hidden;\n\n\t&>* {\n\t\tborder-bottom: 3px solid var(--main-color);\n\t\tpadding-top: 5px;\n\t\tpadding-bottom: 5px;\n\t\twidth: 100%;\n\t\tjustify-content: center;\n\t}\n\n\twidth: 100%;\n\theight: 100%;\n}\n\n\n[apxu_samosbor_map_block_card_header] {\n\twidth: 100%;\n\tdisplay: flex;\n\tflex-direction: row;\n\n\n\tdisplay: flex;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_misc_buttons] {\n\tposition: absolute;\n\tright: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\twidth: unset;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n}\n\n[apxu_samosbor_map_block_card_control_buttons] {\n\tposition: absolute;\n\tleft: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n\n}\n\n[apxu_samosbor_map_block_card_edit_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_close_icon] {\n\twidth: 30px;\n\theight: 30px;\n}\n\n[apxu_samosbor_map_block_card_delete_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_block_name_input] {\n\twidth: 141px;\n\theight: 50px;\n\tpadding: 0px;\n\tflex: unset;\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: 48px;\n\tline-height: 12px;\n\tletter-spacing: 0;\n\ttext-align: center;\n\tcolor: var(--main-color) !important;\n}\n\n[apxu_samosbor_map_block_card_block_size] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tgap: 10px;\n\twidth: 55px;\n\theight: 46px;\n\n\t&>* {\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\theight: 16px;\n\n\n\n\t\tgap: 5px;\n\n\t\t[mol_string] {\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 18px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: var(--main-color) !important;\n\t\t}\n\n\t\t&>[mol_icon] {\n\t\t\twidth: 16px;\n\t\t\theight: 16px;\n\t\t\tfill: var(--main-color);\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_info] {\n\tborder-right: 2px solid var(--main-color);\n\tpadding: 5px;\n\tgap: 10px;\n\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_flights] {\n\twidth: 100%;\n\tjustify-content: space-between;\n\tgap: 10px;\n\talign-items: center;\n\n\t&>[mol_button]:not([edit-mode]) {\n\t\tvisibility: hidden;\n\t}\n}\n\n[apxu_samosbor_map_block_card_flight_view] {\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-between;\n\tflex: 1;\n\n\t&>* {\n\t\tgap: 5px;\n\t}\n\n\t&>&>* {\n\t\twidth: 20px;\n\t\theight: 20px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_buttons] {\n\tpadding: 5px;\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_coordinates] {\n\tflex-direction: column;\n\twidth: 86px;\n\tgap: 10px;\n\n\t[mol_button_minor] {\n\t\twidth: 10px;\n\t\theight: 15px;\n\t\tpadding: 0px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_position_info] {\n\t&:not([edit-mode]) {\n\t\tdisplay: none;\n\t}\n}\n\n[apxu_samosbor_map_block_card_pos_controller] {\n\tdisplay: grid;\n\tgrid-template-columns: 30px 30px 30px;\n\tgrid-template-rows: 30px 30px 30px;\n\tgap: 10px;\n\n\t&>* {\n\t\tpadding: 0;\n\t\talign-self: center;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\twidth: 30px;\n\t\theight: 30px;\n\n\t\t&>* {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_up_button] {\n\tgrid-area: 1 / 2 / 2 / 3;\n}\n\n[apxu_samosbor_map_block_card_right_button] {\n\tgrid-area: 2 / 3 / 3 / 4;\n}\n\n[apxu_samosbor_map_block_card_down_button] {\n\tgrid-area: 3 / 2 / 4 / 3;\n}\n\n[apxu_samosbor_map_block_card_left_button] {\n\tgrid-area: 2 / 1 / 3 / 2;\n}\n\n[apxu_samosbor_map_block_card_rotate_button] {\n\tgrid-area: 2 / 2 / 3 / 3;\n}\n\n[apxu_samosbor_map_block_card_pipe] {\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_pipe_icon] {\n\twidth: 30px;\n\theight: 30px;\n\tcolor: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_block_type_view] {\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_type_select_icon] {\n\t/* width: 7px; */\n\theight: 6px;\n\t/* margin-right: 7px; */\n}\n\n[apxu_samosbor_map_block_card_place] {\n\tflex-direction: column;\n\talign-items: center;\n\tgap: 5px;\n\n\twidth: 28px;\n\tmin-width: unset;\n\n\t[mol_icon] {\n\t\twidth: 24px;\n\t\theight: 24px;\n\t}\n\n\t[mol_string] {\n\t\ttext-align: center;\n\t}\n\n\t&:not([enabled]) {\n\t\t[apxu_samosbor_map_block_card_place_add_input] {\n\t\t\tdisplay: none;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_place_icon] {\n\twidth: 24px;\n\theight: 24px;\n}\n\n\n[apxu_samosbor_map_block_card_number_input] {\n\twidth: 4ch;\n}\n\n[apxu_samosbor_map_block_card_balcony_icon] {\n\tcolor: var(--main-color);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked])>[apxu_samosbor_map_block_card_balcony_icon] {\n\topacity: 0.5;\n}\n\n[apxu_samosbor_map_block_card_professions] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_places] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_features] {\n\tgap: 15px;\n\tflex-wrap: wrap;\n\tjustify-content: flex-start;\n}\n\n[apxu_samosbor_map_block_card_rights] {\n\tposition: absolute;\n\ttop: 100%;\n\tleft: auto;\n\tright: auto\n}\n\n[apxu_samosbor_map_block_card_flight_left_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_left_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_flight_right_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_right_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n");
+    $mol_style_attach("apxu/samosbor/map/block/card/card.view.css", "@import url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\n@font-face {\n\tfont-family: \"Space Mono\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n[apxu_samosbor_map_block_card] {\n\tposition: relative;\n\twidth: 287px;\n\theight: 482px;\n\tbackground-color: #121212;\n\tborder-radius: 5px;\n\tpadding: 15px;\n\tuser-select: none;\n\n\n\t--main-color: #676767;\n\t--edit-color: #1e1e1e;\n\n\n\n\t[mol_icon] {\n\t\tfilter: unset;\n\t}\n\n\tz-index: 1000;\n\n\t[mol_number] {\n\t\t[mol_string] {\n\t\t\tpadding: 3px;\n\t\t\t/* text-align: right; */\n\t\t}\n\n\t}\n}\n\n[apxu_samosbor_map_block_card_content] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: flex-start;\n\talign-items: center;\n\toverflow-y: scroll;\n\toverflow-x: hidden;\n\n\t&>* {\n\t\tborder-bottom: 3px solid var(--main-color);\n\t\tpadding-top: 5px;\n\t\tpadding-bottom: 5px;\n\t\twidth: 100%;\n\t\tjustify-content: center;\n\t}\n\n\twidth: 100%;\n\theight: 100%;\n}\n\n\n[apxu_samosbor_map_block_card_header] {\n\twidth: 100%;\n\tdisplay: flex;\n\tflex-direction: row;\n\n\n\tdisplay: flex;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_misc_buttons] {\n\tposition: absolute;\n\tright: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\twidth: unset;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n}\n\n[apxu_samosbor_map_block_card_control_buttons] {\n\tposition: absolute;\n\tleft: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n\n}\n\n[apxu_samosbor_map_block_card_edit_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_close_icon] {\n\twidth: 30px;\n\theight: 30px;\n}\n\n[apxu_samosbor_map_block_card_delete_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_block_name_input] {\n\twidth: 141px;\n\theight: 50px;\n\tpadding: 0px;\n\tflex: unset;\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: 48px;\n\tline-height: 12px;\n\tletter-spacing: 0;\n\ttext-align: center;\n\tcolor: var(--main-color) !important;\n}\n\n[apxu_samosbor_map_block_card_block_size] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tgap: 10px;\n\twidth: 55px;\n\theight: 46px;\n\n\t&>* {\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\theight: 16px;\n\n\n\n\t\tgap: 5px;\n\n\t\t[mol_string] {\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 18px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: var(--main-color) !important;\n\t\t}\n\n\t\t&>[mol_icon] {\n\t\t\twidth: 16px;\n\t\t\theight: 16px;\n\t\t\tfill: var(--main-color);\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_info] {\n\tborder-right: 2px solid var(--main-color);\n\tpadding: 5px;\n\tgap: 10px;\n\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_flights] {\n\twidth: 100%;\n\tjustify-content: space-between;\n\tgap: 10px;\n\talign-items: center;\n\n\t&>[mol_button]:not([edit-mode]) {\n\t\tvisibility: hidden;\n\t}\n}\n\n[apxu_samosbor_map_block_card_flight_view] {\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-between;\n\n\t&[middle] {\n\t\tjustify-content: center;\n\t}\n\n\tflex: 1;\n\n\t&>* {\n\t\tgap: 5px;\n\t}\n\n\t&>&>* {\n\t\twidth: 20px;\n\t\theight: 20px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_buttons] {\n\tpadding: 5px;\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_coordinates] {\n\tflex-direction: column;\n\twidth: 86px;\n\tgap: 10px;\n\n\t[mol_button_minor] {\n\t\twidth: 10px;\n\t\theight: 15px;\n\t\tpadding: 0px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_position_info] {\n\t&:not([edit-mode]) {\n\t\tdisplay: none;\n\t}\n}\n\n[apxu_samosbor_map_block_card_pos_controller] {\n\tdisplay: grid;\n\tgrid-template-columns: 30px 30px 30px;\n\tgrid-template-rows: 30px 30px 30px;\n\tgap: 10px;\n\n\t&>* {\n\t\tpadding: 0;\n\t\talign-self: center;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\twidth: 30px;\n\t\theight: 30px;\n\n\t\t&>* {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_up_button] {\n\tgrid-area: 1 / 2 / 2 / 3;\n}\n\n[apxu_samosbor_map_block_card_right_button] {\n\tgrid-area: 2 / 3 / 3 / 4;\n}\n\n[apxu_samosbor_map_block_card_down_button] {\n\tgrid-area: 3 / 2 / 4 / 3;\n}\n\n[apxu_samosbor_map_block_card_left_button] {\n\tgrid-area: 2 / 1 / 3 / 2;\n}\n\n[apxu_samosbor_map_block_card_rotate_button] {\n\tgrid-area: 2 / 2 / 3 / 3;\n}\n\n[apxu_samosbor_map_block_card_pipe] {\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_pipe_icon] {\n\twidth: 30px;\n\theight: 30px;\n\tcolor: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_block_type_view] {\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_type_select_icon] {\n\t/* width: 7px; */\n\theight: 6px;\n\t/* margin-right: 7px; */\n}\n\n[apxu_samosbor_map_block_card_place] {\n\tflex-direction: column;\n\talign-items: center;\n\tgap: 5px;\n\n\twidth: 28px;\n\tmin-width: unset;\n\n\t[mol_icon] {\n\t\twidth: 24px;\n\t\theight: 24px;\n\t}\n\n\t[mol_string] {\n\t\ttext-align: center;\n\t}\n\n\t&:not([enabled]) {\n\t\t[apxu_samosbor_map_block_card_place_add_input] {\n\t\t\tdisplay: none;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_place_icon] {\n\twidth: 24px;\n\theight: 24px;\n}\n\n\n[apxu_samosbor_map_block_card_number_input] {\n\twidth: 4ch;\n}\n\n[apxu_samosbor_map_block_card_balcony_icon] {\n\tcolor: var(--main-color);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked])>[apxu_samosbor_map_block_card_balcony_icon] {\n\topacity: 0.5;\n}\n\n[apxu_samosbor_map_block_card_professions] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_places] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_features] {\n\tgap: 15px;\n\tflex-wrap: wrap;\n\tjustify-content: flex-start;\n}\n\n[apxu_samosbor_map_block_card_rights] {\n\tposition: absolute;\n\ttop: 100%;\n\tleft: auto;\n\tright: auto\n}\n\n[apxu_samosbor_map_block_card_flight_left_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_left_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_flight_right_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_right_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n");
 })($ || ($ = {}));
 
 ;
