@@ -192,6 +192,13 @@
 	}
 
 	[apxu_samosbor_map_block_flight] {
+		&[status="blocked"] {
+			[mol_icon] {
+				opacity: 0.25;
+			}
+
+		}
+
 		[mol_icon] {
 			width: var(--duo-icon-size);
 			height: var(--duo-icon-size);

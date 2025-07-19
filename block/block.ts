@@ -68,7 +68,9 @@ namespace $ {
 
 	export class FloorData extends $hyoo_crus_dict.with( {
 		...PassageDirections,
-		Fence: FenceData
+		Fence: FenceData,
+		LeftFlight: FlightStatus,
+		RightFlight: FlightStatus,
 	} ) {
 		static readonly positions_map: { [ pos in TransitionPosition ]: keyof typeof PassageDirections } = {
 			up_left: "UpLeftPassage",
@@ -112,6 +114,25 @@ namespace $ {
 			const id = FenceTypes.indexOf( current_type )
 			const new_type = FenceTypes[ ( id + 1 ) % FenceTypes.length ]
 			this.fence_type( new_type )
+		}
+
+		@$mol_mem_key
+		flight_status( what: "left" | "right", next?: typeof FlightStatus.options[ number ] ) {
+			if( what === "left" ) {
+				return this.LeftFlight( true )?.val( next ) ?? "free"
+			}
+			if( what === "right" ) {
+				return this.RightFlight( true )?.val( next ) ?? "free"
+			}
+			return "free"
+		}
+
+		@$mol_action
+		next_flight_status( what: "left" | "right" ) {
+			const current_status = this.flight_status( what )
+			const id = FlightStatus.options.indexOf( current_status )
+			const new_status = FlightStatus.options[ ( id + 1 ) % FlightStatus.options.length ]
+			this.flight_status( what, new_status )
 		}
 
 	}
@@ -273,6 +294,15 @@ namespace $ {
 		@$mol_mem_key
 		down_right_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
 			return this.FloorsData( null )?.key( floor, null ).DownRightPassage( null )?.Type( null )?.val( next ) ?? "noway"
+		}
+
+		@$mol_mem_key
+		flight_status( { floor, what }: { floor: number, what: "left" | "right" } ) {
+			return this.FloorsData( true )?.key( floor, true ).flight_status( what ) ?? "free"
+		}
+		@$mol_action
+		next_flight_status( floor: number, what: "left" | "right" ) {
+			this.FloorsData( true )?.key( floor, true ).next_flight_status( what )
 		}
 
 		@$mol_mem

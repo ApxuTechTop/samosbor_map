@@ -469,10 +469,14 @@ namespace $.$$ {
 		left_flight_click( event?: PointerEvent ) {
 			if( !this.edit_mode() ) return
 			event?.stopImmediatePropagation()
-			const current_flight_type = this.block_data().left_flight_type()
-			const flight_type_map: { [ key in typeof FlightType.options[ number ] ]: typeof FlightType.options[ number ] } = { stairs: "elevator", elevator: "ladder_elevator", ladder_elevator: "stairs" }
-			const next_flight_type = flight_type_map[ current_flight_type ]
-			this.block_data().left_flight_type( next_flight_type )
+			const current_floor = this.current_floor()
+			this.block_data().next_flight_status( current_floor, "left" )
+		}
+
+		@$mol_mem_key
+		flight_status( what: "left" | "right" ) {
+			const current_floor = this.current_floor()
+			return this.block_data().flight_status( { floor: current_floor, what } )
 		}
 
 		@$mol_mem
@@ -498,10 +502,8 @@ namespace $.$$ {
 		right_flight_click( event?: PointerEvent ) {
 			if( !this.edit_mode() ) return
 			event?.stopImmediatePropagation()
-			const current_flight_type = this.block_data().right_flight_type()
-			const flight_type_map: { [ key in typeof FlightType.options[ number ] ]: typeof FlightType.options[ number ] } = { stairs: "elevator", elevator: "ladder_elevator", ladder_elevator: "stairs" }
-			const next_flight_type = flight_type_map[ current_flight_type ]
-			this.block_data().right_flight_type( next_flight_type )
+			const current_floor = this.current_floor()
+			this.block_data().next_flight_status( current_floor, "right" )
 		}
 
 		next_passage_type( current_passage_type: typeof PassageType.options[ number ] ) {
