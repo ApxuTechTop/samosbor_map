@@ -104,7 +104,6 @@ namespace $ {
 		@$mol_mem_key
 		lord_role( key: string, next?: typeof $apxu_samosbor_map_role.options[ number ] | "no_role" ) {
 			const finded = this.lord_rights( key )
-			console.log( finded )
 			if( next === "no_role" ) {
 				if( finded ) {
 					this.Rights( true )?.cut( finded.ref() )
@@ -142,7 +141,6 @@ namespace $ {
 		@$mol_mem_key
 		preset_no_current( role: typeof $apxu_samosbor_map_role.options[ number ] ) {
 			const preset = { ...this.preset( role ) }
-			console.log( "no current preset", preset )
 			delete preset[ $hyoo_crus_auth.current().public().toString() ]
 			return preset
 		}

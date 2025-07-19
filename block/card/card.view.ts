@@ -364,10 +364,64 @@ namespace $.$$ {
 
 			for( const place_type of other_place_types ) {
 				const some_place = this.place_floor( place_type )
-				places.push( some_place )
+				if( some_place.floors().length > 0 || this.edit_mode() ) {
+					console.log( "added" )
+					places.push( some_place )
+				}
 			}
 
 			return places
 		}
+
+		@$mol_mem
+		effects_info_visible(): readonly ( any )[] {
+			if( isNaN( this.floor_value( "roof" ) ) && isNaN( this.floor_value( "flood" ) )
+				&& this.has_balcony() === false && !this.edit_mode() ) {
+				return []
+			}
+			return [ this.effects_info() ]
+		}
+		@$mol_mem
+		profession_places(): readonly ( any )[] {
+			const profession_types = [ "liquidator", "repairman", "cleaner", "plumber" ] as const
+			return profession_types.filter( ( what ) => {
+				return this.profession_floors( what ).length > 0 || this.edit_mode()
+			} ).map( ( what ) => {
+				return this.profession_floor( what )
+			} )
+		}
+		@$mol_mem
+		professions_visible() {
+			const profession_types = [ "liquidator", "repairman", "cleaner", "plumber" ] as const
+			if( profession_types.filter( ( what ) => {
+				return this.profession_floors( what ).length > 0 || this.edit_mode()
+			} ).length > 0 ) {
+				return [ this.professions() ]
+			}
+			return []
+		}
+		@$mol_mem
+		important_places(): readonly ( any )[] {
+			const places = [ this.safes(), this.place_floor( "hospital" ), this.place_floor( "party" ), this.place_floor( "theatre" ) ]
+			return places.filter( ( place ) => {
+				return place.floors().length > 0 || this.edit_mode()
+			} )
+		}
+		@$mol_mem
+		places_visible(): readonly ( any )[] {
+			if( this.important_places().length > 0 ) {
+				return [ this.places() ]
+			}
+			return []
+		}
+		@$mol_mem
+		features_visible() {
+			console.log( this.other_places() )
+			if( this.other_places().length > 0 ) {
+				return [ this.features() ]
+			}
+			return []
+		}
+
 	}
 }

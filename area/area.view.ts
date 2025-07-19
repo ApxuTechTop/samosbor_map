@@ -182,8 +182,6 @@ namespace $.$$ {
 
 		@$mol_mem
 		log() {
-			console.log( this.zoom() )
-			console.log( this.isDragging() )
 		}
 	}
 }

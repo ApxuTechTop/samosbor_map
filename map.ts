@@ -11,7 +11,6 @@ namespace $ {
 		@$mol_mem
 		gigacluster() {
 			const gigacluster = this.Gigacluster( null )?.ensure( { '': $hyoo_crus_rank_join( "just" ) } )
-			console.log( "SET create_block for gigacluster" )
 			gigacluster!.create_block = () => this.create_block()
 			const can_rule = gigacluster?.land().lord_rank( $hyoo_crus_auth.current().lord() ) == $hyoo_crus_rank_rule
 			const roles = this.roles()
@@ -26,10 +25,8 @@ namespace $ {
 		}
 		@$mol_action
 		create_block() {
-			console.log( "CREATE FROM MAP" )
 			const roles = this.roles()
 			const researchers_preset = roles.preset_no_current( "researcher" )
-			console.log( researchers_preset )
 			const current_auth = $hyoo_crus_auth.current()
 			const block = this.gigacluster()?.Blocks( true )?.make( { ...researchers_preset, '': $hyoo_crus_rank_join( "just" ) } )
 			console.log( "created", block )
@@ -48,7 +45,6 @@ namespace $ {
 				if( can_rule ) {
 					Object.entries( researchers_preset ).map( ( [ key, rank ] ) => {
 						const auth = $hyoo_crus_auth.from( key )
-						console.log( auth.lord(), rank )
 						const is_owner = land.ref().description! == auth.lord().description!
 						if( !is_owner ) {
 							land.lord_rank( auth.lord(), rank )
