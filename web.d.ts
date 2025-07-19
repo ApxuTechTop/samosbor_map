@@ -5373,6 +5373,11 @@ declare namespace $ {
 		view_box( ): string
 	}
 	
+	export class $apxu_samosbor_map_icon_gallery extends $mol_icon {
+		path( ): string
+		view_box( ): string
+	}
+	
 }
 
 //# sourceMappingURL=icon.view.tree.d.ts.map
@@ -8328,8 +8333,8 @@ declare namespace $ {
     export class ProfessionData extends ProfessionData_base {
     }
     const PlaceType_base: (abstract new () => {
-        val(next?: "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | undefined): "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | null;
-        val_of(peer: string | null, next?: "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | undefined): "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | null;
+        val(next?: "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | undefined): "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | null;
+        val_of(peer: string | null, next?: "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | undefined): "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | null;
         pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
         vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
         vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
@@ -8360,7 +8365,7 @@ declare namespace $ {
         [Symbol.toStringTag]: string;
         [$mol_ambient_ref]: $;
     }) & {
-        options: readonly ["theatre", "hospital", "party", "gym", "laundry", "postal", "overview", "racing", "hockey", "spleef", "pool", "warehouse", "shower", "toilet"];
+        options: readonly ["theatre", "hospital", "party", "gym", "laundry", "postal", "overview", "racing", "hockey", "spleef", "pool", "warehouse", "shower", "toilet", "gallery"];
         toString(): any;
         tag: keyof typeof $hyoo_crus_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
@@ -10482,6 +10487,7 @@ declare namespace $ {
 		icon_laundry( ): $apxu_samosbor_map_icon_laundry
 		icon_shower( ): $apxu_samosbor_map_icon_shower
 		icon_toilet( ): $apxu_samosbor_map_icon_toilet
+		icon_gallery( ): $apxu_samosbor_map_icon_gallery
 		place_floors( id: any): readonly(any)[]
 		place_icon( id: any): $mol_icon
 		add_place( id: any, next?: any ): any
@@ -10649,6 +10655,7 @@ declare namespace $ {
 			'laundry': ReturnType< $apxu_samosbor_map_block_card['icon_laundry'] >,
 			'shower': ReturnType< $apxu_samosbor_map_block_card['icon_shower'] >,
 			'toilet': ReturnType< $apxu_samosbor_map_block_card['icon_toilet'] >,
+			'gallery': ReturnType< $apxu_samosbor_map_block_card['icon_gallery'] >,
 		}) 
 		place_floor( id: any): $apxu_samosbor_map_block_card_place
 		sub( ): readonly(any)[]
@@ -10698,7 +10705,7 @@ declare namespace $.$$ {
         floor_icon(what: keyof ReturnType<typeof this.some_floor>): $mol_icon;
         floor_view(what: any): $apxu_samosbor_map_block_card_floor | null;
         balcony_view(): ($mol_check_box | null)[];
-        place_icon(id: typeof PlaceType.options[number]): $apxu_samosbor_map_icon_theatre | $apxu_samosbor_map_icon_hospital | $apxu_samosbor_map_icon_party | $apxu_samosbor_map_icon_gym | $apxu_samosbor_map_icon_laundry | $apxu_samosbor_map_icon_postal | $apxu_samosbor_map_icon_overview | $apxu_samosbor_map_icon_racing | $apxu_samosbor_map_icon_hockey | $apxu_samosbor_map_icon_spleef | $apxu_samosbor_map_icon_pool | $apxu_samosbor_map_icon_warehouse | $apxu_samosbor_map_icon_shower | $apxu_samosbor_map_icon_toilet;
+        place_icon(id: typeof PlaceType.options[number]): $apxu_samosbor_map_icon_theatre | $apxu_samosbor_map_icon_hospital | $apxu_samosbor_map_icon_party | $apxu_samosbor_map_icon_gym | $apxu_samosbor_map_icon_laundry | $apxu_samosbor_map_icon_postal | $apxu_samosbor_map_icon_overview | $apxu_samosbor_map_icon_racing | $apxu_samosbor_map_icon_hockey | $apxu_samosbor_map_icon_spleef | $apxu_samosbor_map_icon_pool | $apxu_samosbor_map_icon_warehouse | $apxu_samosbor_map_icon_shower | $apxu_samosbor_map_icon_toilet | $apxu_samosbor_map_icon_gallery;
         block_type_value(next?: typeof BlockType.options[number]): string;
         other_places(): $mol_view[];
     }
