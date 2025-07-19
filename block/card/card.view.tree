@@ -119,6 +119,7 @@ $apxu_samosbor_map_block_card $mol_view
 		laundry <= icon_laundry $apxu_samosbor_map_icon_laundry
 		shower <= icon_shower $apxu_samosbor_map_icon_shower
 		toilet <= icon_toilet $apxu_samosbor_map_icon_toilet
+		gallery <= icon_gallery $apxu_samosbor_map_icon_gallery
 	place_floor* $apxu_samosbor_map_block_card_place
 		floors <= place_floors* /
 		icon <= place_icon* $mol_icon

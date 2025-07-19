@@ -360,7 +360,7 @@ namespace $.$$ {
 			const places: $mol_view[] = []
 			const other_place_types = [ "laundry", "shower", "toilet", "postal", "gym",
 				"overview", "racing", "hockey",
-				"spleef", "pool", "warehouse" ]
+				"spleef", "pool", "warehouse", "gallery" ]
 
 			for( const place_type of other_place_types ) {
 				const some_place = this.place_floor( place_type )

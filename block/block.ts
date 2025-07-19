@@ -157,7 +157,7 @@ namespace $ {
 	export class PlaceType extends $hyoo_crus_atom_enum( [
 		"theatre", "hospital", "party", "gym",
 		"laundry", "postal", "overview", "racing", "hockey",
-		"spleef", "pool", "warehouse", "shower", "toilet"
+		"spleef", "pool", "warehouse", "shower", "toilet", "gallery"
 	] ) {}
 	export class PlaceData extends $hyoo_crus_dict.with( {
 		Type: PlaceType,
@@ -380,7 +380,7 @@ namespace $ {
 		@$mol_mem
 		safe_floors() {
 			const safe_place_types: typeof PlaceType.options[ number ][] = [
-				"theatre", "party", "gym", "overview",
+				"theatre", "party", "gym", "overview", "gallery",
 				"racing", "hockey", "spleef", "pool", "warehouse"
 			]
 			const safe_places = this.Places( null )?.remote_list()
