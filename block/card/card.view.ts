@@ -347,7 +347,7 @@ namespace $.$$ {
 
 		place_icon( id: typeof PlaceType.options[ number ] ) {
 			const icons = this.place_icons()
-			return icons[ id as any as keyof typeof this.place_icons ]
+			return icons[ id ]
 		}
 
 		@$mol_mem
@@ -358,7 +358,7 @@ namespace $.$$ {
 		@$mol_mem
 		other_places() {
 			const places: $mol_view[] = []
-			const other_place_types = [ "postal", "laundry", "gym",
+			const other_place_types = [ "laundry", "shower", "toilet", "postal", "gym",
 				"overview", "racing", "hockey",
 				"spleef", "pool", "warehouse" ]
 

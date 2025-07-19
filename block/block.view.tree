@@ -124,8 +124,6 @@ $apxu_samosbor_map_block $mol_view
 	repairman_icon $apxu_samosbor_map_icon_repairman
 	cleaner_icon $apxu_samosbor_map_icon_cleaner
 	factory_icon $apxu_samosbor_map_icon_factory
-	postal_icon $apxu_samosbor_map_icon_postal
-	laundry_icon $apxu_samosbor_map_icon_laundry
 	party_icon $apxu_samosbor_map_icon_party
 	theatre_icon $apxu_samosbor_map_icon_theatre
 	hospital_icon $apxu_samosbor_map_icon_hospital
@@ -143,10 +141,8 @@ $apxu_samosbor_map_block $mol_view
 			<= places_wrapper $mol_view
 				sub /
 					<= safe_place null
-					<= hospital_place null
-					- <= laundry_place null
-					- <= postal_place null
 					<= theatre_place null
+					<= hospital_place null
 					<= party_place null
 	flooded_effect $mol_view
 		sub /

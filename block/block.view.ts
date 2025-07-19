@@ -684,14 +684,6 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		has_postal_place() {
-			return this.place_floors( "postal" ).length > 0
-		}
-		@$mol_mem
-		has_laundry_place() {
-			return this.place_floors( "laundry" ).length > 0
-		}
-		@$mol_mem
 		has_hospital_place() {
 			return this.place_floors( "hospital" ).length > 0
 		}
@@ -706,11 +698,6 @@ namespace $.$$ {
 		@$mol_mem
 		has_safe_place() {
 			return this.safe_floors().length > 0
-		}
-
-		@$mol_mem
-		postal_place() {
-			return this.has_postal_place() ? this.postal_icon() : null
 		}
 
 		@$mol_mem

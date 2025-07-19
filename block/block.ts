@@ -129,7 +129,7 @@ namespace $ {
 	export class PlaceType extends $hyoo_crus_atom_enum( [
 		"theatre", "hospital", "party", "gym",
 		"laundry", "postal", "overview", "racing", "hockey",
-		"spleef", "pool", "warehouse"
+		"spleef", "pool", "warehouse", "shower", "toilet"
 	] ) {}
 	export class PlaceData extends $hyoo_crus_dict.with( {
 		Type: PlaceType,
