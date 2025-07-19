@@ -8170,8 +8170,8 @@ declare namespace $ {
     export class FloorsData extends FloorsData_base {
     }
     const BlockType_base: (abstract new () => {
-        val(next?: "residential" | "abandoned" | "frozen" | "infected" | "destroyed" | undefined): "residential" | "abandoned" | "frozen" | "infected" | "destroyed" | null;
-        val_of(peer: string | null, next?: "residential" | "abandoned" | "frozen" | "infected" | "destroyed" | undefined): "residential" | "abandoned" | "frozen" | "infected" | "destroyed" | null;
+        val(next?: "residential" | "frozen" | "infected" | "destroyed" | undefined): "residential" | "frozen" | "infected" | "destroyed" | null;
+        val_of(peer: string | null, next?: "residential" | "frozen" | "infected" | "destroyed" | undefined): "residential" | "frozen" | "infected" | "destroyed" | null;
         pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
         vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
         vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
@@ -8202,7 +8202,7 @@ declare namespace $ {
         [Symbol.toStringTag]: string;
         [$mol_ambient_ref]: $;
     }) & {
-        options: readonly ["residential", "abandoned", "frozen", "infected", "destroyed"];
+        options: readonly ["residential", "frozen", "infected", "destroyed"];
         toString(): any;
         tag: keyof typeof $hyoo_crus_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
@@ -8696,7 +8696,7 @@ declare namespace $ {
     export class $apxu_samosbor_map_block_data extends $apxu_samosbor_map_block_data_base {
         name(next?: string): string;
         direction(next?: DirectionType): "left" | "right" | "up" | "down";
-        block_type(next?: typeof BlockType.options[number]): "residential" | "abandoned" | "frozen" | "infected" | "destroyed";
+        block_type(next?: typeof BlockType.options[number]): "residential" | "frozen" | "infected" | "destroyed";
         transitions(next?: TransitionData[]): readonly TransitionData[] | undefined;
         transition_by_position(floor: number, position: TransitionPosition): TransitionData | undefined;
         connect(my_floor: number, my_pos: TransitionPosition, block_node: $apxu_samosbor_map_block_data, another_floor: number, another_pos: TransitionPosition): void;
@@ -10059,7 +10059,6 @@ declare namespace $ {
 			'residential': string,
 			'destroyed': string,
 			'frozen': string,
-			'abandoned': string,
 			'infected': string,
 		}) 
 		,

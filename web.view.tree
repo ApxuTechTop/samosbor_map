@@ -1306,7 +1306,6 @@ $apxu_samosbor_map_block_card $mol_view
 								residential \Жилой
 								destroyed \Разрушенный
 								frozen \Замороженный
-								abandoned \Заброшенный
 								infected \Зараженный
 							Trigger_icon <= current_type_select_icon null
 							Filter null
@@ -1488,61 +1487,6 @@ $apxu_samosbor_map_app $mol_view
 						connect \Connect Blocks
 						configure \Configure Block
 		^ block_cards /
-		- <= Block_Form $mol_card
-			sub /
-				<= name_setting $mol_view
-					sub / <= name_input $mol_string
-						value? <=> selected_block_name? \
-						hint \Block name
-				<= type_setting $mol_labeler
-					title \Тип блока
-					content / <= block_type_switch $mol_switch
-						value? <=> block_type_value? \residential
-						options *
-							residential \Жилой
-							destroyed \Разрушенный
-							frozen \Замороженный
-							abandoned \Заброшенный
-							infected \Зараженный
-				<= gen_floor_setting $mol_labeler
-					title \Этаж генератора
-					content / <= gen_setting_number $mol_number
-						value? <=> gen_floor? 0
-				<= min_floor_setting $mol_labeler
-					title \Min floor
-					content / <= min_setting_number $mol_number
-						value? <=> min_floor? 0
-				<= max_floor_setting $mol_labeler
-					title \Max floor
-					content / <= max_setting_number $mol_number
-						value? <=> max_floor? 0
-				<= layer_setting $mol_labeler
-					title \Zero floor height
-					content / <= layer_setting_number $mol_number
-						value? <=> layer_value? 0
-				<= pos_x_setting $mol_labeler
-					title \Position X
-					content / <= pos_x_setting_number $mol_number
-						value? <=> pos_x_value? 0
-				<= pos_y_setting $mol_labeler
-					title \Position Y
-					content / <= pos_y_setting_number $mol_number
-						value? <=> pos_y_value? 0
-				<= direction_setting $mol_labeler
-					title \Direction
-					content / <= direction_switch $mol_switch
-						value? <=> direction_value? \up
-						options *
-							up \Up
-							right \Right
-							down \Down
-							left \Left
-				<= up_flight_setting $mol_check_box
-					title \Верхний пролет по середине
-					checked? <=> up_flight_value? false
-				<= delete_block_button $mol_button_minor
-					title \Delete block
-					click? <=> delete_block? null
 		<= Layer_Bar $mol_number
 			value? <=> current_layer? 0
 		<= Slider_Container $mol_view
