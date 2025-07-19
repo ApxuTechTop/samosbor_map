@@ -258,7 +258,6 @@ $apxu_samosbor_map_block_card $mol_view
 								residential \Жилой
 								destroyed \Разрушенный
 								frozen \Замороженный
-								abandoned \Заброшенный
 								infected \Зараженный
 							Trigger_icon <= current_type_select_icon null
 							Filter null

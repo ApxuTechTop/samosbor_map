@@ -118,7 +118,7 @@ namespace $ {
 
 	export class FloorsData extends $hyoo_crus_dict_to( FloorData ) {}
 
-	export class BlockType extends $hyoo_crus_atom_enum( [ "residential", "abandoned", "frozen", "infected", "destroyed" ] ) {}
+	export class BlockType extends $hyoo_crus_atom_enum( [ "residential", "frozen", "infected", "destroyed" ] ) {}
 
 	export class ProfessionType extends $hyoo_crus_atom_enum( [ "liquidator", "repairman", "cleaner", "plumber" ] ) {}
 	export class ProfessionData extends $hyoo_crus_dict.with( {

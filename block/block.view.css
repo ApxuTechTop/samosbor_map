@@ -52,19 +52,15 @@
 	--block-type-stroke-color: #00000000;
 
 	&[block-type=destroyed] {
-		--block-type-stroke-color: black;
+		--block-type-stroke-color: #706C00;
 	}
 
 	&[block-type=infected] {
-		--block-type-stroke-color: red;
-	}
-
-	&[block-type=abandoned] {
-		--block-type-stroke-color: yellow;
+		--block-type-stroke-color: #6E0000;
 	}
 
 	&[block-type=frozen] {
-		--block-type-stroke-color: blue;
+		--block-type-stroke-color: #120061;
 	}
 
 	padding: calc(var(--transition-length) / 2);
