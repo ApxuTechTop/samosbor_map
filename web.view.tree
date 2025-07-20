@@ -220,6 +220,10 @@ $apxu_samosbor_map_icon_gallery $mol_icon
 	path \M2.22222 24C1.61111 24 1.08815 23.7865 0.653333 23.3596C0.218519 22.9327 0.000740741 22.4189 0 21.8182V6.54545C0 5.94545 0.217778 5.432 0.653333 5.00509C1.08889 4.57818 1.61185 4.36436 2.22222 4.36364H5.55556L10 0L14.4444 4.36364H17.7778C18.3889 4.36364 18.9122 4.57745 19.3478 5.00509C19.7833 5.43273 20.0007 5.94618 20 6.54545V21.8182C20 22.4182 19.7826 22.932 19.3478 23.3596C18.913 23.7873 18.3896 24.0007 17.7778 24H2.22222ZM2.22222 21.8182H17.7778V6.54545H2.22222V21.8182ZM3.33333 19.6364H16.6667L12.5 14.1818L9.16667 18.5455L6.66667 15.2727L3.33333 19.6364ZM7.88889 4.36364H12.1111L10 2.29091L7.88889 4.36364Z
 	view_box \0 0 20 24
 
+$apxu_samosbor_map_icon_double_floor $mol_icon
+	path \M15 17.2273L0 9.04545L15 0.863632L30 9.04545L15 17.2273ZM15 22.6818L0.784091 14.9432L3.64773 13.375L15 19.5795L26.3523 13.375L29.2159 14.9432L15 22.6818ZM15 28.1364L0.784091 20.3977L3.64773 18.8295L15 25.0341L26.3523 18.8295L29.2159 20.3977L15 28.1364ZM15 14.125L24.3068 9.04545L15 3.9659L5.69318 9.04545L15 14.125Z
+	view_box \0 0 30 29
+
 $mol_list $mol_view
 	render_visible_only true
 	render_over 0
@@ -821,6 +825,7 @@ $apxu_samosbor_map_block $mol_view
 	connect_mode? false
 	block_layer? 0
 	current_layer? 0
+	current_floor 0
 	min_floor? 0
 	max_floor? 0
 	board_floor_value? null number
@@ -1258,9 +1263,11 @@ $apxu_samosbor_map_block_card $mol_view
 						<= block_buttons $mol_view
 							sub /
 								<= copy_button $mol_button_major
+									enabled false
 									sub / <= copy_icon $mol_icon_content_copy
 									click? <=> copy_click? null
 								<= path_button $mol_button_major
+									enabled false
 									sub / <= path_icon $mol_icon_map_marker_path
 									click? <=> path_click? null
 				<= position_info $mol_view
@@ -1313,10 +1320,11 @@ $apxu_samosbor_map_block_card $mol_view
 									sub / <= rotation_icon $apxu_samosbor_map_icon_direction
 										style *
 											transform <= rotation \rotate(0deg)
-						<= pipe $mol_view
+						<= double_floor $mol_view
 							sub /
-								<= pipe_icon $apxu_samosbor_map_icon_pipe
-								<= pipe_checkbox $mol_check_box
+								<= double_floor_icon $apxu_samosbor_map_icon_double_floor
+								<= double_floor_checkbox $mol_check_box
+									checked? <=> is_doubled_floor? false
 				<= block_type_view $mol_view
 					sub /
 						\Тип блока: 
