@@ -199,9 +199,11 @@ $apxu_samosbor_map_block_card $mol_view
 						<= block_buttons $mol_view
 							sub /
 								<= copy_button $mol_button_major
+									enabled false
 									sub / <= copy_icon $mol_icon_content_copy
 									click? <=> copy_click? null
 								<= path_button $mol_button_major
+									enabled false
 									sub / <= path_icon $mol_icon_map_marker_path
 									click? <=> path_click? null
 				<= position_info $mol_view
@@ -254,10 +256,11 @@ $apxu_samosbor_map_block_card $mol_view
 									sub / <= rotation_icon $apxu_samosbor_map_icon_direction
 										style *
 											transform <= rotation \rotate(0deg)
-						<= pipe $mol_view
+						<= double_floor $mol_view
 							sub /
-								<= pipe_icon $apxu_samosbor_map_icon_pipe
-								<= pipe_checkbox $mol_check_box
+								<= double_floor_icon $apxu_samosbor_map_icon_double_floor
+								<= double_floor_checkbox $mol_check_box
+									checked? <=> is_doubled_floor? false
 				<= block_type_view $mol_view
 					sub /
 						\Тип блока: 

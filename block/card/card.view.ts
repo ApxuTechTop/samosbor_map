@@ -423,5 +423,10 @@ namespace $.$$ {
 			return []
 		}
 
+		@$mol_mem
+		is_doubled_floor( next?: boolean ): boolean {
+			return this.block().block_data().is_double_floor( this.block().current_floor(), next )
+		}
+
 	}
 }

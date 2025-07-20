@@ -43,6 +43,7 @@ $apxu_samosbor_map_block $mol_view
 	connect_mode? false
 	block_layer? 0
 	current_layer? 0
+	current_floor 0
 	min_floor? 0
 	max_floor? 0
 	board_floor_value? null number

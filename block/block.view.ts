@@ -92,13 +92,39 @@ namespace $.$$ {
 		block_name( next?: string ) {
 			return this.block_data().name( next ) ?? ""
 		}
+		/**
+		 * Этаж относительно нулевого считая двухэтажные
+		 * @returns 
+		 */
 		@$mol_mem
 		current_floor(): number {
-			return Math.max( this.min_floor(), Math.min( this.current_layer() - this.block_layer(), this.max_floor() ) ) // TODO поправить для межэтажных
+			return this.current_layer() - this.block_layer()
+		}
+		/**
+		 * Этаж относительно нулевого не считая двухэтажные
+		 * @returns 
+		 */
+		@$mol_mem
+		numerical_floor(): number {
+			const double_count = this.block_data().double_floors_count( this.current_floor() )
+			const numerical_floor = this.current_floor() - ( this.current_floor() > 0 ? double_count : -double_count )
+			return numerical_floor
+			return Math.max( this.min_floor(), Math.min( numerical_floor, this.max_floor() ) )
 		}
 		@$mol_mem
 		display_floor(): string {
-			return ( this.current_floor() <= this.max_floor() && this.current_floor() >= this.min_floor() ) ? `${ this.current_floor() }` : "?"
+			const numerical_floor = this.numerical_floor()
+			const rounded_floor = Math.max( this.min_floor(), Math.min( numerical_floor, this.max_floor() ) )
+			const is_main_doubled = this.block_data().is_double_floor( this.current_floor() )
+			const data = this.block_data()
+			const str = this.is_doubled()
+				? "/1" : data.is_double_floor( this.current_floor() - Math.sign( this.current_floor() ) )
+					? "/2" : ""
+			return `${ rounded_floor }${ str }`
+		}
+		@$mol_mem
+		is_doubled() {
+			return this.block_data().is_double_floor( this.current_floor() )
 		}
 		@$mol_mem
 		generator_floor_value( next?: number ) {
@@ -154,7 +180,7 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		visible(): boolean {
-			const real_floor = this.current_layer() - this.block_layer()
+			const real_floor = this.numerical_floor()
 			return ( this.min_floor() <= real_floor ) && ( real_floor <= this.max_floor() )
 		}
 		@$mol_mem
