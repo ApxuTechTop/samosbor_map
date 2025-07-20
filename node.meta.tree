@@ -89,3 +89,11 @@
 	include \/mol/view/tree/test
 \/apxu/samosbor/map
 	deploy \apxu/samosbor/map/icons/copy.svg
+\/apxu/samosbor/map/app
+	deploy \apxu/samosbor/map/app/favicons/apple-touch-icon.png
+	deploy \apxu/samosbor/map/app/favicons/favicon-96x96.png
+	deploy \apxu/samosbor/map/app/favicons/favicon.ico
+	deploy \apxu/samosbor/map/app/favicons/favicon.svg
+	deploy \apxu/samosbor/map/app/favicons/site.webmanifest
+	deploy \apxu/samosbor/map/app/favicons/web-app-manifest-192x192.png
+	deploy \apxu/samosbor/map/app/favicons/web-app-manifest-512x512.png
