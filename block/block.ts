@@ -71,6 +71,7 @@ namespace $ {
 		Fence: FenceData,
 		LeftFlight: FlightStatus,
 		RightFlight: FlightStatus,
+		IsDouble: $hyoo_crus_atom_bool,
 	} ) {
 		static readonly positions_map: { [ pos in TransitionPosition ]: keyof typeof PassageDirections } = {
 			up_left: "UpLeftPassage",
@@ -140,6 +141,11 @@ namespace $ {
 			return TransitionPositions.map( ( pos ) => {
 				return this.get_passage_type( pos )
 			} )
+		}
+
+		@$mol_mem
+		is_double_floor( next?: boolean ) {
+			return this.IsDouble( next )?.val( next ) ?? false
 		}
 
 	}
@@ -412,7 +418,25 @@ namespace $ {
 
 		@$mol_mem_key
 		all_passages( floor: number ) {
-			return this.FloorsData( true )?.key( floor, true ).all_passages()
+			return this.FloorsData( true )?.key( floor )?.all_passages() ?? []
+		}
+
+		@$mol_mem_key
+		double_floors_count( floor: number ) {
+			const all_floors = this.FloorsData( )?.keys()
+				.filter( ( num ) => floor > 0 ? (Number(num) > 0 && Number( num ) < floor) : (Number(num) < 0 && Number(num) > floor) ) ?? []
+			const count = all_floors.reduce( ( count: number, floor_num ) => {
+				if( this.is_double_floor(Number(floor_num)) ) {
+					return count + 1
+				}
+				return count
+			}, 0 )
+			return count
+		}
+
+		@$mol_mem_key
+		is_double_floor(floor: number, next?: boolean) {
+			return this.FloorsData(next)?.key(floor, next).is_double_floor(next) ?? false
 		}
 
 	}
