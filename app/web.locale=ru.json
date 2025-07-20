@@ -1,0 +1,14 @@
+{
+	"$apxu_samosbor_map_app_title": "Карта самосбора",
+	"$hyoo_crus_land_rights_Add_key_hint": "Публичный ключ",
+	"$hyoo_crus_land_rights_Gift_rank_dictionary_deny": "🛑 Запрет",
+	"$hyoo_crus_land_rights_Gift_rank_dictionary_join": "📢 Вход",
+	"$hyoo_crus_land_rights_Gift_rank_dictionary_post": "✍ Запись",
+	"$hyoo_crus_land_rights_Gift_rank_dictionary_read": "👀 Чтение",
+	"$hyoo_crus_land_rights_Gift_rank_dictionary_rule": "👑 Власть",
+	"$mol_search_Clear_hint": "Очистить",
+	"$mol_search_hint": "Поиск..",
+	"$mol_select_filter_hint": "Фильтр..",
+	"$mol_select_hint": "Выбрать..",
+	"$mol_select_no_options_message": "Нет вариантов"
+}
