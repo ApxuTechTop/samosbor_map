@@ -12,8 +12,12 @@ namespace $ {
 			return storage
 		}
 		@$mol_mem
+		static active_map( next?: number ) {
+			return next ?? 0
+		}
+		@$mol_mem
 		static current() {
-			const current_id = 0
+			const current_id = this.active_map()
 			const maps = this.global().Maps( true )!
 			const map = maps.remote_list()[ current_id ] ?? maps.make( { '': $hyoo_crus_rank_read } )
 			console.log( "MAP REF: ", map.ref() )
