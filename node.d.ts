@@ -10724,6 +10724,7 @@ declare namespace $ {
     };
     export class $apxu_samosbor_map_storage extends $apxu_samosbor_map_storage_base {
         static global(): $apxu_samosbor_map_storage;
+        static active_map(next?: number): number;
         static current(): $apxu_samosbor_map;
     }
     export {};

@@ -20425,14 +20425,20 @@ var $;
             console.log("STORAGE REF: ", storage.ref());
             return storage;
         }
+        static active_map(next) {
+            return next ?? 0;
+        }
         static current() {
-            const current_id = 0;
+            const current_id = this.active_map();
             const maps = this.global().Maps(true);
             const map = maps.remote_list()[current_id] ?? maps.make({ '': $hyoo_crus_rank_read });
             console.log("MAP REF: ", map.ref());
             return map;
         }
     }
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_storage, "active_map", null);
     __decorate([
         $mol_mem
     ], $apxu_samosbor_map_storage, "current", null);
