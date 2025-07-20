@@ -111,6 +111,8 @@ $apxu_samosbor_map_block $mol_view
 		sub /
 			<= down_flight_icon $apxu_samosbor_map_icon_stairs
 	name_part $apxu_samosbor_map_block_part
+		attr *
+			semi-floor <= is_part_of_double_floor false
 		sub /
 			<= BlockName $mol_view sub / <= block_name? \А-00
 			<= CurrentFloor $mol_view 

@@ -115,12 +115,18 @@ namespace $.$$ {
 		display_floor(): string {
 			const numerical_floor = this.numerical_floor()
 			const rounded_floor = Math.max( this.min_floor(), Math.min( numerical_floor, this.max_floor() ) )
-			const is_main_doubled = this.block_data().is_double_floor( this.current_floor() )
 			const data = this.block_data()
-			const str = this.is_doubled()
+			const suffix = this.is_doubled()
 				? "/1" : data.is_double_floor( this.current_floor() - Math.sign( this.current_floor() ) )
 					? "/2" : ""
-			return `${ rounded_floor }${ str }`
+			return `${ rounded_floor }${ suffix }`
+		}
+		@$mol_mem
+		is_part_of_double_floor() {
+			const data = this.block_data()
+			return this.is_doubled()
+				? true : data.is_double_floor( this.current_floor() - Math.sign( this.current_floor() ) )
+					? true : false
 		}
 		@$mol_mem
 		is_doubled() {
