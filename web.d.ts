@@ -11070,6 +11070,7 @@ declare namespace $ {
 		blocks( ): readonly(any)[]
 		Area( ): $apxu_samosbor_map_area
 		Canvas( ): $mol_view
+		title( ): string
 		Block( id: any): $apxu_samosbor_map_block
 		BlockCard( id: any): $apxu_samosbor_map_block_card
 		Transition( id: any): $mol_view

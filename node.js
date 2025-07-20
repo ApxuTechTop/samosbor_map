@@ -20255,6 +20255,9 @@ var $;
 			(obj.sub) = () => ([(this.Area())]);
 			return obj;
 		}
+		title(){
+			return (this.$.$mol_locale.text("$apxu_samosbor_map_app_title"));
+		}
 		Block(id){
 			const obj = new this.$.$apxu_samosbor_map_block();
 			(obj.block_data) = (next) => ((this.block(id)));
