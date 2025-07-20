@@ -9154,10 +9154,12 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
 	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_61 = $mol_type_enforce<
-		readonly(any)[]
+	type $apxu_samosbor_map_block_part__attr_apxu_samosbor_map_block_61 = $mol_type_enforce<
+		({ 
+			'semi-floor': ReturnType< $apxu_samosbor_map_block['is_part_of_double_floor'] >,
+		}) 
 		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+		ReturnType< $apxu_samosbor_map_block_part['attr'] >
 	>
 	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_62 = $mol_type_enforce<
 		readonly(any)[]
@@ -9174,17 +9176,22 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_block_part['sub'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_65 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_65 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $mol_view['sub'] >
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
 	>
 	type $mol_view__sub_apxu_samosbor_map_block_66 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_67 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_67 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_68 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_part['sub'] >
@@ -9214,6 +9221,7 @@ declare namespace $ {
 		up_flight_icon( ): $apxu_samosbor_map_icon_stairs
 		middle_flight_icons( ): readonly(any)[]
 		down_flight_icon( ): $apxu_samosbor_map_icon_stairs
+		is_part_of_double_floor( ): boolean
 		block_name( next?: string ): string
 		BlockName( ): $mol_view
 		display_floor( ): string
@@ -9381,6 +9389,7 @@ declare namespace $.$$ {
         current_floor(): number;
         numerical_floor(): number;
         display_floor(): string;
+        is_part_of_double_floor(): boolean;
         is_doubled(): boolean;
         generator_floor_value(next?: number): number;
         board_floor_value(next?: number): number | null;
