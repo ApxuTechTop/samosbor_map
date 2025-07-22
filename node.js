@@ -5069,10 +5069,10 @@ var $;
         const kword = 0x80 << (24 - bits & 0b11111);
         const bytes = 16 + (bits + 64 >>> 9 << 4);
         const klens = bytes - 1;
-        const words = new Int32Array(data.buffer, data.byteOffset, data.byteLength >> 2);
+        const words = new DataView(data.buffer, data.byteOffset, data.byteLength >> 2 << 2);
         let tail = 0;
-        for (let i = words.length * 4; i < data.length; ++i) {
-            tail |= data[i] << (i << 3 & 0b11000);
+        for (let i = words.byteLength; i < data.length; ++i) {
+            tail |= data[i] << ((3 - i & 0b11) << 3);
         }
         const hash = new Int32Array([1732584193, -271733879, -1732584194, 271733878, -1009589776]);
         for (let i = 0; i < bytes; i += 16) {
@@ -5087,10 +5087,10 @@ var $;
                     sponge[j] = bits;
                 }
                 else {
-                    let word = k === words.length ? tail :
-                        k > words.length ? 0 :
-                            words[k];
-                    word = word << 24 | word << 8 & 0xFF0000 | word >>> 8 & 0xFF00 | word >>> 24 & 0xFF;
+                    const pos = k << 2;
+                    let word = pos === words.byteLength ? tail :
+                        pos > words.byteLength ? 0 :
+                            words.getInt32(pos, false);
                     if (k === kbits)
                         word |= kword;
                     sponge[j] = word;
@@ -16895,6 +16895,10 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function num_to_bigint(num) {
+        return (num !== undefined && !isNaN(num)) ? BigInt(num) : undefined;
+    }
+    $.num_to_bigint = num_to_bigint;
     $.TransitionPositions = ["up_left", "up_middle", "up_right", "right", "down_right", "down_middle", "down_left", "left"];
     class BlockDirection extends $hyoo_crus_atom_enum(["up", "right", "down", "left"]) {
     }
@@ -17001,7 +17005,7 @@ var $;
                 return "noway";
             }
             const property_name = FloorData.positions_map[transition];
-            const passage_type = this[property_name](null)?.Type(null)?.val();
+            const passage_type = this[property_name]()?.Type()?.val();
             return passage_type ?? "noway";
         }
         is_passage_free(transition) {
@@ -17023,10 +17027,10 @@ var $;
         }
         flight_status(what, next) {
             if (what === "left") {
-                return this.LeftFlight(true)?.val(next) ?? "free";
+                return this.LeftFlight(next)?.val(next) ?? "free";
             }
             if (what === "right") {
-                return this.RightFlight(true)?.val(next) ?? "free";
+                return this.RightFlight(next)?.val(next) ?? "free";
             }
             return "free";
         }
@@ -17123,16 +17127,16 @@ var $;
         Places: $hyoo_crus_list_ref_to(() => PlaceData),
     })) {
         name(next) {
-            return this.Name(null)?.val(next) ?? "N-00";
+            return this.Name(next)?.val(next) ?? "N-00";
         }
         direction(next) {
-            return this.Direction(null)?.val(next) ?? "up";
+            return this.Direction(next)?.val(next) ?? "up";
         }
         block_type(next) {
-            return this.Type(null)?.val(next) ?? "residential";
+            return this.Type(next)?.val(next) ?? "residential";
         }
         transitions(next) {
-            return this.Transitions(null)?.remote_list(next);
+            return this.Transitions(next)?.remote_list(next) ?? [];
         }
         transition_by_position(floor, position) {
             return this.transitions()?.find((transition) => {
@@ -17154,58 +17158,58 @@ var $;
         remove_transition(transition) {
         }
         pos_x(next) {
-            return Number(this.PositionX(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+            return Number(this.PositionX(next)?.val(num_to_bigint(next)) ?? 0);
         }
         pos_y(next) {
-            return Number(this.PositionY(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+            return Number(this.PositionY(next)?.val(num_to_bigint(next)) ?? 0);
         }
         layer(next) {
-            return Number(this.Layer(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+            return Number(this.Layer(next)?.val(num_to_bigint(next)) ?? 0);
         }
         min_floor(next) {
-            return Number(this.MinFloor(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+            return Number(this.MinFloor(next)?.val(num_to_bigint(next)) ?? 0);
         }
         max_floor(next) {
-            return Number(this.MaxFloor(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+            return Number(this.MaxFloor(next)?.val(num_to_bigint(next)) ?? 0);
         }
         generator_floor(next) {
-            return Number(this.Generator(null)?.val(next !== undefined ? BigInt(next) : undefined) ?? 0);
+            return Number(this.Generator(next)?.val(num_to_bigint(next)) ?? 0);
         }
         left_flight_status(next) {
-            return this.LeftFlight(null)?.Status(null)?.val(next);
+            return this.LeftFlight(next)?.Status(next)?.val(next);
         }
         left_flight_type(next) {
-            return this.LeftFlight(null)?.Type(null)?.val(next) ?? "stairs";
+            return this.LeftFlight(next)?.Type(next)?.val(next) ?? "stairs";
         }
         right_flight_status(next) {
-            return this.RightFlight(null)?.Status(null)?.val(next);
+            return this.RightFlight(next)?.Status(next)?.val(next);
         }
         right_flight_type(next) {
-            return this.RightFlight(null)?.Type(null)?.val(next) ?? "stairs";
+            return this.RightFlight(next)?.Type(next)?.val(next) ?? "stairs";
         }
         middle_flight_type(next) {
-            return this.MiddleFlight(null)?.Type(null)?.val(next) ?? "stairs";
+            return this.MiddleFlight(next)?.Type(next)?.val(next) ?? "stairs";
         }
         up_left_passage_type(floor, next) {
-            return this.FloorsData(null)?.key(floor, null).UpLeftPassage(null)?.Type(null)?.val(next) ?? "noway";
+            return this.FloorsData(next)?.key(floor, next)?.UpLeftPassage(next)?.Type(next)?.val(next) ?? "noway";
         }
         up_middle_passage_type(floor, next) {
-            return this.FloorsData(null)?.key(floor, null).UpMiddlePassage(null)?.Type(null)?.val(next) ?? "noway";
+            return this.FloorsData(next)?.key(floor, next)?.UpMiddlePassage(next)?.Type(next)?.val(next) ?? "noway";
         }
         up_right_passage_type(floor, next) {
-            return this.FloorsData(null)?.key(floor, null).UpRightPassage(null)?.Type(null)?.val(next) ?? "noway";
+            return this.FloorsData(next)?.key(floor, next)?.UpRightPassage(next)?.Type(next)?.val(next) ?? "noway";
         }
         down_left_passage_type(floor, next) {
-            return this.FloorsData(null)?.key(floor, null).DownLeftPassage(null)?.Type(null)?.val(next) ?? "noway";
+            return this.FloorsData(next)?.key(floor, next)?.DownLeftPassage(next)?.Type(next)?.val(next) ?? "noway";
         }
         down_middle_passage_type(floor, next) {
-            return this.FloorsData(null)?.key(floor, null).DownMiddlePassage(null)?.Type(null)?.val(next) ?? "noway";
+            return this.FloorsData(next)?.key(floor, next)?.DownMiddlePassage(next)?.Type(next)?.val(next) ?? "noway";
         }
         down_right_passage_type(floor, next) {
-            return this.FloorsData(null)?.key(floor, null).DownRightPassage(null)?.Type(null)?.val(next) ?? "noway";
+            return this.FloorsData(next)?.key(floor, next)?.DownRightPassage(next)?.Type(next)?.val(next) ?? "noway";
         }
         flight_status({ floor, what }) {
-            return this.FloorsData(true)?.key(floor, true).flight_status(what) ?? "free";
+            return this.FloorsData()?.key(floor)?.flight_status(what) ?? "free";
         }
         next_flight_status(floor, what) {
             this.FloorsData(true)?.key(floor, true).next_flight_status(what);
@@ -17310,7 +17314,7 @@ var $;
             return count;
         }
         is_double_floor(floor, next) {
-            return this.FloorsData(next)?.key(floor, next).is_double_floor(next) ?? false;
+            return this.FloorsData(next)?.key(floor, next)?.is_double_floor(next) ?? false;
         }
     }
     __decorate([
@@ -17431,6 +17435,9 @@ var $;
         $mol_mem_key
     ], $apxu_samosbor_map_block_data.prototype, "is_double_floor", null);
     $.$apxu_samosbor_map_block_data = $apxu_samosbor_map_block_data;
+    class $apxu_samosbor_map_block_pipe_data extends $apxu_samosbor_map_block_data.with({}) {
+    }
+    $.$apxu_samosbor_map_block_pipe_data = $apxu_samosbor_map_block_pipe_data;
 })($ || ($ = {}));
 
 ;
@@ -18346,7 +18353,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxu/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxu_samosbor_map_cluster]>*,\n[apxu_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tcolor: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: #EEFF00;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: #FF0000;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: #0051FF;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxu_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxu_samosbor_map_block_content]:not([interfloor]) {\n\t\t\tvisibility: hidden;\n\t\t\tz-index: 500;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content][interfloor] {\n\t\t\topacity: 0.3;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxu_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\t\tposition: absolute;\n\t\tbackground-color: #FFFFFF80;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\n\t}\n\n\t[apxu_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_profession_part],\n\t[apxu_samosbor_map_block_places_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_flight] {\n\t\t&[status=\"blocked\"] {\n\t\t\t[mol_icon] {\n\t\t\t\topacity: 0.25;\n\t\t\t}\n\n\t\t}\n\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxu_samosbor_map_block_flight],\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_up_middle_passage],\n\t\t[apxu_samosbor_map_block_down_middle_passage],\n\t\t[apxu_samosbor_map_block_left_passage],\n\t\t[apxu_samosbor_map_block_right_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxu_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxu_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 10px 10px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxu_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&[semi-floor] {\n\t\t\tpadding: unset;\n\n\t\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\t\tfont-size: 24px;\n\t\t\t}\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_info_part],\n\t[apxu_samosbor_map_block_effects_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_flooded_icon] {\n\t\t\twidth: 34px;\n\t\t\theight: 34px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_roof_icon] {\n\t\t\twidth: 36px;\n\t\t\theight: 30px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_generator_floor],\n\t\t[apxu_samosbor_map_block_flooded_floor_view],\n\t\t[apxu_samosbor_map_block_roof_floor_view] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
+    $mol_style_attach("apxu/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxu_samosbor_map_cluster]>*,\n[apxu_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tcolor: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: #EEFF00;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: #FF0000;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: #0051FF;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxu_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]) {\n\t\tpointer-events: none;\n\n\t\t[apxu_samosbor_map_block_content]:not([interfloor]) {\n\t\t\tvisibility: hidden;\n\t\t\tz-index: 500;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content][interfloor] {\n\t\t\topacity: 0.3;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxu_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\t\tposition: absolute;\n\t\tbackground-color: #FFFFFF80;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\n\t}\n\n\t[apxu_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_profession_part],\n\t[apxu_samosbor_map_block_places_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_flight] {\n\t\t&[status=\"blocked\"] {\n\t\t\t[mol_icon] {\n\t\t\t\topacity: 0.25;\n\t\t\t}\n\n\t\t}\n\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxu_samosbor_map_block_flight],\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_up_middle_passage],\n\t\t[apxu_samosbor_map_block_down_middle_passage],\n\t\t[apxu_samosbor_map_block_left_passage],\n\t\t[apxu_samosbor_map_block_right_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxu_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxu_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 10px 10px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxu_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&[semi-floor] {\n\t\t\tpadding: unset;\n\n\t\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\t\tfont-size: 24px;\n\t\t\t}\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_info_part],\n\t[apxu_samosbor_map_block_effects_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_flooded_icon] {\n\t\t\twidth: 34px;\n\t\t\theight: 34px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_roof_icon] {\n\t\t\twidth: 36px;\n\t\t\theight: 30px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_generator_floor],\n\t\t[apxu_samosbor_map_block_flooded_floor_view],\n\t\t[apxu_samosbor_map_block_roof_floor_view] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -18513,6 +18520,13 @@ var $;
 
 ;
 	($.$apxu_samosbor_map_block_card_number_input) = class $apxu_samosbor_map_block_card_number_input extends ($.$mol_number) {
+		unfocus(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event(){
+			return {...(super.event()), "focusout": (next) => (this.unfocus(next))};
+		}
 		minimal_height(){
 			return 0;
 		}
@@ -18520,6 +18534,7 @@ var $;
 			return [(this.String())];
 		}
 	};
+	($mol_mem(($.$apxu_samosbor_map_block_card_number_input.prototype), "unfocus"));
 	($.$apxu_samosbor_map_block_card_position_input) = class $apxu_samosbor_map_block_card_position_input extends ($.$apxu_samosbor_map_block_card_number_input) {
 		sub(){
 			return [(this.String())];
@@ -18539,6 +18554,13 @@ var $;
 		floor_value(id, next){
 			if(next !== undefined) return next;
 			return 0;
+		}
+		unfocus(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		value_string(id, next){
+			return (this.floor_input(id).value_string(next));
 		}
 		icon(){
 			const obj = new this.$.$mol_icon();
@@ -18575,6 +18597,7 @@ var $;
 			const obj = new this.$.$apxu_samosbor_map_block_card_number_input();
 			(obj.enabled) = () => ((this.enabled()));
 			(obj.value) = (next) => ((this.floor_value(id, next)));
+			(obj.unfocus) = (next) => ((this.unfocus(id, next)));
 			return obj;
 		}
 		remove_floor(id){
@@ -18589,6 +18612,7 @@ var $;
 		}
 	};
 	($mol_mem_key(($.$apxu_samosbor_map_block_card_place.prototype), "floor_value"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card_place.prototype), "unfocus"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_place.prototype), "icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_place.prototype), "add_floor"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_place.prototype), "add_input"));
@@ -19720,11 +19744,14 @@ var $;
                 });
             }
             floor_value(node, next) {
-                if (next !== null && next !== undefined && isNaN(next)) {
+                const val = Number(node.Floor(next)?.val(num_to_bigint(next)));
+                return val;
+            }
+            unfocus(node, e) {
+                const val = this.value_string(node);
+                if (val === "") {
                     return this.remove_floor(node);
                 }
-                const val = Number(node.Floor(null)?.val(next ? BigInt(next) : undefined));
-                return val;
             }
         }
         __decorate([
@@ -19733,6 +19760,9 @@ var $;
         __decorate([
             $mol_mem_key
         ], $apxu_samosbor_map_block_card_place.prototype, "floor_value", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block_card_place.prototype, "unfocus", null);
         $$.$apxu_samosbor_map_block_card_place = $apxu_samosbor_map_block_card_place;
         const flight_type_map = {
             stairs: "elevator",

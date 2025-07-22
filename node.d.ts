@@ -7585,6 +7585,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    export function num_to_bigint(num?: number): bigint | undefined;
     export type DirectionType = "up" | "right" | "down" | "left";
     export type TransitionPosition = "up_left" | "up_middle" | "up_right" | "right" | "down_right" | "down_middle" | "down_left" | "left";
     export const TransitionPositions: TransitionPosition[];
@@ -8718,7 +8719,7 @@ declare namespace $ {
         name(next?: string): string;
         direction(next?: DirectionType): "left" | "right" | "up" | "down";
         block_type(next?: typeof BlockType.options[number]): "residential" | "frozen" | "infected" | "destroyed";
-        transitions(next?: TransitionData[]): readonly TransitionData[] | undefined;
+        transitions(next?: TransitionData[]): readonly TransitionData[];
         transition_by_position(floor: number, position: TransitionPosition): TransitionData | undefined;
         connect(my_floor: number, my_pos: TransitionPosition, block_node: $apxu_samosbor_map_block_data, another_floor: number, another_pos: TransitionPosition): void;
         remove_transition(transition: TransitionData): void;
@@ -8758,6 +8759,13 @@ declare namespace $ {
         all_passages(floor: number): ("noway" | "normal" | "stairs_up" | "stairs_down")[];
         double_floors_count(floor: number): number;
         is_double_floor(floor: number, next?: boolean): boolean;
+    }
+    const $apxu_samosbor_map_block_pipe_data_base: Omit<typeof $apxu_samosbor_map_block_data, "prototype"> & (new (...args: any[]) => $mol_type_override<$apxu_samosbor_map_block_data, {}>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        };
+    };
+    export class $apxu_samosbor_map_block_pipe_data extends $apxu_samosbor_map_block_pipe_data_base {
     }
     export {};
 }
@@ -9621,6 +9629,10 @@ declare namespace $ {
 declare namespace $ {
 
 	export class $apxu_samosbor_map_block_card_number_input extends $mol_number {
+		unfocus( next?: any ): any
+		event( ): ({ 
+			focusout( next?: ReturnType< $apxu_samosbor_map_block_card_number_input['unfocus'] > ): ReturnType< $apxu_samosbor_map_block_card_number_input['unfocus'] >,
+		})  & ReturnType< $mol_number['event'] >
 		minimal_height( ): number
 		sub( ): readonly(any)[]
 	}
@@ -9636,28 +9648,45 @@ declare namespace $ {
 		})  & ReturnType< $mol_button_major['attr'] >
 	}
 	
-	type $mol_button_minor__click_apxu_samosbor_map_block_card_place_1 = $mol_type_enforce<
+	type __apxu_samosbor_map_block_card_place_1 = $mol_type_enforce<
+		Parameters< $apxu_samosbor_map_block_card_place['value_string'] >[0]
+		,
+		Parameters< $apxu_samosbor_map_block_card_place['floor_input'] >[0]
+	>
+	type __apxu_samosbor_map_block_card_place_2 = $mol_type_enforce<
+		Parameters< $apxu_samosbor_map_block_card_place['value_string'] >[1]
+		,
+		Parameters< $apxu_samosbor_map_block_card_place['floor_input'] >[0]
+	>
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_place_3 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card_place['add_floor'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__title_apxu_samosbor_map_block_card_place_2 = $mol_type_enforce<
+	type $mol_button_minor__title_apxu_samosbor_map_block_card_place_4 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['title'] >
 	>
-	type $apxu_samosbor_map_block_card_number_input__enabled_apxu_samosbor_map_block_card_place_3 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_number_input__enabled_apxu_samosbor_map_block_card_place_5 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card_place['enabled'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_number_input['enabled'] >
 	>
-	type $apxu_samosbor_map_block_card_number_input__value_apxu_samosbor_map_block_card_place_4 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_number_input__value_apxu_samosbor_map_block_card_place_6 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card_place['floor_value'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_number_input['value'] >
 	>
+	type $apxu_samosbor_map_block_card_number_input__unfocus_apxu_samosbor_map_block_card_place_7 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card_place['unfocus'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_number_input['unfocus'] >
+	>
 	export class $apxu_samosbor_map_block_card_place extends $mol_view {
 		floor_value( id: any, next?: number ): number
+		unfocus( id: any, next?: any ): any
+		value_string( id: any, next?: ReturnType< ReturnType< $apxu_samosbor_map_block_card_place['floor_input'] >['value_string'] > ): ReturnType< ReturnType< $apxu_samosbor_map_block_card_place['floor_input'] >['value_string'] >
 		icon( ): $mol_icon
 		floors_list( ): readonly(any)[]
 		add_floor( next?: any ): any
@@ -10568,6 +10597,7 @@ declare namespace $.$$ {
     class $apxu_samosbor_map_block_card_place extends $.$apxu_samosbor_map_block_card_place {
         floors_list(): readonly (any)[];
         floor_value(node: ProfessionData, next?: number): number;
+        unfocus(node: ProfessionData, e: any): any;
     }
     class $apxu_samosbor_map_block_card extends $.$apxu_samosbor_map_block_card {
         delete_block(next?: any): void;
