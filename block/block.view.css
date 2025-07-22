@@ -69,9 +69,11 @@
 		z-index: 501;
 	}
 
-	&:not([visible]) {
+	&:not([visible]):has([apxu_samosbor_map_block_content]:not([interfloor])) {
 		pointer-events: none;
+	}
 
+	&:not([visible]) {
 		[apxu_samosbor_map_block_content]:not([interfloor]) {
 			visibility: hidden;
 			z-index: 500;

@@ -408,6 +408,9 @@ namespace $.$$ {
 
 		@$mol_mem_key
 		connection_highlight( position: TransitionPosition ) {
+			if (this.connection_hidden(position)) {
+				return false
+			}
 			const first_port = $apxu_samosbor_map_block.first_port()
 			if( !first_port ) { return false }
 			const current_block = this.block_data().ref()
