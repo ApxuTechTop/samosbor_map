@@ -70,6 +70,8 @@
 	}
 
 	&:not([visible]) {
+		pointer-events: none;
+
 		[apxu_samosbor_map_block_content]:not([interfloor]) {
 			visibility: hidden;
 			z-index: 500;

@@ -1,4 +1,9 @@
 namespace $ {
+	export function num_to_bigint( num?: number ) {
+		return ( num !== undefined && !isNaN( num ) ) ? BigInt( num ) : undefined
+	}
+
+
 	export type DirectionType = "up" | "right" | "down" | "left"
 	export type TransitionPosition = "up_left" | "up_middle" | "up_right" | "right" | "down_right" | "down_middle" | "down_left" | "left"
 	export const TransitionPositions: TransitionPosition[] = [ "up_left", "up_middle", "up_right", "right", "down_right", "down_middle", "down_left", "left" ]
@@ -93,7 +98,7 @@ namespace $ {
 				return "noway"
 			}
 			const property_name = FloorData.positions_map[ transition ]
-			const passage_type = this[ property_name ]( null )?.Type( null )?.val()
+			const passage_type = this[ property_name ]()?.Type()?.val()
 			return passage_type ?? "noway"
 		}
 
@@ -120,10 +125,10 @@ namespace $ {
 		@$mol_mem_key
 		flight_status( what: "left" | "right", next?: typeof FlightStatus.options[ number ] ) {
 			if( what === "left" ) {
-				return this.LeftFlight( true )?.val( next ) ?? "free"
+				return this.LeftFlight( next )?.val( next ) ?? "free"
 			}
 			if( what === "right" ) {
-				return this.RightFlight( true )?.val( next ) ?? "free"
+				return this.RightFlight( next )?.val( next ) ?? "free"
 			}
 			return "free"
 		}
@@ -199,19 +204,19 @@ namespace $ {
 	} ) ) {
 		@$mol_mem
 		name( next?: string ) {
-			return this.Name( null )?.val( next ) ?? "N-00"
+			return this.Name( next )?.val( next ) ?? "N-00"
 		}
 		@$mol_mem
 		direction( next?: DirectionType ) {
-			return this.Direction( null )?.val( next ) ?? "up"
+			return this.Direction( next )?.val( next ) ?? "up"
 		}
 		@$mol_mem
 		block_type( next?: typeof BlockType.options[ number ] ) {
-			return this.Type( null )?.val( next ) ?? "residential"
+			return this.Type( next )?.val( next ) ?? "residential"
 		}
 		@$mol_mem
 		transitions( next?: TransitionData[] ) {
-			return this.Transitions( null )?.remote_list( next )
+			return this.Transitions( next )?.remote_list( next ) ?? []
 		}
 
 		transition_by_position( floor: number, position: TransitionPosition ) {
@@ -239,79 +244,79 @@ namespace $ {
 		}
 		@$mol_mem
 		pos_x( next?: number ) {
-			return Number( this.PositionX( null )?.val( next !== undefined ? BigInt( next ) : undefined ) ?? 0 )
+			return Number( this.PositionX( next )?.val( num_to_bigint( next ) ) ?? 0 )
 		}
 		@$mol_mem
 		pos_y( next?: number ) {
-			return Number( this.PositionY( null )?.val( next !== undefined ? BigInt( next ) : undefined ) ?? 0 )
+			return Number( this.PositionY( next )?.val( num_to_bigint( next ) ) ?? 0 )
 		}
 		@$mol_mem
 		layer( next?: number ) {
-			return Number( this.Layer( null )?.val( next !== undefined ? BigInt( next ) : undefined ) ?? 0 )
+			return Number( this.Layer( next )?.val( num_to_bigint( next ) ) ?? 0 )
 		}
 		@$mol_mem
 		min_floor( next?: number ) {
-			return Number( this.MinFloor( null )?.val( next !== undefined ? BigInt( next ) : undefined ) ?? 0 )
+			return Number( this.MinFloor( next )?.val( num_to_bigint( next ) ) ?? 0 )
 		}
 		@$mol_mem
 		max_floor( next?: number ) {
-			return Number( this.MaxFloor( null )?.val( next !== undefined ? BigInt( next ) : undefined ) ?? 0 )
+			return Number( this.MaxFloor( next )?.val( num_to_bigint( next ) ) ?? 0 )
 		}
 		@$mol_mem
 		generator_floor( next?: number ) {
-			return Number( this.Generator( null )?.val( next !== undefined ? BigInt( next ) : undefined ) ?? 0 )
+			return Number( this.Generator( next )?.val( num_to_bigint( next ) ) ?? 0 )
 		}
 		@$mol_mem
 		left_flight_status( next?: typeof FlightStatus.options[ number ] ) {
-			return this.LeftFlight( null )?.Status( null )?.val( next )
+			return this.LeftFlight( next )?.Status( next )?.val( next )
 		}
 		@$mol_mem
 		left_flight_type( next?: typeof FlightType.options[ number ] ) {
-			return this.LeftFlight( null )?.Type( null )?.val( next ) ?? "stairs"
+			return this.LeftFlight( next )?.Type( next )?.val( next ) ?? "stairs"
 		}
 
 		@$mol_mem
 		right_flight_status( next?: typeof FlightStatus.options[ number ] ) {
-			return this.RightFlight( null )?.Status( null )?.val( next )
+			return this.RightFlight( next )?.Status( next )?.val( next )
 		}
 		@$mol_mem
 		right_flight_type( next?: typeof FlightType.options[ number ] ) {
-			return this.RightFlight( null )?.Type( null )?.val( next ) ?? "stairs"
+			return this.RightFlight( next )?.Type( next )?.val( next ) ?? "stairs"
 		}
 
 		@$mol_mem
 		middle_flight_type( next?: typeof FlightType.options[ number ] ) {
-			return this.MiddleFlight( null )?.Type( null )?.val( next ) ?? "stairs"
+			return this.MiddleFlight( next )?.Type( next )?.val( next ) ?? "stairs"
 		}
 
 		@$mol_mem_key
 		up_left_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( null )?.key( floor, null ).UpLeftPassage( null )?.Type( null )?.val( next ) ?? "noway"
+			return this.FloorsData( next )?.key( floor, next )?.UpLeftPassage( next )?.Type( next )?.val( next ) ?? "noway"
 		}
 		@$mol_mem_key
 		up_middle_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( null )?.key( floor, null ).UpMiddlePassage( null )?.Type( null )?.val( next ) ?? "noway"
+			return this.FloorsData( next )?.key( floor, next )?.UpMiddlePassage( next )?.Type( next )?.val( next ) ?? "noway"
 		}
 		@$mol_mem_key
 		up_right_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( null )?.key( floor, null ).UpRightPassage( null )?.Type( null )?.val( next ) ?? "noway"
+			return this.FloorsData( next )?.key( floor, next )?.UpRightPassage( next )?.Type( next )?.val( next ) ?? "noway"
 		}
 		@$mol_mem_key
 		down_left_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( null )?.key( floor, null ).DownLeftPassage( null )?.Type( null )?.val( next ) ?? "noway"
+			return this.FloorsData( next )?.key( floor, next )?.DownLeftPassage( next )?.Type( next )?.val( next ) ?? "noway"
 		}
 		@$mol_mem_key
 		down_middle_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( null )?.key( floor, null ).DownMiddlePassage( null )?.Type( null )?.val( next ) ?? "noway"
+			return this.FloorsData( next )?.key( floor, next )?.DownMiddlePassage( next )?.Type( next )?.val( next ) ?? "noway"
 		}
 		@$mol_mem_key
 		down_right_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( null )?.key( floor, null ).DownRightPassage( null )?.Type( null )?.val( next ) ?? "noway"
+			return this.FloorsData( next )?.key( floor, next )?.DownRightPassage( next )?.Type( next )?.val( next ) ?? "noway"
 		}
 
 		@$mol_mem_key
 		flight_status( { floor, what }: { floor: number, what: "left" | "right" } ) {
-			return this.FloorsData( true )?.key( floor, true ).flight_status( what ) ?? "free"
+			return this.FloorsData()?.key( floor )?.flight_status( what ) ?? "free"
 		}
 		@$mol_action
 		next_flight_status( floor: number, what: "left" | "right" ) {
@@ -423,10 +428,10 @@ namespace $ {
 
 		@$mol_mem_key
 		double_floors_count( floor: number ) {
-			const all_floors = this.FloorsData( )?.keys()
-				.filter( ( num ) => floor > 0 ? (Number(num) > 0 && Number( num ) < floor) : (Number(num) < 0 && Number(num) > floor) ) ?? []
+			const all_floors = this.FloorsData()?.keys()
+				.filter( ( num ) => floor > 0 ? ( Number( num ) > 0 && Number( num ) < floor ) : ( Number( num ) < 0 && Number( num ) > floor ) ) ?? []
 			const count = all_floors.reduce( ( count: number, floor_num ) => {
-				if( this.is_double_floor(Number(floor_num)) ) {
+				if( this.is_double_floor( Number( floor_num ) ) ) {
 					return count + 1
 				}
 				return count
@@ -435,9 +440,14 @@ namespace $ {
 		}
 
 		@$mol_mem_key
-		is_double_floor(floor: number, next?: boolean) {
-			return this.FloorsData(next)?.key(floor, next).is_double_floor(next) ?? false
+		is_double_floor( floor: number, next?: boolean ) {
+			return this.FloorsData( next )?.key( floor, next )?.is_double_floor( next ) ?? false
 		}
+
+	}
+
+	export class $apxu_samosbor_map_block_pipe_data extends $apxu_samosbor_map_block_data.with( {
+	} ) {
 
 	}
 }

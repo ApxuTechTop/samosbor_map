@@ -128,11 +128,16 @@ namespace $.$$ {
 		}
 		@$mol_mem_key
 		floor_value( node: ProfessionData, next?: number ): number {
-			if( next !== null && next !== undefined && isNaN( next ) ) {
+
+			const val = Number( node.Floor( next )?.val( num_to_bigint( next ) ) )
+			return val
+		}
+		@$mol_action
+		unfocus( node: ProfessionData, e: any ) {
+			const val = this.value_string( node )
+			if( val === "" ) {
 				return this.remove_floor( node )
 			}
-			const val = Number( node.Floor( null )?.val( next ? BigInt( next ) : undefined ) )
-			return val
 		}
 	}
 	const flight_type_map: {

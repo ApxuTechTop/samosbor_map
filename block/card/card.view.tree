@@ -1,4 +1,7 @@
 $apxu_samosbor_map_block_card_number_input $mol_number
+	event *
+		^
+		focusout? <=> unfocus? null
 	minimal_height 0
 	sub /
 		<= String
@@ -21,6 +24,8 @@ $apxu_samosbor_map_block_card_place $mol_view
 	floor_input* $apxu_samosbor_map_block_card_number_input
 		enabled <= enabled
 		value? <=> floor_value*? 0
+		unfocus? <=> unfocus*? null
+		value_string? => value_string*?
 		- submit? <=> floor_submit*? null
 	remove_floor* null
 	sub /
