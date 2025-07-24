@@ -16594,6 +16594,10 @@ var $;
 			if(next !== undefined) return next;
 			return false;
 		}
+		is_doubled(next){
+			if(next !== undefined) return next;
+			return false;
+		}
 		block_layer(next){
 			if(next !== undefined) return next;
 			return 0;
@@ -16848,6 +16852,7 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "edit_mode"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "create_mode"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "connect_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_doubled"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_layer"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "current_layer"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "board_floor_value"));
@@ -17525,7 +17530,6 @@ var $;
                 const double_count = this.block_data().double_floors_count(this.current_floor());
                 const numerical_floor = this.current_floor() - (this.current_floor() > 0 ? double_count : -double_count);
                 return numerical_floor;
-                return Math.max(this.min_floor(), Math.min(numerical_floor, this.max_floor()));
             }
             display_floor() {
                 const numerical_floor = this.numerical_floor();
@@ -18528,6 +18532,19 @@ var $;
 		}
 	};
 	($mol_mem(($.$apxu_samosbor_map_block_card_number_input.prototype), "unfocus"));
+	($.$apxu_samosbor_map_block_card_floor_input) = class $apxu_samosbor_map_block_card_floor_input extends ($.$mol_string) {
+		unfocus(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event(){
+			return {...(super.event()), "focusout": (next) => (this.unfocus(next))};
+		}
+		minimal_height(){
+			return 0;
+		}
+	};
+	($mol_mem(($.$apxu_samosbor_map_block_card_floor_input.prototype), "unfocus"));
 	($.$apxu_samosbor_map_block_card_position_input) = class $apxu_samosbor_map_block_card_position_input extends ($.$apxu_samosbor_map_block_card_number_input) {
 		sub(){
 			return [(this.String())];
@@ -18544,16 +18561,13 @@ var $;
 	};
 	($mol_mem(($.$apxu_samosbor_map_block_card_flight_button.prototype), "edit_mode"));
 	($.$apxu_samosbor_map_block_card_place) = class $apxu_samosbor_map_block_card_place extends ($.$mol_view) {
-		floor_value(id, next){
+		floor_string(id, next){
 			if(next !== undefined) return next;
-			return 0;
+			return "";
 		}
 		unfocus(id, next){
 			if(next !== undefined) return next;
 			return null;
-		}
-		value_string(id, next){
-			return (this.floor_input(id).value_string(next));
 		}
 		icon(){
 			const obj = new this.$.$mol_icon();
@@ -18586,10 +18600,18 @@ var $;
 		attr(){
 			return {"enabled": (this.enabled())};
 		}
+		floor_value(id, next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		block(){
+			const obj = new this.$.$apxu_samosbor_map_block();
+			return obj;
+		}
 		floor_input(id){
-			const obj = new this.$.$apxu_samosbor_map_block_card_number_input();
+			const obj = new this.$.$apxu_samosbor_map_block_card_floor_input();
 			(obj.enabled) = () => ((this.enabled()));
-			(obj.value) = (next) => ((this.floor_value(id, next)));
+			(obj.value) = (next) => ((this.floor_string(id, next)));
 			(obj.unfocus) = (next) => ((this.unfocus(id, next)));
 			return obj;
 		}
@@ -18604,13 +18626,15 @@ var $;
 			];
 		}
 	};
-	($mol_mem_key(($.$apxu_samosbor_map_block_card_place.prototype), "floor_value"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card_place.prototype), "floor_string"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card_place.prototype), "unfocus"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_place.prototype), "icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_place.prototype), "add_floor"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_place.prototype), "add_input"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_place.prototype), "floors"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_place.prototype), "enabled"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card_place.prototype), "floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block_card_place.prototype), "block"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card_place.prototype), "floor_input"));
 	($.$apxu_samosbor_map_block_card_floor) = class $apxu_samosbor_map_block_card_floor extends ($.$mol_view) {
 		icon(){
@@ -19333,6 +19357,7 @@ var $;
 			(obj.icon) = () => ((this.house_icon()));
 			(obj.enabled) = () => (false);
 			(obj.remove_floor) = (id) => ((this.remove_floor(id)));
+			(obj.block) = () => ((this.block()));
 			return obj;
 		}
 		important_places(){
@@ -19483,6 +19508,7 @@ var $;
 			(obj.enabled) = () => ((this.edit_mode()));
 			(obj.add_floor) = (next) => ((this.add_place(id, next)));
 			(obj.remove_floor) = (id) => ((this.remove_place(id)));
+			(obj.block) = () => ((this.block()));
 			return obj;
 		}
 		profession_floor(id){
@@ -19492,6 +19518,7 @@ var $;
 			(obj.enabled) = () => ((this.edit_mode()));
 			(obj.add_floor) = (next) => ((this.add_profession(id, next)));
 			(obj.remove_floor) = (id) => ((this.remove_floor(id)));
+			(obj.block) = () => ((this.block()));
 			return obj;
 		}
 		sub(){
@@ -19737,11 +19764,53 @@ var $;
                 });
             }
             floor_value(node, next) {
-                const val = Number(node.Floor(next)?.val(num_to_bigint(next)));
+                const val = Number(node.Floor(next)?.val(num_to_bigint(next)) ?? 0);
                 return val;
             }
+            floor_string(node, next) {
+                const to_display_floor = (val) => {
+                    const block = this.block();
+                    const data = block.block_data();
+                    const double_count = data.double_floors_count(val);
+                    const numerical_floor = val - (val > 0 ? double_count : -double_count);
+                    const rounded_floor = Math.max(block.min_floor(), Math.min(numerical_floor, block.max_floor()));
+                    const suffix = block.block_data().is_double_floor(val)
+                        ? "/1" : data.is_double_floor(val - Math.sign(val))
+                        ? "/2" : "";
+                    return `${rounded_floor}${suffix}`;
+                };
+                const parse_floor_string = (input) => {
+                    const parts = input.split('/');
+                    if (parts.length === 1) {
+                        const val = parseInt(input);
+                        return { number: val, digit: 1 };
+                    }
+                    if (parts.length !== 2) {
+                        return null;
+                    }
+                    const [numStr, digitStr] = parts;
+                    const num = parseInt(numStr, 10);
+                    const digit = parseInt(digitStr, 10);
+                    if (isNaN(num) || digit !== 1 && digit !== 2) {
+                        return null;
+                    }
+                    return { number: num, digit: digit };
+                };
+                if (next) {
+                    const parsed_floor = parse_floor_string(next);
+                    if (parsed_floor) {
+                        const block = this.block();
+                        const data = block.block_data();
+                        const double_count = data.double_floors_count(parsed_floor.number);
+                        const val = parsed_floor.number + (parsed_floor.number > 0 ? 1 : -1) * (double_count + parsed_floor.digit - 1);
+                        this.floor_value(node, val);
+                    }
+                }
+                const val = this.floor_value(node);
+                return next ?? to_display_floor(val);
+            }
             unfocus(node, e) {
-                const val = this.value_string(node);
+                const val = this.floor_string(node);
                 if (val === "") {
                     return this.remove_floor(node);
                 }
@@ -19753,6 +19822,9 @@ var $;
         __decorate([
             $mol_mem_key
         ], $apxu_samosbor_map_block_card_place.prototype, "floor_value", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block_card_place.prototype, "floor_string", null);
         __decorate([
             $mol_action
         ], $apxu_samosbor_map_block_card_place.prototype, "unfocus", null);
@@ -19943,7 +20015,6 @@ var $;
                 for (const place_type of other_place_types) {
                     const some_place = this.place_floor(place_type);
                     if (some_place.floors().length > 0 || this.edit_mode()) {
-                        console.log("added");
                         places.push(some_place);
                     }
                 }
@@ -19986,7 +20057,6 @@ var $;
                 return [];
             }
             features_visible() {
-                console.log(this.other_places());
                 if (this.other_places().length > 0) {
                     return [this.features()];
                 }
@@ -20118,7 +20188,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxu/samosbor/map/block/card/card.view.css", "@import url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\n@font-face {\n\tfont-family: \"Space Mono\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n[apxu_samosbor_map_block_card] {\n\tposition: relative;\n\twidth: 287px;\n\theight: 482px;\n\tbackground-color: #121212;\n\tborder-radius: 5px;\n\n\tuser-select: none;\n\n\n\t--main-color: #676767;\n\t--edit-color: #1e1e1e;\n\n\n\n\t[mol_icon] {\n\t\tfilter: unset;\n\t}\n\n\tz-index: 1000;\n\n\t[mol_number] {\n\t\t[mol_string] {\n\t\t\tpadding: 3px;\n\t\t\t/* text-align: right; */\n\t\t}\n\n\t}\n}\n\n[apxu_samosbor_map_block_card_content] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: flex-start;\n\talign-items: center;\n\toverflow-y: auto;\n\toverflow-x: hidden;\n\tscrollbar-gutter: stable;\n\tpadding: 15px;\n\n\t&>* {\n\t\tborder-bottom: 3px solid var(--main-color);\n\t\tpadding-top: 5px;\n\t\tpadding-bottom: 5px;\n\t\twidth: 100%;\n\t\tjustify-content: center;\n\t}\n\n\twidth: 100%;\n\theight: 100%;\n}\n\n\n[apxu_samosbor_map_block_card_header] {\n\twidth: 100%;\n\tdisplay: flex;\n\tflex-direction: row;\n\n\n\tdisplay: flex;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_misc_buttons] {\n\tposition: absolute;\n\tright: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\twidth: unset;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n}\n\n[apxu_samosbor_map_block_card_control_buttons] {\n\tposition: absolute;\n\tleft: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n\n}\n\n[apxu_samosbor_map_block_card_edit_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_close_icon] {\n\twidth: 30px;\n\theight: 30px;\n}\n\n[apxu_samosbor_map_block_card_delete_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_block_name_input] {\n\twidth: 141px;\n\theight: 50px;\n\tpadding: 0px;\n\tflex: unset;\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: 48px;\n\tline-height: 12px;\n\tletter-spacing: 0;\n\ttext-align: center;\n\tcolor: var(--main-color) !important;\n}\n\n[apxu_samosbor_map_block_card_block_size] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tgap: 10px;\n\twidth: 55px;\n\theight: 46px;\n\n\t&>* {\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\theight: 16px;\n\n\n\n\t\tgap: 5px;\n\n\t\t[mol_string] {\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 18px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: var(--main-color) !important;\n\t\t}\n\n\t\t&>[mol_icon] {\n\t\t\twidth: 16px;\n\t\t\theight: 16px;\n\t\t\tfill: var(--main-color);\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_info] {\n\tborder-right: 2px solid var(--main-color);\n\tpadding: 5px;\n\tgap: 10px;\n\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_flights] {\n\twidth: 100%;\n\tjustify-content: space-between;\n\tgap: 10px;\n\talign-items: center;\n\n\t&>[mol_button]:not([edit-mode]) {\n\t\tvisibility: hidden;\n\t}\n}\n\n[apxu_samosbor_map_block_card_flight_view] {\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-between;\n\n\t&[middle] {\n\t\tjustify-content: center;\n\t}\n\n\tflex: 1;\n\n\t&>* {\n\t\tgap: 5px;\n\t}\n\n\t&>&>* {\n\t\twidth: 20px;\n\t\theight: 20px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_buttons] {\n\tpadding: 5px;\n\tflex-direction: column;\n\n\t&>* {\n\t\tbackground-color: unset;\n\t}\n}\n\n[apxu_samosbor_map_block_card_coordinates] {\n\tflex-direction: column;\n\twidth: 86px;\n\tgap: 10px;\n\n\t[mol_button_minor] {\n\t\twidth: 10px;\n\t\theight: 15px;\n\t\tpadding: 0px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_position_info] {\n\t&:not([edit-mode]) {\n\t\tdisplay: none;\n\t}\n}\n\n[apxu_samosbor_map_block_card_pos_controller] {\n\tdisplay: grid;\n\tgrid-template-columns: 30px 30px 30px;\n\tgrid-template-rows: 30px 30px 30px;\n\tgap: 10px;\n\n\t&>* {\n\t\tpadding: 0;\n\t\talign-self: center;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\twidth: 30px;\n\t\theight: 30px;\n\n\t\t&>* {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_up_button] {\n\tgrid-area: 1 / 2 / 2 / 3;\n}\n\n[apxu_samosbor_map_block_card_right_button] {\n\tgrid-area: 2 / 3 / 3 / 4;\n}\n\n[apxu_samosbor_map_block_card_down_button] {\n\tgrid-area: 3 / 2 / 4 / 3;\n}\n\n[apxu_samosbor_map_block_card_left_button] {\n\tgrid-area: 2 / 1 / 3 / 2;\n}\n\n[apxu_samosbor_map_block_card_rotate_button] {\n\tgrid-area: 2 / 2 / 3 / 3;\n}\n\n[apxu_samosbor_map_block_card_double_floor] {\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_double_floor_icon] {\n\twidth: 30px;\n\theight: 30px;\n\tcolor: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_block_type_view] {\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_type_select_icon] {\n\t/* width: 7px; */\n\theight: 6px;\n\t/* margin-right: 7px; */\n}\n\n[apxu_samosbor_map_block_card_place] {\n\tflex-direction: column;\n\talign-items: center;\n\tgap: 5px;\n\n\twidth: 28px;\n\tmin-width: unset;\n\n\t[mol_icon] {\n\t\twidth: 24px;\n\t\theight: 24px;\n\t}\n\n\t[mol_string] {\n\t\ttext-align: center;\n\t}\n\n\t&:not([enabled]) {\n\t\t[apxu_samosbor_map_block_card_place_add_input] {\n\t\t\tdisplay: none;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_place_icon] {\n\twidth: 24px;\n\theight: 24px;\n}\n\n\n[apxu_samosbor_map_block_card_number_input] {\n\twidth: 4ch;\n}\n\n[apxu_samosbor_map_block_card_balcony_icon] {\n\tcolor: var(--main-color);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked])>[apxu_samosbor_map_block_card_balcony_icon] {\n\topacity: 0.5;\n}\n\n[apxu_samosbor_map_block_card_professions] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_places] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_features] {\n\tgap: 15px;\n\tflex-wrap: wrap;\n\tjustify-content: flex-start;\n}\n\n[apxu_samosbor_map_block_card_rights] {\n\tposition: absolute;\n\ttop: 100%;\n\tleft: auto;\n\tright: auto\n}\n\n[apxu_samosbor_map_block_card_flight_left_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_left_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_flight_right_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_right_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n");
+    $mol_style_attach("apxu/samosbor/map/block/card/card.view.css", "@import url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\n@font-face {\n\tfont-family: \"Space Mono\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n[apxu_samosbor_map_block_card] {\n\tposition: relative;\n\twidth: 287px;\n\theight: 482px;\n\tbackground-color: #121212;\n\tborder-radius: 5px;\n\n\tuser-select: none;\n\n\n\t--main-color: #676767;\n\t--edit-color: #1e1e1e;\n\n\n\n\t[mol_icon] {\n\t\tfilter: unset;\n\t}\n\n\tz-index: 1000;\n\n\t[mol_number] {\n\t\t[mol_string] {\n\t\t\tpadding: 3px;\n\t\t\t/* text-align: right; */\n\t\t}\n\n\t}\n}\n\n[apxu_samosbor_map_block_card_content] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: flex-start;\n\talign-items: center;\n\toverflow-y: auto;\n\toverflow-x: hidden;\n\tscrollbar-gutter: stable;\n\tpadding: 15px;\n\n\t&>* {\n\t\tborder-bottom: 3px solid var(--main-color);\n\t\tpadding-top: 5px;\n\t\tpadding-bottom: 5px;\n\t\twidth: 100%;\n\t\tjustify-content: center;\n\t}\n\n\twidth: 100%;\n\theight: 100%;\n}\n\n\n[apxu_samosbor_map_block_card_header] {\n\twidth: 100%;\n\tdisplay: flex;\n\tflex-direction: row;\n\n\n\tdisplay: flex;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_misc_buttons] {\n\tposition: absolute;\n\tright: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\twidth: unset;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n}\n\n[apxu_samosbor_map_block_card_control_buttons] {\n\tposition: absolute;\n\tleft: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n\n}\n\n[apxu_samosbor_map_block_card_edit_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_close_icon] {\n\twidth: 30px;\n\theight: 30px;\n}\n\n[apxu_samosbor_map_block_card_delete_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_block_name_input] {\n\twidth: 141px;\n\theight: 50px;\n\tpadding: 0px;\n\tflex: unset;\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: 48px;\n\tline-height: 12px;\n\tletter-spacing: 0;\n\ttext-align: center;\n\tcolor: var(--main-color) !important;\n}\n\n[apxu_samosbor_map_block_card_block_size] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tgap: 10px;\n\twidth: 55px;\n\theight: 46px;\n\n\t&>* {\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\theight: 16px;\n\n\n\n\t\tgap: 5px;\n\n\t\t[mol_string] {\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 18px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: var(--main-color) !important;\n\t\t}\n\n\t\t&>[mol_icon] {\n\t\t\twidth: 16px;\n\t\t\theight: 16px;\n\t\t\tfill: var(--main-color);\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_info] {\n\tborder-right: 2px solid var(--main-color);\n\tpadding: 5px;\n\tgap: 10px;\n\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_flights] {\n\twidth: 100%;\n\tjustify-content: space-between;\n\tgap: 10px;\n\talign-items: center;\n\n\t&>[mol_button]:not([edit-mode]) {\n\t\tvisibility: hidden;\n\t}\n}\n\n[apxu_samosbor_map_block_card_flight_view] {\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-between;\n\n\t&[middle] {\n\t\tjustify-content: center;\n\t}\n\n\tflex: 1;\n\n\t&>* {\n\t\tgap: 5px;\n\t}\n\n\t&>&>* {\n\t\twidth: 20px;\n\t\theight: 20px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_buttons] {\n\tpadding: 5px;\n\tflex-direction: column;\n\n\t&>* {\n\t\tbackground-color: unset;\n\t}\n}\n\n[apxu_samosbor_map_block_card_coordinates] {\n\tflex-direction: column;\n\twidth: 86px;\n\tgap: 10px;\n\n\t[mol_button_minor] {\n\t\twidth: 10px;\n\t\theight: 15px;\n\t\tpadding: 0px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_position_info] {\n\t&:not([edit-mode]) {\n\t\tdisplay: none;\n\t}\n}\n\n[apxu_samosbor_map_block_card_pos_controller] {\n\tdisplay: grid;\n\tgrid-template-columns: 30px 30px 30px;\n\tgrid-template-rows: 30px 30px 30px;\n\tgap: 10px;\n\n\t&>* {\n\t\tpadding: 0;\n\t\talign-self: center;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\twidth: 30px;\n\t\theight: 30px;\n\n\t\t&>* {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_up_button] {\n\tgrid-area: 1 / 2 / 2 / 3;\n}\n\n[apxu_samosbor_map_block_card_right_button] {\n\tgrid-area: 2 / 3 / 3 / 4;\n}\n\n[apxu_samosbor_map_block_card_down_button] {\n\tgrid-area: 3 / 2 / 4 / 3;\n}\n\n[apxu_samosbor_map_block_card_left_button] {\n\tgrid-area: 2 / 1 / 3 / 2;\n}\n\n[apxu_samosbor_map_block_card_rotate_button] {\n\tgrid-area: 2 / 2 / 3 / 3;\n}\n\n[apxu_samosbor_map_block_card_double_floor] {\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_double_floor_icon] {\n\twidth: 30px;\n\theight: 30px;\n\tcolor: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_block_type_view] {\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_type_select_icon] {\n\t/* width: 7px; */\n\theight: 6px;\n\t/* margin-right: 7px; */\n}\n\n[apxu_samosbor_map_block_card_place] {\n\tflex-direction: column;\n\talign-items: center;\n\tgap: 5px;\n\n\twidth: 28px;\n\tmin-width: unset;\n\n\t[mol_icon] {\n\t\twidth: 24px;\n\t\theight: 24px;\n\t}\n\n\t[mol_string] {\n\t\ttext-align: center;\n\t}\n\n\t&:not([enabled]) {\n\t\t[apxu_samosbor_map_block_card_place_add_input] {\n\t\t\tdisplay: none;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_place_icon] {\n\twidth: 24px;\n\theight: 24px;\n}\n\n\n[apxu_samosbor_map_block_card_number_input], [apxu_samosbor_map_block_card_floor_input] {\n\twidth: 4ch;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_balcony_icon] {\n\tcolor: var(--main-color);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked])>[apxu_samosbor_map_block_card_balcony_icon] {\n\topacity: 0.5;\n}\n\n[apxu_samosbor_map_block_card_professions] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_places] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_features] {\n\tgap: 15px;\n\tflex-wrap: wrap;\n\tjustify-content: flex-start;\n}\n\n[apxu_samosbor_map_block_card_rights] {\n\tposition: absolute;\n\ttop: 100%;\n\tleft: auto;\n\tright: auto\n}\n\n[apxu_samosbor_map_block_card_flight_left_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_left_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_flight_right_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_right_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n");
 })($ || ($ = {}));
 
 ;

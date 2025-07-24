@@ -9313,6 +9313,7 @@ declare namespace $ {
 		edit_mode( next?: boolean ): boolean
 		create_mode( next?: boolean ): boolean
 		connect_mode( next?: boolean ): boolean
+		is_doubled( next?: boolean ): boolean
 		block_layer( next?: number ): number
 		current_layer( next?: number ): number
 		current_floor( ): number
@@ -9637,6 +9638,14 @@ declare namespace $ {
 		sub( ): readonly(any)[]
 	}
 	
+	export class $apxu_samosbor_map_block_card_floor_input extends $mol_string {
+		unfocus( next?: any ): any
+		event( ): ({ 
+			focusout( next?: ReturnType< $apxu_samosbor_map_block_card_floor_input['unfocus'] > ): ReturnType< $apxu_samosbor_map_block_card_floor_input['unfocus'] >,
+		})  & ReturnType< $mol_string['event'] >
+		minimal_height( ): number
+	}
+	
 	export class $apxu_samosbor_map_block_card_position_input extends $apxu_samosbor_map_block_card_number_input {
 		sub( ): readonly(any)[]
 	}
@@ -9648,45 +9657,34 @@ declare namespace $ {
 		})  & ReturnType< $mol_button_major['attr'] >
 	}
 	
-	type __apxu_samosbor_map_block_card_place_1 = $mol_type_enforce<
-		Parameters< $apxu_samosbor_map_block_card_place['value_string'] >[0]
-		,
-		Parameters< $apxu_samosbor_map_block_card_place['floor_input'] >[0]
-	>
-	type __apxu_samosbor_map_block_card_place_2 = $mol_type_enforce<
-		Parameters< $apxu_samosbor_map_block_card_place['value_string'] >[1]
-		,
-		Parameters< $apxu_samosbor_map_block_card_place['floor_input'] >[0]
-	>
-	type $mol_button_minor__click_apxu_samosbor_map_block_card_place_3 = $mol_type_enforce<
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_place_1 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card_place['add_floor'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__title_apxu_samosbor_map_block_card_place_4 = $mol_type_enforce<
+	type $mol_button_minor__title_apxu_samosbor_map_block_card_place_2 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['title'] >
 	>
-	type $apxu_samosbor_map_block_card_number_input__enabled_apxu_samosbor_map_block_card_place_5 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_floor_input__enabled_apxu_samosbor_map_block_card_place_3 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card_place['enabled'] >
 		,
-		ReturnType< $apxu_samosbor_map_block_card_number_input['enabled'] >
+		ReturnType< $apxu_samosbor_map_block_card_floor_input['enabled'] >
 	>
-	type $apxu_samosbor_map_block_card_number_input__value_apxu_samosbor_map_block_card_place_6 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card_place['floor_value'] >
+	type $apxu_samosbor_map_block_card_floor_input__value_apxu_samosbor_map_block_card_place_4 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card_place['floor_string'] >
 		,
-		ReturnType< $apxu_samosbor_map_block_card_number_input['value'] >
+		ReturnType< $apxu_samosbor_map_block_card_floor_input['value'] >
 	>
-	type $apxu_samosbor_map_block_card_number_input__unfocus_apxu_samosbor_map_block_card_place_7 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_floor_input__unfocus_apxu_samosbor_map_block_card_place_5 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card_place['unfocus'] >
 		,
-		ReturnType< $apxu_samosbor_map_block_card_number_input['unfocus'] >
+		ReturnType< $apxu_samosbor_map_block_card_floor_input['unfocus'] >
 	>
 	export class $apxu_samosbor_map_block_card_place extends $mol_view {
-		floor_value( id: any, next?: number ): number
+		floor_string( id: any, next?: string ): string
 		unfocus( id: any, next?: any ): any
-		value_string( id: any, next?: ReturnType< ReturnType< $apxu_samosbor_map_block_card_place['floor_input'] >['value_string'] > ): ReturnType< ReturnType< $apxu_samosbor_map_block_card_place['floor_input'] >['value_string'] >
 		icon( ): $mol_icon
 		floors_list( ): readonly(any)[]
 		add_floor( next?: any ): any
@@ -9697,7 +9695,9 @@ declare namespace $ {
 		attr( ): ({ 
 			'enabled': ReturnType< $apxu_samosbor_map_block_card_place['enabled'] >,
 		}) 
-		floor_input( id: any): $apxu_samosbor_map_block_card_number_input
+		floor_value( id: any, next?: number ): number
+		block( ): $apxu_samosbor_map_block
+		floor_input( id: any): $apxu_samosbor_map_block_card_floor_input
 		remove_floor( id: any): any
 		sub( ): readonly(any)[]
 	}
@@ -10259,10 +10259,10 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['remove_floor'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_106 = $mol_type_enforce<
-		readonly(any)[]
+	type $apxu_samosbor_map_block_card_place__block_apxu_samosbor_map_block_card_106 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['block'] >
 		,
-		ReturnType< $mol_view['sub'] >
+		ReturnType< $apxu_samosbor_map_block_card_place['block'] >
 	>
 	type $mol_view__sub_apxu_samosbor_map_block_card_107 = $mol_type_enforce<
 		readonly(any)[]
@@ -10274,96 +10274,111 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $hyoo_crus_land_rights__land_apxu_samosbor_map_block_card_109 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_109 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $hyoo_crus_land_rights__land_apxu_samosbor_map_block_card_110 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['block_land'] >
 		,
 		ReturnType< $hyoo_crus_land_rights['land'] >
 	>
-	type $mol_view__event_apxu_samosbor_map_block_card_110 = $mol_type_enforce<
+	type $mol_view__event_apxu_samosbor_map_block_card_111 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxu_samosbor_map_block_card['left_flight_click'] > ): ReturnType< $apxu_samosbor_map_block_card['left_flight_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_111 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_112 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__event_apxu_samosbor_map_block_card_112 = $mol_type_enforce<
+	type $mol_view__event_apxu_samosbor_map_block_card_113 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxu_samosbor_map_block_card['middle_flight_click'] > ): ReturnType< $apxu_samosbor_map_block_card['middle_flight_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_113 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_114 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__event_apxu_samosbor_map_block_card_114 = $mol_type_enforce<
+	type $mol_view__event_apxu_samosbor_map_block_card_115 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxu_samosbor_map_block_card['right_flight_click'] > ): ReturnType< $apxu_samosbor_map_block_card['right_flight_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_115 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_116 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxu_samosbor_map_block_card_place__floors_apxu_samosbor_map_block_card_116 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__floors_apxu_samosbor_map_block_card_117 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['place_floors'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['floors'] >
 	>
-	type $apxu_samosbor_map_block_card_place__icon_apxu_samosbor_map_block_card_117 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__icon_apxu_samosbor_map_block_card_118 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['place_icon'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['icon'] >
 	>
-	type $apxu_samosbor_map_block_card_place__enabled_apxu_samosbor_map_block_card_118 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__enabled_apxu_samosbor_map_block_card_119 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['enabled'] >
 	>
-	type $apxu_samosbor_map_block_card_place__add_floor_apxu_samosbor_map_block_card_119 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__add_floor_apxu_samosbor_map_block_card_120 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['add_place'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['add_floor'] >
 	>
-	type $apxu_samosbor_map_block_card_place__remove_floor_apxu_samosbor_map_block_card_120 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__remove_floor_apxu_samosbor_map_block_card_121 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['remove_place'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['remove_floor'] >
 	>
-	type $apxu_samosbor_map_block_card_place__floors_apxu_samosbor_map_block_card_121 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__block_apxu_samosbor_map_block_card_122 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['block'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['block'] >
+	>
+	type $apxu_samosbor_map_block_card_place__floors_apxu_samosbor_map_block_card_123 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['profession_floors'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['floors'] >
 	>
-	type $apxu_samosbor_map_block_card_place__icon_apxu_samosbor_map_block_card_122 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__icon_apxu_samosbor_map_block_card_124 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['place_icon'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['icon'] >
 	>
-	type $apxu_samosbor_map_block_card_place__enabled_apxu_samosbor_map_block_card_123 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__enabled_apxu_samosbor_map_block_card_125 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['enabled'] >
 	>
-	type $apxu_samosbor_map_block_card_place__add_floor_apxu_samosbor_map_block_card_124 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__add_floor_apxu_samosbor_map_block_card_126 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['add_profession'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['add_floor'] >
 	>
-	type $apxu_samosbor_map_block_card_place__remove_floor_apxu_samosbor_map_block_card_125 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_place__remove_floor_apxu_samosbor_map_block_card_127 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['remove_floor'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['remove_floor'] >
+	>
+	type $apxu_samosbor_map_block_card_place__block_apxu_samosbor_map_block_card_128 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['block'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_place['block'] >
 	>
 	export class $apxu_samosbor_map_block_card extends $mol_view {
 		pan( next?: ReturnType< ReturnType< $apxu_samosbor_map_block_card['mover'] >['pan'] > ): ReturnType< ReturnType< $apxu_samosbor_map_block_card['mover'] >['pan'] >
@@ -10597,6 +10612,7 @@ declare namespace $.$$ {
     class $apxu_samosbor_map_block_card_place extends $.$apxu_samosbor_map_block_card_place {
         floors_list(): readonly (any)[];
         floor_value(node: ProfessionData, next?: number): number;
+        floor_string(node: ProfessionData, next?: string): string;
         unfocus(node: ProfessionData, e: any): any;
     }
     class $apxu_samosbor_map_block_card extends $.$apxu_samosbor_map_block_card {
