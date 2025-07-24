@@ -129,12 +129,61 @@ namespace $.$$ {
 		@$mol_mem_key
 		floor_value( node: ProfessionData, next?: number ): number {
 
-			const val = Number( node.Floor( next )?.val( num_to_bigint( next ) ) )
+			const val = Number( node.Floor( next )?.val( num_to_bigint( next ) ) ?? 0 )
 			return val
+		}
+		@$mol_mem_key
+		floor_string( node: ProfessionData, next?: string ): string {
+			const to_display_floor = ( val: number ) => {
+				const block = this.block()
+				const data = block.block_data()
+				const double_count = data.double_floors_count( val )
+				const numerical_floor = val - ( val > 0 ? double_count : -double_count )
+				const rounded_floor = Math.max( block.min_floor(), Math.min( numerical_floor, block.max_floor() ) )
+
+				const suffix = block.block_data().is_double_floor( val )
+					? "/1" : data.is_double_floor( val - Math.sign( val ) )
+						? "/2" : ""
+				return `${ rounded_floor }${ suffix }`
+			}
+			const parse_floor_string = ( input: string ) => {
+				const parts = input.split( '/' )
+
+				if( parts.length === 1 ) {
+					const val = parseInt( input )
+					return { number: val, digit: 1 }
+				}
+				if( parts.length !== 2 ) {
+					return null
+				}
+
+				const [ numStr, digitStr ] = parts
+
+				const num = parseInt( numStr, 10 )
+				const digit = parseInt( digitStr, 10 )
+
+				if( isNaN( num ) || digit !== 1 && digit !== 2 ) {
+					return null
+				}
+
+				return { number: num, digit: digit }
+			}
+			if( next ) {
+				const parsed_floor = parse_floor_string( next )
+				if( parsed_floor ) {
+					const block = this.block()
+					const data = block.block_data()
+					const double_count = data.double_floors_count( parsed_floor.number )
+					const val = parsed_floor.number + ( parsed_floor.number > 0 ? 1 : -1 ) * ( double_count + parsed_floor.digit - 1 )
+					this.floor_value( node, val )
+				}
+			}
+			const val = this.floor_value( node )
+			return next ?? to_display_floor( val )
 		}
 		@$mol_action
 		unfocus( node: ProfessionData, e: any ) {
-			const val = this.value_string( node )
+			const val = this.floor_string( node )
 			if( val === "" ) {
 				return this.remove_floor( node )
 			}
@@ -370,7 +419,6 @@ namespace $.$$ {
 			for( const place_type of other_place_types ) {
 				const some_place = this.place_floor( place_type )
 				if( some_place.floors().length > 0 || this.edit_mode() ) {
-					console.log( "added" )
 					places.push( some_place )
 				}
 			}
@@ -421,7 +469,6 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		features_visible() {
-			console.log( this.other_places() )
 			if( this.other_places().length > 0 ) {
 				return [ this.features() ]
 			}

@@ -332,8 +332,9 @@
 }
 
 
-[apxu_samosbor_map_block_card_number_input] {
+[apxu_samosbor_map_block_card_number_input], [apxu_samosbor_map_block_card_floor_input] {
 	width: 4ch;
+	padding: unset;
 }
 
 [apxu_samosbor_map_block_card_balcony_icon] {

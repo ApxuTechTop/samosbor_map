@@ -6,6 +6,12 @@ $apxu_samosbor_map_block_card_number_input $mol_number
 	sub /
 		<= String
 
+$apxu_samosbor_map_block_card_floor_input $mol_string
+	event *
+		^
+		focusout? <=> unfocus? null
+	minimal_height 0
+
 $apxu_samosbor_map_block_card_position_input $apxu_samosbor_map_block_card_number_input
 	sub /
 		<= String
@@ -21,11 +27,13 @@ $apxu_samosbor_map_block_card_place $mol_view
 	enabled? true
 	attr *
 		enabled <= enabled
-	floor_input* $apxu_samosbor_map_block_card_number_input
+	floor_value*? 0
+	block $apxu_samosbor_map_block
+	floor_input* $apxu_samosbor_map_block_card_floor_input
 		enabled <= enabled
-		value? <=> floor_value*? 0
+		value? <=> floor_string*? \
 		unfocus? <=> unfocus*? null
-		value_string? => value_string*?
+		- value_string? => value_string*?
 		- submit? <=> floor_submit*? null
 	remove_floor* null
 	sub /
@@ -135,12 +143,14 @@ $apxu_samosbor_map_block_card $mol_view
 		enabled <= edit_mode
 		add_floor? <=> add_place*? null
 		remove_floor* <=> remove_place* null
+		block <= block
 	profession_floor* $apxu_samosbor_map_block_card_place
 		floors <= profession_floors* /
 		icon <= place_icon* $mol_icon
 		enabled <= edit_mode
 		add_floor? <=> add_profession*? null
 		remove_floor* <=> remove_floor* null
+		block <= block
 	sub /
 		<= misc_buttons $mol_view
 			sub /
@@ -309,6 +319,7 @@ $apxu_samosbor_map_block_card $mol_view
 								icon <= house_icon $apxu_samosbor_map_icon_house
 								enabled false
 								remove_floor* <=> remove_floor* null
+								block <= block
 				^ features_visible / <= features $mol_view
 					sub /
 						^ other_places /

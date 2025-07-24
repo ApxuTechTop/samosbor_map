@@ -109,7 +109,6 @@ namespace $.$$ {
 			const double_count = this.block_data().double_floors_count( this.current_floor() )
 			const numerical_floor = this.current_floor() - ( this.current_floor() > 0 ? double_count : -double_count )
 			return numerical_floor
-			return Math.max( this.min_floor(), Math.min( numerical_floor, this.max_floor() ) )
 		}
 		@$mol_mem
 		display_floor(): string {
