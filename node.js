@@ -17017,7 +17017,7 @@ var $;
             return true;
         }
         fence_type(next) {
-            return this.Fence(null)?.val(next) ?? "missing";
+            return this.Fence(next)?.val(next) ?? "missing";
         }
         set_next_fence_type() {
             const current_type = this.fence_type();
@@ -17215,7 +17215,7 @@ var $;
             this.FloorsData(true)?.key(floor, true).next_flight_status(what);
         }
         board_floor(next) {
-            const holder = this.BoardFloor(null);
+            const holder = this.BoardFloor(next);
             if (!holder)
                 return null;
             if (next !== undefined && isNaN(next)) {
@@ -17225,7 +17225,7 @@ var $;
             return holder.val(val);
         }
         mail_floor(next) {
-            const holder = this.MailFloor(null);
+            const holder = this.MailFloor(next);
             if (!holder)
                 return null;
             if (next !== undefined && isNaN(next)) {
@@ -17235,7 +17235,7 @@ var $;
             return holder.val(val);
         }
         roof_floor(next) {
-            const holder = this.RoofFloor(null);
+            const holder = this.RoofFloor(next);
             if (!holder)
                 return null;
             if (next !== undefined && isNaN(next)) {
@@ -17245,7 +17245,7 @@ var $;
             return holder.val(val);
         }
         flood_floor(next) {
-            const holder = this.FloodFloor(null);
+            const holder = this.FloodFloor(next);
             if (!holder)
                 return null;
             if (next !== undefined && isNaN(next)) {
@@ -17255,35 +17255,35 @@ var $;
             return holder.val(val);
         }
         profession_floors(what) {
-            return this.Professions(null)?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
+            return this.Professions()?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
         }
         add_profession(what) {
-            const node = this.Professions(null)?.make(this.land());
-            node?.Type(null)?.val(what);
+            const node = this.Professions(true)?.make(this.land());
+            node?.Type(true)?.val(what);
             return node;
         }
         remove_profession(node) {
-            this.Professions(null)?.cut(node);
+            this.Professions(true)?.cut(node);
         }
         place_floors(what) {
-            return this.Places(null)?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
+            return this.Places()?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
         }
         safe_floors() {
             const safe_place_types = [
                 "theatre", "party", "gym", "overview", "gallery",
                 "racing", "hockey", "spleef", "pool", "warehouse"
             ];
-            const safe_places = this.Places(null)?.remote_list()
+            const safe_places = this.Places()?.remote_list()
                 .filter((place) => {
-                const place_type = place.Type(null)?.val();
+                const place_type = place.Type()?.val();
                 if (!place_type)
                     return;
                 return safe_place_types.includes(place_type);
             }) ?? [];
             const safe_profession_types = ["liquidator", "plumber"];
-            const safe_professions = this.Professions(null)?.remote_list()
+            const safe_professions = this.Professions()?.remote_list()
                 .filter((profession) => {
-                const profession_type = profession.Type(null)?.val();
+                const profession_type = profession.Type()?.val();
                 if (!profession_type)
                     return;
                 return safe_profession_types.includes(profession_type);
@@ -17292,15 +17292,15 @@ var $;
             return all_safe_places.concat(safe_places).concat(safe_professions);
         }
         add_place(what) {
-            const node = this.Places(null)?.make(this.land());
-            node?.Type(null)?.val(what);
+            const node = this.Places(true)?.make(this.land());
+            node?.Type(true)?.val(what);
             return node;
         }
         remove_place(node) {
-            this.Places(null)?.cut(node);
+            this.Places(true)?.cut(node);
         }
         all_passages(floor) {
-            return this.FloorsData(true)?.key(floor)?.all_passages() ?? [];
+            return this.FloorsData()?.key(floor)?.all_passages() ?? [];
         }
         double_floors_count(floor) {
             const all_floors = this.FloorsData()?.keys()
@@ -17696,7 +17696,7 @@ var $;
             connection_hidden(position) {
                 if (this.create_mode() || this.connect_mode()) {
                     const floor = this.current_floor();
-                    const is_passage_free = this.block_data().FloorsData(null)?.key(floor, null)?.is_passage_free(position);
+                    const is_passage_free = this.block_data().FloorsData()?.key(floor)?.is_passage_free(position);
                     return !(is_passage_free ?? false);
                 }
                 return true;
@@ -17767,7 +17767,6 @@ var $;
                     if (first_block.transition_by_position(first_port.floor, first_port.position) !== transition) {
                         return;
                     }
-                    console.log(transition.From(null)?.Block(null)?.val(), transition.To(null)?.Block(null)?.val(), transition.From(null)?.Position(null)?.val(), transition.To(null)?.Position(null)?.val());
                     transition.remove_transition();
                 }
                 else {
@@ -17980,7 +17979,7 @@ var $;
                 this.block_data().down_right_passage_type(floor, next_passage_type);
             }
             is_up_flight(next) {
-                return this.block_data().IsMiddleFlight(null)?.val(next) ?? false;
+                return this.block_data().IsMiddleFlight(next)?.val(next) ?? false;
             }
             up_passage_or_flight() {
                 if (this.is_up_flight()) {
@@ -19862,7 +19861,7 @@ var $;
             }
             add_profession(what, event) {
                 const data = this.block().block_data();
-                const node = data.Professions(null)?.make(null);
+                const node = data.Professions(true)?.make(null);
                 node?.Type(null)?.val(what);
             }
             remove_floor(node) {
