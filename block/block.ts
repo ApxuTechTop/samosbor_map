@@ -112,7 +112,7 @@ namespace $ {
 
 		@$mol_mem
 		fence_type( next?: typeof FenceData.options[ number ] ) {
-			return this.Fence( null )?.val( next ) ?? "missing"
+			return this.Fence( next )?.val( next ) ?? "missing"
 		}
 		@$mol_action
 		set_next_fence_type() {
@@ -325,7 +325,7 @@ namespace $ {
 
 		@$mol_mem
 		board_floor( next?: number ) {
-			const holder = this.BoardFloor( null )
+			const holder = this.BoardFloor( next )
 			if( !holder ) return null
 			if( next !== undefined && isNaN( next ) ) {
 				return holder.val( null )
@@ -336,7 +336,7 @@ namespace $ {
 
 		@$mol_mem
 		mail_floor( next?: number ) {
-			const holder = this.MailFloor( null )
+			const holder = this.MailFloor( next )
 			if( !holder ) return null
 			if( next !== undefined && isNaN( next ) ) {
 				return holder.val( null )
@@ -347,7 +347,7 @@ namespace $ {
 
 		@$mol_mem
 		roof_floor( next?: number ) {
-			const holder = this.RoofFloor( null )
+			const holder = this.RoofFloor( next )
 			if( !holder ) return null
 			if( next !== undefined && isNaN( next ) ) {
 				return holder.val( null )
@@ -358,7 +358,7 @@ namespace $ {
 
 		@$mol_mem
 		flood_floor( next?: number ) {
-			const holder = this.FloodFloor( null )
+			const holder = this.FloodFloor( next )
 			if( !holder ) return null
 			if( next !== undefined && isNaN( next ) ) {
 				return holder.val( null )
@@ -369,24 +369,24 @@ namespace $ {
 
 		@$mol_mem_key
 		profession_floors( what: typeof ProfessionType.options[ number ] ) {
-			return this.Professions( null )?.remote_list().filter( ( data ) => data.Type( null )?.val() === what ) ?? []
+			return this.Professions()?.remote_list().filter( ( data ) => data.Type( null )?.val() === what ) ?? []
 		}
 
 		@$mol_action
 		add_profession( what: typeof ProfessionType.options[ number ] ) {
-			const node = this.Professions( null )?.make( this.land() ) // TODO права
-			node?.Type( null )?.val( what )
+			const node = this.Professions( true )?.make( this.land() ) // TODO права
+			node?.Type( true )?.val( what )
 			return node
 		}
 
 		@$mol_action
 		remove_profession( node: $hyoo_crus_vary_type ) {
-			this.Professions( null )?.cut( node )
+			this.Professions( true )?.cut( node )
 		}
 
 		@$mol_mem_key
 		place_floors( what: typeof PlaceType.options[ number ] ) {
-			return this.Places( null )?.remote_list().filter( ( data ) => data.Type( null )?.val() === what ) ?? []
+			return this.Places()?.remote_list().filter( ( data ) => data.Type( null )?.val() === what ) ?? []
 		}
 		@$mol_mem
 		safe_floors() {
@@ -394,16 +394,16 @@ namespace $ {
 				"theatre", "party", "gym", "overview", "gallery",
 				"racing", "hockey", "spleef", "pool", "warehouse"
 			]
-			const safe_places = this.Places( null )?.remote_list()
+			const safe_places = this.Places()?.remote_list()
 				.filter( ( place ) => {
-					const place_type = place.Type( null )?.val()
+					const place_type = place.Type()?.val()
 					if( !place_type ) return
 					return safe_place_types.includes( place_type )
 				} ) ?? []
 			const safe_profession_types: typeof ProfessionType.options[ number ][] = [ "liquidator", "plumber" ]
-			const safe_professions = this.Professions( null )?.remote_list()
+			const safe_professions = this.Professions()?.remote_list()
 				.filter( ( profession ) => {
-					const profession_type = profession.Type( null )?.val()
+					const profession_type = profession.Type()?.val()
 					if( !profession_type ) return
 					return safe_profession_types.includes( profession_type )
 				} ) ?? []
@@ -412,18 +412,18 @@ namespace $ {
 		}
 		@$mol_action
 		add_place( what: typeof PlaceType.options[ number ] ) {
-			const node = this.Places( null )?.make( this.land() ) // TODO права
-			node?.Type( null )?.val( what )
+			const node = this.Places( true )?.make( this.land() ) // TODO права
+			node?.Type( true )?.val( what )
 			return node
 		}
 		@$mol_action
 		remove_place( node: $hyoo_crus_vary_type ) {
-			this.Places( null )?.cut( node )
+			this.Places( true )?.cut( node )
 		}
 
 		@$mol_mem_key
 		all_passages( floor: number ) {
-			return this.FloorsData( true )?.key( floor )?.all_passages() ?? []
+			return this.FloorsData()?.key( floor )?.all_passages() ?? []
 		}
 
 		@$mol_mem_key

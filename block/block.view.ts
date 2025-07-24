@@ -298,7 +298,7 @@ namespace $.$$ {
 		connection_hidden( position: TransitionPosition ) {
 			if( this.create_mode() || this.connect_mode() ) {
 				const floor = this.current_floor()
-				const is_passage_free = this.block_data().FloorsData( null )?.key( floor, null )?.is_passage_free( position )
+				const is_passage_free = this.block_data().FloorsData()?.key( floor )?.is_passage_free( position )
 				return !( is_passage_free ?? false )
 			}
 			// if (this.connect_mode()) {
@@ -394,7 +394,6 @@ namespace $.$$ {
 					return
 				}
 				// удалить соединение
-				console.log( transition.From( null )?.Block( null )?.val(), transition.To( null )?.Block( null )?.val(), transition.From( null )?.Position( null )?.val(), transition.To( null )?.Position( null )?.val() )
 				transition.remove_transition()
 			} else {
 				// соединить блоки
@@ -408,7 +407,7 @@ namespace $.$$ {
 
 		@$mol_mem_key
 		connection_highlight( position: TransitionPosition ) {
-			if (this.connection_hidden(position)) {
+			if( this.connection_hidden( position ) ) {
 				return false
 			}
 			const first_port = $apxu_samosbor_map_block.first_port()
@@ -654,7 +653,7 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		is_up_flight( next?: boolean ): boolean {
-			return this.block_data().IsMiddleFlight( null )?.val( next ) ?? false
+			return this.block_data().IsMiddleFlight( next )?.val( next ) ?? false
 		}
 		@$mol_mem
 		up_passage_or_flight() {
@@ -787,7 +786,7 @@ namespace $.$$ {
 			if( !this.edit_mode() ) return
 			event?.stopImmediatePropagation()
 			event?.preventDefault()
-			this.block_data().FloorsData(true )?.key( this.current_floor(), true ).set_next_fence_type()
+			this.block_data().FloorsData( true )?.key( this.current_floor(), true ).set_next_fence_type()
 		}
 	}
 }

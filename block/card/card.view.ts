@@ -253,7 +253,7 @@ namespace $.$$ {
 		@$mol_action
 		add_profession( what: typeof ProfessionType.options[ number ], event?: any ) {
 			const data: $apxu_samosbor_map_block_data = this.block().block_data()
-			const node = data.Professions( null )?.make( null )
+			const node = data.Professions( true )?.make( null )
 			node?.Type( null )?.val( what )
 			// node?.Floor(null)?.val(BigInt(0))
 		}
