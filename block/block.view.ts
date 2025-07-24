@@ -780,14 +780,14 @@ namespace $.$$ {
 
 		@$mol_mem
 		fence_type( next?: typeof FenceData.options[ number ] ): string {
-			return this.block_data().FloorsData( null )?.key( this.current_floor() ).fence_type( next ) ?? "missing"
+			return this.block_data().FloorsData( next )?.key( this.current_floor(), next )?.fence_type( next ) ?? "missing"
 		}
 		@$mol_action
 		fence_click( event?: PointerEvent ) {
 			if( !this.edit_mode() ) return
 			event?.stopImmediatePropagation()
 			event?.preventDefault()
-			this.block_data().FloorsData( null )?.key( this.current_floor() ).set_next_fence_type()
+			this.block_data().FloorsData(true )?.key( this.current_floor(), true ).set_next_fence_type()
 		}
 	}
 }
