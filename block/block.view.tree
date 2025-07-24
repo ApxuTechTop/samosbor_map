@@ -41,6 +41,7 @@ $apxu_samosbor_map_block $mol_view
 	edit_mode? false
 	create_mode? false
 	connect_mode? false
+	is_doubled? false
 	block_layer? 0
 	current_layer? 0
 	current_floor 0
