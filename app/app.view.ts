@@ -246,10 +246,10 @@ namespace $.$$ {
 			const top = block.pos_y() * block_full_cell + offset.y
 			return top
 		}
-		static next_direction( dir: DirectionType ): DirectionType {
+		static next_direction( dir: DirectionType, next = 1 ): DirectionType {
 			const directions: DirectionType[] = [ 'up', 'right', 'down', 'left' ]
 			const currentIndex = directions.indexOf( dir )
-			const nextIndex = ( currentIndex + 1 ) % directions.length
+			const nextIndex = ( currentIndex + next ) % directions.length
 			return directions[ nextIndex ]
 		}
 		static prev_direction( dir: DirectionType ): DirectionType {

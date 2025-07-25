@@ -54,6 +54,7 @@ $apxu_samosbor_map_block $mol_view
 	profession_floors* /
 	place_floors* /
 	safe_floors /
+	inverted? false
 	pos_x? 0
 	pos_y? 0
 	is_up_flight? false

@@ -1,5 +1,6 @@
 $apxu_samosbor_map_app $mol_view
 	title @ \Samosbor map
+	inverted? false
 	Block* $apxu_samosbor_map_block
 		block_data? <= block* null
 		current_layer? <= current_layer? 0
@@ -10,8 +11,10 @@ $apxu_samosbor_map_app $mol_view
 		edit_mode? <= is_configure_mode false
 		selected <= block_selected* true
 		connect_mode? <= is_connect_mode false
+		inverted? <= inverted?
 		gigacluster <= gigacluster $apxu_samosbor_map_gigacluster
 	BlockCard* $apxu_samosbor_map_block_card
+		inverted? <= inverted?
 		block_name? <=> selected_block_name*? \
 		max_floor? <=> max_floor*? 0
 		min_floor? <=> min_floor*? 0
@@ -91,6 +94,9 @@ $apxu_samosbor_map_app $mol_view
 											rule @ \👑 Rule
 		<= PubKey $mol_button_copy
 			text <= public_key \pub key
+		<= Invert $mol_check_box
+			checked? <=> inverted?
+			Icon <= invert_icon $mol_icon_repeat
 		^ control_panel_visible / <= Control_Panel $mol_card
 			sub /
 				<= Control_Switch $mol_switch

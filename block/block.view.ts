@@ -70,15 +70,33 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		block_direction( next?: DirectionType ): DirectionType {
-			return this.block_data().direction( next )
+			const is_inverted = this.inverted()
+			const maybe_invert = ( next?: DirectionType ) => {
+				return next ? ( is_inverted ? $apxu_samosbor_map_app.next_direction( next, 2 ) : next ) : undefined
+			}
+			return maybe_invert( this.block_data().direction( maybe_invert( next ) ) )!
 		}
 		@$mol_mem
 		pos_x( next?: number ) {
-			return this.block_data().pos_x( next ) ?? 0
+			const is_inverted = this.inverted()
+			const dir = this.block_direction()
+			const block_width = ( dir === "up" || dir === "down" ) ? 2 : 1
+			const maybe_invert = ( val?: number ) => {
+				if( val === undefined ) return undefined
+				return is_inverted ? -( val + block_width ) : val
+			}
+			return maybe_invert( this.block_data().pos_x( maybe_invert( next ) ) )!
 		}
 		@$mol_mem
 		pos_y( next?: number ) {
-			return this.block_data().pos_y( next ) ?? 0
+			const is_inverted = this.inverted()
+			const dir = this.block_direction()
+			const block_height = ( dir === "up" || dir === "down" ) ? 1 : 2
+			const maybe_invert = ( val?: number ) => {
+				if( val === undefined ) return undefined
+				return is_inverted ? -( val + block_height ) : val
+			}
+			return maybe_invert( this.block_data().pos_y( maybe_invert( next ) ) )!
 		}
 		@$mol_mem
 		left() {

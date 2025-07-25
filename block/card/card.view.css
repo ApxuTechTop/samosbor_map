@@ -8,7 +8,7 @@
 }
 
 [apxu_samosbor_map_block_card] {
-	position: relative;
+	position: absolute;
 	width: 287px;
 	height: 482px;
 	background-color: #121212;
