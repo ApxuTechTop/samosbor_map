@@ -2,6 +2,7 @@
 	&[direction=vertical] {
 		height: 100%;
 	}
+	touch-action: none;
 
 	gap: 10px;
 }
