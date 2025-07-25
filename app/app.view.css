@@ -148,6 +148,10 @@
 	}
 }
 
+[mol_view_root] {
+	overflow: hidden;
+}
+
 [apxu_samosbor_map_app] {
 	background-color: #1E1E1E;
 }
