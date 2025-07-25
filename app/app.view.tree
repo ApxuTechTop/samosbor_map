@@ -14,7 +14,6 @@ $apxu_samosbor_map_app $mol_view
 		inverted? <= inverted?
 		gigacluster <= gigacluster $apxu_samosbor_map_gigacluster
 	BlockCard* $apxu_samosbor_map_block_card
-		inverted? <= inverted?
 		block_name? <=> selected_block_name*? \
 		max_floor? <=> max_floor*? 0
 		min_floor? <=> min_floor*? 0
