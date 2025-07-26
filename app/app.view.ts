@@ -377,6 +377,13 @@ namespace $.$$ {
 			return blocks
 		}
 
+		@$mol_mem
+		current_layer( next?: number ): number {
+			const str_layer = $mol_state_arg.value( "layer", next !== undefined ? next.toString() : undefined )
+			const parsed_layer = next ?? ( str_layer ? parseInt( str_layer ) : undefined )
+			return parsed_layer ?? 0
+		}
+
 		// @$mol_mem
 		// test_translate() {
 		// 	return `${this.test_pan()[0]}px ${this.test_pan()[1]}px`
