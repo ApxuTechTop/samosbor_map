@@ -8197,6 +8197,8 @@ declare namespace $ {
         static readonly positions_map: {
             [pos in TransitionPosition]: keyof typeof PassageDirections;
         };
+        static get_passage_type(transition: TransitionPosition, floor_data?: FloorData): "noway" | "normal" | "stairs_up" | "stairs_down";
+        static is_passage_free(transition: TransitionPosition, floor_data?: FloorData): boolean;
         get_passage_type(transition: TransitionPosition): typeof PassageType.options[number];
         is_passage_free(transition: TransitionPosition): boolean;
         fence_type(next?: typeof FenceData.options[number]): "missing" | "hole" | "solid";
@@ -11258,6 +11260,7 @@ declare namespace $.$$ {
         static absolute_direction(direction: DirectionType, position: TransitionPosition): DirectionType;
         block_view(ref: symbol): $.$apxu_samosbor_map_block;
         blocks(): $mol_view[];
+        current_layer(next?: number): number;
     }
 }
 

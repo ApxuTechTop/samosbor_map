@@ -17040,7 +17040,7 @@ var $;
             down_left: "DownLeftPassage",
             left: "LeftPassage"
         };
-        get_passage_type(transition) {
+        static get_passage_type(transition, floor_data) {
             if (transition === "right" || transition === "left") {
                 return "normal";
             }
@@ -17048,16 +17048,17 @@ var $;
                 return "noway";
             }
             const property_name = FloorData.positions_map[transition];
-            const passage_type = this[property_name]()?.Type()?.val();
+            const passage_type = floor_data?.[property_name]()?.Type()?.val();
             return passage_type ?? "noway";
         }
+        static is_passage_free(transition, floor_data) {
+            return this.get_passage_type(transition, floor_data) !== "noway";
+        }
+        get_passage_type(transition) {
+            return FloorData.get_passage_type(transition, this);
+        }
         is_passage_free(transition) {
-            const passage_type = this.get_passage_type(transition);
-            if (!passage_type)
-                return false;
-            if (passage_type === "noway")
-                return false;
-            return true;
+            return FloorData.is_passage_free(transition, this);
         }
         fence_type(next) {
             return this.Fence(next)?.val(next) ?? "missing";
@@ -17758,7 +17759,7 @@ var $;
             connection_hidden(position) {
                 if (this.create_mode() || this.connect_mode()) {
                     const floor = this.current_floor();
-                    const is_passage_free = this.block_data().FloorsData()?.key(floor)?.is_passage_free(position);
+                    const is_passage_free = FloorData.is_passage_free(position, this.block_data().FloorsData()?.key(floor));
                     return !(is_passage_free ?? false);
                 }
                 return true;
@@ -20917,6 +20918,11 @@ var $;
                 }
                 return blocks;
             }
+            current_layer(next) {
+                const str_layer = $mol_state_arg.value("layer", next !== undefined ? next.toString() : undefined);
+                const parsed_layer = next ?? (str_layer ? parseInt(str_layer) : undefined);
+                return parsed_layer ?? 0;
+            }
         }
         __decorate([
             $mol_mem
@@ -21044,6 +21050,9 @@ var $;
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_app.prototype, "blocks", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "current_layer", null);
         __decorate([
             $mol_mem_key
         ], $apxu_samosbor_map_app, "block", null);
