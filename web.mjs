@@ -20438,7 +20438,7 @@ var $;
 		}
 		inverted(next){
 			if(next !== undefined) return next;
-			return false;
+			return true;
 		}
 		Block(id){
 			const obj = new this.$.$apxu_samosbor_map_block();
