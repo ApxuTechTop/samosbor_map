@@ -315,13 +315,9 @@ namespace $.$$ {
 		connection_hidden( position: TransitionPosition ) {
 			if( this.create_mode() || this.connect_mode() ) {
 				const floor = this.current_floor()
-				const is_passage_free = this.block_data().FloorsData()?.key( floor )?.is_passage_free( position )
+				const is_passage_free = FloorData.is_passage_free( position, this.block_data().FloorsData()?.key( floor ) )
 				return !( is_passage_free ?? false )
 			}
-			// if (this.connect_mode()) {
-			// 	const finded_transition = this.block_data().transition_by_position(this.current_floor(), position)
-			// 	return !finded_transition
-			// }
 			return true
 		}
 

@@ -89,8 +89,7 @@ namespace $ {
 			left: "LeftPassage"
 		}
 
-		@$mol_mem_key
-		get_passage_type( transition: TransitionPosition ): typeof PassageType.options[ number ] {
+		static get_passage_type( transition: TransitionPosition, floor_data?: FloorData ) {
 			if( transition === "right" || transition === "left" ) {
 				return "normal"
 			}
@@ -98,16 +97,22 @@ namespace $ {
 				return "noway"
 			}
 			const property_name = FloorData.positions_map[ transition ]
-			const passage_type = this[ property_name ]()?.Type()?.val()
+			const passage_type = floor_data?.[ property_name ]()?.Type()?.val()
 			return passage_type ?? "noway"
+		}
+
+		static is_passage_free( transition: TransitionPosition, floor_data?: FloorData ) {
+			return this.get_passage_type( transition, floor_data ) !== "noway"
+		}
+
+		@$mol_mem_key
+		get_passage_type( transition: TransitionPosition ): typeof PassageType.options[ number ] {
+			return FloorData.get_passage_type( transition, this )
 		}
 
 		@$mol_mem_key
 		is_passage_free( transition: TransitionPosition ) {
-			const passage_type = this.get_passage_type( transition )
-			if( !passage_type ) return false
-			if( passage_type === "noway" ) return false
-			return true
+			return FloorData.is_passage_free( transition, this )
 		}
 
 		@$mol_mem
