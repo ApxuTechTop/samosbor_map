@@ -330,14 +330,14 @@ namespace $.$$ {
 		}
 		static getPositionOffset( pos: TransitionPosition, dir: DirectionType ) {
 			const offsets: { [ pos in TransitionPosition ]: { x: number, y: number } } = {
-				up_left: { x: 0, y: 0 },
-				up_middle: { x: 0.5, y: 0 },
-				up_right: { x: 1, y: 0 },
+				up_left: { x: 0, y: -1 },
+				up_middle: { x: 0.5, y: -1 },
+				up_right: { x: 1, y: -1 },
 				right: { x: 2, y: 0 },
 				down_right: { x: 1, y: 1 },
 				down_middle: { x: 0.5, y: 1 },
 				down_left: { x: 0, y: 1 },
-				left: { x: -1, y: 0 },
+				left: { x: -2, y: 0 },
 			}
 			const dirOffset = ( dir: string ) => {
 				return { x: 0, y: 0 }

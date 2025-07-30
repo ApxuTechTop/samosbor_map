@@ -487,16 +487,18 @@ namespace $.$$ {
 			}
 			if( this.connect_mode() ) return
 			const offset = $apxu_samosbor_map_app.getPositionOffset( position, this.block_direction() )
-			const new_block_direction = $apxu_samosbor_map_app.next_direction(
-				$apxu_samosbor_map_app.next_direction(
-					$apxu_samosbor_map_app.absolute_direction(
-						this.block_direction(), position ) ) )
+			// const new_block_direction = $apxu_samosbor_map_app.next_direction(
+			// 	$apxu_samosbor_map_app.next_direction(
+			// 		$apxu_samosbor_map_app.absolute_direction(
+			// 			this.block_direction(), position ) ) )
+
+			const new_block_direction = "up"
 
 			const new_offset = $apxu_samosbor_map_app.getPositionOffset( "up_left", new_block_direction )
 
 			console.log( offset )
-			const pos_x = Math.round( ( this.pos_x() + offset.x - new_offset.x ) )
-			const pos_y = Math.round( ( this.pos_y() + offset.y - new_offset.y ) )
+			const pos_x = Math.round( ( this.block_data().pos_x() + ( this.inverted() ? ( -1 ) : 1 ) * offset.x ) )
+			const pos_y = Math.round( ( this.block_data().pos_y() + ( this.inverted() ? ( -1 ) : 1 ) * offset.y ) )
 			const new_block_node = this.gigacluster().create_block()
 			console.log( new_block_node )
 			if( !new_block_node ) return
