@@ -335,7 +335,7 @@
 			height: calc(100% - 0px);
 
 			/* border: 10px solid var(--stroke-color); */
-			box-shadow: 0 0 10px 10px var(--stroke-color);
+			box-shadow: 0 0 20px 20px var(--stroke-color);
 			/* blur = 20px, spread = 5px */
 
 		}
