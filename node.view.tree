@@ -917,6 +917,11 @@ $apxu_samosbor_map_block $mol_view
 					<= gen_icon $apxu_samosbor_map_icon_generator
 					<= generator_floor $mol_view
 						sub / <= generator_floor_value? 0
+			^ mail_visible / <= Mail $mol_view
+				sub /
+					<= mail_icon $apxu_samosbor_map_icon_mail
+					<= mail_floor $mol_view
+						sub / <= mail_floor_value? null number
 	liquidator_icon $apxu_samosbor_map_icon_liquidator
 	repairman_icon $apxu_samosbor_map_icon_repairman
 	cleaner_icon $apxu_samosbor_map_icon_cleaner
