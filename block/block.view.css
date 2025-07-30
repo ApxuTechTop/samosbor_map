@@ -518,7 +518,13 @@
 			height: 30px;
 		}
 
+		[apxu_samosbor_map_block_mail_icon] {
+			width: 32px;
+			height: 27px;
+		}
+
 		[apxu_samosbor_map_block_generator_floor],
+		[apxu_samosbor_map_block_mail_floor],
 		[apxu_samosbor_map_block_flooded_floor_view],
 		[apxu_samosbor_map_block_roof_floor_view] {
 			z-index: 1000;

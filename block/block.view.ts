@@ -160,6 +160,12 @@ namespace $.$$ {
 			return Number( value )
 		}
 		@$mol_mem
+		mail_visible(): readonly ( any )[] {
+			const value = this.block_data().mail_floor()
+			if( value === null ) return []
+			return [ this.Mail() ]
+		}
+		@$mol_mem
 		mail_floor_value( next?: number ): number | null {
 			const value = this.block_data().mail_floor( next )
 			if( value === null ) return value
