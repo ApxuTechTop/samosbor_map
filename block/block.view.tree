@@ -39,9 +39,10 @@ $apxu_samosbor_map_block $mol_view
 	gigacluster $apxu_samosbor_map_gigacluster
 	block_data? $apxu_samosbor_map_block_data
 	edit_mode? false
-	create_mode? false
+	create_block_mode? false
 	connect_mode? false
 	is_doubled? false
+	is_pipe? false
 	block_layer? 0
 	current_layer? 0
 	current_floor 0
@@ -171,6 +172,30 @@ $apxu_samosbor_map_block $mol_view
 		sub /
 			<= flooded null
 			<= roof null
+	left_flight $apxu_samosbor_map_block_flight
+		event *
+			click? <=> left_flight_click? null
+		status <= flight_status*left \free
+		sub /
+			<= left_flight_icon
+	right_flight $apxu_samosbor_map_block_flight
+		event *
+			click? <=> right_flight_click? null
+		status <= flight_status*right \free
+		sub /
+			<= right_flight_icon
+	floor_part $apxu_samosbor_map_block_part
+		sub /
+			<= max_floor_view $mol_view
+				sub /
+					<= max_floor_icon $apxu_samosbor_map_icon_max_floor
+					<= max_floor_value $mol_view
+						sub / <= max_floor 0
+			<= min_floor_view $mol_view
+				sub /
+					<= min_floor_icon $apxu_samosbor_map_icon_min_floor
+					<= min_floor_value $mol_view
+						sub / <= min_floor 0
 	sub /
 		<= content $mol_view
 			attr *
@@ -180,33 +205,25 @@ $apxu_samosbor_map_block $mol_view
 				^ transitions_list <= transitions /
 				<= up_row $apxu_samosbor_map_block_row
 					sub /
-						<= left_flight $apxu_samosbor_map_block_flight
-							event *
-								click? <=> left_flight_click? null
-							status <= flight_status*left \free
-							sub /
-								<= left_flight_icon
+						^ pipe_name_visible / <= pipe_name $mol_view
+							sub / <= block_name
+						<= up_left_angle_visible <= up_left_angle_part $apxu_samosbor_map_block_part
 						<= up_left_passage $apxu_samosbor_map_block_passage
 							type? <= up_left_passage_type \noway
 							event *
 								click? <=> up_left_passage_click? null
 							up true
 							left true
-						<= up_left_part <= name_part
+						<= up_left_part_visible <= up_left_part <= up_left_part_empty $apxu_samosbor_map_block_part
 						<= up_passage_or_flight $mol_view
-						<= up_right_part <= info_part
+						<= up_right_part_visible <= up_right_part <= up_right_part_empty $apxu_samosbor_map_block_part
 						<= up_right_passage $apxu_samosbor_map_block_passage
 							type <= up_right_passage_type \noway
 							event *
 								click? <=> up_right_passage_click? null
 							up true
 							right true
-						<= right_flight $apxu_samosbor_map_block_flight
-							event *
-								click? <=> right_flight_click? null
-							status <= flight_status*right \free
-							sub /
-								<= right_flight_icon
+						<= up_right_angle_visible <= up_right_angle_part $apxu_samosbor_map_block_part
 				<= middle_row $mol_view
 					sub /
 						<= left_passage $apxu_samosbor_map_block_passage
@@ -231,32 +248,21 @@ $apxu_samosbor_map_block $mol_view
 						- <= hallway $mol_view
 				<= down_row $apxu_samosbor_map_block_row
 					sub /
-						<= floor_part $apxu_samosbor_map_block_part
-							sub /
-								<= max_floor_view $mol_view
-									sub /
-										<= max_floor_icon $apxu_samosbor_map_icon_max_floor
-										<= max_floor_value $mol_view
-											sub / <= max_floor 0
-								<= min_floor_view $mol_view
-									sub /
-										<= min_floor_icon $apxu_samosbor_map_icon_min_floor
-										<= min_floor_value $mol_view
-											sub / <= min_floor 0
+						<= down_left_angle_visible <= down_left_angle_part $apxu_samosbor_map_block_part
 						<= down_left_passage $apxu_samosbor_map_block_passage
 							type <= down_left_passage_type \noway
 							event *
 								click? <=> down_left_passage_click? null
 							down true
 							left true
-						<= down_left_part <= profession_part
+						<= down_left_part_visible <= down_left_part <= down_left_part_empty $apxu_samosbor_map_block_part
 						<= down_middle_passage
-						<= down_right_part <= places_part
+						<= down_right_part_visible <= down_right_part <= down_right_part_empty $apxu_samosbor_map_block_part
 						<= down_right_passage $apxu_samosbor_map_block_passage
 							type <= down_right_passage_type \noway
 							event *
 								click? <=> down_right_passage_click? null
 							down true
 							right true
-						<= effects_part
+						<= down_right_angle_visible <= down_right_angle_part $apxu_samosbor_map_block_part
 				

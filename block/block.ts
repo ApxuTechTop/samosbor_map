@@ -182,6 +182,8 @@ namespace $ {
 	// $apxu_samosbor_map_app_researcher.use()
 
 	export class $apxu_samosbor_map_block_data extends ( $hyoo_crus_entity.with( {
+		IsPipe: $hyoo_crus_atom_bool,
+
 		Name: $hyoo_crus_atom_str,
 		Direction: BlockDirection,
 		Type: BlockType,

@@ -281,13 +281,19 @@
 	grid-area: 2 / 2 / 3 / 3;
 }
 
-[apxu_samosbor_map_block_card_double_floor] {
+[apxu_samosbor_map_block_card_checkboxes] {
+	flex-direction: column;
+}
+
+[apxu_samosbor_map_block_card_double_floor],
+[apxu_samosbor_map_block_card_pipe_block] {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 
-[apxu_samosbor_map_block_card_double_floor_icon] {
+[apxu_samosbor_map_block_card_double_floor_icon],
+[apxu_samosbor_map_block_card_pipe_block_icon] {
 	width: 30px;
 	height: 30px;
 	color: var(--main-color);

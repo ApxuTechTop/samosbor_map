@@ -319,7 +319,7 @@ namespace $.$$ {
 		}
 		@$mol_mem_key
 		connection_hidden( position: TransitionPosition ) {
-			if( this.create_mode() || this.connect_mode() ) {
+			if( this.create_block_mode() || this.connect_mode() ) {
 				const floor = this.current_floor()
 				const is_passage_free = FloorData.is_passage_free( position, this.block_data().FloorsData()?.key( floor ) )
 				return !( is_passage_free ?? false )
@@ -360,7 +360,7 @@ namespace $.$$ {
 			event?.stopImmediatePropagation()
 			event?.stopPropagation()
 
-			if( this.create_mode() ) {
+			if( this.create_block_mode() ) {
 				return this.create_from_connection( position, event )
 			}
 			if( this.connect_mode() ) {
@@ -515,7 +515,7 @@ namespace $.$$ {
 			new_block_node.pos_x( pos_x )
 			new_block_node.pos_y( pos_y )
 			new_block_node.layer( this.current_layer() )
-			return event
+			return new_block_node
 		}
 
 		@$mol_mem
@@ -808,6 +808,48 @@ namespace $.$$ {
 			event?.stopImmediatePropagation()
 			event?.preventDefault()
 			this.block_data().FloorsData( true )?.key( this.current_floor(), true ).set_next_fence_type()
+		}
+
+		@$mol_mem
+		is_pipe( next?: boolean ) {
+			return this.block_data().IsPipe( next )?.val( next ) ?? false
+		}
+
+		@$mol_mem
+		up_left_angle_visible() {
+			return this.is_pipe() ? this.up_left_angle_part() : this.left_flight()
+		}
+		@$mol_mem
+		up_right_angle_visible() {
+			return this.is_pipe() ? this.up_right_angle_part() : this.right_flight()
+		}
+		@$mol_mem
+		down_left_angle_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_left_angle_part" ]> {
+			return this.is_pipe() ? this.down_left_angle_part() : this.floor_part()
+		}
+		@$mol_mem
+		down_right_angle_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_left_angle_part" ]> {
+			return this.is_pipe() ? this.down_right_angle_part() : this.effects_part()
+		}
+		@$mol_mem
+		up_left_part_visible() {
+			return this.is_pipe() ? this.up_left_part_empty() : this.up_left_part()
+		}
+		@$mol_mem
+		up_right_part_visible() {
+			return this.is_pipe() ? this.up_right_part_empty() : this.up_right_part()
+		}
+		@$mol_mem
+		down_left_part_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_left_part" ]> {
+			return this.is_pipe() ? this.down_left_part_empty() : this.down_left_part()
+		}
+		@$mol_mem
+		down_right_part_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_right_part" ]> {
+			return this.is_pipe() ? this.down_right_part_empty() : this.down_right_part()
+		}
+		@$mol_mem
+		pipe_name_visible(): readonly ( any )[] {
+			return this.is_pipe() ? [ this.pipe_name() ] : []
 		}
 	}
 }

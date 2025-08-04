@@ -271,11 +271,18 @@ $apxu_samosbor_map_block_card $mol_view
 									sub / <= rotation_icon $apxu_samosbor_map_icon_direction
 										style *
 											transform <= rotation \rotate(0deg)
-						<= double_floor $mol_view
+						<= checkboxes $mol_view
 							sub /
-								<= double_floor_icon $apxu_samosbor_map_icon_double_floor
-								<= double_floor_checkbox $mol_check_box
-									checked? <=> is_doubled_floor? false
+								<= double_floor $mol_view
+									sub /
+										<= double_floor_icon $apxu_samosbor_map_icon_double_floor
+										<= double_floor_checkbox $mol_check_box
+											checked? <=> is_doubled_floor? false
+								<= pipe_block $mol_view
+									sub /
+										<= pipe_block_icon $apxu_samosbor_map_icon_pipe
+										<= pipe_block_checkbox $mol_check_box
+											checked? <=> is_pipe_block? false
 				<= block_type_view $mol_view
 					sub /
 						\Тип блока: 

@@ -399,6 +399,7 @@
 	[apxu_samosbor_map_block_row] {
 		display: flex;
 		gap: 10px;
+		position: relative;
 
 		&>* {
 			justify-content: center;
@@ -962,6 +963,26 @@
 
 		[apxu_samosbor_map_block_middle_row] {
 			flex-direction: column;
+		}
+	}
+
+	[apxu_samosbor_map_block_pipe_name] {
+		position: absolute;
+		z-index: 2000;
+		left: 50%;
+		right: 50%;
+		top: 50%;
+		bottom: 50%;
+		color: white;
+		font-family: "Roboto";
+		font-weight: 700;
+		font-size: 34px;
+		line-height: 100%;
+		letter-spacing: 0;
+		text-align: center;
+
+		&::before {
+			content: unset;
 		}
 	}
 }
