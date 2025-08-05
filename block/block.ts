@@ -89,15 +89,16 @@ namespace $ {
 			left: "LeftPassage"
 		}
 
-		static get_passage_type( transition: TransitionPosition, floor_data?: FloorData ) {
-			if( transition === "right" || transition === "left" ) {
-				return "normal"
-			}
+		@$mol_mem_key
+		static get_passage_type( transition: TransitionPosition, floor_data?: FloorData, next?: typeof PassageType.options[ number ] ) {
 			if( transition === "up_middle" || transition === "down_middle" ) {
 				return "noway"
 			}
 			const property_name = FloorData.positions_map[ transition ]
-			const passage_type = floor_data?.[ property_name ]()?.Type()?.val()
+			const passage_type = floor_data?.[ property_name ]( next )?.Type( next )?.val( next )
+			if( transition === "right" || transition === "left" ) {
+				return passage_type ?? "normal"
+			}
 			return passage_type ?? "noway"
 		}
 
@@ -319,6 +320,10 @@ namespace $ {
 		@$mol_mem_key
 		down_right_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
 			return this.FloorsData( next )?.key( floor, next )?.DownRightPassage( next )?.Type( next )?.val( next ) ?? "noway"
+		}
+		@$mol_mem_key
+		passage_type( { floor, what }: { floor: number, what: TransitionPosition }, next?: typeof PassageType.options[ number ] ) {
+			return FloorData.get_passage_type( what, this.FloorsData( next )?.key( floor, next ), next )
 		}
 
 		@$mol_mem_key

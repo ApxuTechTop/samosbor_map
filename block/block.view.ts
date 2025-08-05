@@ -443,7 +443,6 @@ namespace $.$$ {
 				}
 			}
 			if( is_same_port( first_port ) ) {
-				console.log( "pressed myself" )
 				return true
 			}
 
@@ -582,96 +581,25 @@ namespace $.$$ {
 			return passage_type_map[ current_passage_type ]
 		}
 
-		@$mol_mem
-		up_left_passage_type(): string {
+		@$mol_mem_key
+		passage_type( what: TransitionPosition ) {
 			const floor = this.current_floor()
-			return this.block_data().up_left_passage_type( floor )
+			return this.block_data().passage_type( { floor, what } )
 		}
+
 		@$mol_action
-		up_left_passage_click( event: PointerEvent ) {
+		@$mol_mem_key
+		passage_click( what: TransitionPosition, event: PointerEvent ) {
+			console.log( what, event )
 			if( !this.edit_mode() ) return
 			event?.stopImmediatePropagation()
 			const floor = this.current_floor()
-			const current_passage_type = this.block_data().up_left_passage_type( floor )
-
+			const current_passage_type = this.block_data().passage_type( { floor, what } )
+			console.log( current_passage_type )
 			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().up_left_passage_type( floor, next_passage_type )
+			this.block_data().passage_type( { floor, what }, next_passage_type )
 		}
-		@$mol_mem
-		up_middle_passage_type(): string {
-			const floor = this.current_floor()
-			return this.block_data().up_middle_passage_type( floor )
-		}
-		@$mol_action
-		up_middle_passage_click( event: PointerEvent ) {
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().up_middle_passage_type( floor )
 
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().up_middle_passage_type( floor, next_passage_type )
-		}
-		@$mol_mem
-		up_right_passage_type(): string {
-			const floor = this.current_floor()
-			return this.block_data().up_right_passage_type( floor )
-		}
-		@$mol_action
-		up_right_passage_click( event: PointerEvent ) {
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().up_right_passage_type( floor )
-
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().up_right_passage_type( floor, next_passage_type )
-		}
-		@$mol_mem
-		down_left_passage_type(): string {
-			const floor = this.current_floor()
-			return this.block_data().down_left_passage_type( floor )
-		}
-		@$mol_action
-		down_left_passage_click( event: PointerEvent ) {
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().down_left_passage_type( floor )
-
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().down_left_passage_type( floor, next_passage_type )
-		}
-		@$mol_mem
-		down_middle_passage_type(): string {
-			const floor = this.current_floor()
-			return this.block_data().down_middle_passage_type( floor )
-		}
-		@$mol_action
-		down_middle_passage_click( event: PointerEvent ) {
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().down_middle_passage_type( floor )
-
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().down_middle_passage_type( floor, next_passage_type )
-		}
-		@$mol_mem
-		down_right_passage_type(): string {
-			const floor = this.current_floor()
-			return this.block_data().down_right_passage_type( floor )
-		}
-		@$mol_action
-		down_right_passage_click( event: PointerEvent ) {
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().down_right_passage_type( floor )
-
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().down_right_passage_type( floor, next_passage_type )
-		}
 		@$mol_mem
 		is_up_flight( next?: boolean ): boolean {
 			return this.block_data().IsMiddleFlight( next )?.val( next ) ?? false
@@ -715,55 +643,36 @@ namespace $.$$ {
 			return this.parts[ shift ]
 		}
 
-		@$mol_mem
-		has_liquidator_profession() {
-			return this.profession_floors( "liquidator" ).length > 0
-		}
-		@$mol_mem
-		has_repairman_profession() {
-			return this.profession_floors( "repairman" ).length > 0
-		}
-		@$mol_mem
-		has_cleaner_profession() {
-			return this.profession_floors( "cleaner" ).length > 0
-		}
-		@$mol_mem
-		has_plumber_profession() {
-			return this.profession_floors( "plumber" ).length > 0
+		@$mol_mem_key
+		has_profession( what: typeof ProfessionType.options[ number ] ) {
+			return this.profession_floors( what ).length > 0
 		}
 
 		@$mol_mem
 		liquidator_profession(): ReturnType<$.$apxu_samosbor_map_block[ "liquidator_icon" ]> | null {
-			return this.has_liquidator_profession() ? this.liquidator_icon() : null
+			return this.has_profession( "liquidator" ) ? this.liquidator_icon() : null
 		}
 
 		@$mol_mem
 		repairman_profession() {
-			return this.has_repairman_profession() ? this.repairman_icon() : null
+			return this.has_profession( "repairman" ) ? this.repairman_icon() : null
 		}
 
 		@$mol_mem
 		cleaner_profession() {
-			return this.has_cleaner_profession() ? this.cleaner_icon() : null
+			return this.has_profession( "cleaner" ) ? this.cleaner_icon() : null
 		}
 
 		@$mol_mem
 		plumber_profession() {
-			return this.has_plumber_profession() ? this.factory_icon() : null
+			return this.has_profession( "plumber" ) ? this.factory_icon() : null
 		}
 
-		@$mol_mem
-		has_hospital_place() {
-			return this.place_floors( "hospital" ).length > 0
+		@$mol_mem_key
+		has_place( what: typeof PlaceType.options[ number ] ) {
+			return this.place_floors( what ).length > 0
 		}
-		@$mol_mem
-		has_party_place() {
-			return this.place_floors( "party" ).length > 0
-		}
-		@$mol_mem
-		has_theatre_place() {
-			return this.place_floors( "theatre" ).length > 0
-		}
+
 		@$mol_mem
 		has_safe_place() {
 			return this.safe_floors().length > 0
@@ -771,17 +680,17 @@ namespace $.$$ {
 
 		@$mol_mem
 		party_place() {
-			return this.has_party_place() ? this.party_icon() : null
+			return this.has_place( "party" ) ? this.party_icon() : null
 		}
 
 		@$mol_mem
 		theatre_place() {
-			return this.has_theatre_place() ? this.theatre_icon() : null
+			return this.has_place( "theatre" ) ? this.theatre_icon() : null
 		}
 
 		@$mol_mem
 		hospital_place() {
-			return this.has_hospital_place() ? this.hospital_icon() : null
+			return this.has_place( "hospital" ) ? this.hospital_icon() : null
 		}
 
 		@$mol_mem

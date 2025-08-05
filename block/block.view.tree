@@ -209,27 +209,27 @@ $apxu_samosbor_map_block $mol_view
 							sub / <= block_name
 						<= up_left_angle_visible <= up_left_angle_part $apxu_samosbor_map_block_part
 						<= up_left_passage $apxu_samosbor_map_block_passage
-							type? <= up_left_passage_type \noway
+							type? <= passage_type*up_left \noway
 							event *
-								click? <=> up_left_passage_click? null
+								click? <=> passage_click*up_left? null
 							up true
 							left true
 						<= up_left_part_visible <= up_left_part <= up_left_part_empty $apxu_samosbor_map_block_part
 						<= up_passage_or_flight $mol_view
 						<= up_right_part_visible <= up_right_part <= up_right_part_empty $apxu_samosbor_map_block_part
 						<= up_right_passage $apxu_samosbor_map_block_passage
-							type <= up_right_passage_type \noway
+							type <= passage_type*up_right \noway
 							event *
-								click? <=> up_right_passage_click? null
+								click? <=> passage_click*up_right? null
 							up true
 							right true
 						<= up_right_angle_visible <= up_right_angle_part $apxu_samosbor_map_block_part
 				<= middle_row $mol_view
 					sub /
 						<= left_passage $apxu_samosbor_map_block_passage
-							type <= left_passage_type \normal
+							type <= left_passage_type <= passage_type*left
 							event *
-								click? <=> left_passage_click? null
+								click? <=> passage_click*left? null
 							left true
 						<= left_crossroad $mol_view
 						<= left_hallway $mol_view
@@ -241,27 +241,27 @@ $apxu_samosbor_map_block $mol_view
 						<= right_hallway $mol_view
 						<= right_crossroad $mol_view
 						<= right_passage $apxu_samosbor_map_block_passage
-							type <= right_passage_type \normal
+							type <= right_passage_type <= passage_type*right
 							event *
-								click? <=> right_passage_click? null
+								click? <=> right_passage_click? <=> passage_click*right? null
 							right true
 						- <= hallway $mol_view
 				<= down_row $apxu_samosbor_map_block_row
 					sub /
 						<= down_left_angle_visible <= down_left_angle_part $apxu_samosbor_map_block_part
 						<= down_left_passage $apxu_samosbor_map_block_passage
-							type <= down_left_passage_type \noway
+							type <= passage_type*down_left \noway
 							event *
-								click? <=> down_left_passage_click? null
+								click? <=> passage_click*down_left? null
 							down true
 							left true
 						<= down_left_part_visible <= down_left_part <= down_left_part_empty $apxu_samosbor_map_block_part
 						<= down_middle_passage
 						<= down_right_part_visible <= down_right_part <= down_right_part_empty $apxu_samosbor_map_block_part
 						<= down_right_passage $apxu_samosbor_map_block_passage
-							type <= down_right_passage_type \noway
+							type <= passage_type*down_right \noway
 							event *
-								click? <=> down_right_passage_click? null
+								click? <=> passage_click*down_right? null
 							down true
 							right true
 						<= down_right_angle_visible <= down_right_angle_part $apxu_samosbor_map_block_part
