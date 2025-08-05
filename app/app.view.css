@@ -1,6 +1,6 @@
 [apxu_samosbor_map_app] {
-	--bg: #6E6E6E;
-	--main: #585858;
+	--bg: #A8A8A8;
+	--main: #767676;
 
 	[color=a] {
 		--bg: #BD9EFF;
@@ -73,7 +73,7 @@
 	}
 
 	[color=p] {
-		--bg: #6F6F6F;
+		--bg: #6E6E6E;
 		--main: #585858;
 	}
 

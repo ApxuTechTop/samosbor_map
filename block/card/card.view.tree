@@ -151,6 +151,49 @@ $apxu_samosbor_map_block_card $mol_view
 		add_floor? <=> add_profession*? null
 		remove_floor* <=> remove_floor* null
 		block <= block
+	block_size $mol_view
+		sub /
+			<= max_floor_view $mol_view
+				sub /
+					<= max_floor_icon $apxu_samosbor_map_icon_max_floor
+					<= max_floor_value $apxu_samosbor_map_block_card_number_input
+						enabled <= edit_mode
+						value? <=> max_floor? 15
+			<= min_floor_view $mol_view
+				sub /
+					<= min_floor_icon $apxu_samosbor_map_icon_min_floor
+					<= min_floor_value $apxu_samosbor_map_block_card_number_input
+						enabled <= edit_mode
+						value? <=> min_floor? -15
+	flights $mol_view
+		sub /
+			<= flight_left_button $apxu_samosbor_map_block_card_flight_button
+				minimal_width 19
+				minimal_height 28
+				edit_mode <= edit_mode 
+				sub / <= flight_left_icon $mol_icon_chevron_left
+				click? <=> change_flight_click? null
+			<= flight_view $mol_view
+				attr *
+					middle <= is_middle_flight false
+				sub /
+					^ current_flight /
+			<= flight_right_button $apxu_samosbor_map_block_card_flight_button
+				minimal_width 19
+				minimal_height 28
+				edit_mode <= edit_mode 
+				sub / <= flight_right_icon $mol_icon_chevron_right
+				click? <=> change_flight_click? null
+	floors_info $mol_view
+		sub /
+			<= gen_floor_view $mol_view
+				sub /
+					<= gen $apxu_samosbor_map_block_card_floor
+						enabled <= edit_mode
+						floor_value? <=> gen_floor? 0
+						icon <= gen_icon $apxu_samosbor_map_icon_generator
+			<= floor_view*board
+			<= floor_view*mail
 	sub /
 		<= misc_buttons $mol_view
 			sub /
@@ -178,39 +221,8 @@ $apxu_samosbor_map_block_card $mol_view
 										<= block_name_input $mol_string
 											enabled <= edit_mode
 											value? <=> block_name? \Л-96
-										<= block_size $mol_view
-											sub /
-												<= max_floor_view $mol_view
-													sub /
-														<= max_floor_icon $apxu_samosbor_map_icon_max_floor
-														<= max_floor_value $apxu_samosbor_map_block_card_number_input
-															enabled <= edit_mode
-															value? <=> max_floor? 15
-												<= min_floor_view $mol_view
-													sub /
-														<= min_floor_icon $apxu_samosbor_map_icon_min_floor
-														<= min_floor_value $apxu_samosbor_map_block_card_number_input
-															enabled <= edit_mode
-															value? <=> min_floor? -15
-								<= flights $mol_view
-									sub /
-										<= flight_left_button $apxu_samosbor_map_block_card_flight_button
-											minimal_width 19
-											minimal_height 28
-											edit_mode <= edit_mode 
-											sub / <= flight_left_icon $mol_icon_chevron_left
-											click? <=> change_flight_click? null
-										<= flight_view $mol_view
-											attr *
-												middle <= is_middle_flight false
-											sub /
-												^ current_flight /
-										<= flight_right_button $apxu_samosbor_map_block_card_flight_button
-											minimal_width 19
-											minimal_height 28
-											edit_mode <= edit_mode 
-											sub / <= flight_right_icon $mol_icon_chevron_right
-											click? <=> change_flight_click? null
+										<= by_pipe_visible*block_size 
+								<= by_pipe_visible*flights
 						<= block_buttons $mol_view
 							sub /
 								<= copy_button $mol_button_major
@@ -271,11 +283,18 @@ $apxu_samosbor_map_block_card $mol_view
 									sub / <= rotation_icon $apxu_samosbor_map_icon_direction
 										style *
 											transform <= rotation \rotate(0deg)
-						<= double_floor $mol_view
+						<= checkboxes $mol_view
 							sub /
-								<= double_floor_icon $apxu_samosbor_map_icon_double_floor
-								<= double_floor_checkbox $mol_check_box
-									checked? <=> is_doubled_floor? false
+								<= double_floor $mol_view
+									sub /
+										<= double_floor_icon $apxu_samosbor_map_icon_double_floor
+										<= double_floor_checkbox $mol_check_box
+											checked? <=> is_doubled_floor? false
+								<= pipe_block $mol_view
+									sub /
+										<= pipe_block_icon $apxu_samosbor_map_icon_pipe
+										<= pipe_block_checkbox $mol_check_box
+											checked? <=> is_pipe_block? false
 				<= block_type_view $mol_view
 					sub /
 						\Тип блока: 
@@ -290,16 +309,7 @@ $apxu_samosbor_map_block_card $mol_view
 								infected \Зараженный
 							Trigger_icon <= current_type_select_icon null
 							Filter null
-				<= floors_info $mol_view
-					sub /
-						<= gen_floor_view $mol_view
-							sub /
-								<= gen $apxu_samosbor_map_block_card_floor
-									enabled <= edit_mode
-									floor_value? <=> gen_floor? 0
-									icon <= gen_icon $apxu_samosbor_map_icon_generator
-						<= floor_view*board
-						<= floor_view*mail
+				<= by_pipe_visible*floors_info
 				^ effects_info_visible / <= effects_info $mol_view
 					sub /
 						<= floor_view*roof

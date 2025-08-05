@@ -319,7 +319,7 @@ namespace $.$$ {
 		}
 		@$mol_mem_key
 		connection_hidden( position: TransitionPosition ) {
-			if( this.create_mode() || this.connect_mode() ) {
+			if( this.create_block_mode() || this.connect_mode() ) {
 				const floor = this.current_floor()
 				const is_passage_free = FloorData.is_passage_free( position, this.block_data().FloorsData()?.key( floor ) )
 				return !( is_passage_free ?? false )
@@ -360,7 +360,7 @@ namespace $.$$ {
 			event?.stopImmediatePropagation()
 			event?.stopPropagation()
 
-			if( this.create_mode() ) {
+			if( this.create_block_mode() ) {
 				return this.create_from_connection( position, event )
 			}
 			if( this.connect_mode() ) {
@@ -443,7 +443,6 @@ namespace $.$$ {
 				}
 			}
 			if( is_same_port( first_port ) ) {
-				console.log( "pressed myself" )
 				return true
 			}
 
@@ -515,7 +514,7 @@ namespace $.$$ {
 			new_block_node.pos_x( pos_x )
 			new_block_node.pos_y( pos_y )
 			new_block_node.layer( this.current_layer() )
-			return event
+			return new_block_node
 		}
 
 		@$mol_mem
@@ -582,96 +581,25 @@ namespace $.$$ {
 			return passage_type_map[ current_passage_type ]
 		}
 
-		@$mol_mem
-		up_left_passage_type(): string {
+		@$mol_mem_key
+		passage_type( what: TransitionPosition ) {
 			const floor = this.current_floor()
-			return this.block_data().up_left_passage_type( floor )
+			return this.block_data().passage_type( { floor, what } )
 		}
+
 		@$mol_action
-		up_left_passage_click( event: PointerEvent ) {
+		@$mol_mem_key
+		passage_click( what: TransitionPosition, event: PointerEvent ) {
+			console.log( what, event )
 			if( !this.edit_mode() ) return
 			event?.stopImmediatePropagation()
 			const floor = this.current_floor()
-			const current_passage_type = this.block_data().up_left_passage_type( floor )
-
+			const current_passage_type = this.block_data().passage_type( { floor, what } )
+			console.log( current_passage_type )
 			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().up_left_passage_type( floor, next_passage_type )
+			this.block_data().passage_type( { floor, what }, next_passage_type )
 		}
-		@$mol_mem
-		up_middle_passage_type(): string {
-			const floor = this.current_floor()
-			return this.block_data().up_middle_passage_type( floor )
-		}
-		@$mol_action
-		up_middle_passage_click( event: PointerEvent ) {
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().up_middle_passage_type( floor )
 
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().up_middle_passage_type( floor, next_passage_type )
-		}
-		@$mol_mem
-		up_right_passage_type(): string {
-			const floor = this.current_floor()
-			return this.block_data().up_right_passage_type( floor )
-		}
-		@$mol_action
-		up_right_passage_click( event: PointerEvent ) {
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().up_right_passage_type( floor )
-
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().up_right_passage_type( floor, next_passage_type )
-		}
-		@$mol_mem
-		down_left_passage_type(): string {
-			const floor = this.current_floor()
-			return this.block_data().down_left_passage_type( floor )
-		}
-		@$mol_action
-		down_left_passage_click( event: PointerEvent ) {
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().down_left_passage_type( floor )
-
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().down_left_passage_type( floor, next_passage_type )
-		}
-		@$mol_mem
-		down_middle_passage_type(): string {
-			const floor = this.current_floor()
-			return this.block_data().down_middle_passage_type( floor )
-		}
-		@$mol_action
-		down_middle_passage_click( event: PointerEvent ) {
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().down_middle_passage_type( floor )
-
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().down_middle_passage_type( floor, next_passage_type )
-		}
-		@$mol_mem
-		down_right_passage_type(): string {
-			const floor = this.current_floor()
-			return this.block_data().down_right_passage_type( floor )
-		}
-		@$mol_action
-		down_right_passage_click( event: PointerEvent ) {
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().down_right_passage_type( floor )
-
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().down_right_passage_type( floor, next_passage_type )
-		}
 		@$mol_mem
 		is_up_flight( next?: boolean ): boolean {
 			return this.block_data().IsMiddleFlight( next )?.val( next ) ?? false
@@ -715,55 +643,36 @@ namespace $.$$ {
 			return this.parts[ shift ]
 		}
 
-		@$mol_mem
-		has_liquidator_profession() {
-			return this.profession_floors( "liquidator" ).length > 0
-		}
-		@$mol_mem
-		has_repairman_profession() {
-			return this.profession_floors( "repairman" ).length > 0
-		}
-		@$mol_mem
-		has_cleaner_profession() {
-			return this.profession_floors( "cleaner" ).length > 0
-		}
-		@$mol_mem
-		has_plumber_profession() {
-			return this.profession_floors( "plumber" ).length > 0
+		@$mol_mem_key
+		has_profession( what: typeof ProfessionType.options[ number ] ) {
+			return this.profession_floors( what ).length > 0
 		}
 
 		@$mol_mem
 		liquidator_profession(): ReturnType<$.$apxu_samosbor_map_block[ "liquidator_icon" ]> | null {
-			return this.has_liquidator_profession() ? this.liquidator_icon() : null
+			return this.has_profession( "liquidator" ) ? this.liquidator_icon() : null
 		}
 
 		@$mol_mem
 		repairman_profession() {
-			return this.has_repairman_profession() ? this.repairman_icon() : null
+			return this.has_profession( "repairman" ) ? this.repairman_icon() : null
 		}
 
 		@$mol_mem
 		cleaner_profession() {
-			return this.has_cleaner_profession() ? this.cleaner_icon() : null
+			return this.has_profession( "cleaner" ) ? this.cleaner_icon() : null
 		}
 
 		@$mol_mem
 		plumber_profession() {
-			return this.has_plumber_profession() ? this.factory_icon() : null
+			return this.has_profession( "plumber" ) ? this.factory_icon() : null
 		}
 
-		@$mol_mem
-		has_hospital_place() {
-			return this.place_floors( "hospital" ).length > 0
+		@$mol_mem_key
+		has_place( what: typeof PlaceType.options[ number ] ) {
+			return this.place_floors( what ).length > 0
 		}
-		@$mol_mem
-		has_party_place() {
-			return this.place_floors( "party" ).length > 0
-		}
-		@$mol_mem
-		has_theatre_place() {
-			return this.place_floors( "theatre" ).length > 0
-		}
+
 		@$mol_mem
 		has_safe_place() {
 			return this.safe_floors().length > 0
@@ -771,17 +680,17 @@ namespace $.$$ {
 
 		@$mol_mem
 		party_place() {
-			return this.has_party_place() ? this.party_icon() : null
+			return this.has_place( "party" ) ? this.party_icon() : null
 		}
 
 		@$mol_mem
 		theatre_place() {
-			return this.has_theatre_place() ? this.theatre_icon() : null
+			return this.has_place( "theatre" ) ? this.theatre_icon() : null
 		}
 
 		@$mol_mem
 		hospital_place() {
-			return this.has_hospital_place() ? this.hospital_icon() : null
+			return this.has_place( "hospital" ) ? this.hospital_icon() : null
 		}
 
 		@$mol_mem
@@ -808,6 +717,48 @@ namespace $.$$ {
 			event?.stopImmediatePropagation()
 			event?.preventDefault()
 			this.block_data().FloorsData( true )?.key( this.current_floor(), true ).set_next_fence_type()
+		}
+
+		@$mol_mem
+		is_pipe( next?: boolean ) {
+			return this.block_data().IsPipe( next )?.val( next ) ?? false
+		}
+
+		@$mol_mem
+		up_left_angle_visible() {
+			return this.is_pipe() ? this.up_left_angle_part() : this.left_flight()
+		}
+		@$mol_mem
+		up_right_angle_visible() {
+			return this.is_pipe() ? this.up_right_angle_part() : this.right_flight()
+		}
+		@$mol_mem
+		down_left_angle_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_left_angle_part" ]> {
+			return this.is_pipe() ? this.down_left_angle_part() : this.floor_part()
+		}
+		@$mol_mem
+		down_right_angle_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_left_angle_part" ]> {
+			return this.is_pipe() ? this.down_right_angle_part() : this.effects_part()
+		}
+		@$mol_mem
+		up_left_part_visible() {
+			return this.is_pipe() ? this.up_left_part_empty() : this.up_left_part()
+		}
+		@$mol_mem
+		up_right_part_visible() {
+			return this.is_pipe() ? this.up_right_part_empty() : this.up_right_part()
+		}
+		@$mol_mem
+		down_left_part_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_left_part" ]> {
+			return this.is_pipe() ? this.down_left_part_empty() : this.down_left_part()
+		}
+		@$mol_mem
+		down_right_part_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_right_part" ]> {
+			return this.is_pipe() ? this.down_right_part_empty() : this.down_right_part()
+		}
+		@$mol_mem
+		pipe_name_visible(): readonly ( any )[] {
+			return this.is_pipe() ? [ this.pipe_name() ] : []
 		}
 	}
 }

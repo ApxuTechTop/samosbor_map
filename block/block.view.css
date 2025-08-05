@@ -237,9 +237,7 @@
 		}
 
 		[apxu_samosbor_map_block_up_middle_passage],
-		[apxu_samosbor_map_block_down_middle_passage],
-		[apxu_samosbor_map_block_left_passage],
-		[apxu_samosbor_map_block_right_passage] {
+		[apxu_samosbor_map_block_down_middle_passage] {
 			z-index: 2000;
 
 			&::after {
@@ -383,14 +381,22 @@
 		[apxu_samosbor_map_block_passage] {
 			position: relative;
 
+			align-items: center;
+			justify-content: center;
+
 			&::before {
 				box-sizing: border-box;
 				content: "";
 				width: 100%;
 				height: 100%;
-				background-color: var(--bg);
 				position: absolute;
-				/* background-color: var(--main); */
+			}
+
+			&[type=noway] {
+				&::before {
+					width: 100% !important;
+					height: 100% !important;
+				}
 			}
 		}
 
@@ -399,6 +405,7 @@
 	[apxu_samosbor_map_block_row] {
 		display: flex;
 		gap: 10px;
+		position: relative;
 
 		&>* {
 			justify-content: center;
@@ -962,6 +969,26 @@
 
 		[apxu_samosbor_map_block_middle_row] {
 			flex-direction: column;
+		}
+	}
+
+	[apxu_samosbor_map_block_pipe_name] {
+		position: absolute;
+		z-index: 2000;
+		left: 50%;
+		right: 50%;
+		top: 50%;
+		bottom: 50%;
+		color: white;
+		font-family: "Roboto";
+		font-weight: 700;
+		font-size: 34px;
+		line-height: 100%;
+		letter-spacing: 0;
+		text-align: center;
+
+		&::before {
+			content: unset;
 		}
 	}
 }

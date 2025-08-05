@@ -428,6 +428,9 @@ namespace $.$$ {
 
 		@$mol_mem
 		effects_info_visible(): readonly ( any )[] {
+			if( this.is_pipe_block() ) {
+				return []
+			}
 			if( isNaN( this.floor_value( "roof" ) ) && isNaN( this.floor_value( "flood" ) )
 				&& this.has_balcony() === false && !this.edit_mode() ) {
 				return []
@@ -445,6 +448,9 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		professions_visible() {
+			if( this.is_pipe_block() ) {
+				return []
+			}
 			const profession_types = [ "liquidator", "repairman", "cleaner", "plumber" ] as const
 			if( profession_types.filter( ( what ) => {
 				return this.profession_floors( what ).length > 0 || this.edit_mode()
@@ -462,6 +468,9 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		places_visible(): readonly ( any )[] {
+			if( this.is_pipe_block() ) {
+				return []
+			}
 			if( this.important_places().length > 0 ) {
 				return [ this.places() ]
 			}
@@ -469,6 +478,9 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		features_visible() {
+			if( this.is_pipe_block() ) {
+				return []
+			}
 			if( this.other_places().length > 0 ) {
 				return [ this.features() ]
 			}
@@ -478,6 +490,16 @@ namespace $.$$ {
 		@$mol_mem
 		is_doubled_floor( next?: boolean ): boolean {
 			return this.block().block_data().is_double_floor( this.block().current_floor(), next )
+		}
+		@$mol_mem
+		is_pipe_block( next?: boolean ): boolean {
+			return this.block().is_pipe( next )
+		}
+
+
+		@$mol_mem_key
+		by_pipe_visible( id: keyof $apxu_samosbor_map_block_card ) {
+			return this.is_pipe_block() ? null : ( this[ id ] as any )() // TODO поправить типы
 		}
 
 	}

@@ -7,7 +7,7 @@ $apxu_samosbor_map_app $mol_view
 		onclick? <=> block_clicked*? null
 		on_connection_select? <=> connection_selected*? null
 		show_connections true
-		create_mode? <= is_create_mode false
+		create_block_mode? <= is_create_block_mode false
 		edit_mode? <= is_configure_mode false
 		selected <= block_selected* true
 		connect_mode? <= is_connect_mode false
@@ -101,9 +101,9 @@ $apxu_samosbor_map_app $mol_view
 				<= Control_Switch $mol_switch
 					value? <=> control_type? \
 					options *
-						create \Create Block
-						connect \Connect Blocks
-						configure \Configure Block
+						create @ \Create Block
+						connect @ \Connect Blocks
+						configure @ \Configure Block
 		^ block_cards /
 		<= Layer_Bar $mol_number
 			value? <=> current_layer? 0

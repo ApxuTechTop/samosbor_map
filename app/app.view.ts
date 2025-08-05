@@ -123,7 +123,6 @@ namespace $.$$ {
 			} else {
 				this.selected_blocks( [ ...selected_blocks, ref ] )
 			}
-			console.log( this.selected_blocks() )
 		}
 
 		@$mol_mem
@@ -272,7 +271,7 @@ namespace $.$$ {
 			return next ?? ""
 		}
 		@$mol_mem
-		is_create_mode() {
+		is_create_block_mode() {
 			return this.control_type() === "create"
 		}
 		@$mol_mem
