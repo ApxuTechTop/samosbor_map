@@ -383,6 +383,32 @@ namespace $.$$ {
 			return parsed_layer ?? 0
 		}
 
+		@$mol_action
+		zoom_to_block( block: $apxu_samosbor_map_block_data ) {
+			const area = this.Area()
+			const canvas = this.Canvas()
+			const canvas_rect = canvas.dom_node().getBoundingClientRect()
+			const block_view = this.Block( block.ref() )
+			const block_rect = block_view.dom_node().getBoundingClientRect()
+			const top = block_view.top()
+			const left = block_view.left()
+			this.canvas_pos(
+				new $mol_vector_2d( -left, -top )
+					.multed0( area.cur_zoom() )
+					.added1( [ ( canvas_rect.width - block_rect.width ) / 2, ( canvas_rect.height - block_rect.height ) / 2 ] )
+			)
+		}
+
+		@$mol_action
+		do_search( next?: any ) {
+			const search_value = this.search_value()
+			const block = this.current_map().blocks()?.find( ( block ) => { return block.name().includes( search_value ) } )
+			if( !block ) return
+			this.current_layer( block.layer() )
+			this.selected_blocks( [ ...this.selected_blocks(), block.ref() ] )
+			this.zoom_to_block( block )
+		}
+
 		// @$mol_mem
 		// test_translate() {
 		// 	return `${this.test_pan()[0]}px ${this.test_pan()[1]}px`

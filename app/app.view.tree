@@ -114,9 +114,24 @@ $apxu_samosbor_map_app $mol_view
 					max_value? 19
 					value? <=> current_layer? 0
 		<= Searcher $mol_view
+			sub /
+				<= SearchLabel $mol_labeler
+					title @ \Search
+					content /
+						<= SearchBar $mol_bar
+							sub /
+								<= SearchInput $mol_string
+									value? <=> search_value? \
+									submit? <=> do_search? null
+								<= SearchSubmit $mol_button_minor
+									sub / <= search_icon $mol_icon_selection_search
+									click? <=> do_search? null
 		<= Canvas $mol_view
 			sub /
 				<= Area $apxu_samosbor_map_area
+					cur_pan? <=> canvas_pos? $mol_vector_2d<number> /
+						0
+						0
 					style *
 						width \100%
 						height \100%
