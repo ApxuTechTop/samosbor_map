@@ -1065,8 +1065,8 @@ declare namespace $ {
         }>;
         encrypt(open: BufferSource, salt: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
         decrypt(closed: BufferSource, salt: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
-        close(sacred: $mol_crypto_sacred, salt: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
-        open(buf: Uint8Array, salt: BufferSource): Promise<$mol_crypto_sacred>;
+        close(sacred: DataView<ArrayBuffer>, salt: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
+        open(buf: Uint8Array<ArrayBuffer>, salt: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
     }
 }
 
@@ -1081,7 +1081,7 @@ declare namespace $ {
         });
         static generate(): Promise<$mol_crypto_secret>;
         static from(serial: BufferSource): Promise<$mol_crypto_secret>;
-        static pass(pass: string, salt: Uint8Array): Promise<$mol_crypto_secret>;
+        static pass(pass: string, salt: Uint8Array<ArrayBuffer>): Promise<$mol_crypto_secret>;
         static derive(private_serial: string, public_serial: string): Promise<$mol_crypto_secret>;
         serial(): Promise<Uint8Array<ArrayBuffer>>;
         encrypt(open: BufferSource, salt: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
@@ -1311,7 +1311,7 @@ declare namespace $ {
             faces: $hyoo_crus_face_map;
             units: $hyoo_crus_unit[];
         }>;
-        rocks: [Uint8Array, null | Uint8Array][];
+        rocks: [Uint8Array<ArrayBuffer>, null | Uint8Array<ArrayBuffer>][];
     };
     class $hyoo_crus_pack extends $mol_buffer {
         toBlob(): Blob;
@@ -1322,7 +1322,7 @@ declare namespace $ {
                 faces: $hyoo_crus_face_map;
                 units: $hyoo_crus_unit[];
             }>;
-            rocks: [Uint8Array<ArrayBufferLike>, Uint8Array<ArrayBufferLike> | null][];
+            rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer> | null][];
         };
         static make({ lands, rocks }: $hyoo_crus_pack_parts): $hyoo_crus_pack;
     }
@@ -1360,7 +1360,7 @@ declare namespace $ {
     type json = null | boolean | number | string | {
         [key in string]: json;
     } | readonly json[];
-    export type $hyoo_crus_vary_type = Uint8Array | bigint | $hyoo_crus_ref | BigInt64Array | Float64Array | $mol_time_moment | $mol_time_duration | $mol_time_interval | $mol_tree2 | json | Node;
+    export type $hyoo_crus_vary_type = Uint8Array<ArrayBuffer> | bigint | $hyoo_crus_ref | BigInt64Array | Float64Array | $mol_time_moment | $mol_time_duration | $mol_time_interval | $mol_tree2 | json | Node;
     export let $hyoo_crus_vary_mapping: {
         nil: null;
         bin: Uint8ArrayConstructor;
@@ -1385,7 +1385,7 @@ declare namespace $ {
     export type $hyoo_crus_vary_classes = typeof $hyoo_crus_vary_mapping[keyof typeof $hyoo_crus_vary_mapping];
     export type $hyoo_crus_vary_pack = {
         tip: keyof typeof $hyoo_crus_vary_tip;
-        bin: Uint8Array;
+        bin: Uint8Array<ArrayBuffer>;
     };
     export enum $hyoo_crus_vary_tip {
         nil = 1,
@@ -1613,7 +1613,7 @@ declare namespace $ {
                     units: $hyoo_crus_unit[];
                 };
             };
-            rocks: [Uint8Array<ArrayBufferLike>, Uint8Array<ArrayBufferLike> | null][];
+            rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer> | null][];
         } | null;
         faces_pack(): $hyoo_crus_pack;
         apply_unit(delta: readonly $hyoo_crus_unit[], skip_check?: 'skip_check'): string[];
@@ -1653,7 +1653,7 @@ declare namespace $ {
                 $hyoo_crus_ref: symbol;
             };
             units: $hyoo_crus_unit[];
-            rocks: [Uint8Array<ArrayBufferLike>, Uint8Array<ArrayBufferLike>][];
+            rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer>][];
         };
         [$mol_dev_format_head](): any[];
     }
@@ -1729,9 +1729,9 @@ declare namespace $ {
     class $mol_rest_port extends $mol_object {
         send_code(code: $mol_rest_code): void;
         send_type(mime: $mol_rest_port_mime): void;
-        send_data(data: null | string | Uint8Array | Element | object): void;
+        send_data(data: null | string | Uint8Array<ArrayBuffer> | Element | object): void;
         send_nil(): void;
-        send_bin(data: Uint8Array): void;
+        send_bin(data: Uint8Array<ArrayBuffer>): void;
         send_text(data: string): void;
         send_json(data: object): void;
         send_dom(data: Element): void;
@@ -1802,7 +1802,7 @@ declare namespace $ {
     class $mol_rest_port_ws_std extends $mol_rest_port_ws {
         socket: WebSocket;
         send_nil(): void;
-        send_bin(data: Uint8Array): void;
+        send_bin(data: Uint8Array<ArrayBuffer>): void;
         send_text(data: string): void;
     }
 }
@@ -1811,7 +1811,7 @@ declare namespace $ {
     class $mol_rest_port_ws_node extends $mol_rest_port_ws {
         socket: InstanceType<$node['stream']['Duplex']>;
         send_nil(): void;
-        send_bin(data: Uint8Array): void;
+        send_bin(data: Uint8Array<ArrayBuffer>): void;
         send_text(data: string): void;
     }
 }
@@ -1945,9 +1945,9 @@ declare namespace $ {
         static unit_updates: number;
         static unit_appends: number;
         static rock_writes: number;
-        static hash(blob: Uint8Array): Uint8Array<ArrayBuffer>;
-        static rock(hash: Uint8Array, next?: Uint8Array): Uint8Array | null;
-        static rock_save(blob: Uint8Array): Uint8Array<ArrayBuffer>;
+        static hash(blob: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer>;
+        static rock(hash: Uint8Array<ArrayBuffer>, next?: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer> | null;
+        static rock_save(blob: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer>;
         static units_persisted: WeakSet<$hyoo_crus_unit>;
         static units(land: $hyoo_crus_ref, next?: readonly $hyoo_crus_unit[]): readonly $hyoo_crus_unit[];
         static units_load(land: $hyoo_crus_ref): Promise<readonly $hyoo_crus_unit[]>;
@@ -1995,7 +1995,7 @@ declare namespace $ {
     }
     class $hyoo_crus_sand extends $hyoo_crus_unit {
         _vary: undefined | $hyoo_crus_vary_type;
-        _open: null | Uint8Array;
+        _open: null | Uint8Array<ArrayBuffer>;
         hint(tip?: keyof typeof $hyoo_crus_vary_tip, tag?: keyof typeof $hyoo_crus_sand_tag): void;
         tag(): keyof typeof $hyoo_crus_sand_tag;
         tip(): keyof typeof $hyoo_crus_vary_tip;
@@ -2009,9 +2009,9 @@ declare namespace $ {
         key(): string;
         _lead: string;
         lead(next?: string): string;
-        hash(next?: Uint8Array, tip?: keyof typeof $hyoo_crus_vary_tip, tag?: keyof typeof $hyoo_crus_sand_tag): Uint8Array<ArrayBuffer>;
+        hash(next?: Uint8Array<ArrayBuffer>, tip?: keyof typeof $hyoo_crus_vary_tip, tag?: keyof typeof $hyoo_crus_sand_tag): Uint8Array<ArrayBuffer>;
         meta(): Uint8Array<ArrayBuffer>;
-        data(next?: Uint8Array, tip?: keyof typeof $hyoo_crus_vary_tip, tag?: keyof typeof $hyoo_crus_sand_tag): Uint8Array<ArrayBuffer>;
+        data(next?: Uint8Array<ArrayBuffer>, tip?: keyof typeof $hyoo_crus_vary_tip, tag?: keyof typeof $hyoo_crus_sand_tag): Uint8Array<ArrayBuffer>;
         idea(): number;
         static compare(left: $hyoo_crus_sand, right: $hyoo_crus_sand): number;
         dump(): {
@@ -2119,7 +2119,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2167,7 +2168,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2217,7 +2219,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2267,7 +2270,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2317,7 +2321,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2367,7 +2372,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2417,7 +2423,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2471,7 +2478,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2521,7 +2529,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2571,7 +2580,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2621,7 +2631,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2671,7 +2682,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2721,7 +2733,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2771,7 +2784,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2821,7 +2835,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2871,7 +2886,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -2933,7 +2949,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -3012,7 +3029,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -3080,7 +3098,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3123,7 +3142,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3166,7 +3186,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3211,7 +3232,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3256,7 +3278,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3301,7 +3324,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3346,7 +3370,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3391,7 +3416,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3444,7 +3470,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3489,7 +3516,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3534,7 +3562,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3579,7 +3608,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3624,7 +3654,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3669,7 +3700,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3714,7 +3746,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3759,7 +3792,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3804,7 +3838,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -3871,7 +3906,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -3955,7 +3991,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -4012,7 +4049,8 @@ declare namespace $ {
                     author_lords(): (symbol & {
                         $hyoo_crus_ref: symbol;
                     })[];
-                    $: $;
+                    get $(): $;
+                    set $(next: $);
                     destructor(): void;
                     toString(): string;
                     [Symbol.toStringTag]: string;
@@ -4062,11 +4100,11 @@ declare namespace $ {
         static apply_parts(lands: Record<$hyoo_crus_ref, {
             faces: $hyoo_crus_face_map;
             units: $hyoo_crus_unit[];
-        }>, rocks: [Uint8Array, Uint8Array | null][]): void;
+        }>, rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer> | null][]): void;
         apply_parts(lands: Record<$hyoo_crus_ref, {
             faces: $hyoo_crus_face_map;
             units: $hyoo_crus_unit[];
-        }>, rocks: [Uint8Array, Uint8Array | null][]): void;
+        }>, rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer> | null][]): void;
     }
 }
 
@@ -4113,7 +4151,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -4165,7 +4204,8 @@ declare namespace $ {
                     author_lords(): (symbol & {
                         $hyoo_crus_ref: symbol;
                     })[];
-                    $: $;
+                    get $(): $;
+                    set $(next: $);
                     destructor(): void;
                     toString(): string;
                     [Symbol.toStringTag]: string;
@@ -4225,7 +4265,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -4303,7 +4344,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -4356,7 +4398,8 @@ declare namespace $ {
                     author_lords(): (symbol & {
                         $hyoo_crus_ref: symbol;
                     })[];
-                    $: $;
+                    get $(): $;
+                    set $(next: $);
                     destructor(): void;
                     toString(): string;
                     [Symbol.toStringTag]: string;
@@ -4965,7 +5008,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -5017,7 +5061,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -5073,7 +5118,8 @@ declare namespace $ {
                     author_lords(): (symbol & {
                         $hyoo_crus_ref: symbol;
                     })[];
-                    $: $;
+                    get $(): $;
+                    set $(next: $);
                     destructor(): void;
                     toString(): string;
                     [Symbol.toStringTag]: string;
@@ -5137,7 +5183,8 @@ declare namespace $ {
                     author_lords(): (symbol & {
                         $hyoo_crus_ref: symbol;
                     })[];
-                    $: $;
+                    get $(): $;
+                    set $(next: $);
                     destructor(): void;
                     toString(): string;
                     [Symbol.toStringTag]: string;
@@ -7646,7 +7693,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -7691,7 +7739,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -7755,7 +7804,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -7813,7 +7863,8 @@ declare namespace $ {
                     author_lords(): (symbol & {
                         $hyoo_crus_ref: symbol;
                     })[];
-                    $: $;
+                    get $(): $;
+                    set $(next: $);
                     destructor(): void;
                     toString(): string;
                     [Symbol.toStringTag]: string;
@@ -7881,7 +7932,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -7926,7 +7978,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -7984,7 +8037,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -8029,7 +8083,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -8097,7 +8152,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -8150,7 +8206,7 @@ declare namespace $ {
         static readonly positions_map: {
             [pos in TransitionPosition]: keyof typeof PassageDirections;
         };
-        static get_passage_type(transition: TransitionPosition, floor_data?: FloorData): "noway" | "normal" | "stairs_up" | "stairs_down";
+        static get_passage_type(transition: TransitionPosition, floor_data?: FloorData, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
         static is_passage_free(transition: TransitionPosition, floor_data?: FloorData): boolean;
         get_passage_type(transition: TransitionPosition): typeof PassageType.options[number];
         is_passage_free(transition: TransitionPosition): boolean;
@@ -8197,7 +8253,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -8250,7 +8307,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -8295,7 +8353,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -8353,7 +8412,8 @@ declare namespace $ {
         author_lords(): (symbol & {
             $hyoo_crus_ref: symbol;
         })[];
-        $: $;
+        get $(): $;
+        set $(next: $);
         destructor(): void;
         toString(): string;
         [Symbol.toStringTag]: string;
@@ -8385,6 +8445,7 @@ declare namespace $ {
     export class PlaceData extends PlaceData_base {
     }
     const $apxu_samosbor_map_block_data_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
+        readonly IsPipe: (auto?: any) => $hyoo_crus_atom_bool | null;
         readonly Name: (auto?: any) => $hyoo_crus_atom_str | null;
         readonly Direction: (auto?: any) => BlockDirection | null;
         readonly Type: (auto?: any) => BlockType | null;
@@ -8429,7 +8490,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -8492,7 +8554,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -8539,7 +8602,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -8549,6 +8613,7 @@ declare namespace $ {
         schema: {
             [x: string]: typeof $hyoo_crus_node;
         } & {
+            readonly IsPipe: typeof $hyoo_crus_atom_bool;
             readonly Name: typeof $hyoo_crus_atom_str;
             readonly Direction: typeof BlockDirection;
             readonly Type: typeof BlockType;
@@ -8594,7 +8659,8 @@ declare namespace $ {
                     author_lords(): (symbol & {
                         $hyoo_crus_ref: symbol;
                     })[];
-                    $: $;
+                    get $(): $;
+                    set $(next: $);
                     destructor(): void;
                     toString(): string;
                     [Symbol.toStringTag]: string;
@@ -8669,7 +8735,8 @@ declare namespace $ {
                     author_lords(): (symbol & {
                         $hyoo_crus_ref: symbol;
                     })[];
-                    $: $;
+                    get $(): $;
+                    set $(next: $);
                     destructor(): void;
                     toString(): string;
                     [Symbol.toStringTag]: string;
@@ -8728,7 +8795,8 @@ declare namespace $ {
                     author_lords(): (symbol & {
                         $hyoo_crus_ref: symbol;
                     })[];
-                    $: $;
+                    get $(): $;
+                    set $(next: $);
                     destructor(): void;
                     toString(): string;
                     [Symbol.toStringTag]: string;
@@ -8772,6 +8840,10 @@ declare namespace $ {
         down_left_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
         down_middle_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
         down_right_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
+        passage_type({ floor, what }: {
+            floor: number;
+            what: TransitionPosition;
+        }, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
         flight_status({ floor, what }: {
             floor: number;
             what: "left" | "right";
@@ -8913,229 +8985,195 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxu_samosbor_map_block_flight__event_apxu_samosbor_map_block_12 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['left_flight_click'] > ): ReturnType< $apxu_samosbor_map_block['left_flight_click'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['event'] >
-	>
-	type $apxu_samosbor_map_block_flight__status_apxu_samosbor_map_block_13 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['flight_status'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['status'] >
-	>
-	type $apxu_samosbor_map_block_flight__sub_apxu_samosbor_map_block_14 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_12 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxu_samosbor_map_block_flight['sub'] >
+		ReturnType< $mol_view['sub'] >
 	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_15 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['up_left_passage_type'] >
+	type $mol_view__sub_apxu_samosbor_map_block_13 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_14 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_15 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_16 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_17 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['passage_type'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_16 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_18 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['up_left_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['up_left_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_17 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_19 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['up'] >
 	>
-	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_18 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_20 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['left'] >
 	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_19 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['up_right_passage_type'] >
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_21 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['passage_type'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_20 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_22 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['up_right_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['up_right_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_21 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_23 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['up'] >
 	>
-	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_22 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_24 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['right'] >
 	>
-	type $apxu_samosbor_map_block_flight__event_apxu_samosbor_map_block_23 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['right_flight_click'] > ): ReturnType< $apxu_samosbor_map_block['right_flight_click'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['event'] >
-	>
-	type $apxu_samosbor_map_block_flight__status_apxu_samosbor_map_block_24 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['flight_status'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['status'] >
-	>
-	type $apxu_samosbor_map_block_flight__sub_apxu_samosbor_map_block_25 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['sub'] >
-	>
-	type $apxu_samosbor_map_block_row__sub_apxu_samosbor_map_block_26 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_row__sub_apxu_samosbor_map_block_25 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_row['sub'] >
 	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_27 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_26 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block['left_passage_type'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_28 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_27 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['left_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['left_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_29 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_28 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['left'] >
 	>
-	type $mol_view__attr_apxu_samosbor_map_block_30 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_29 = $mol_type_enforce<
 		({ 
 			'type': ReturnType< $apxu_samosbor_map_block['fence_type'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__event_apxu_samosbor_map_block_31 = $mol_type_enforce<
+	type $mol_view__event_apxu_samosbor_map_block_30 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxu_samosbor_map_block['fence_click'] > ): ReturnType< $apxu_samosbor_map_block['fence_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_32 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_31 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block['right_passage_type'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_33 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_32 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxu_samosbor_map_block['right_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['right_passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_34 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_33 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['right'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_35 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_34 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_36 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_37 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_38 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_39 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_40 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
-	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_41 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['down_left_passage_type'] >
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_35 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['passage_type'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_42 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_36 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['down_left_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['down_left_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_43 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_37 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['down'] >
 	>
-	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_44 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_38 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['left'] >
 	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_45 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['down_right_passage_type'] >
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_39 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['passage_type'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_46 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_40 = $mol_type_enforce<
 		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['down_right_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['down_right_passage_click'] >,
+			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
 		}) 
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['event'] >
 	>
-	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_47 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_41 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['down'] >
 	>
-	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_48 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_42 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['right'] >
 	>
-	type $apxu_samosbor_map_block_row__sub_apxu_samosbor_map_block_49 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_row__sub_apxu_samosbor_map_block_43 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_row['sub'] >
 	>
-	type $mol_view__attr_apxu_samosbor_map_block_50 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_44 = $mol_type_enforce<
 		({ 
 			'interfloor': ReturnType< $apxu_samosbor_map_block['has_interfloor'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_51 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_45 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__attr_apxu_samosbor_map_block_52 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_46 = $mol_type_enforce<
 		({ 
 			'hidden': ReturnType< $apxu_samosbor_map_block['connection_hidden'] >,
 			'highlight': ReturnType< $apxu_samosbor_map_block['connection_highlight'] >,
@@ -9143,7 +9181,7 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxu_samosbor_map_block_53 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_block_47 = $mol_type_enforce<
 		({ 
 			'left': ReturnType< $apxu_samosbor_map_block['connection_left'] >,
 			'top': ReturnType< $apxu_samosbor_map_block['connection_top'] >,
@@ -9151,14 +9189,14 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $mol_view__event_apxu_samosbor_map_block_54 = $mol_type_enforce<
+	type $mol_view__event_apxu_samosbor_map_block_48 = $mol_type_enforce<
 		({ 
 			click( next?: ReturnType< $apxu_samosbor_map_block['connection_click'] > ): ReturnType< $apxu_samosbor_map_block['connection_click'] >,
 		}) 
 		,
 		ReturnType< $mol_view['event'] >
 	>
-	type $mol_view__attr_apxu_samosbor_map_block_55 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_49 = $mol_type_enforce<
 		({ 
 			'hidden': ReturnType< $apxu_samosbor_map_block['transition_hidden'] >,
 			'direction': ReturnType< $apxu_samosbor_map_block['transition_direction'] >,
@@ -9166,7 +9204,7 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxu_samosbor_map_block_56 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_block_50 = $mol_type_enforce<
 		({ 
 			'left': ReturnType< $apxu_samosbor_map_block['transition_left'] >,
 			'top': ReturnType< $apxu_samosbor_map_block['transition_top'] >,
@@ -9174,74 +9212,113 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['style'] >
 	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_57 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_51 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_58 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_52 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['up'] >
 	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_59 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_53 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['type'] >
 	>
-	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_60 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_54 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block_passage['down'] >
 	>
-	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_61 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_55 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
 	>
-	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_62 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_56 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
 	>
-	type $apxu_samosbor_map_block_part__attr_apxu_samosbor_map_block_63 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_part__attr_apxu_samosbor_map_block_57 = $mol_type_enforce<
 		({ 
 			'semi-floor': ReturnType< $apxu_samosbor_map_block['is_part_of_double_floor'] >,
 		}) 
 		,
 		ReturnType< $apxu_samosbor_map_block_part['attr'] >
 	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_58 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_59 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_60 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_61 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_62 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_63 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
 	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_64 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_part['sub'] >
 	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_65 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_flight__event_apxu_samosbor_map_block_65 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['left_flight_click'] > ): ReturnType< $apxu_samosbor_map_block['left_flight_click'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_flight['event'] >
+	>
+	type $apxu_samosbor_map_block_flight__status_apxu_samosbor_map_block_66 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['flight_status'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_flight['status'] >
+	>
+	type $apxu_samosbor_map_block_flight__sub_apxu_samosbor_map_block_67 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+		ReturnType< $apxu_samosbor_map_block_flight['sub'] >
 	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_66 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_flight__event_apxu_samosbor_map_block_68 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['right_flight_click'] > ): ReturnType< $apxu_samosbor_map_block['right_flight_click'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_flight['event'] >
+	>
+	type $apxu_samosbor_map_block_flight__status_apxu_samosbor_map_block_69 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['flight_status'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_flight['status'] >
+	>
+	type $apxu_samosbor_map_block_flight__sub_apxu_samosbor_map_block_70 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+		ReturnType< $apxu_samosbor_map_block_flight['sub'] >
 	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_67 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_68 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_69 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_70 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_71 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_part['sub'] >
@@ -9301,40 +9378,9 @@ declare namespace $ {
 		roof_floor_view( ): $mol_view
 		flooded( ): any
 		roof( ): any
-		has_interfloor( ): boolean
-		connections( ): readonly(any)[]
-		connections_list( ): ReturnType< $apxu_samosbor_map_block['connections'] >
-		transitions( ): readonly(any)[]
-		transitions_list( ): ReturnType< $apxu_samosbor_map_block['transitions'] >
 		left_flight_click( next?: any ): any
 		flight_status( id: any): string
-		left_flight( ): $apxu_samosbor_map_block_flight
-		up_left_passage_type( ): string
-		up_left_passage_click( next?: any ): any
-		up_left_passage( ): $apxu_samosbor_map_block_passage
-		up_left_part( ): ReturnType< $apxu_samosbor_map_block['name_part'] >
-		up_passage_or_flight( ): $mol_view
-		up_right_part( ): ReturnType< $apxu_samosbor_map_block['info_part'] >
-		up_right_passage_type( ): string
-		up_right_passage_click( next?: any ): any
-		up_right_passage( ): $apxu_samosbor_map_block_passage
 		right_flight_click( next?: any ): any
-		right_flight( ): $apxu_samosbor_map_block_flight
-		up_row( ): $apxu_samosbor_map_block_row
-		left_passage_type( ): string
-		left_passage_click( next?: any ): any
-		left_passage( ): $apxu_samosbor_map_block_passage
-		left_crossroad( ): $mol_view
-		left_hallway( ): $mol_view
-		fence_type( next?: string ): string
-		fence_click( next?: any ): any
-		fence( ): $mol_view
-		right_hallway( ): $mol_view
-		right_crossroad( ): $mol_view
-		right_passage_type( ): string
-		right_passage_click( next?: any ): any
-		right_passage( ): $apxu_samosbor_map_block_passage
-		middle_row( ): $mol_view
 		max_floor_icon( ): $apxu_samosbor_map_icon_max_floor
 		max_floor( next?: number ): number
 		max_floor_value( ): $mol_view
@@ -9343,24 +9389,64 @@ declare namespace $ {
 		min_floor( next?: number ): number
 		min_floor_value( ): $mol_view
 		min_floor_view( ): $mol_view
-		floor_part( ): $apxu_samosbor_map_block_part
-		down_left_passage_type( ): string
-		down_left_passage_click( next?: any ): any
+		has_interfloor( ): boolean
+		connections( ): readonly(any)[]
+		connections_list( ): ReturnType< $apxu_samosbor_map_block['connections'] >
+		transitions( ): readonly(any)[]
+		transitions_list( ): ReturnType< $apxu_samosbor_map_block['transitions'] >
+		pipe_name( ): $mol_view
+		pipe_name_visible( ): readonly(any)[]
+		up_left_angle_part( ): $apxu_samosbor_map_block_part
+		up_left_angle_visible( ): ReturnType< $apxu_samosbor_map_block['up_left_angle_part'] >
+		passage_type( id: any): string
+		passage_click( id: any, next?: any ): any
+		up_left_passage( ): $apxu_samosbor_map_block_passage
+		up_left_part_empty( ): $apxu_samosbor_map_block_part
+		up_left_part( ): ReturnType< $apxu_samosbor_map_block['up_left_part_empty'] >
+		up_left_part_visible( ): ReturnType< $apxu_samosbor_map_block['up_left_part'] >
+		up_passage_or_flight( ): $mol_view
+		up_right_part_empty( ): $apxu_samosbor_map_block_part
+		up_right_part( ): ReturnType< $apxu_samosbor_map_block['up_right_part_empty'] >
+		up_right_part_visible( ): ReturnType< $apxu_samosbor_map_block['up_right_part'] >
+		up_right_passage( ): $apxu_samosbor_map_block_passage
+		up_right_angle_part( ): $apxu_samosbor_map_block_part
+		up_right_angle_visible( ): ReturnType< $apxu_samosbor_map_block['up_right_angle_part'] >
+		up_row( ): $apxu_samosbor_map_block_row
+		left_passage_type( ): ReturnType< $apxu_samosbor_map_block['passage_type'] >
+		left_passage( ): $apxu_samosbor_map_block_passage
+		left_crossroad( ): $mol_view
+		left_hallway( ): $mol_view
+		fence_type( next?: string ): string
+		fence_click( next?: any ): any
+		fence( ): $mol_view
+		right_hallway( ): $mol_view
+		right_crossroad( ): $mol_view
+		right_passage_type( ): ReturnType< $apxu_samosbor_map_block['passage_type'] >
+		right_passage_click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >
+		right_passage( ): $apxu_samosbor_map_block_passage
+		middle_row( ): $mol_view
+		down_left_angle_part( ): $apxu_samosbor_map_block_part
+		down_left_angle_visible( ): ReturnType< $apxu_samosbor_map_block['down_left_angle_part'] >
 		down_left_passage( ): $apxu_samosbor_map_block_passage
-		down_left_part( ): ReturnType< $apxu_samosbor_map_block['profession_part'] >
-		down_right_part( ): ReturnType< $apxu_samosbor_map_block['places_part'] >
-		down_right_passage_type( ): string
-		down_right_passage_click( next?: any ): any
+		down_left_part_empty( ): $apxu_samosbor_map_block_part
+		down_left_part( ): ReturnType< $apxu_samosbor_map_block['down_left_part_empty'] >
+		down_left_part_visible( ): ReturnType< $apxu_samosbor_map_block['down_left_part'] >
+		down_right_part_empty( ): $apxu_samosbor_map_block_part
+		down_right_part( ): ReturnType< $apxu_samosbor_map_block['down_right_part_empty'] >
+		down_right_part_visible( ): ReturnType< $apxu_samosbor_map_block['down_right_part'] >
 		down_right_passage( ): $apxu_samosbor_map_block_passage
+		down_right_angle_part( ): $apxu_samosbor_map_block_part
+		down_right_angle_visible( ): ReturnType< $apxu_samosbor_map_block['down_right_angle_part'] >
 		down_row( ): $apxu_samosbor_map_block_row
 		content( ): $mol_view
 		map( ): $apxu_samosbor_map
 		gigacluster( ): $apxu_samosbor_map_gigacluster
 		block_data( next?: $apxu_samosbor_map_block_data ): $apxu_samosbor_map_block_data
 		edit_mode( next?: boolean ): boolean
-		create_mode( next?: boolean ): boolean
+		create_block_mode( next?: boolean ): boolean
 		connect_mode( next?: boolean ): boolean
 		is_doubled( next?: boolean ): boolean
+		is_pipe( next?: boolean ): boolean
 		block_layer( next?: number ): number
 		current_layer( next?: number ): number
 		current_floor( ): number
@@ -9417,6 +9503,9 @@ declare namespace $ {
 		flooded_effect( ): $mol_view
 		roof_effect( ): $mol_view
 		effects_part( ): $apxu_samosbor_map_block_part
+		left_flight( ): $apxu_samosbor_map_block_flight
+		right_flight( ): $apxu_samosbor_map_block_flight
+		floor_part( ): $apxu_samosbor_map_block_part
 		sub( ): readonly(any)[]
 	}
 	
@@ -9480,7 +9569,7 @@ declare namespace $.$$ {
         };
         connection_left(position: TransitionPosition): number;
         connection_top(position: TransitionPosition): number;
-        connection_click(position: TransitionPosition, event?: PointerEvent): PointerEvent | undefined;
+        connection_click(position: TransitionPosition, event?: PointerEvent): $apxu_samosbor_map_block_data | undefined;
         static first_port(port?: {
             block_ref: any;
             floor: number;
@@ -9493,7 +9582,7 @@ declare namespace $.$$ {
         select_connection(position: TransitionPosition): void;
         change_connection(position: TransitionPosition): void;
         connection_highlight(position: TransitionPosition): boolean;
-        create_from_connection(position: TransitionPosition, event?: PointerEvent): PointerEvent | undefined;
+        create_from_connection(position: TransitionPosition, event?: PointerEvent): $apxu_samosbor_map_block_data | undefined;
         has_middle_flight(): boolean;
         left_flight_icon(): $mol_view | $apxu_samosbor_map_icon_stairs | $apxu_samosbor_map_icon_elevator | undefined;
         left_flight_click(event?: PointerEvent): void;
@@ -9502,18 +9591,8 @@ declare namespace $.$$ {
         middle_flight_icons(): readonly (any)[];
         right_flight_click(event?: PointerEvent): void;
         next_passage_type(current_passage_type: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
-        up_left_passage_type(): string;
-        up_left_passage_click(event: PointerEvent): void;
-        up_middle_passage_type(): string;
-        up_middle_passage_click(event: PointerEvent): void;
-        up_right_passage_type(): string;
-        up_right_passage_click(event: PointerEvent): void;
-        down_left_passage_type(): string;
-        down_left_passage_click(event: PointerEvent): void;
-        down_middle_passage_type(): string;
-        down_middle_passage_click(event: PointerEvent): void;
-        down_right_passage_type(): string;
-        down_right_passage_click(event: PointerEvent): void;
+        passage_type(what: TransitionPosition): "noway" | "normal" | "stairs_up" | "stairs_down";
+        passage_click(what: TransitionPosition, event: PointerEvent): void;
         is_up_flight(next?: boolean): boolean;
         up_passage_or_flight(): $.$apxu_samosbor_map_block_passage | $apxu_samosbor_map_block_middle_flight;
         readonly parts: $apxu_samosbor_map_block_part[];
@@ -9524,17 +9603,12 @@ declare namespace $.$$ {
         up_right_part(): $apxu_samosbor_map_block_part;
         down_right_part(): $apxu_samosbor_map_block_part;
         down_left_part(): $apxu_samosbor_map_block_part;
-        has_liquidator_profession(): boolean;
-        has_repairman_profession(): boolean;
-        has_cleaner_profession(): boolean;
-        has_plumber_profession(): boolean;
+        has_profession(what: typeof ProfessionType.options[number]): boolean;
         liquidator_profession(): ReturnType<$.$apxu_samosbor_map_block["liquidator_icon"]> | null;
         repairman_profession(): $apxu_samosbor_map_icon_repairman | null;
         cleaner_profession(): $apxu_samosbor_map_icon_cleaner | null;
         plumber_profession(): $apxu_samosbor_map_icon_factory | null;
-        has_hospital_place(): boolean;
-        has_party_place(): boolean;
-        has_theatre_place(): boolean;
+        has_place(what: typeof PlaceType.options[number]): boolean;
         has_safe_place(): boolean;
         party_place(): $apxu_samosbor_map_icon_party | null;
         theatre_place(): $apxu_samosbor_map_icon_theatre | null;
@@ -9544,6 +9618,16 @@ declare namespace $.$$ {
         roof(): $mol_view | null;
         fence_type(next?: typeof FenceData.options[number]): string;
         fence_click(event?: PointerEvent): void;
+        is_pipe(next?: boolean): boolean;
+        up_left_angle_visible(): $apxu_samosbor_map_block_part;
+        up_right_angle_visible(): $apxu_samosbor_map_block_part;
+        down_left_angle_visible(): ReturnType<$.$apxu_samosbor_map_block["down_left_angle_part"]>;
+        down_right_angle_visible(): ReturnType<$.$apxu_samosbor_map_block["down_left_angle_part"]>;
+        up_left_part_visible(): $apxu_samosbor_map_block_part;
+        up_right_part_visible(): $apxu_samosbor_map_block_part;
+        down_left_part_visible(): ReturnType<$.$apxu_samosbor_map_block["down_left_part"]>;
+        down_right_part_visible(): ReturnType<$.$apxu_samosbor_map_block["down_right_part"]>;
+        pipe_name_visible(): readonly (any)[];
     }
 }
 
@@ -9800,217 +9884,217 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_block_card_floor['icon'] >
 	>
-	type $mol_button_minor__sub_apxu_samosbor_map_block_card_11 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_12 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_button_minor__sub_apxu_samosbor_map_block_card_13 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_button_minor__click_apxu_samosbor_map_block_card_14 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['close_click'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_check_icon__Icon_apxu_samosbor_map_block_card_15 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['edit_icon'] >
-		,
-		ReturnType< $mol_check_icon['Icon'] >
-	>
-	type $mol_check_icon__checked_apxu_samosbor_map_block_card_16 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
-		,
-		ReturnType< $mol_check_icon['checked'] >
-	>
-	type $mol_button_minor__click_apxu_samosbor_map_block_card_17 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['delete_block'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_button_minor__sub_apxu_samosbor_map_block_card_18 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_19 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_string__enabled_apxu_samosbor_map_block_card_20 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
-		,
-		ReturnType< $mol_string['enabled'] >
-	>
-	type $mol_string__value_apxu_samosbor_map_block_card_21 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['block_name'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $apxu_samosbor_map_block_card_number_input__enabled_apxu_samosbor_map_block_card_22 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_number_input__enabled_apxu_samosbor_map_block_card_11 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_number_input['enabled'] >
 	>
-	type $apxu_samosbor_map_block_card_number_input__value_apxu_samosbor_map_block_card_23 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_number_input__value_apxu_samosbor_map_block_card_12 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['max_floor'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_number_input['value'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_24 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_13 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxu_samosbor_map_block_card_number_input__enabled_apxu_samosbor_map_block_card_25 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_number_input__enabled_apxu_samosbor_map_block_card_14 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_number_input['enabled'] >
 	>
-	type $apxu_samosbor_map_block_card_number_input__value_apxu_samosbor_map_block_card_26 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_number_input__value_apxu_samosbor_map_block_card_15 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['min_floor'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_number_input['value'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_27 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_16 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_28 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_29 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $apxu_samosbor_map_block_card_flight_button__minimal_width_apxu_samosbor_map_block_card_30 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_flight_button__minimal_width_apxu_samosbor_map_block_card_17 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $apxu_samosbor_map_block_card_flight_button['minimal_width'] >
 	>
-	type $apxu_samosbor_map_block_card_flight_button__minimal_height_apxu_samosbor_map_block_card_31 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_flight_button__minimal_height_apxu_samosbor_map_block_card_18 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $apxu_samosbor_map_block_card_flight_button['minimal_height'] >
 	>
-	type $apxu_samosbor_map_block_card_flight_button__edit_mode_apxu_samosbor_map_block_card_32 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_flight_button__edit_mode_apxu_samosbor_map_block_card_19 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_flight_button['edit_mode'] >
 	>
-	type $apxu_samosbor_map_block_card_flight_button__sub_apxu_samosbor_map_block_card_33 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_flight_button__sub_apxu_samosbor_map_block_card_20 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_card_flight_button['sub'] >
 	>
-	type $apxu_samosbor_map_block_card_flight_button__click_apxu_samosbor_map_block_card_34 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_flight_button__click_apxu_samosbor_map_block_card_21 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['change_flight_click'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_flight_button['click'] >
 	>
-	type $mol_view__attr_apxu_samosbor_map_block_card_35 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_block_card_22 = $mol_type_enforce<
 		({ 
 			'middle': ReturnType< $apxu_samosbor_map_block_card['is_middle_flight'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_36 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_23 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxu_samosbor_map_block_card_flight_button__minimal_width_apxu_samosbor_map_block_card_37 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_flight_button__minimal_width_apxu_samosbor_map_block_card_24 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $apxu_samosbor_map_block_card_flight_button['minimal_width'] >
 	>
-	type $apxu_samosbor_map_block_card_flight_button__minimal_height_apxu_samosbor_map_block_card_38 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_flight_button__minimal_height_apxu_samosbor_map_block_card_25 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $apxu_samosbor_map_block_card_flight_button['minimal_height'] >
 	>
-	type $apxu_samosbor_map_block_card_flight_button__edit_mode_apxu_samosbor_map_block_card_39 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_flight_button__edit_mode_apxu_samosbor_map_block_card_26 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_flight_button['edit_mode'] >
 	>
-	type $apxu_samosbor_map_block_card_flight_button__sub_apxu_samosbor_map_block_card_40 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_flight_button__sub_apxu_samosbor_map_block_card_27 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_block_card_flight_button['sub'] >
 	>
-	type $apxu_samosbor_map_block_card_flight_button__click_apxu_samosbor_map_block_card_41 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_flight_button__click_apxu_samosbor_map_block_card_28 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['change_flight_click'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_flight_button['click'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_42 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_floor__enabled_apxu_samosbor_map_block_card_29 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_floor['enabled'] >
+	>
+	type $apxu_samosbor_map_block_card_floor__floor_value_apxu_samosbor_map_block_card_30 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['gen_floor'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_floor['floor_value'] >
+	>
+	type $apxu_samosbor_map_block_card_floor__icon_apxu_samosbor_map_block_card_31 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['gen_icon'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_floor['icon'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_32 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_43 = $mol_type_enforce<
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_33 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_34 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_button_major__enabled_apxu_samosbor_map_block_card_44 = $mol_type_enforce<
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_35 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_36 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['close_click'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_check_icon__Icon_apxu_samosbor_map_block_card_37 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_icon'] >
+		,
+		ReturnType< $mol_check_icon['Icon'] >
+	>
+	type $mol_check_icon__checked_apxu_samosbor_map_block_card_38 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $mol_check_icon['checked'] >
+	>
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_39 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['delete_block'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_40 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_41 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_string__enabled_apxu_samosbor_map_block_card_42 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
+		,
+		ReturnType< $mol_string['enabled'] >
+	>
+	type $mol_string__value_apxu_samosbor_map_block_card_43 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['block_name'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_44 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_45 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_button_major__enabled_apxu_samosbor_map_block_card_46 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $mol_button_major['enabled'] >
 	>
-	type $mol_button_major__sub_apxu_samosbor_map_block_card_45 = $mol_type_enforce<
+	type $mol_button_major__sub_apxu_samosbor_map_block_card_47 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_major['sub'] >
 	>
-	type $mol_button_major__click_apxu_samosbor_map_block_card_46 = $mol_type_enforce<
+	type $mol_button_major__click_apxu_samosbor_map_block_card_48 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['copy_click'] >
 		,
 		ReturnType< $mol_button_major['click'] >
 	>
-	type $mol_button_major__enabled_apxu_samosbor_map_block_card_47 = $mol_type_enforce<
+	type $mol_button_major__enabled_apxu_samosbor_map_block_card_49 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $mol_button_major['enabled'] >
 	>
-	type $mol_button_major__sub_apxu_samosbor_map_block_card_48 = $mol_type_enforce<
+	type $mol_button_major__sub_apxu_samosbor_map_block_card_50 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_major['sub'] >
 	>
-	type $mol_button_major__click_apxu_samosbor_map_block_card_49 = $mol_type_enforce<
+	type $mol_button_major__click_apxu_samosbor_map_block_card_51 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['path_click'] >
 		,
 		ReturnType< $mol_button_major['click'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_50 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_52 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_51 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $apxu_samosbor_map_block_card_position_input__value_apxu_samosbor_map_block_card_52 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['pos_x'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_card_position_input['value'] >
 	>
 	type $mol_view__sub_apxu_samosbor_map_block_card_53 = $mol_type_enforce<
 		readonly(any)[]
@@ -10018,7 +10102,7 @@ declare namespace $ {
 		ReturnType< $mol_view['sub'] >
 	>
 	type $apxu_samosbor_map_block_card_position_input__value_apxu_samosbor_map_block_card_54 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['pos_y'] >
+		ReturnType< $apxu_samosbor_map_block_card['pos_x'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_position_input['value'] >
 	>
@@ -10028,7 +10112,7 @@ declare namespace $ {
 		ReturnType< $mol_view['sub'] >
 	>
 	type $apxu_samosbor_map_block_card_position_input__value_apxu_samosbor_map_block_card_56 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['block_layer'] >
+		ReturnType< $apxu_samosbor_map_block_card['pos_y'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card_position_input['value'] >
 	>
@@ -10037,161 +10121,186 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_58 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card_position_input__value_apxu_samosbor_map_block_card_58 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['block_layer'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_card_position_input['value'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_59 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_button_minor__sub_apxu_samosbor_map_block_card_59 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_block_card_60 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_61 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__click_apxu_samosbor_map_block_card_60 = $mol_type_enforce<
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_62 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['move_click'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_61 = $mol_type_enforce<
+	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_63 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_height'] >
 	>
-	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_62 = $mol_type_enforce<
+	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_64 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_width'] >
 	>
-	type $mol_button_minor__sub_apxu_samosbor_map_block_card_63 = $mol_type_enforce<
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_65 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__click_apxu_samosbor_map_block_card_64 = $mol_type_enforce<
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_66 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['move_click'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_65 = $mol_type_enforce<
+	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_67 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_height'] >
 	>
-	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_66 = $mol_type_enforce<
+	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_68 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_width'] >
 	>
-	type $mol_button_minor__sub_apxu_samosbor_map_block_card_67 = $mol_type_enforce<
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_69 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__click_apxu_samosbor_map_block_card_68 = $mol_type_enforce<
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_70 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['move_click'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_69 = $mol_type_enforce<
+	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_71 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_height'] >
 	>
-	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_70 = $mol_type_enforce<
+	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_72 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_width'] >
 	>
-	type $mol_button_minor__sub_apxu_samosbor_map_block_card_71 = $mol_type_enforce<
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_73 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__click_apxu_samosbor_map_block_card_72 = $mol_type_enforce<
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_74 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['move_click'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_73 = $mol_type_enforce<
+	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_75 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_height'] >
 	>
-	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_74 = $mol_type_enforce<
+	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_76 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_width'] >
 	>
-	type $apxu_samosbor_map_icon_direction__style_apxu_samosbor_map_block_card_75 = $mol_type_enforce<
+	type $apxu_samosbor_map_icon_direction__style_apxu_samosbor_map_block_card_77 = $mol_type_enforce<
 		({ 
 			'transform': ReturnType< $apxu_samosbor_map_block_card['rotation'] >,
 		}) 
 		,
 		ReturnType< $apxu_samosbor_map_icon_direction['style'] >
 	>
-	type $mol_button_minor__click_apxu_samosbor_map_block_card_76 = $mol_type_enforce<
+	type $mol_button_minor__click_apxu_samosbor_map_block_card_78 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['rotate_click'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_77 = $mol_type_enforce<
+	type $mol_button_minor__minimal_height_apxu_samosbor_map_block_card_79 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_height'] >
 	>
-	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_78 = $mol_type_enforce<
+	type $mol_button_minor__minimal_width_apxu_samosbor_map_block_card_80 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_button_minor['minimal_width'] >
 	>
-	type $mol_button_minor__sub_apxu_samosbor_map_block_card_79 = $mol_type_enforce<
+	type $mol_button_minor__sub_apxu_samosbor_map_block_card_81 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_80 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_check_box__checked_apxu_samosbor_map_block_card_81 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['is_doubled_floor'] >
-		,
-		ReturnType< $mol_check_box['checked'] >
 	>
 	type $mol_view__sub_apxu_samosbor_map_block_card_82 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__attr_apxu_samosbor_map_block_card_83 = $mol_type_enforce<
-		({ 
-			'edit-mode': ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >,
-		}) 
+	type $mol_check_box__checked_apxu_samosbor_map_block_card_83 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['is_doubled_floor'] >
 		,
-		ReturnType< $mol_view['attr'] >
+		ReturnType< $mol_check_box['checked'] >
 	>
 	type $mol_view__sub_apxu_samosbor_map_block_card_84 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_select__trigger_enabled_apxu_samosbor_map_block_card_85 = $mol_type_enforce<
+	type $mol_check_box__checked_apxu_samosbor_map_block_card_85 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['is_pipe_block'] >
+		,
+		ReturnType< $mol_check_box['checked'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_86 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_87 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__attr_apxu_samosbor_map_block_card_88 = $mol_type_enforce<
+		({ 
+			'edit-mode': ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >,
+		}) 
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_89 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_select__trigger_enabled_apxu_samosbor_map_block_card_90 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
 		,
 		ReturnType< $mol_select['trigger_enabled'] >
 	>
-	type $mol_select__enabled_apxu_samosbor_map_block_card_86 = $mol_type_enforce<
+	type $mol_select__enabled_apxu_samosbor_map_block_card_91 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
 		,
 		ReturnType< $mol_select['enabled'] >
 	>
-	type $mol_select__value_apxu_samosbor_map_block_card_87 = $mol_type_enforce<
+	type $mol_select__value_apxu_samosbor_map_block_card_92 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['block_type_value'] >
 		,
 		ReturnType< $mol_select['value'] >
 	>
-	type $mol_select__dictionary_apxu_samosbor_map_block_card_88 = $mol_type_enforce<
+	type $mol_select__dictionary_apxu_samosbor_map_block_card_93 = $mol_type_enforce<
 		({ 
 			'residential': string,
 			'destroyed': string,
@@ -10201,40 +10310,15 @@ declare namespace $ {
 		,
 		ReturnType< $mol_select['dictionary'] >
 	>
-	type $mol_select__Trigger_icon_apxu_samosbor_map_block_card_89 = $mol_type_enforce<
+	type $mol_select__Trigger_icon_apxu_samosbor_map_block_card_94 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_block_card['current_type_select_icon'] >
 		,
 		ReturnType< $mol_select['Trigger_icon'] >
 	>
-	type $mol_select__Filter_apxu_samosbor_map_block_card_90 = $mol_type_enforce<
+	type $mol_select__Filter_apxu_samosbor_map_block_card_95 = $mol_type_enforce<
 		any
 		,
 		ReturnType< $mol_select['Filter'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_91 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $apxu_samosbor_map_block_card_floor__enabled_apxu_samosbor_map_block_card_92 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['edit_mode'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_card_floor['enabled'] >
-	>
-	type $apxu_samosbor_map_block_card_floor__floor_value_apxu_samosbor_map_block_card_93 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['gen_floor'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_card_floor['floor_value'] >
-	>
-	type $apxu_samosbor_map_block_card_floor__icon_apxu_samosbor_map_block_card_94 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['gen_icon'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_card_floor['icon'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_card_95 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
 	>
 	type $mol_view__sub_apxu_samosbor_map_block_card_96 = $mol_type_enforce<
 		readonly(any)[]
@@ -10407,6 +10491,21 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_block_card_place['block'] >
 	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_129 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_130 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_card_131 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
 	export class $apxu_samosbor_map_block_card extends $mol_view {
 		pan( next?: ReturnType< ReturnType< $apxu_samosbor_map_block_card['mover'] >['pan'] > ): ReturnType< ReturnType< $apxu_samosbor_map_block_card['mover'] >['pan'] >
 		mover( ): $apxu_samosbor_map_block_card_touch
@@ -10460,6 +10559,26 @@ declare namespace $ {
 		profession_floors( id: any): readonly(any)[]
 		add_profession( id: any, next?: any ): any
 		remove_floor( id: any): any
+		max_floor_icon( ): $apxu_samosbor_map_icon_max_floor
+		max_floor( next?: number ): number
+		max_floor_value( ): $apxu_samosbor_map_block_card_number_input
+		max_floor_view( ): $mol_view
+		min_floor_icon( ): $apxu_samosbor_map_icon_min_floor
+		min_floor( next?: number ): number
+		min_floor_value( ): $apxu_samosbor_map_block_card_number_input
+		min_floor_view( ): $mol_view
+		flight_left_icon( ): $mol_icon_chevron_left
+		change_flight_click( next?: any ): any
+		flight_left_button( ): $apxu_samosbor_map_block_card_flight_button
+		is_middle_flight( next?: boolean ): boolean
+		current_flight( ): readonly(any)[]
+		flight_view( ): $mol_view
+		flight_right_icon( ): $mol_icon_chevron_right
+		flight_right_button( ): $apxu_samosbor_map_block_card_flight_button
+		gen_floor( next?: number ): number
+		gen_icon( ): $apxu_samosbor_map_icon_generator
+		gen( ): $apxu_samosbor_map_block_card_floor
+		gen_floor_view( ): $mol_view
 		shop_icon( ): $apxu_samosbor_map_icon_shop
 		shop_button( ): $mol_button_minor
 		misc_buttons( ): $mol_view
@@ -10476,25 +10595,7 @@ declare namespace $ {
 		control_buttons( ): $mol_view
 		block_name( next?: string ): string
 		block_name_input( ): $mol_string
-		max_floor_icon( ): $apxu_samosbor_map_icon_max_floor
-		max_floor( next?: number ): number
-		max_floor_value( ): $apxu_samosbor_map_block_card_number_input
-		max_floor_view( ): $mol_view
-		min_floor_icon( ): $apxu_samosbor_map_icon_min_floor
-		min_floor( next?: number ): number
-		min_floor_value( ): $apxu_samosbor_map_block_card_number_input
-		min_floor_view( ): $mol_view
-		block_size( ): $mol_view
 		name_size( ): $mol_view
-		flight_left_icon( ): $mol_icon_chevron_left
-		change_flight_click( next?: any ): any
-		flight_left_button( ): $apxu_samosbor_map_block_card_flight_button
-		is_middle_flight( next?: boolean ): boolean
-		current_flight( ): readonly(any)[]
-		flight_view( ): $mol_view
-		flight_right_icon( ): $mol_icon_chevron_right
-		flight_right_button( ): $apxu_samosbor_map_block_card_flight_button
-		flights( ): $mol_view
 		block_info( ): $mol_view
 		copy_icon( ): $mol_icon_content_copy
 		copy_click( next?: any ): any
@@ -10532,16 +10633,16 @@ declare namespace $ {
 		is_doubled_floor( next?: boolean ): boolean
 		double_floor_checkbox( ): $mol_check_box
 		double_floor( ): $mol_view
+		pipe_block_icon( ): $apxu_samosbor_map_icon_pipe
+		is_pipe_block( next?: boolean ): boolean
+		pipe_block_checkbox( ): $mol_check_box
+		pipe_block( ): $mol_view
+		checkboxes( ): $mol_view
 		position_info( ): $mol_view
 		block_type_value( next?: string ): string
 		current_type_select_icon( ): any
 		block_type_select( ): $mol_select
 		block_type_view( ): $mol_view
-		gen_floor( next?: number ): number
-		gen_icon( ): $apxu_samosbor_map_icon_generator
-		gen( ): $apxu_samosbor_map_block_card_floor
-		gen_floor_view( ): $mol_view
-		floors_info( ): $mol_view
 		has_balcony( next?: boolean ): boolean
 		balcony_icon( ): $apxu_samosbor_map_icon_balcony
 		balcony_checkbox( ): $mol_check_box
@@ -10625,6 +10726,9 @@ declare namespace $ {
 		}) 
 		place_floor( id: any): $apxu_samosbor_map_block_card_place
 		profession_floor( id: any): $apxu_samosbor_map_block_card_place
+		block_size( ): $mol_view
+		flights( ): $mol_view
+		floors_info( ): $mol_view
 		sub( ): readonly(any)[]
 	}
 	
@@ -10684,6 +10788,8 @@ declare namespace $.$$ {
         places_visible(): readonly (any)[];
         features_visible(): $mol_view[];
         is_doubled_floor(next?: boolean): boolean;
+        is_pipe_block(next?: boolean): boolean;
+        by_pipe_visible(id: keyof $apxu_samosbor_map_block_card): any;
     }
 }
 
@@ -10733,7 +10839,8 @@ declare namespace $ {
             author_lords(): (symbol & {
                 $hyoo_crus_ref: symbol;
             })[];
-            $: $;
+            get $(): $;
+            set $(next: $);
             destructor(): void;
             toString(): string;
             [Symbol.toStringTag]: string;
@@ -10785,7 +10892,8 @@ declare namespace $ {
                     author_lords(): (symbol & {
                         $hyoo_crus_ref: symbol;
                     })[];
-                    $: $;
+                    get $(): $;
+                    set $(next: $);
                     destructor(): void;
                     toString(): string;
                     [Symbol.toStringTag]: string;
@@ -10996,10 +11104,10 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_block['show_connections'] >
 	>
-	type $apxu_samosbor_map_block__create_mode_apxu_samosbor_map_app_34 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_app['is_create_mode'] >
+	type $apxu_samosbor_map_block__create_block_mode_apxu_samosbor_map_app_34 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['is_create_block_mode'] >
 		,
-		ReturnType< $apxu_samosbor_map_block['create_mode'] >
+		ReturnType< $apxu_samosbor_map_block['create_block_mode'] >
 	>
 	type $apxu_samosbor_map_block__edit_mode_apxu_samosbor_map_app_35 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_configure_mode'] >
@@ -11101,7 +11209,7 @@ declare namespace $ {
 		current_layer( next?: number ): number
 		block_clicked( id: any, next?: any ): any
 		connection_selected( id: any, next?: any ): any
-		is_create_mode( ): boolean
+		is_create_block_mode( ): boolean
 		is_configure_mode( ): boolean
 		block_selected( id: any): boolean
 		is_connect_mode( ): boolean
@@ -11207,7 +11315,7 @@ declare namespace $.$$ {
         static next_position(pos: TransitionPosition): TransitionPosition;
         show_connections(): boolean;
         control_type(next?: string): string;
-        is_create_mode(): boolean;
+        is_create_block_mode(): boolean;
         is_configure_mode(): boolean;
         is_connect_mode(): boolean;
         static getOffset(pos: TransitionPosition, dir: string): {

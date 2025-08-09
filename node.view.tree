@@ -828,9 +828,10 @@ $apxu_samosbor_map_block $mol_view
 	gigacluster $apxu_samosbor_map_gigacluster
 	block_data? $apxu_samosbor_map_block_data
 	edit_mode? false
-	create_mode? false
+	create_block_mode? false
 	connect_mode? false
 	is_doubled? false
+	is_pipe? false
 	block_layer? 0
 	current_layer? 0
 	current_floor 0
@@ -960,6 +961,30 @@ $apxu_samosbor_map_block $mol_view
 		sub /
 			<= flooded null
 			<= roof null
+	left_flight $apxu_samosbor_map_block_flight
+		event *
+			click? <=> left_flight_click? null
+		status <= flight_status*left \free
+		sub /
+			<= left_flight_icon
+	right_flight $apxu_samosbor_map_block_flight
+		event *
+			click? <=> right_flight_click? null
+		status <= flight_status*right \free
+		sub /
+			<= right_flight_icon
+	floor_part $apxu_samosbor_map_block_part
+		sub /
+			<= max_floor_view $mol_view
+				sub /
+					<= max_floor_icon $apxu_samosbor_map_icon_max_floor
+					<= max_floor_value $mol_view
+						sub / <= max_floor 0
+			<= min_floor_view $mol_view
+				sub /
+					<= min_floor_icon $apxu_samosbor_map_icon_min_floor
+					<= min_floor_value $mol_view
+						sub / <= min_floor 0
 	sub /
 		<= content $mol_view
 			attr *
@@ -969,39 +994,31 @@ $apxu_samosbor_map_block $mol_view
 				^ transitions_list <= transitions /
 				<= up_row $apxu_samosbor_map_block_row
 					sub /
-						<= left_flight $apxu_samosbor_map_block_flight
-							event *
-								click? <=> left_flight_click? null
-							status <= flight_status*left \free
-							sub /
-								<= left_flight_icon
+						^ pipe_name_visible / <= pipe_name $mol_view
+							sub / <= block_name
+						<= up_left_angle_visible <= up_left_angle_part $apxu_samosbor_map_block_part
 						<= up_left_passage $apxu_samosbor_map_block_passage
-							type? <= up_left_passage_type \noway
+							type? <= passage_type*up_left \noway
 							event *
-								click? <=> up_left_passage_click? null
+								click? <=> passage_click*up_left? null
 							up true
 							left true
-						<= up_left_part <= name_part
+						<= up_left_part_visible <= up_left_part <= up_left_part_empty $apxu_samosbor_map_block_part
 						<= up_passage_or_flight $mol_view
-						<= up_right_part <= info_part
+						<= up_right_part_visible <= up_right_part <= up_right_part_empty $apxu_samosbor_map_block_part
 						<= up_right_passage $apxu_samosbor_map_block_passage
-							type <= up_right_passage_type \noway
+							type <= passage_type*up_right \noway
 							event *
-								click? <=> up_right_passage_click? null
+								click? <=> passage_click*up_right? null
 							up true
 							right true
-						<= right_flight $apxu_samosbor_map_block_flight
-							event *
-								click? <=> right_flight_click? null
-							status <= flight_status*right \free
-							sub /
-								<= right_flight_icon
+						<= up_right_angle_visible <= up_right_angle_part $apxu_samosbor_map_block_part
 				<= middle_row $mol_view
 					sub /
 						<= left_passage $apxu_samosbor_map_block_passage
-							type <= left_passage_type \normal
+							type <= left_passage_type <= passage_type*left
 							event *
-								click? <=> left_passage_click? null
+								click? <=> passage_click*left? null
 							left true
 						<= left_crossroad $mol_view
 						<= left_hallway $mol_view
@@ -1013,41 +1030,30 @@ $apxu_samosbor_map_block $mol_view
 						<= right_hallway $mol_view
 						<= right_crossroad $mol_view
 						<= right_passage $apxu_samosbor_map_block_passage
-							type <= right_passage_type \normal
+							type <= right_passage_type <= passage_type*right
 							event *
-								click? <=> right_passage_click? null
+								click? <=> right_passage_click? <=> passage_click*right? null
 							right true
 						- <= hallway $mol_view
 				<= down_row $apxu_samosbor_map_block_row
 					sub /
-						<= floor_part $apxu_samosbor_map_block_part
-							sub /
-								<= max_floor_view $mol_view
-									sub /
-										<= max_floor_icon $apxu_samosbor_map_icon_max_floor
-										<= max_floor_value $mol_view
-											sub / <= max_floor 0
-								<= min_floor_view $mol_view
-									sub /
-										<= min_floor_icon $apxu_samosbor_map_icon_min_floor
-										<= min_floor_value $mol_view
-											sub / <= min_floor 0
+						<= down_left_angle_visible <= down_left_angle_part $apxu_samosbor_map_block_part
 						<= down_left_passage $apxu_samosbor_map_block_passage
-							type <= down_left_passage_type \noway
+							type <= passage_type*down_left \noway
 							event *
-								click? <=> down_left_passage_click? null
+								click? <=> passage_click*down_left? null
 							down true
 							left true
-						<= down_left_part <= profession_part
+						<= down_left_part_visible <= down_left_part <= down_left_part_empty $apxu_samosbor_map_block_part
 						<= down_middle_passage
-						<= down_right_part <= places_part
+						<= down_right_part_visible <= down_right_part <= down_right_part_empty $apxu_samosbor_map_block_part
 						<= down_right_passage $apxu_samosbor_map_block_passage
-							type <= down_right_passage_type \noway
+							type <= passage_type*down_right \noway
 							event *
-								click? <=> down_right_passage_click? null
+								click? <=> passage_click*down_right? null
 							down true
 							right true
-						<= effects_part
+						<= down_right_angle_visible <= down_right_angle_part $apxu_samosbor_map_block_part
 				
 
 $mol_button_major $mol_button_minor
@@ -1226,6 +1232,49 @@ $apxu_samosbor_map_block_card $mol_view
 		add_floor? <=> add_profession*? null
 		remove_floor* <=> remove_floor* null
 		block <= block
+	block_size $mol_view
+		sub /
+			<= max_floor_view $mol_view
+				sub /
+					<= max_floor_icon $apxu_samosbor_map_icon_max_floor
+					<= max_floor_value $apxu_samosbor_map_block_card_number_input
+						enabled <= edit_mode
+						value? <=> max_floor? 15
+			<= min_floor_view $mol_view
+				sub /
+					<= min_floor_icon $apxu_samosbor_map_icon_min_floor
+					<= min_floor_value $apxu_samosbor_map_block_card_number_input
+						enabled <= edit_mode
+						value? <=> min_floor? -15
+	flights $mol_view
+		sub /
+			<= flight_left_button $apxu_samosbor_map_block_card_flight_button
+				minimal_width 19
+				minimal_height 28
+				edit_mode <= edit_mode 
+				sub / <= flight_left_icon $mol_icon_chevron_left
+				click? <=> change_flight_click? null
+			<= flight_view $mol_view
+				attr *
+					middle <= is_middle_flight false
+				sub /
+					^ current_flight /
+			<= flight_right_button $apxu_samosbor_map_block_card_flight_button
+				minimal_width 19
+				minimal_height 28
+				edit_mode <= edit_mode 
+				sub / <= flight_right_icon $mol_icon_chevron_right
+				click? <=> change_flight_click? null
+	floors_info $mol_view
+		sub /
+			<= gen_floor_view $mol_view
+				sub /
+					<= gen $apxu_samosbor_map_block_card_floor
+						enabled <= edit_mode
+						floor_value? <=> gen_floor? 0
+						icon <= gen_icon $apxu_samosbor_map_icon_generator
+			<= floor_view*board
+			<= floor_view*mail
 	sub /
 		<= misc_buttons $mol_view
 			sub /
@@ -1253,39 +1302,8 @@ $apxu_samosbor_map_block_card $mol_view
 										<= block_name_input $mol_string
 											enabled <= edit_mode
 											value? <=> block_name? \Л-96
-										<= block_size $mol_view
-											sub /
-												<= max_floor_view $mol_view
-													sub /
-														<= max_floor_icon $apxu_samosbor_map_icon_max_floor
-														<= max_floor_value $apxu_samosbor_map_block_card_number_input
-															enabled <= edit_mode
-															value? <=> max_floor? 15
-												<= min_floor_view $mol_view
-													sub /
-														<= min_floor_icon $apxu_samosbor_map_icon_min_floor
-														<= min_floor_value $apxu_samosbor_map_block_card_number_input
-															enabled <= edit_mode
-															value? <=> min_floor? -15
-								<= flights $mol_view
-									sub /
-										<= flight_left_button $apxu_samosbor_map_block_card_flight_button
-											minimal_width 19
-											minimal_height 28
-											edit_mode <= edit_mode 
-											sub / <= flight_left_icon $mol_icon_chevron_left
-											click? <=> change_flight_click? null
-										<= flight_view $mol_view
-											attr *
-												middle <= is_middle_flight false
-											sub /
-												^ current_flight /
-										<= flight_right_button $apxu_samosbor_map_block_card_flight_button
-											minimal_width 19
-											minimal_height 28
-											edit_mode <= edit_mode 
-											sub / <= flight_right_icon $mol_icon_chevron_right
-											click? <=> change_flight_click? null
+										<= by_pipe_visible*block_size 
+								<= by_pipe_visible*flights
 						<= block_buttons $mol_view
 							sub /
 								<= copy_button $mol_button_major
@@ -1346,11 +1364,18 @@ $apxu_samosbor_map_block_card $mol_view
 									sub / <= rotation_icon $apxu_samosbor_map_icon_direction
 										style *
 											transform <= rotation \rotate(0deg)
-						<= double_floor $mol_view
+						<= checkboxes $mol_view
 							sub /
-								<= double_floor_icon $apxu_samosbor_map_icon_double_floor
-								<= double_floor_checkbox $mol_check_box
-									checked? <=> is_doubled_floor? false
+								<= double_floor $mol_view
+									sub /
+										<= double_floor_icon $apxu_samosbor_map_icon_double_floor
+										<= double_floor_checkbox $mol_check_box
+											checked? <=> is_doubled_floor? false
+								<= pipe_block $mol_view
+									sub /
+										<= pipe_block_icon $apxu_samosbor_map_icon_pipe
+										<= pipe_block_checkbox $mol_check_box
+											checked? <=> is_pipe_block? false
 				<= block_type_view $mol_view
 					sub /
 						\Тип блока: 
@@ -1365,16 +1390,7 @@ $apxu_samosbor_map_block_card $mol_view
 								infected \Зараженный
 							Trigger_icon <= current_type_select_icon null
 							Filter null
-				<= floors_info $mol_view
-					sub /
-						<= gen_floor_view $mol_view
-							sub /
-								<= gen $apxu_samosbor_map_block_card_floor
-									enabled <= edit_mode
-									floor_value? <=> gen_floor? 0
-									icon <= gen_icon $apxu_samosbor_map_icon_generator
-						<= floor_view*board
-						<= floor_view*mail
+				<= by_pipe_visible*floors_info
 				^ effects_info_visible / <= effects_info $mol_view
 					sub /
 						<= floor_view*roof
@@ -1410,7 +1426,7 @@ $apxu_samosbor_map_app $mol_view
 		onclick? <=> block_clicked*? null
 		on_connection_select? <=> connection_selected*? null
 		show_connections true
-		create_mode? <= is_create_mode false
+		create_block_mode? <= is_create_block_mode false
 		edit_mode? <= is_configure_mode false
 		selected <= block_selected* true
 		connect_mode? <= is_connect_mode false
@@ -1504,9 +1520,9 @@ $apxu_samosbor_map_app $mol_view
 				<= Control_Switch $mol_switch
 					value? <=> control_type? \
 					options *
-						create \Create Block
-						connect \Connect Blocks
-						configure \Configure Block
+						create @ \Create Block
+						connect @ \Connect Blocks
+						configure @ \Configure Block
 		^ block_cards /
 		<= Layer_Bar $mol_number
 			value? <=> current_layer? 0

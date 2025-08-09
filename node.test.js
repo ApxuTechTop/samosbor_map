@@ -3904,7 +3904,7 @@ var $;
                 serial = new Uint8Array(serial.buffer, serial.byteOffset, serial.byteLength);
             }
             ;
-            serial[0] = 0;
+            serial[0] = 0xFF;
             const sacred = super.from(serial);
             return sacred;
         }
@@ -3916,8 +3916,8 @@ var $;
         }
         constructor(buffer, byteOffset, byteLength) {
             super(buffer, byteOffset, byteLength);
-            if (this.getUint8(0) !== 0)
-                $mol_fail(new Error('Buffer should starts with 0 byte'));
+            if (this.getUint8(0) !== 0xFF)
+                $mol_fail(new Error('Buffer should starts with 0xFF byte'));
         }
         toString() {
             return $mol_base64_url_encode(this.asArray());
@@ -3946,13 +3946,16 @@ var $;
             }, await this.native(), closed).catch($mol_crypto_restack));
         }
         async close(sacred, salt) {
+            if (sacred.getUint8(0) !== 0xFF)
+                throw new Error('Closable buffer should starts with 0xFF');
             const buf = new Uint8Array(sacred.buffer, sacred.byteOffset + 1, sacred.byteLength - 1);
             return this.encrypt(buf, salt);
         }
         async open(buf, salt) {
             const buf2 = new Uint8Array(16);
+            buf2[0] = 0xFF;
             buf2.set(await this.decrypt(buf, salt), 1);
-            return new $mol_crypto_sacred(buf2.buffer);
+            return buf2;
         }
     }
     __decorate([
@@ -14262,7 +14265,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/check/expand/expand.view.css", "[mol_check_expand] {\n\tmin-width: 20px;\n}\n\n:where([mol_check_expand][disabled]) [mol_check_expand_icon] {\n\tvisibility: hidden;\n}\n\n[mol_check_expand_icon] {\n\tbox-shadow: none;\n\tmargin-left: -0.375rem;\n}\n[mol_check_expand_icon] {\n\ttransform: rotateZ(0deg);\n}\n\n:where([mol_check_checked]) [mol_check_expand_icon] {\n\ttransform: rotateZ(90deg);\n}\n\n[mol_check_expand_icon] {\n\tvertical-align: text-top;\n}\n\n[mol_check_expand_label] {\n\tmargin-left: 0;\n}\n");
+    $mol_style_attach("mol/check/expand/expand.view.css", "[mol_check_expand] {\n\tmin-width: 20px;\n\tgap: 0;\n}\n\n:where([mol_check_expand][disabled]) [mol_check_expand_icon] {\n\tvisibility: hidden;\n}\n\n[mol_check_expand_icon] {\n\tbox-shadow: none;\n\tmargin-left: -0.375rem;\n}\n[mol_check_expand_icon] {\n\ttransform: rotateZ(0deg);\n}\n\n:where([mol_check_checked]) [mol_check_expand_icon] {\n\ttransform: rotateZ(90deg);\n}\n\n[mol_check_expand_icon] {\n\tvertical-align: text-top;\n}\n\n[mol_check_expand_label] {\n\tmargin-left: 0;\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -16366,21 +16369,6 @@ var $;
 		roof(){
 			return null;
 		}
-		has_interfloor(){
-			return false;
-		}
-		connections(){
-			return [];
-		}
-		connections_list(){
-			return (this.connections());
-		}
-		transitions(){
-			return [];
-		}
-		transitions_list(){
-			return (this.transitions());
-		}
 		left_flight_click(next){
 			if(next !== undefined) return next;
 			return null;
@@ -16388,147 +16376,9 @@ var $;
 		flight_status(id){
 			return "free";
 		}
-		left_flight(){
-			const obj = new this.$.$apxu_samosbor_map_block_flight();
-			(obj.event) = () => ({"click": (next) => (this.left_flight_click(next))});
-			(obj.status) = () => ((this.flight_status("left")));
-			(obj.sub) = () => ([(this.left_flight_icon())]);
-			return obj;
-		}
-		up_left_passage_type(){
-			return "noway";
-		}
-		up_left_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		up_left_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = (next) => ((this.up_left_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.up_left_passage_click(next))});
-			(obj.up) = () => (true);
-			(obj.left) = () => (true);
-			return obj;
-		}
-		up_left_part(){
-			return (this.name_part());
-		}
-		up_passage_or_flight(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		up_right_part(){
-			return (this.info_part());
-		}
-		up_right_passage_type(){
-			return "noway";
-		}
-		up_right_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		up_right_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.up_right_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.up_right_passage_click(next))});
-			(obj.up) = () => (true);
-			(obj.right) = () => (true);
-			return obj;
-		}
 		right_flight_click(next){
 			if(next !== undefined) return next;
 			return null;
-		}
-		right_flight(){
-			const obj = new this.$.$apxu_samosbor_map_block_flight();
-			(obj.event) = () => ({"click": (next) => (this.right_flight_click(next))});
-			(obj.status) = () => ((this.flight_status("right")));
-			(obj.sub) = () => ([(this.right_flight_icon())]);
-			return obj;
-		}
-		up_row(){
-			const obj = new this.$.$apxu_samosbor_map_block_row();
-			(obj.sub) = () => ([
-				(this.left_flight()), 
-				(this.up_left_passage()), 
-				(this.up_left_part()), 
-				(this.up_passage_or_flight()), 
-				(this.up_right_part()), 
-				(this.up_right_passage()), 
-				(this.right_flight())
-			]);
-			return obj;
-		}
-		left_passage_type(){
-			return "normal";
-		}
-		left_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		left_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.left_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.left_passage_click(next))});
-			(obj.left) = () => (true);
-			return obj;
-		}
-		left_crossroad(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		left_hallway(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		fence_type(next){
-			if(next !== undefined) return next;
-			return "hole";
-		}
-		fence_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		fence(){
-			const obj = new this.$.$mol_view();
-			(obj.attr) = () => ({"type": (this.fence_type())});
-			(obj.event) = () => ({"click": (next) => (this.fence_click(next))});
-			return obj;
-		}
-		right_hallway(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		right_crossroad(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		right_passage_type(){
-			return "normal";
-		}
-		right_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		right_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.right_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.right_passage_click(next))});
-			(obj.right) = () => (true);
-			return obj;
-		}
-		middle_row(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.left_passage()), 
-				(this.left_crossroad()), 
-				(this.left_hallway()), 
-				(this.fence()), 
-				(this.right_hallway()), 
-				(this.right_crossroad()), 
-				(this.right_passage())
-			]);
-			return obj;
 		}
 		max_floor_icon(){
 			const obj = new this.$.$apxu_samosbor_map_icon_max_floor();
@@ -16566,57 +16416,230 @@ var $;
 			(obj.sub) = () => ([(this.min_floor_icon()), (this.min_floor_value())]);
 			return obj;
 		}
-		floor_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
+		has_interfloor(){
+			return false;
+		}
+		connections(){
+			return [];
+		}
+		connections_list(){
+			return (this.connections());
+		}
+		transitions(){
+			return [];
+		}
+		transitions_list(){
+			return (this.transitions());
+		}
+		pipe_name(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.block_name())]);
 			return obj;
 		}
-		down_left_passage_type(){
+		pipe_name_visible(){
+			return [(this.pipe_name())];
+		}
+		up_left_angle_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		up_left_angle_visible(){
+			return (this.up_left_angle_part());
+		}
+		passage_type(id){
 			return "noway";
 		}
-		down_left_passage_click(next){
+		passage_click(id, next){
 			if(next !== undefined) return next;
 			return null;
 		}
+		up_left_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = (next) => ((this.passage_type("up_left")));
+			(obj.event) = () => ({"click": (next) => (this.passage_click("up_left", next))});
+			(obj.up) = () => (true);
+			(obj.left) = () => (true);
+			return obj;
+		}
+		up_left_part_empty(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		up_left_part(){
+			return (this.up_left_part_empty());
+		}
+		up_left_part_visible(){
+			return (this.up_left_part());
+		}
+		up_passage_or_flight(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		up_right_part_empty(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		up_right_part(){
+			return (this.up_right_part_empty());
+		}
+		up_right_part_visible(){
+			return (this.up_right_part());
+		}
+		up_right_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.passage_type("up_right")));
+			(obj.event) = () => ({"click": (next) => (this.passage_click("up_right", next))});
+			(obj.up) = () => (true);
+			(obj.right) = () => (true);
+			return obj;
+		}
+		up_right_angle_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		up_right_angle_visible(){
+			return (this.up_right_angle_part());
+		}
+		up_row(){
+			const obj = new this.$.$apxu_samosbor_map_block_row();
+			(obj.sub) = () => ([
+				...(this.pipe_name_visible()), 
+				(this.up_left_angle_visible()), 
+				(this.up_left_passage()), 
+				(this.up_left_part_visible()), 
+				(this.up_passage_or_flight()), 
+				(this.up_right_part_visible()), 
+				(this.up_right_passage()), 
+				(this.up_right_angle_visible())
+			]);
+			return obj;
+		}
+		left_passage_type(){
+			return (this.passage_type("left"));
+		}
+		left_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.left_passage_type()));
+			(obj.event) = () => ({"click": (next) => (this.passage_click("left", next))});
+			(obj.left) = () => (true);
+			return obj;
+		}
+		left_crossroad(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		left_hallway(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		fence_type(next){
+			if(next !== undefined) return next;
+			return "hole";
+		}
+		fence_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		fence(){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"type": (this.fence_type())});
+			(obj.event) = () => ({"click": (next) => (this.fence_click(next))});
+			return obj;
+		}
+		right_hallway(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		right_crossroad(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		right_passage_type(){
+			return (this.passage_type("right"));
+		}
+		right_passage_click(next){
+			return (this.passage_click("right", next));
+		}
+		right_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.right_passage_type()));
+			(obj.event) = () => ({"click": (next) => (this.right_passage_click(next))});
+			(obj.right) = () => (true);
+			return obj;
+		}
+		middle_row(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.left_passage()), 
+				(this.left_crossroad()), 
+				(this.left_hallway()), 
+				(this.fence()), 
+				(this.right_hallway()), 
+				(this.right_crossroad()), 
+				(this.right_passage())
+			]);
+			return obj;
+		}
+		down_left_angle_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		down_left_angle_visible(){
+			return (this.down_left_angle_part());
+		}
 		down_left_passage(){
 			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.down_left_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.down_left_passage_click(next))});
+			(obj.type) = () => ((this.passage_type("down_left")));
+			(obj.event) = () => ({"click": (next) => (this.passage_click("down_left", next))});
 			(obj.down) = () => (true);
 			(obj.left) = () => (true);
 			return obj;
 		}
+		down_left_part_empty(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
 		down_left_part(){
-			return (this.profession_part());
+			return (this.down_left_part_empty());
+		}
+		down_left_part_visible(){
+			return (this.down_left_part());
+		}
+		down_right_part_empty(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
 		}
 		down_right_part(){
-			return (this.places_part());
+			return (this.down_right_part_empty());
 		}
-		down_right_passage_type(){
-			return "noway";
-		}
-		down_right_passage_click(next){
-			if(next !== undefined) return next;
-			return null;
+		down_right_part_visible(){
+			return (this.down_right_part());
 		}
 		down_right_passage(){
 			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.down_right_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.down_right_passage_click(next))});
+			(obj.type) = () => ((this.passage_type("down_right")));
+			(obj.event) = () => ({"click": (next) => (this.passage_click("down_right", next))});
 			(obj.down) = () => (true);
 			(obj.right) = () => (true);
 			return obj;
 		}
+		down_right_angle_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		down_right_angle_visible(){
+			return (this.down_right_angle_part());
+		}
 		down_row(){
 			const obj = new this.$.$apxu_samosbor_map_block_row();
 			(obj.sub) = () => ([
-				(this.floor_part()), 
+				(this.down_left_angle_visible()), 
 				(this.down_left_passage()), 
-				(this.down_left_part()), 
+				(this.down_left_part_visible()), 
 				(this.down_middle_passage()), 
-				(this.down_right_part()), 
+				(this.down_right_part_visible()), 
 				(this.down_right_passage()), 
-				(this.effects_part())
+				(this.down_right_angle_visible())
 			]);
 			return obj;
 		}
@@ -16649,7 +16672,7 @@ var $;
 			if(next !== undefined) return next;
 			return false;
 		}
-		create_mode(next){
+		create_block_mode(next){
 			if(next !== undefined) return next;
 			return false;
 		}
@@ -16658,6 +16681,10 @@ var $;
 			return false;
 		}
 		is_doubled(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		is_pipe(next){
 			if(next !== undefined) return next;
 			return false;
 		}
@@ -16843,6 +16870,25 @@ var $;
 			(obj.sub) = () => ([(this.flooded()), (this.roof())]);
 			return obj;
 		}
+		left_flight(){
+			const obj = new this.$.$apxu_samosbor_map_block_flight();
+			(obj.event) = () => ({"click": (next) => (this.left_flight_click(next))});
+			(obj.status) = () => ((this.flight_status("left")));
+			(obj.sub) = () => ([(this.left_flight_icon())]);
+			return obj;
+		}
+		right_flight(){
+			const obj = new this.$.$apxu_samosbor_map_block_flight();
+			(obj.event) = () => ({"click": (next) => (this.right_flight_click(next))});
+			(obj.status) = () => ((this.flight_status("right")));
+			(obj.sub) = () => ([(this.right_flight_icon())]);
+			return obj;
+		}
+		floor_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
+			return obj;
+		}
 		sub(){
 			return [(this.content())];
 		}
@@ -16877,27 +16923,7 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_floor_view"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_passage_or_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_row"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_crossroad"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_hallway"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_type"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_hallway"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_crossroad"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "middle_row"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_value"));
@@ -16906,20 +16932,42 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_value"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "floor_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pipe_name"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_angle_part"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_part_empty"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_passage_or_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_part_empty"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_angle_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_crossroad"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_hallway"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_type"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_hallway"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_crossroad"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "middle_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_angle_part"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_part_empty"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_part_empty"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_angle_part"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_row"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "content"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "map"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "gigacluster"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_data"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "edit_mode"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "create_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "create_block_mode"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "connect_mode"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_doubled"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_pipe"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_layer"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "current_layer"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "board_floor_value"));
@@ -16952,6 +17000,9 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_effect"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_effect"));
 	($mol_mem(($.$apxu_samosbor_map_block.prototype), "effects_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "floor_part"));
 
 
 ;
@@ -17060,15 +17111,15 @@ var $;
             down_left: "DownLeftPassage",
             left: "LeftPassage"
         };
-        static get_passage_type(transition, floor_data) {
-            if (transition === "right" || transition === "left") {
-                return "normal";
-            }
+        static get_passage_type(transition, floor_data, next) {
             if (transition === "up_middle" || transition === "down_middle") {
                 return "noway";
             }
             const property_name = FloorData.positions_map[transition];
-            const passage_type = floor_data?.[property_name]()?.Type()?.val();
+            const passage_type = floor_data?.[property_name](next)?.Type(next)?.val(next);
+            if (transition === "right" || transition === "left") {
+                return passage_type ?? "normal";
+            }
             return passage_type ?? "noway";
         }
         static is_passage_free(transition, floor_data) {
@@ -17137,6 +17188,9 @@ var $;
     __decorate([
         $mol_mem
     ], FloorData.prototype, "is_double_floor", null);
+    __decorate([
+        $mol_mem_key
+    ], FloorData, "get_passage_type", null);
     $.FloorData = FloorData;
     class FloorsData extends $hyoo_crus_dict_to(FloorData) {
     }
@@ -17167,6 +17221,7 @@ var $;
     }
     $.PlaceData = PlaceData;
     class $apxu_samosbor_map_block_data extends ($hyoo_crus_entity.with({
+        IsPipe: $hyoo_crus_atom_bool,
         Name: $hyoo_crus_atom_str,
         Direction: BlockDirection,
         Type: BlockType,
@@ -17271,6 +17326,9 @@ var $;
         }
         down_right_passage_type(floor, next) {
             return this.FloorsData(next)?.key(floor, next)?.DownRightPassage(next)?.Type(next)?.val(next) ?? "noway";
+        }
+        passage_type({ floor, what }, next) {
+            return FloorData.get_passage_type(what, this.FloorsData(next)?.key(floor, next), next);
         }
         flight_status({ floor, what }) {
             return this.FloorsData()?.key(floor)?.flight_status(what) ?? "free";
@@ -17450,6 +17508,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $apxu_samosbor_map_block_data.prototype, "down_right_passage_type", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "passage_type", null);
     __decorate([
         $mol_mem_key
     ], $apxu_samosbor_map_block_data.prototype, "flight_status", null);
@@ -17783,7 +17844,7 @@ var $;
                 return connections;
             }
             connection_hidden(position) {
-                if (this.create_mode() || this.connect_mode()) {
+                if (this.create_block_mode() || this.connect_mode()) {
                     const floor = this.current_floor();
                     const is_passage_free = FloorData.is_passage_free(position, this.block_data().FloorsData()?.key(floor));
                     return !(is_passage_free ?? false);
@@ -17817,7 +17878,7 @@ var $;
                 console.log(event);
                 event?.stopImmediatePropagation();
                 event?.stopPropagation();
-                if (this.create_mode()) {
+                if (this.create_block_mode()) {
                     return this.create_from_connection(position, event);
                 }
                 if (this.connect_mode()) {
@@ -17885,7 +17946,6 @@ var $;
                     }
                 };
                 if (is_same_port(first_port)) {
-                    console.log("pressed myself");
                     return true;
                 }
                 const first_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxu_samosbor_map_block_data);
@@ -17935,7 +17995,7 @@ var $;
                 new_block_node.pos_x(pos_x);
                 new_block_node.pos_y(pos_y);
                 new_block_node.layer(this.current_layer());
-                return event;
+                return new_block_node;
             }
             has_middle_flight() {
                 return this.is_up_flight();
@@ -17989,83 +18049,20 @@ var $;
                 });
                 return passage_type_map[current_passage_type];
             }
-            up_left_passage_type() {
+            passage_type(what) {
                 const floor = this.current_floor();
-                return this.block_data().up_left_passage_type(floor);
+                return this.block_data().passage_type({ floor, what });
             }
-            up_left_passage_click(event) {
+            passage_click(what, event) {
+                console.log(what, event);
                 if (!this.edit_mode())
                     return;
                 event?.stopImmediatePropagation();
                 const floor = this.current_floor();
-                const current_passage_type = this.block_data().up_left_passage_type(floor);
+                const current_passage_type = this.block_data().passage_type({ floor, what });
+                console.log(current_passage_type);
                 const next_passage_type = this.next_passage_type(current_passage_type);
-                this.block_data().up_left_passage_type(floor, next_passage_type);
-            }
-            up_middle_passage_type() {
-                const floor = this.current_floor();
-                return this.block_data().up_middle_passage_type(floor);
-            }
-            up_middle_passage_click(event) {
-                if (!this.edit_mode())
-                    return;
-                event?.stopImmediatePropagation();
-                const floor = this.current_floor();
-                const current_passage_type = this.block_data().up_middle_passage_type(floor);
-                const next_passage_type = this.next_passage_type(current_passage_type);
-                this.block_data().up_middle_passage_type(floor, next_passage_type);
-            }
-            up_right_passage_type() {
-                const floor = this.current_floor();
-                return this.block_data().up_right_passage_type(floor);
-            }
-            up_right_passage_click(event) {
-                if (!this.edit_mode())
-                    return;
-                event?.stopImmediatePropagation();
-                const floor = this.current_floor();
-                const current_passage_type = this.block_data().up_right_passage_type(floor);
-                const next_passage_type = this.next_passage_type(current_passage_type);
-                this.block_data().up_right_passage_type(floor, next_passage_type);
-            }
-            down_left_passage_type() {
-                const floor = this.current_floor();
-                return this.block_data().down_left_passage_type(floor);
-            }
-            down_left_passage_click(event) {
-                if (!this.edit_mode())
-                    return;
-                event?.stopImmediatePropagation();
-                const floor = this.current_floor();
-                const current_passage_type = this.block_data().down_left_passage_type(floor);
-                const next_passage_type = this.next_passage_type(current_passage_type);
-                this.block_data().down_left_passage_type(floor, next_passage_type);
-            }
-            down_middle_passage_type() {
-                const floor = this.current_floor();
-                return this.block_data().down_middle_passage_type(floor);
-            }
-            down_middle_passage_click(event) {
-                if (!this.edit_mode())
-                    return;
-                event?.stopImmediatePropagation();
-                const floor = this.current_floor();
-                const current_passage_type = this.block_data().down_middle_passage_type(floor);
-                const next_passage_type = this.next_passage_type(current_passage_type);
-                this.block_data().down_middle_passage_type(floor, next_passage_type);
-            }
-            down_right_passage_type() {
-                const floor = this.current_floor();
-                return this.block_data().down_right_passage_type(floor);
-            }
-            down_right_passage_click(event) {
-                if (!this.edit_mode())
-                    return;
-                event?.stopImmediatePropagation();
-                const floor = this.current_floor();
-                const current_passage_type = this.block_data().down_right_passage_type(floor);
-                const next_passage_type = this.next_passage_type(current_passage_type);
-                this.block_data().down_right_passage_type(floor, next_passage_type);
+                this.block_data().passage_type({ floor, what }, next_passage_type);
             }
             is_up_flight(next) {
                 return this.block_data().IsMiddleFlight(next)?.val(next) ?? false;
@@ -18101,50 +18098,35 @@ var $;
                 const shift = (this.dir_shift[this.block_direction()] + 3) % 4;
                 return this.parts[shift];
             }
-            has_liquidator_profession() {
-                return this.profession_floors("liquidator").length > 0;
-            }
-            has_repairman_profession() {
-                return this.profession_floors("repairman").length > 0;
-            }
-            has_cleaner_profession() {
-                return this.profession_floors("cleaner").length > 0;
-            }
-            has_plumber_profession() {
-                return this.profession_floors("plumber").length > 0;
+            has_profession(what) {
+                return this.profession_floors(what).length > 0;
             }
             liquidator_profession() {
-                return this.has_liquidator_profession() ? this.liquidator_icon() : null;
+                return this.has_profession("liquidator") ? this.liquidator_icon() : null;
             }
             repairman_profession() {
-                return this.has_repairman_profession() ? this.repairman_icon() : null;
+                return this.has_profession("repairman") ? this.repairman_icon() : null;
             }
             cleaner_profession() {
-                return this.has_cleaner_profession() ? this.cleaner_icon() : null;
+                return this.has_profession("cleaner") ? this.cleaner_icon() : null;
             }
             plumber_profession() {
-                return this.has_plumber_profession() ? this.factory_icon() : null;
+                return this.has_profession("plumber") ? this.factory_icon() : null;
             }
-            has_hospital_place() {
-                return this.place_floors("hospital").length > 0;
-            }
-            has_party_place() {
-                return this.place_floors("party").length > 0;
-            }
-            has_theatre_place() {
-                return this.place_floors("theatre").length > 0;
+            has_place(what) {
+                return this.place_floors(what).length > 0;
             }
             has_safe_place() {
                 return this.safe_floors().length > 0;
             }
             party_place() {
-                return this.has_party_place() ? this.party_icon() : null;
+                return this.has_place("party") ? this.party_icon() : null;
             }
             theatre_place() {
-                return this.has_theatre_place() ? this.theatre_icon() : null;
+                return this.has_place("theatre") ? this.theatre_icon() : null;
             }
             hospital_place() {
-                return this.has_hospital_place() ? this.hospital_icon() : null;
+                return this.has_place("hospital") ? this.hospital_icon() : null;
             }
             safe_place() {
                 return this.has_safe_place() ? this.house_icon() : null;
@@ -18164,6 +18146,36 @@ var $;
                 event?.stopImmediatePropagation();
                 event?.preventDefault();
                 this.block_data().FloorsData(true)?.key(this.current_floor(), true).set_next_fence_type();
+            }
+            is_pipe(next) {
+                return this.block_data().IsPipe(next)?.val(next) ?? false;
+            }
+            up_left_angle_visible() {
+                return this.is_pipe() ? this.up_left_angle_part() : this.left_flight();
+            }
+            up_right_angle_visible() {
+                return this.is_pipe() ? this.up_right_angle_part() : this.right_flight();
+            }
+            down_left_angle_visible() {
+                return this.is_pipe() ? this.down_left_angle_part() : this.floor_part();
+            }
+            down_right_angle_visible() {
+                return this.is_pipe() ? this.down_right_angle_part() : this.effects_part();
+            }
+            up_left_part_visible() {
+                return this.is_pipe() ? this.up_left_part_empty() : this.up_left_part();
+            }
+            up_right_part_visible() {
+                return this.is_pipe() ? this.up_right_part_empty() : this.up_right_part();
+            }
+            down_left_part_visible() {
+                return this.is_pipe() ? this.down_left_part_empty() : this.down_left_part();
+            }
+            down_right_part_visible() {
+                return this.is_pipe() ? this.down_right_part_empty() : this.down_right_part();
+            }
+            pipe_name_visible() {
+                return this.is_pipe() ? [this.pipe_name()] : [];
             }
         }
         __decorate([
@@ -18323,41 +18335,12 @@ var $;
             $mol_action
         ], $apxu_samosbor_map_block.prototype, "right_flight_click", null);
         __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "up_left_passage_type", null);
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "passage_type", null);
         __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "up_left_passage_click", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "up_middle_passage_type", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "up_middle_passage_click", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "up_right_passage_type", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "up_right_passage_click", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "down_left_passage_type", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "down_left_passage_click", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "down_middle_passage_type", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "down_middle_passage_click", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "down_right_passage_type", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "down_right_passage_click", null);
+            $mol_action,
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "passage_click", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "is_up_flight", null);
@@ -18377,17 +18360,8 @@ var $;
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "down_left_part", null);
         __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_liquidator_profession", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_repairman_profession", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_cleaner_profession", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_plumber_profession", null);
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "has_profession", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "liquidator_profession", null);
@@ -18401,14 +18375,8 @@ var $;
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "plumber_profession", null);
         __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_hospital_place", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_party_place", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_theatre_place", null);
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "has_place", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block.prototype, "has_safe_place", null);
@@ -18438,6 +18406,36 @@ var $;
         ], $apxu_samosbor_map_block.prototype, "fence_click", null);
         __decorate([
             $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "is_pipe", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_left_angle_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_right_angle_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "down_left_angle_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "down_right_angle_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_left_part_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_right_part_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "down_left_part_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "down_right_part_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "pipe_name_visible", null);
+        __decorate([
+            $mol_mem
         ], $apxu_samosbor_map_block, "first_port", null);
         $$.$apxu_samosbor_map_block = $apxu_samosbor_map_block;
     })($$ = $.$$ || ($.$$ = {}));
@@ -18447,7 +18445,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxu/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxu_samosbor_map_cluster]>*,\n[apxu_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tcolor: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: #EEFF00;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: #FF0000;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: #0051FF;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxu_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]):has([apxu_samosbor_map_block_content]:not([interfloor])) {\n\t\tpointer-events: none;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxu_samosbor_map_block_content]:not([interfloor]) {\n\t\t\tvisibility: hidden;\n\t\t\tz-index: 500;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content][interfloor] {\n\t\t\topacity: 0.3;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxu_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\t\tposition: absolute;\n\t\tbackground-color: #FFFFFF80;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\n\t}\n\n\t[apxu_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_profession_part],\n\t[apxu_samosbor_map_block_places_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_flight] {\n\t\t&[status=\"blocked\"] {\n\t\t\t[mol_icon] {\n\t\t\t\topacity: 0.25;\n\t\t\t}\n\n\t\t}\n\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxu_samosbor_map_block_flight],\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_up_middle_passage],\n\t\t[apxu_samosbor_map_block_down_middle_passage],\n\t\t[apxu_samosbor_map_block_left_passage],\n\t\t[apxu_samosbor_map_block_right_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxu_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxu_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 20px 20px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxu_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&[semi-floor] {\n\t\t\tpadding: unset;\n\n\t\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\t\tfont-size: 24px;\n\t\t\t}\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_info_part],\n\t[apxu_samosbor_map_block_effects_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_flooded_icon] {\n\t\t\twidth: 34px;\n\t\t\theight: 34px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_roof_icon] {\n\t\t\twidth: 36px;\n\t\t\theight: 30px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_mail_icon] {\n\t\t\twidth: 32px;\n\t\t\theight: 27px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_generator_floor],\n\t\t[apxu_samosbor_map_block_mail_floor],\n\t\t[apxu_samosbor_map_block_flooded_floor_view],\n\t\t[apxu_samosbor_map_block_roof_floor_view] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n}\n");
+    $mol_style_attach("apxu/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxu_samosbor_map_cluster]>*,\n[apxu_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tcolor: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: #EEFF00;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: #FF0000;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: #0051FF;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxu_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]):has([apxu_samosbor_map_block_content]:not([interfloor])) {\n\t\tpointer-events: none;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxu_samosbor_map_block_content]:not([interfloor]) {\n\t\t\tvisibility: hidden;\n\t\t\tz-index: 500;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content][interfloor] {\n\t\t\topacity: 0.3;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxu_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\t\tposition: absolute;\n\t\tbackground-color: #FFFFFF80;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\n\t}\n\n\t[apxu_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_profession_part],\n\t[apxu_samosbor_map_block_places_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_flight] {\n\t\t&[status=\"blocked\"] {\n\t\t\t[mol_icon] {\n\t\t\t\topacity: 0.25;\n\t\t\t}\n\n\t\t}\n\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxu_samosbor_map_block_flight],\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_up_middle_passage],\n\t\t[apxu_samosbor_map_block_down_middle_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxu_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxu_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 20px 20px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: 100% !important;\n\t\t\t\t\theight: 100% !important;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tposition: relative;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxu_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&[semi-floor] {\n\t\t\tpadding: unset;\n\n\t\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\t\tfont-size: 24px;\n\t\t\t}\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_info_part],\n\t[apxu_samosbor_map_block_effects_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_flooded_icon] {\n\t\t\twidth: 34px;\n\t\t\theight: 34px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_roof_icon] {\n\t\t\twidth: 36px;\n\t\t\theight: 30px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_mail_icon] {\n\t\t\twidth: 32px;\n\t\t\theight: 27px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_generator_floor],\n\t\t[apxu_samosbor_map_block_mail_floor],\n\t\t[apxu_samosbor_map_block_flooded_floor_view],\n\t\t[apxu_samosbor_map_block_roof_floor_view] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_pipe_name] {\n\t\tposition: absolute;\n\t\tz-index: 2000;\n\t\tleft: 50%;\n\t\tright: 50%;\n\t\ttop: 50%;\n\t\tbottom: 50%;\n\t\tcolor: white;\n\t\tfont-family: \"Roboto\";\n\t\tfont-weight: 700;\n\t\tfont-size: 34px;\n\t\tline-height: 100%;\n\t\tletter-spacing: 0;\n\t\ttext-align: center;\n\n\t\t&::before {\n\t\t\tcontent: unset;\n\t\t}\n\t}\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -18929,6 +18927,107 @@ var $;
 		remove_floor(id){
 			return null;
 		}
+		max_floor_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_max_floor();
+			return obj;
+		}
+		max_floor(next){
+			if(next !== undefined) return next;
+			return 15;
+		}
+		max_floor_value(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_number_input();
+			(obj.enabled) = () => ((this.edit_mode()));
+			(obj.value) = (next) => ((this.max_floor(next)));
+			return obj;
+		}
+		max_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.max_floor_icon()), (this.max_floor_value())]);
+			return obj;
+		}
+		min_floor_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_min_floor();
+			return obj;
+		}
+		min_floor(next){
+			if(next !== undefined) return next;
+			return -15;
+		}
+		min_floor_value(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_number_input();
+			(obj.enabled) = () => ((this.edit_mode()));
+			(obj.value) = (next) => ((this.min_floor(next)));
+			return obj;
+		}
+		min_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.min_floor_icon()), (this.min_floor_value())]);
+			return obj;
+		}
+		flight_left_icon(){
+			const obj = new this.$.$mol_icon_chevron_left();
+			return obj;
+		}
+		change_flight_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		flight_left_button(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_flight_button();
+			(obj.minimal_width) = () => (19);
+			(obj.minimal_height) = () => (28);
+			(obj.edit_mode) = () => ((this.edit_mode()));
+			(obj.sub) = () => ([(this.flight_left_icon())]);
+			(obj.click) = (next) => ((this.change_flight_click(next)));
+			return obj;
+		}
+		is_middle_flight(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		current_flight(){
+			return [];
+		}
+		flight_view(){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"middle": (this.is_middle_flight())});
+			(obj.sub) = () => ([...(this.current_flight())]);
+			return obj;
+		}
+		flight_right_icon(){
+			const obj = new this.$.$mol_icon_chevron_right();
+			return obj;
+		}
+		flight_right_button(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_flight_button();
+			(obj.minimal_width) = () => (19);
+			(obj.minimal_height) = () => (28);
+			(obj.edit_mode) = () => ((this.edit_mode()));
+			(obj.sub) = () => ([(this.flight_right_icon())]);
+			(obj.click) = (next) => ((this.change_flight_click(next)));
+			return obj;
+		}
+		gen_floor(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		gen_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_generator();
+			return obj;
+		}
+		gen(){
+			const obj = new this.$.$apxu_samosbor_map_block_card_floor();
+			(obj.enabled) = () => ((this.edit_mode()));
+			(obj.floor_value) = (next) => ((this.gen_floor(next)));
+			(obj.icon) = () => ((this.gen_icon()));
+			return obj;
+		}
+		gen_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.gen())]);
+			return obj;
+		}
 		shop_icon(){
 			const obj = new this.$.$apxu_samosbor_map_icon_shop();
 			return obj;
@@ -19006,109 +19105,14 @@ var $;
 			(obj.value) = (next) => ((this.block_name(next)));
 			return obj;
 		}
-		max_floor_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_max_floor();
-			return obj;
-		}
-		max_floor(next){
-			if(next !== undefined) return next;
-			return 15;
-		}
-		max_floor_value(){
-			const obj = new this.$.$apxu_samosbor_map_block_card_number_input();
-			(obj.enabled) = () => ((this.edit_mode()));
-			(obj.value) = (next) => ((this.max_floor(next)));
-			return obj;
-		}
-		max_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.max_floor_icon()), (this.max_floor_value())]);
-			return obj;
-		}
-		min_floor_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_min_floor();
-			return obj;
-		}
-		min_floor(next){
-			if(next !== undefined) return next;
-			return -15;
-		}
-		min_floor_value(){
-			const obj = new this.$.$apxu_samosbor_map_block_card_number_input();
-			(obj.enabled) = () => ((this.edit_mode()));
-			(obj.value) = (next) => ((this.min_floor(next)));
-			return obj;
-		}
-		min_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.min_floor_icon()), (this.min_floor_value())]);
-			return obj;
-		}
-		block_size(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
-			return obj;
-		}
 		name_size(){
 			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.block_name_input()), (this.block_size())]);
-			return obj;
-		}
-		flight_left_icon(){
-			const obj = new this.$.$mol_icon_chevron_left();
-			return obj;
-		}
-		change_flight_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		flight_left_button(){
-			const obj = new this.$.$apxu_samosbor_map_block_card_flight_button();
-			(obj.minimal_width) = () => (19);
-			(obj.minimal_height) = () => (28);
-			(obj.edit_mode) = () => ((this.edit_mode()));
-			(obj.sub) = () => ([(this.flight_left_icon())]);
-			(obj.click) = (next) => ((this.change_flight_click(next)));
-			return obj;
-		}
-		is_middle_flight(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		current_flight(){
-			return [];
-		}
-		flight_view(){
-			const obj = new this.$.$mol_view();
-			(obj.attr) = () => ({"middle": (this.is_middle_flight())});
-			(obj.sub) = () => ([...(this.current_flight())]);
-			return obj;
-		}
-		flight_right_icon(){
-			const obj = new this.$.$mol_icon_chevron_right();
-			return obj;
-		}
-		flight_right_button(){
-			const obj = new this.$.$apxu_samosbor_map_block_card_flight_button();
-			(obj.minimal_width) = () => (19);
-			(obj.minimal_height) = () => (28);
-			(obj.edit_mode) = () => ((this.edit_mode()));
-			(obj.sub) = () => ([(this.flight_right_icon())]);
-			(obj.click) = (next) => ((this.change_flight_click(next)));
-			return obj;
-		}
-		flights(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.flight_left_button()), 
-				(this.flight_view()), 
-				(this.flight_right_button())
-			]);
+			(obj.sub) = () => ([(this.block_name_input()), (this.by_pipe_visible("block_size"))]);
 			return obj;
 		}
 		block_info(){
 			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.name_size()), (this.flights())]);
+			(obj.sub) = () => ([(this.name_size()), (this.by_pipe_visible("flights"))]);
 			return obj;
 		}
 		copy_icon(){
@@ -19303,13 +19307,36 @@ var $;
 			(obj.sub) = () => ([(this.double_floor_icon()), (this.double_floor_checkbox())]);
 			return obj;
 		}
+		pipe_block_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_pipe();
+			return obj;
+		}
+		is_pipe_block(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		pipe_block_checkbox(){
+			const obj = new this.$.$mol_check_box();
+			(obj.checked) = (next) => ((this.is_pipe_block(next)));
+			return obj;
+		}
+		pipe_block(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.pipe_block_icon()), (this.pipe_block_checkbox())]);
+			return obj;
+		}
+		checkboxes(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.double_floor()), (this.pipe_block())]);
+			return obj;
+		}
 		position_info(){
 			const obj = new this.$.$mol_view();
 			(obj.attr) = () => ({"edit-mode": (this.edit_mode())});
 			(obj.sub) = () => ([
 				(this.coordinates()), 
 				(this.pos_controller()), 
-				(this.double_floor())
+				(this.checkboxes())
 			]);
 			return obj;
 		}
@@ -19338,35 +19365,6 @@ var $;
 		block_type_view(){
 			const obj = new this.$.$mol_view();
 			(obj.sub) = () => (["Тип блока: ", (this.block_type_select())]);
-			return obj;
-		}
-		gen_floor(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		gen_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_generator();
-			return obj;
-		}
-		gen(){
-			const obj = new this.$.$apxu_samosbor_map_block_card_floor();
-			(obj.enabled) = () => ((this.edit_mode()));
-			(obj.floor_value) = (next) => ((this.gen_floor(next)));
-			(obj.icon) = () => ((this.gen_icon()));
-			return obj;
-		}
-		gen_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.gen())]);
-			return obj;
-		}
-		floors_info(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.gen_floor_view()), 
-				(this.floor_view("board")), 
-				(this.floor_view("mail"))
-			]);
 			return obj;
 		}
 		has_balcony(next){
@@ -19454,7 +19452,7 @@ var $;
 				(this.header()), 
 				(this.position_info()), 
 				(this.block_type_view()), 
-				(this.floors_info()), 
+				(this.by_pipe_visible("floors_info")), 
 				...(this.effects_info_visible()), 
 				...(this.professions_visible()), 
 				...(this.places_visible()), 
@@ -19587,6 +19585,29 @@ var $;
 			(obj.block) = () => ((this.block()));
 			return obj;
 		}
+		block_size(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
+			return obj;
+		}
+		flights(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.flight_left_button()), 
+				(this.flight_view()), 
+				(this.flight_right_button())
+			]);
+			return obj;
+		}
+		floors_info(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.gen_floor_view()), 
+				(this.floor_view("board")), 
+				(this.floor_view("mail"))
+			]);
+			return obj;
+		}
 		sub(){
 			return [
 				(this.misc_buttons()), 
@@ -19635,6 +19656,25 @@ var $;
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "place_icon"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "add_place"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "add_profession"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_left_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "change_flight_click"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_left_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "is_middle_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_right_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_right_button"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "gen_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "gen_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "gen"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "gen_floor_view"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "shop_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "shop_button"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "misc_buttons"));
@@ -19649,24 +19689,7 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "control_buttons"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_name"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_name_input"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "max_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "min_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_size"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "name_size"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_left_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "change_flight_click"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_left_button"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "is_middle_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_view"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_right_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flight_right_button"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flights"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_info"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "copy_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "copy_click"));
@@ -19703,15 +19726,15 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "is_doubled_floor"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "double_floor_checkbox"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "double_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pipe_block_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "is_pipe_block"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pipe_block_checkbox"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "pipe_block"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "checkboxes"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "position_info"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_type_value"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_type_select"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_type_view"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "gen_floor"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "gen_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "gen"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "gen_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "floors_info"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "has_balcony"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "balcony_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "balcony_checkbox"));
@@ -19736,6 +19759,9 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "type_select_icon"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "place_floor"));
 	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "profession_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_size"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "flights"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "floors_info"));
 
 
 ;
@@ -20087,6 +20113,9 @@ var $;
                 return places;
             }
             effects_info_visible() {
+                if (this.is_pipe_block()) {
+                    return [];
+                }
                 if (isNaN(this.floor_value("roof")) && isNaN(this.floor_value("flood"))
                     && this.has_balcony() === false && !this.edit_mode()) {
                     return [];
@@ -20102,6 +20131,9 @@ var $;
                 });
             }
             professions_visible() {
+                if (this.is_pipe_block()) {
+                    return [];
+                }
                 const profession_types = ["liquidator", "repairman", "cleaner", "plumber"];
                 if (profession_types.filter((what) => {
                     return this.profession_floors(what).length > 0 || this.edit_mode();
@@ -20117,12 +20149,18 @@ var $;
                 });
             }
             places_visible() {
+                if (this.is_pipe_block()) {
+                    return [];
+                }
                 if (this.important_places().length > 0) {
                     return [this.places()];
                 }
                 return [];
             }
             features_visible() {
+                if (this.is_pipe_block()) {
+                    return [];
+                }
                 if (this.other_places().length > 0) {
                     return [this.features()];
                 }
@@ -20130,6 +20168,12 @@ var $;
             }
             is_doubled_floor(next) {
                 return this.block().block_data().is_double_floor(this.block().current_floor(), next);
+            }
+            is_pipe_block(next) {
+                return this.block().is_pipe(next);
+            }
+            by_pipe_visible(id) {
+                return this.is_pipe_block() ? null : this[id]();
             }
         }
         __decorate([
@@ -20246,6 +20290,12 @@ var $;
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block_card.prototype, "is_doubled_floor", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "is_pipe_block", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block_card.prototype, "by_pipe_visible", null);
         $$.$apxu_samosbor_map_block_card = $apxu_samosbor_map_block_card;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -20254,7 +20304,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxu/samosbor/map/block/card/card.view.css", "@import url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\n@font-face {\n\tfont-family: \"Space Mono\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n[apxu_samosbor_map_block_card] {\n\tposition: absolute;\n\twidth: 287px;\n\theight: 482px;\n\tbackground-color: #121212;\n\tborder-radius: 5px;\n\n\tuser-select: none;\n\n\n\t--main-color: #676767;\n\t--edit-color: #1e1e1e;\n\n\n\n\t[mol_icon] {\n\t\tfilter: unset;\n\t}\n\n\tz-index: 1000;\n\n\t[mol_number] {\n\t\t[mol_string] {\n\t\t\tpadding: 3px;\n\t\t\t/* text-align: right; */\n\t\t}\n\n\t}\n}\n\n[apxu_samosbor_map_block_card_content] {\n\ttouch-action: none;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: flex-start;\n\talign-items: center;\n\toverflow-y: auto;\n\toverflow-x: hidden;\n\tscrollbar-gutter: stable;\n\tpadding: 15px;\n\n\t&>* {\n\t\tborder-bottom: 3px solid var(--main-color);\n\t\tpadding-top: 5px;\n\t\tpadding-bottom: 5px;\n\t\twidth: 100%;\n\t\tjustify-content: center;\n\t}\n\n\twidth: 100%;\n\theight: 100%;\n}\n\n\n[apxu_samosbor_map_block_card_header] {\n\twidth: 100%;\n\tdisplay: flex;\n\tflex-direction: row;\n\n\n\tdisplay: flex;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_misc_buttons] {\n\tposition: absolute;\n\tright: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\twidth: unset;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n}\n\n[apxu_samosbor_map_block_card_control_buttons] {\n\tposition: absolute;\n\tleft: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n\n}\n\n[apxu_samosbor_map_block_card_edit_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_close_icon] {\n\twidth: 30px;\n\theight: 30px;\n}\n\n[apxu_samosbor_map_block_card_delete_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_block_name_input] {\n\twidth: 141px;\n\theight: 50px;\n\tpadding: 0px;\n\tflex: unset;\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: 48px;\n\tline-height: 12px;\n\tletter-spacing: 0;\n\ttext-align: center;\n\tcolor: var(--main-color) !important;\n}\n\n[apxu_samosbor_map_block_card_block_size] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tgap: 10px;\n\twidth: 55px;\n\theight: 46px;\n\n\t&>* {\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\theight: 16px;\n\n\n\n\t\tgap: 5px;\n\n\t\t[mol_string] {\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 18px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: var(--main-color) !important;\n\t\t}\n\n\t\t&>[mol_icon] {\n\t\t\twidth: 16px;\n\t\t\theight: 16px;\n\t\t\tfill: var(--main-color);\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_info] {\n\tborder-right: 2px solid var(--main-color);\n\tpadding: 5px;\n\tgap: 10px;\n\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_flights] {\n\twidth: 100%;\n\tjustify-content: space-between;\n\tgap: 10px;\n\talign-items: center;\n\n\t&>[mol_button]:not([edit-mode]) {\n\t\tvisibility: hidden;\n\t}\n}\n\n[apxu_samosbor_map_block_card_flight_view] {\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-between;\n\n\t&[middle] {\n\t\tjustify-content: center;\n\t}\n\n\tflex: 1;\n\n\t&>* {\n\t\tgap: 5px;\n\t}\n\n\t&>&>* {\n\t\twidth: 20px;\n\t\theight: 20px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_buttons] {\n\tpadding: 5px;\n\tflex-direction: column;\n\n\t&>* {\n\t\tbackground-color: unset;\n\t}\n}\n\n[apxu_samosbor_map_block_card_coordinates] {\n\tflex-direction: column;\n\twidth: 86px;\n\tgap: 10px;\n\n\t[mol_button_minor] {\n\t\twidth: 10px;\n\t\theight: 15px;\n\t\tpadding: 0px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_position_info] {\n\t&:not([edit-mode]) {\n\t\tdisplay: none;\n\t}\n}\n\n[apxu_samosbor_map_block_card_pos_controller] {\n\tdisplay: grid;\n\tgrid-template-columns: 30px 30px 30px;\n\tgrid-template-rows: 30px 30px 30px;\n\tgap: 10px;\n\n\t&>* {\n\t\tpadding: 0;\n\t\talign-self: center;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\twidth: 30px;\n\t\theight: 30px;\n\n\t\t&>* {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_up_button] {\n\tgrid-area: 1 / 2 / 2 / 3;\n}\n\n[apxu_samosbor_map_block_card_right_button] {\n\tgrid-area: 2 / 3 / 3 / 4;\n}\n\n[apxu_samosbor_map_block_card_down_button] {\n\tgrid-area: 3 / 2 / 4 / 3;\n}\n\n[apxu_samosbor_map_block_card_left_button] {\n\tgrid-area: 2 / 1 / 3 / 2;\n}\n\n[apxu_samosbor_map_block_card_rotate_button] {\n\tgrid-area: 2 / 2 / 3 / 3;\n}\n\n[apxu_samosbor_map_block_card_double_floor] {\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_double_floor_icon] {\n\twidth: 30px;\n\theight: 30px;\n\tcolor: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_block_type_view] {\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_type_select_icon] {\n\t/* width: 7px; */\n\theight: 6px;\n\t/* margin-right: 7px; */\n}\n\n[apxu_samosbor_map_block_card_place] {\n\tflex-direction: column;\n\talign-items: center;\n\tgap: 5px;\n\n\twidth: 28px;\n\tmin-width: unset;\n\n\t[mol_icon] {\n\t\twidth: 24px;\n\t\theight: 24px;\n\t}\n\n\t[mol_string] {\n\t\ttext-align: center;\n\t}\n\n\t&:not([enabled]) {\n\t\t[apxu_samosbor_map_block_card_place_add_input] {\n\t\t\tdisplay: none;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_place_icon] {\n\twidth: 24px;\n\theight: 24px;\n}\n\n\n[apxu_samosbor_map_block_card_number_input],\n[apxu_samosbor_map_block_card_floor_input] {\n\twidth: 4ch;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_balcony_icon] {\n\tcolor: var(--main-color);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked])>[apxu_samosbor_map_block_card_balcony_icon] {\n\topacity: 0.5;\n}\n\n[apxu_samosbor_map_block_card_professions] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_places] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_features] {\n\tgap: 15px;\n\tflex-wrap: wrap;\n\tjustify-content: flex-start;\n}\n\n[apxu_samosbor_map_block_card_rights] {\n\tposition: absolute;\n\ttop: 100%;\n\tleft: auto;\n\tright: auto\n}\n\n[apxu_samosbor_map_block_card_flight_left_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_left_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_flight_right_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_right_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n");
+    $mol_style_attach("apxu/samosbor/map/block/card/card.view.css", "@import url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\n@font-face {\n\tfont-family: \"Space Mono\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n[apxu_samosbor_map_block_card] {\n\tposition: absolute;\n\twidth: 287px;\n\theight: 482px;\n\tbackground-color: #121212;\n\tborder-radius: 5px;\n\n\tuser-select: none;\n\n\n\t--main-color: #676767;\n\t--edit-color: #1e1e1e;\n\n\n\n\t[mol_icon] {\n\t\tfilter: unset;\n\t}\n\n\tz-index: 1000;\n\n\t[mol_number] {\n\t\t[mol_string] {\n\t\t\tpadding: 3px;\n\t\t\t/* text-align: right; */\n\t\t}\n\n\t}\n}\n\n[apxu_samosbor_map_block_card_content] {\n\ttouch-action: none;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: flex-start;\n\talign-items: center;\n\toverflow-y: auto;\n\toverflow-x: hidden;\n\tscrollbar-gutter: stable;\n\tpadding: 15px;\n\n\t&>* {\n\t\tborder-bottom: 3px solid var(--main-color);\n\t\tpadding-top: 5px;\n\t\tpadding-bottom: 5px;\n\t\twidth: 100%;\n\t\tjustify-content: center;\n\t}\n\n\twidth: 100%;\n\theight: 100%;\n}\n\n\n[apxu_samosbor_map_block_card_header] {\n\twidth: 100%;\n\tdisplay: flex;\n\tflex-direction: row;\n\n\n\tdisplay: flex;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_misc_buttons] {\n\tposition: absolute;\n\tright: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\twidth: unset;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n}\n\n[apxu_samosbor_map_block_card_control_buttons] {\n\tposition: absolute;\n\tleft: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n\n}\n\n[apxu_samosbor_map_block_card_edit_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_close_icon] {\n\twidth: 30px;\n\theight: 30px;\n}\n\n[apxu_samosbor_map_block_card_delete_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_block_name_input] {\n\twidth: 141px;\n\theight: 50px;\n\tpadding: 0px;\n\tflex: unset;\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: 48px;\n\tline-height: 12px;\n\tletter-spacing: 0;\n\ttext-align: center;\n\tcolor: var(--main-color) !important;\n}\n\n[apxu_samosbor_map_block_card_block_size] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tgap: 10px;\n\twidth: 55px;\n\theight: 46px;\n\n\t&>* {\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\theight: 16px;\n\n\n\n\t\tgap: 5px;\n\n\t\t[mol_string] {\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 18px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: var(--main-color) !important;\n\t\t}\n\n\t\t&>[mol_icon] {\n\t\t\twidth: 16px;\n\t\t\theight: 16px;\n\t\t\tfill: var(--main-color);\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_info] {\n\tborder-right: 2px solid var(--main-color);\n\tpadding: 5px;\n\tgap: 10px;\n\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_flights] {\n\twidth: 100%;\n\tjustify-content: space-between;\n\tgap: 10px;\n\talign-items: center;\n\n\t&>[mol_button]:not([edit-mode]) {\n\t\tvisibility: hidden;\n\t}\n}\n\n[apxu_samosbor_map_block_card_flight_view] {\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-between;\n\n\t&[middle] {\n\t\tjustify-content: center;\n\t}\n\n\tflex: 1;\n\n\t&>* {\n\t\tgap: 5px;\n\t}\n\n\t&>&>* {\n\t\twidth: 20px;\n\t\theight: 20px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_buttons] {\n\tpadding: 5px;\n\tflex-direction: column;\n\n\t&>* {\n\t\tbackground-color: unset;\n\t}\n}\n\n[apxu_samosbor_map_block_card_coordinates] {\n\tflex-direction: column;\n\twidth: 86px;\n\tgap: 10px;\n\n\t[mol_button_minor] {\n\t\twidth: 10px;\n\t\theight: 15px;\n\t\tpadding: 0px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_position_info] {\n\t&:not([edit-mode]) {\n\t\tdisplay: none;\n\t}\n}\n\n[apxu_samosbor_map_block_card_pos_controller] {\n\tdisplay: grid;\n\tgrid-template-columns: 30px 30px 30px;\n\tgrid-template-rows: 30px 30px 30px;\n\tgap: 10px;\n\n\t&>* {\n\t\tpadding: 0;\n\t\talign-self: center;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\twidth: 30px;\n\t\theight: 30px;\n\n\t\t&>* {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_up_button] {\n\tgrid-area: 1 / 2 / 2 / 3;\n}\n\n[apxu_samosbor_map_block_card_right_button] {\n\tgrid-area: 2 / 3 / 3 / 4;\n}\n\n[apxu_samosbor_map_block_card_down_button] {\n\tgrid-area: 3 / 2 / 4 / 3;\n}\n\n[apxu_samosbor_map_block_card_left_button] {\n\tgrid-area: 2 / 1 / 3 / 2;\n}\n\n[apxu_samosbor_map_block_card_rotate_button] {\n\tgrid-area: 2 / 2 / 3 / 3;\n}\n\n[apxu_samosbor_map_block_card_checkboxes] {\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_double_floor],\n[apxu_samosbor_map_block_card_pipe_block] {\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_double_floor_icon],\n[apxu_samosbor_map_block_card_pipe_block_icon] {\n\twidth: 30px;\n\theight: 30px;\n\tcolor: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_block_type_view] {\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_type_select_icon] {\n\t/* width: 7px; */\n\theight: 6px;\n\t/* margin-right: 7px; */\n}\n\n[apxu_samosbor_map_block_card_place] {\n\tflex-direction: column;\n\talign-items: center;\n\tgap: 5px;\n\n\twidth: 28px;\n\tmin-width: unset;\n\n\t[mol_icon] {\n\t\twidth: 24px;\n\t\theight: 24px;\n\t}\n\n\t[mol_string] {\n\t\ttext-align: center;\n\t}\n\n\t&:not([enabled]) {\n\t\t[apxu_samosbor_map_block_card_place_add_input] {\n\t\t\tdisplay: none;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_place_icon] {\n\twidth: 24px;\n\theight: 24px;\n}\n\n\n[apxu_samosbor_map_block_card_number_input],\n[apxu_samosbor_map_block_card_floor_input] {\n\twidth: 4ch;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_balcony_icon] {\n\tcolor: var(--main-color);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked])>[apxu_samosbor_map_block_card_balcony_icon] {\n\topacity: 0.5;\n}\n\n[apxu_samosbor_map_block_card_professions] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_places] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_features] {\n\tgap: 15px;\n\tflex-wrap: wrap;\n\tjustify-content: flex-start;\n}\n\n[apxu_samosbor_map_block_card_rights] {\n\tposition: absolute;\n\ttop: 100%;\n\tleft: auto;\n\tright: auto\n}\n\n[apxu_samosbor_map_block_card_flight_left_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_left_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_flight_right_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_right_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -20274,7 +20324,7 @@ var $;
 			if(next !== undefined) return next;
 			return null;
 		}
-		is_create_mode(){
+		is_create_block_mode(){
 			return false;
 		}
 		is_configure_mode(){
@@ -20458,9 +20508,9 @@ var $;
 			const obj = new this.$.$mol_switch();
 			(obj.value) = (next) => ((this.control_type(next)));
 			(obj.options) = () => ({
-				"create": "Create Block", 
-				"connect": "Connect Blocks", 
-				"configure": "Configure Block"
+				"create": (this.$.$mol_locale.text("$apxu_samosbor_map_app_Control_Switch_options_create")), 
+				"connect": (this.$.$mol_locale.text("$apxu_samosbor_map_app_Control_Switch_options_connect")), 
+				"configure": (this.$.$mol_locale.text("$apxu_samosbor_map_app_Control_Switch_options_configure"))
 			});
 			return obj;
 		}
@@ -20524,7 +20574,7 @@ var $;
 			(obj.onclick) = (next) => ((this.block_clicked(id, next)));
 			(obj.on_connection_select) = (next) => ((this.connection_selected(id, next)));
 			(obj.show_connections) = () => (true);
-			(obj.create_mode) = (next) => ((this.is_create_mode()));
+			(obj.create_block_mode) = (next) => ((this.is_create_block_mode()));
 			(obj.edit_mode) = (next) => ((this.is_configure_mode()));
 			(obj.selected) = () => ((this.block_selected(id)));
 			(obj.connect_mode) = (next) => ((this.is_connect_mode()));
@@ -20637,6 +20687,9 @@ var $;
     }
     __decorate([
         $mol_mem
+    ], $apxu_samosbor_map_storage, "global", null);
+    __decorate([
+        $mol_mem
     ], $apxu_samosbor_map_storage, "active_map", null);
     __decorate([
         $mol_mem
@@ -20731,7 +20784,6 @@ var $;
                 else {
                     this.selected_blocks([...selected_blocks, ref]);
                 }
-                console.log(this.selected_blocks());
             }
             block_cards() {
                 const cards = this.selected_blocks().map((ref) => {
@@ -20855,7 +20907,7 @@ var $;
             control_type(next) {
                 return next ?? "";
             }
-            is_create_mode() {
+            is_create_block_mode() {
                 return this.control_type() === "create";
             }
             is_configure_mode() {
@@ -21066,7 +21118,7 @@ var $;
         ], $apxu_samosbor_map_app.prototype, "control_type", null);
         __decorate([
             $mol_mem
-        ], $apxu_samosbor_map_app.prototype, "is_create_mode", null);
+        ], $apxu_samosbor_map_app.prototype, "is_create_block_mode", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_app.prototype, "is_configure_mode", null);
@@ -21093,7 +21145,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxu/samosbor/map/app/app.view.css", "[apxu_samosbor_map_app] {\n\t--bg: #6E6E6E;\n\t--main: #585858;\n\n\t[color=a] {\n\t\t--bg: #BD9EFF;\n\t\t--main: #9A76E7;\n\t}\n\n\t[color=b] {\n\t\t--bg: #FF9E9E;\n\t\t--main: #EB6B6B;\n\t}\n\n\t[color=v] {\n\t\t--bg: #EAB27F;\n\t\t--main: #C1844D;\n\t}\n\n\t[color=g] {\n\t\t--bg: #BDC9E6;\n\t\t--main: #889DCF;\n\t}\n\n\t[color=d] {\n\t\t--bg: #8A609D;\n\t\t--main: #64367A;\n\t}\n\n\t[color=e] {\n\t\t--bg: #E4C1AD;\n\t\t--main: #CB9B7F;\n\t}\n\n\t[color=j] {\n\t\t--bg: #79C0B4;\n\t\t--main: #4EAD9D;\n\t}\n\n\t[color=z] {\n\t\t--bg: #9EE2FF;\n\t\t--main: #6AC3E9;\n\t}\n\n\t[color=i] {\n\t\t--bg: #968F66;\n\t\t--main: #7D7843;\n\t}\n\n\t[color=k] {\n\t\t--bg: #FA9B48;\n\t\t--main: #E3861B;\n\t}\n\n\t[color=l] {\n\t\t--bg: #9EA2FF;\n\t\t--main: #8388F4;\n\t}\n\n\t[color=m] {\n\t\t--bg: #E69EFF;\n\t\t--main: #CD73ED;\n\t}\n\n\t[color=n] {\n\t\t--bg: #FF9ED8;\n\t\t--main: #E96EB7;\n\t}\n\n\t[color=o] {\n\t\t--bg: #C09786;\n\t\t--main: #AA7762;\n\t}\n\n\t[color=p] {\n\t\t--bg: #6F6F6F;\n\t\t--main: #585858;\n\t}\n\n\t[color=r] {\n\t\t--bg: #93AF6E;\n\t\t--main: #789A4E;\n\t}\n\n\t[color=s] {\n\t\t--bg: #575FA8;\n\t\t--main: #353E87;\n\t}\n\n\t[color=t] {\n\t\t--bg: #6D949C;\n\t\t--main: #457681;\n\t}\n\n\t[color=u] {\n\t\t--bg: #B5C35D;\n\t\t--main: #95A62D;\n\t}\n\n\t[color=f] {\n\t\t--bg: #D4BACA;\n\t\t--main: #C696B3;\n\t}\n\n\t[color=h] {\n\t\t--bg: #D74851;\n\t\t--main: #BE2630;\n\t}\n\n\t[color=c] {\n\t\t--bg: #65BD9D;\n\t\t--main: #43A682;\n\t}\n\n\t[color=ch] {\n\t\t--bg: #D99A4F;\n\t\t--main: #C38030;\n\t}\n\n\t[color=sh] {\n\t\t--bg: #A37A55;\n\t\t--main: #926237;\n\t}\n\n\t[color=shch] {\n\t\t--bg: #31D02E;\n\t\t--main: #07B903;\n\t}\n\n\t[color=y] {\n\t\t--bg: #6C58BB;\n\t\t--main: #4832A1;\n\t}\n\n\t[color=yu] {\n\t\t--bg: #CD6597;\n\t\t--main: #B53974;\n\t}\n\n\t[color=je] {\n\t\t--bg: #689666;\n\t\t--main: #527D43;\n\t}\n\n\t[color=ya] {\n\t\t--bg: #966666;\n\t\t--main: #7D4343;\n\t}\n}\n\n[mol_view_root] {\n\toverflow: hidden;\n}\n\n[apxu_samosbor_map_app] {\n\tbackground-color: #1E1E1E;\n}\n\n[apxu_samosbor_map_app_canvas] {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\t/* scale: 0.5; */\n\t/* background-color: #504d4c; */\n}\n\n[apxu_samosbor_map_cluster] {\n\tposition: absolute;\n}\n\n[apxu_samosbor_map_app_block_connection] {\n\tposition: absolute;\n\twidth: 40px;\n\theight: 40px;\n\tbackground-color: rgb(31, 233, 58);\n\tz-index: 2000;\n\ttransform: translate(calc(var(--transition-length) * (-1 / 2) - 50%), calc(var(--transition-length) * (-1 / 2) - 50%));\n\tcursor: pointer;\n\tborder: 4px inset black;\n\tborder-radius: 10px;\n\n\t&[hidden] {\n\t\tdisplay: none;\n\t\tbackground-color: red;\n\t}\n\n\t&[highlight] {\n\t\toutline: 5px solid blue;\n\t}\n}\n\n[apxu_samosbor_map_app_transition] {\n\t--transition-width: 50px;\n\t--transition-height: 50px;\n\tbox-sizing: content-box;\n\n\t&[direction=vertical] {\n\t\theight: var(--transition-width);\n\t\twidth: var(--transition-length);\n\n\t\tborder-bottom: 10px solid white;\n\t\tborder-top: 10px solid white;\n\t}\n\n\t&[direction=horizontal] {\n\t\theight: var(--transition-length);\n\t\twidth: var(--transition-width);\n\t\tborder-left: 10px solid white;\n\t\tborder-right: 10px solid white;\n\t}\n\n\tposition: absolute;\n\ttransform: translate(-50%, -50%);\n\t/* border: 5px solid white; */\n\tbackground-color: #FFFFFF80;\n}\n\n[apxu_samosbor_map_app_name_setting] {\n\theight: 40px !important;\n}\n\n[mol_view_root] {\n\t--t: 25px;\n\t/* ширина внутреннего перехода */\n\t--p: 50px;\n\t/* ширина угловой части */\n\t--x: 150px;\n\t/* ширина информационной части */\n\t--fullWidth: 720px;\n\t--fullHeight: 360px;\n\t--height: 330px;\n\t/* высота блока */\n\t--width: 710px;\n\t/* ширина блока */\n\t--l: 50px;\n\t/* ширина внешнего перехода */\n\n\t--vertical-transition-width: 49px;\n\t--vertical-transition-height: 54px;\n\t--horizontal-transition-width: 54px;\n\t--horizontal-transition-height: 49px;\n\n\t--border-width: 10px;\n\t--part-width: 120px;\n\t--calc-part-width: calc(var(--part-width) + var(--border-width));\n\t--passage-width: 50px;\n\t--calc-passage-width: calc(var(--passage-width) + var(--border-width));\n\t--solo-icon-size: 50px;\n\t--duo-icon-size: 40px;\n\t--block-width: calc((var(--part-width) + var(--border-width)) * 4 + (var(--passage-width) + var(--border-width)) * 3);\n\t--transition-width: var(--passage-width);\n\t--calc-transition-width: var(--calc-passage-width);\n\t--transition-length: calc(var(--passage-width));\n\t--calc-transition-length: calc(var(--transition-length) + var(--border-width));\n\n\n\t/* Colors */\n\t--border-color: #FFFFFF;\n\t--text-color: #FFFFFF;\n}\n\n[apxu_samosbor_map_app_layer_bar] {\n\t/* width: 20px;\n\theight: 80%; */\n\tposition: fixed;\n\t/* right: 10px; */\n\tjustify-self: anchor-center;\n\tbottom: 10px;\n\t/* top: 10%; */\n\t/* background-color: aqua; */\n\tborder-radius: 3px;\n\tz-index: 10;\n}\n\n[apxu_samosbor_map_app_slider_container] {\n\tposition: fixed;\n\tright: 0px;\n\ttop: 0px;\n\tpadding: 10px;\n\theight: 100%;\n\twidth: 50px;\n\tz-index: 20;\n}\n\n[apxu_samosbor_map_app_block_form] {\n\talign-self: anchor-center;\n\tright: 50px;\n\t/* width: 200px;\n\theight: 500px; */\n\tposition: fixed;\n\tz-index: 10;\n\tmax-height: 100%;\n\toverflow: scroll;\n\n\t[apxu_samosbor_map_app_block_type_switch] {\n\t\tflex-wrap: wrap;\n\t\tflex-direction: column;\n\t}\n}\n\n[apxu_samosbor_map_app_control_panel] {\n\tjustify-self: anchor-center;\n\ttop: 10px;\n\tposition: fixed;\n\tz-index: 10;\n}\n\n[apxu_samosbor_map_app_access_panel] {\n\t/* align-self: anchor-center; */\n\twidth: 200px;\n\ttop: 10px;\n\tleft: 10px;\n\tposition: fixed;\n\tz-index: 10;\n\n\t[apxu_samosbor_map_app_my_key] {\n\t\tword-break: break-all;\n\t}\n}\n\n[apxu_samosbor_map_app_pubkey] {\n\tz-index: 10;\n\tposition: fixed;\n\tleft: 0px;\n\ttop: 0px;\n}\n\n[apxu_samosbor_map_app_invert] {\n\tz-index: 10;\n\tposition: fixed;\n\tleft: 50px;\n\ttop: 0px;\n}\n\n[apxu_samosbor_map_app_rolescontroller] {\n\tz-index: 10;\n\tposition: fixed;\n\tleft: 0px;\n\ttop: 40px;\n}\n");
+    $mol_style_attach("apxu/samosbor/map/app/app.view.css", "[apxu_samosbor_map_app] {\n\t--bg: #A8A8A8;\n\t--main: #767676;\n\n\t[color=a] {\n\t\t--bg: #BD9EFF;\n\t\t--main: #9A76E7;\n\t}\n\n\t[color=b] {\n\t\t--bg: #FF9E9E;\n\t\t--main: #EB6B6B;\n\t}\n\n\t[color=v] {\n\t\t--bg: #EAB27F;\n\t\t--main: #C1844D;\n\t}\n\n\t[color=g] {\n\t\t--bg: #BDC9E6;\n\t\t--main: #889DCF;\n\t}\n\n\t[color=d] {\n\t\t--bg: #8A609D;\n\t\t--main: #64367A;\n\t}\n\n\t[color=e] {\n\t\t--bg: #E4C1AD;\n\t\t--main: #CB9B7F;\n\t}\n\n\t[color=j] {\n\t\t--bg: #79C0B4;\n\t\t--main: #4EAD9D;\n\t}\n\n\t[color=z] {\n\t\t--bg: #9EE2FF;\n\t\t--main: #6AC3E9;\n\t}\n\n\t[color=i] {\n\t\t--bg: #968F66;\n\t\t--main: #7D7843;\n\t}\n\n\t[color=k] {\n\t\t--bg: #FA9B48;\n\t\t--main: #E3861B;\n\t}\n\n\t[color=l] {\n\t\t--bg: #9EA2FF;\n\t\t--main: #8388F4;\n\t}\n\n\t[color=m] {\n\t\t--bg: #E69EFF;\n\t\t--main: #CD73ED;\n\t}\n\n\t[color=n] {\n\t\t--bg: #FF9ED8;\n\t\t--main: #E96EB7;\n\t}\n\n\t[color=o] {\n\t\t--bg: #C09786;\n\t\t--main: #AA7762;\n\t}\n\n\t[color=p] {\n\t\t--bg: #6E6E6E;\n\t\t--main: #585858;\n\t}\n\n\t[color=r] {\n\t\t--bg: #93AF6E;\n\t\t--main: #789A4E;\n\t}\n\n\t[color=s] {\n\t\t--bg: #575FA8;\n\t\t--main: #353E87;\n\t}\n\n\t[color=t] {\n\t\t--bg: #6D949C;\n\t\t--main: #457681;\n\t}\n\n\t[color=u] {\n\t\t--bg: #B5C35D;\n\t\t--main: #95A62D;\n\t}\n\n\t[color=f] {\n\t\t--bg: #D4BACA;\n\t\t--main: #C696B3;\n\t}\n\n\t[color=h] {\n\t\t--bg: #D74851;\n\t\t--main: #BE2630;\n\t}\n\n\t[color=c] {\n\t\t--bg: #65BD9D;\n\t\t--main: #43A682;\n\t}\n\n\t[color=ch] {\n\t\t--bg: #D99A4F;\n\t\t--main: #C38030;\n\t}\n\n\t[color=sh] {\n\t\t--bg: #A37A55;\n\t\t--main: #926237;\n\t}\n\n\t[color=shch] {\n\t\t--bg: #31D02E;\n\t\t--main: #07B903;\n\t}\n\n\t[color=y] {\n\t\t--bg: #6C58BB;\n\t\t--main: #4832A1;\n\t}\n\n\t[color=yu] {\n\t\t--bg: #CD6597;\n\t\t--main: #B53974;\n\t}\n\n\t[color=je] {\n\t\t--bg: #689666;\n\t\t--main: #527D43;\n\t}\n\n\t[color=ya] {\n\t\t--bg: #966666;\n\t\t--main: #7D4343;\n\t}\n}\n\n[mol_view_root] {\n\toverflow: hidden;\n}\n\n[apxu_samosbor_map_app] {\n\tbackground-color: #1E1E1E;\n}\n\n[apxu_samosbor_map_app_canvas] {\n\tposition: fixed;\n\twidth: 100%;\n\theight: 100%;\n\t/* scale: 0.5; */\n\t/* background-color: #504d4c; */\n}\n\n[apxu_samosbor_map_cluster] {\n\tposition: absolute;\n}\n\n[apxu_samosbor_map_app_block_connection] {\n\tposition: absolute;\n\twidth: 40px;\n\theight: 40px;\n\tbackground-color: rgb(31, 233, 58);\n\tz-index: 2000;\n\ttransform: translate(calc(var(--transition-length) * (-1 / 2) - 50%), calc(var(--transition-length) * (-1 / 2) - 50%));\n\tcursor: pointer;\n\tborder: 4px inset black;\n\tborder-radius: 10px;\n\n\t&[hidden] {\n\t\tdisplay: none;\n\t\tbackground-color: red;\n\t}\n\n\t&[highlight] {\n\t\toutline: 5px solid blue;\n\t}\n}\n\n[apxu_samosbor_map_app_transition] {\n\t--transition-width: 50px;\n\t--transition-height: 50px;\n\tbox-sizing: content-box;\n\n\t&[direction=vertical] {\n\t\theight: var(--transition-width);\n\t\twidth: var(--transition-length);\n\n\t\tborder-bottom: 10px solid white;\n\t\tborder-top: 10px solid white;\n\t}\n\n\t&[direction=horizontal] {\n\t\theight: var(--transition-length);\n\t\twidth: var(--transition-width);\n\t\tborder-left: 10px solid white;\n\t\tborder-right: 10px solid white;\n\t}\n\n\tposition: absolute;\n\ttransform: translate(-50%, -50%);\n\t/* border: 5px solid white; */\n\tbackground-color: #FFFFFF80;\n}\n\n[apxu_samosbor_map_app_name_setting] {\n\theight: 40px !important;\n}\n\n[mol_view_root] {\n\t--t: 25px;\n\t/* ширина внутреннего перехода */\n\t--p: 50px;\n\t/* ширина угловой части */\n\t--x: 150px;\n\t/* ширина информационной части */\n\t--fullWidth: 720px;\n\t--fullHeight: 360px;\n\t--height: 330px;\n\t/* высота блока */\n\t--width: 710px;\n\t/* ширина блока */\n\t--l: 50px;\n\t/* ширина внешнего перехода */\n\n\t--vertical-transition-width: 49px;\n\t--vertical-transition-height: 54px;\n\t--horizontal-transition-width: 54px;\n\t--horizontal-transition-height: 49px;\n\n\t--border-width: 10px;\n\t--part-width: 120px;\n\t--calc-part-width: calc(var(--part-width) + var(--border-width));\n\t--passage-width: 50px;\n\t--calc-passage-width: calc(var(--passage-width) + var(--border-width));\n\t--solo-icon-size: 50px;\n\t--duo-icon-size: 40px;\n\t--block-width: calc((var(--part-width) + var(--border-width)) * 4 + (var(--passage-width) + var(--border-width)) * 3);\n\t--transition-width: var(--passage-width);\n\t--calc-transition-width: var(--calc-passage-width);\n\t--transition-length: calc(var(--passage-width));\n\t--calc-transition-length: calc(var(--transition-length) + var(--border-width));\n\n\n\t/* Colors */\n\t--border-color: #FFFFFF;\n\t--text-color: #FFFFFF;\n}\n\n[apxu_samosbor_map_app_layer_bar] {\n\t/* width: 20px;\n\theight: 80%; */\n\tposition: fixed;\n\t/* right: 10px; */\n\tjustify-self: anchor-center;\n\tbottom: 10px;\n\t/* top: 10%; */\n\t/* background-color: aqua; */\n\tborder-radius: 3px;\n\tz-index: 10;\n}\n\n[apxu_samosbor_map_app_slider_container] {\n\tposition: fixed;\n\tright: 0px;\n\ttop: 0px;\n\tpadding: 10px;\n\theight: 100%;\n\twidth: 50px;\n\tz-index: 20;\n}\n\n[apxu_samosbor_map_app_block_form] {\n\talign-self: anchor-center;\n\tright: 50px;\n\t/* width: 200px;\n\theight: 500px; */\n\tposition: fixed;\n\tz-index: 10;\n\tmax-height: 100%;\n\toverflow: scroll;\n\n\t[apxu_samosbor_map_app_block_type_switch] {\n\t\tflex-wrap: wrap;\n\t\tflex-direction: column;\n\t}\n}\n\n[apxu_samosbor_map_app_control_panel] {\n\tjustify-self: anchor-center;\n\ttop: 10px;\n\tposition: fixed;\n\tz-index: 10;\n}\n\n[apxu_samosbor_map_app_access_panel] {\n\t/* align-self: anchor-center; */\n\twidth: 200px;\n\ttop: 10px;\n\tleft: 10px;\n\tposition: fixed;\n\tz-index: 10;\n\n\t[apxu_samosbor_map_app_my_key] {\n\t\tword-break: break-all;\n\t}\n}\n\n[apxu_samosbor_map_app_pubkey] {\n\tz-index: 10;\n\tposition: fixed;\n\tleft: 0px;\n\ttop: 0px;\n}\n\n[apxu_samosbor_map_app_invert] {\n\tz-index: 10;\n\tposition: fixed;\n\tleft: 50px;\n\ttop: 0px;\n}\n\n[apxu_samosbor_map_app_rolescontroller] {\n\tz-index: 10;\n\tposition: fixed;\n\tleft: 0px;\n\ttop: 40px;\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -25116,7 +25168,6 @@ var $;
                 return next ?? null;
             }
             static units(land, next) {
-                $hyoo_crus_land;
                 return next ?? [];
             }
             static async units_load(land) {
