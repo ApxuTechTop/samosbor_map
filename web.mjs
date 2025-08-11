@@ -10374,7 +10374,7 @@ var $;
         Roles: $hyoo_crus_atom_ref_to(() => $apxu_samosbor_map_role_infos)
     }) {
         roles() {
-            return this.Roles(null)?.ensure({ '': $hyoo_crus_rank_read });
+            return this.Roles(true)?.ensure({ '': $hyoo_crus_rank_read }) ?? new $apxu_samosbor_map_role_infos;
         }
         gigacluster() {
             const gigacluster = this.Gigacluster(null)?.ensure({ '': $hyoo_crus_rank_join("just") });
@@ -20744,9 +20744,9 @@ var $;
         }
         static current() {
             const current_id = this.active_map();
-            const maps = this.global().Maps(true);
-            const map = maps.remote_list()[current_id] ?? maps.make({ '': $hyoo_crus_rank_read });
-            console.log("MAP REF: ", map.ref());
+            const maps_field = this.global().Maps();
+            const maps = maps_field?.remote_list() ?? [];
+            const map = maps[current_id] ? maps[current_id] : maps_field?.make({ '': $hyoo_crus_rank_read });
             return map;
         }
     }
@@ -20784,13 +20784,13 @@ var $;
                 return $apxu_samosbor_map_storage.current();
             }
             gigacluster() {
-                return this.current_map().gigacluster();
+                return this.current_map()?.gigacluster() ?? new $apxu_samosbor_map_gigacluster;
             }
             gigacluster_land() {
-                return this.gigacluster()?.land();
+                return this.gigacluster().land();
             }
             is_editor() {
-                const role = this.current_map().roles().lord_role(this.$.$hyoo_crus_auth.current().public().toString());
+                const role = this.current_map()?.roles().lord_role(this.$.$hyoo_crus_auth.current().public().toString());
                 return role === "cartographer" || role === "researcher" || this.is_admin();
             }
             role_controller_visible() {
@@ -20807,16 +20807,16 @@ var $;
             }
             add_public_key(e) {
                 const pub_key = this.pub_key_value();
-                this.current_map().roles().add_key(pub_key);
+                this.current_map()?.roles().add_key(pub_key);
             }
             lord_selects() {
-                const roles = this.current_map().roles();
-                return roles.get_rights().map((right) => {
+                const roles = this.current_map()?.roles();
+                return roles?.get_rights()?.map((right) => {
                     return this.LordRole(right.key());
-                });
+                }) ?? [];
             }
             lord_role_value(pub_key, next) {
-                const role = this.current_map().roles().lord_role(pub_key, next) ?? "no_role";
+                const role = this.current_map()?.roles().lord_role(pub_key, next) ?? "no_role";
                 console.log(role);
                 return role;
             }
@@ -20824,7 +20824,7 @@ var $;
                 return $hyoo_crus_auth.from(pub_key).lord().description;
             }
             lord_description(pub_key, next) {
-                return this.current_map().roles().lord_rights(pub_key)?.description(next) ?? "";
+                return this.current_map()?.roles().lord_rights(pub_key)?.description(next) ?? "";
             }
             public_key() {
                 return this.$.$hyoo_crus_auth.current().public().toString();
@@ -21057,7 +21057,7 @@ var $;
             }
             blocks() {
                 const blocks = [];
-                const block_nodes = this.current_map().blocks();
+                const block_nodes = this.current_map()?.blocks();
                 for (const block_data of block_nodes ?? []) {
                     const block_view = this.Block(block_data.land_ref());
                     blocks.push(block_view);
@@ -21083,7 +21083,7 @@ var $;
             }
             do_search(next) {
                 const search_value = this.search_value();
-                const block = this.current_map().blocks()?.find((block) => { return block.name().includes(search_value); });
+                const block = this.current_map()?.blocks()?.find((block) => { return block.name().includes(search_value); });
                 if (!block)
                     return;
                 this.current_layer(block.layer());

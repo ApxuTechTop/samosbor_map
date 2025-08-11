@@ -10974,7 +10974,7 @@ declare namespace $ {
     export class $apxu_samosbor_map_storage extends $apxu_samosbor_map_storage_base {
         static global(): $apxu_samosbor_map_storage;
         static active_map(next?: number): number;
-        static current(): $apxu_samosbor_map;
+        static current(): $apxu_samosbor_map | undefined;
     }
     export {};
 }
@@ -11391,7 +11391,7 @@ declare namespace $ {
 //# sourceMappingURL=app.view.tree.d.ts.map
 declare namespace $.$$ {
     class $apxu_samosbor_map_app extends $.$apxu_samosbor_map_app {
-        current_map(): $apxu_samosbor_map;
+        current_map(): $apxu_samosbor_map | undefined;
         gigacluster(): $apxu_samosbor_map_gigacluster;
         gigacluster_land(): $hyoo_crus_land;
         is_editor(): boolean;
