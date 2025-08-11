@@ -6,7 +6,7 @@ namespace $ {
 	} ) {
 		@$mol_mem
 		roles() {
-			return this.Roles( null )?.ensure( { '': $hyoo_crus_rank_read } )!
+			return this.Roles( true )?.ensure( { '': $hyoo_crus_rank_read } ) ?? new $apxu_samosbor_map_role_infos
 		}
 		@$mol_mem
 		gigacluster() {

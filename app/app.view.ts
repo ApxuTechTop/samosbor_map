@@ -8,15 +8,15 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		gigacluster() {
-			return this.current_map().gigacluster()!
+			return this.current_map()?.gigacluster() ?? new $apxu_samosbor_map_gigacluster
 		}
 		@$mol_mem
 		gigacluster_land() {
-			return this.gigacluster()?.land()
+			return this.gigacluster().land()
 		}
 		@$mol_mem
 		is_editor() {
-			const role = this.current_map().roles().lord_role( this.$.$hyoo_crus_auth.current().public().toString() )
+			const role = this.current_map()?.roles().lord_role( this.$.$hyoo_crus_auth.current().public().toString() )
 			return role === "cartographer" || role === "researcher" || this.is_admin() // TODO
 		}
 		@$mol_mem
@@ -37,7 +37,7 @@ namespace $.$$ {
 		@$mol_action
 		add_public_key( e?: any ) {
 			const pub_key = this.pub_key_value()
-			this.current_map().roles().add_key( pub_key )
+			this.current_map()?.roles().add_key( pub_key )
 		}
 		// @$mol_mem
 		// lords() {
@@ -50,16 +50,16 @@ namespace $.$$ {
 
 		@$mol_mem
 		lord_selects() {
-			const roles = this.current_map().roles()
+			const roles = this.current_map()?.roles()
 
-			return roles.get_rights()!.map( ( right ) => {
+			return roles?.get_rights()?.map( ( right ) => {
 				return this.LordRole( right.key() )
-			} )
+			} ) ?? []
 		}
 
 		@$mol_mem_key
 		lord_role_value( pub_key: string, next?: typeof $apxu_samosbor_map_role.options[ number ] ): string {
-			const role = this.current_map().roles().lord_role( pub_key, next ) ?? "no_role"
+			const role = this.current_map()?.roles().lord_role( pub_key, next ) ?? "no_role"
 			console.log( role )
 			return role
 		}
@@ -70,7 +70,7 @@ namespace $.$$ {
 		}
 		@$mol_mem_key
 		lord_description( pub_key: string, next?: string ): string {
-			return this.current_map().roles().lord_rights( pub_key )?.description( next ) ?? ""
+			return this.current_map()?.roles().lord_rights( pub_key )?.description( next ) ?? ""
 		}
 		// @$mol_mem_key
 		// lord_name( role: RoleInfo, next?: string ): string {
@@ -367,7 +367,7 @@ namespace $.$$ {
 		@$mol_mem
 		blocks() {
 			const blocks: $mol_view[] = []
-			const block_nodes = this.current_map().blocks()
+			const block_nodes = this.current_map()?.blocks()
 			for( const block_data of block_nodes ?? [] ) {
 				const block_view = this.Block( block_data.land_ref() )
 				blocks.push( block_view )
@@ -402,7 +402,7 @@ namespace $.$$ {
 		@$mol_action
 		do_search( next?: any ) {
 			const search_value = this.search_value()
-			const block = this.current_map().blocks()?.find( ( block ) => { return block.name().includes( search_value ) } )
+			const block = this.current_map()?.blocks()?.find( ( block ) => { return block.name().includes( search_value ) } )
 			if( !block ) return
 			this.current_layer( block.layer() )
 			this.selected_blocks( [ ...this.selected_blocks(), block.ref() ] )
