@@ -19183,15 +19183,14 @@ var $;
 			const obj = new this.$.$mol_icon_content_copy();
 			return obj;
 		}
-		copy_click(next){
-			if(next !== undefined) return next;
-			return null;
+		block_link(){
+			return "";
 		}
 		copy_button(){
-			const obj = new this.$.$mol_button_major();
-			(obj.enabled) = () => (false);
+			const obj = new this.$.$mol_button_copy();
+			(obj.enabled) = () => (true);
 			(obj.sub) = () => ([(this.copy_icon())]);
-			(obj.click) = (next) => ((this.copy_click(next)));
+			(obj.title) = () => ((this.block_link()));
 			return obj;
 		}
 		path_icon(){
@@ -19756,7 +19755,6 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "name_size"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_info"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "copy_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "copy_click"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "copy_button"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "path_icon"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "path_click"));
@@ -20239,6 +20237,13 @@ var $;
             by_pipe_visible(id) {
                 return this.is_pipe_block() ? null : this[id]();
             }
+            block_link() {
+                const link = $mol_state_arg.make_link({
+                    block: this.block().block_data().ref().description,
+                    layer: this.block().current_layer().toString()
+                });
+                return link;
+            }
         }
         __decorate([
             $mol_action
@@ -20360,6 +20365,9 @@ var $;
         __decorate([
             $mol_mem_key
         ], $apxu_samosbor_map_block_card.prototype, "by_pipe_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "block_link", null);
         $$.$apxu_samosbor_map_block_card = $apxu_samosbor_map_block_card;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -20446,6 +20454,15 @@ var $;
 		}
 		transition_top(id){
 			return 0;
+		}
+		concentrated_block(){
+			return null;
+		}
+		trick(){
+			const obj = new this.$.$mol_view();
+			(obj.style) = () => ({"display": "none"});
+			(obj.sub) = () => ([(this.concentrated_block())]);
+			return obj;
 		}
 		gigacluster_land(){
 			return null;
@@ -20711,6 +20728,7 @@ var $;
 		}
 		sub(){
 			return [
+				(this.trick()), 
 				...(this.role_controller_visible()), 
 				(this.PubKey()), 
 				(this.Invert()), 
@@ -20734,6 +20752,7 @@ var $;
 	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "pos_x_value"));
 	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "pos_y_value"));
 	($mol_mem_key(($.$apxu_samosbor_map_app.prototype), "layer_value"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "trick"));
 	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Right"));
 	($mol_mem(($.$apxu_samosbor_map_app.prototype), "pub_key_value"));
 	($mol_mem(($.$apxu_samosbor_map_app.prototype), "pub_key_string"));
@@ -21118,12 +21137,33 @@ var $;
                 const parsed_layer = next ?? (str_layer ? parseInt(str_layer) : undefined);
                 return parsed_layer ?? 0;
             }
+            concentrated_block() {
+                const block_ref = $mol_state_arg.value("block");
+                if (!block_ref)
+                    return;
+                const block_data = this.block($hyoo_crus_ref(block_ref));
+                this.zoom_to_block(block_data);
+            }
+            canvas_pos(next) {
+                return next ?? new $mol_vector_2d(0, 0);
+            }
             zoom_to_block(block) {
                 const area = this.Area();
                 const canvas = this.Canvas();
                 const canvas_rect = canvas.dom_node().getBoundingClientRect();
                 const block_view = this.Block(block.ref());
-                const block_rect = block_view.dom_node().getBoundingClientRect();
+                const get_block_rect = (block, scale) => {
+                    const block_direction = block.direction();
+                    const normal_width = 720 * scale;
+                    const normal_height = 360 * scale;
+                    if (block_direction === "up" || block_direction === "down") {
+                        return { width: normal_width, height: normal_height };
+                    }
+                    else {
+                        return { width: normal_height, height: normal_width };
+                    }
+                };
+                const block_rect = get_block_rect(block, area.cur_zoom());
                 const top = block_view.top();
                 const left = block_view.left();
                 this.canvas_pos(new $mol_vector_2d(-left, -top)
@@ -21269,6 +21309,12 @@ var $;
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_app.prototype, "current_layer", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "concentrated_block", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "canvas_pos", null);
         __decorate([
             $mol_action
         ], $apxu_samosbor_map_app.prototype, "zoom_to_block", null);

@@ -10167,20 +10167,20 @@ declare namespace $ {
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_button_major__enabled_apxu_samosbor_map_block_card_46 = $mol_type_enforce<
+	type $mol_button_copy__enabled_apxu_samosbor_map_block_card_46 = $mol_type_enforce<
 		boolean
 		,
-		ReturnType< $mol_button_major['enabled'] >
+		ReturnType< $mol_button_copy['enabled'] >
 	>
-	type $mol_button_major__sub_apxu_samosbor_map_block_card_47 = $mol_type_enforce<
+	type $mol_button_copy__sub_apxu_samosbor_map_block_card_47 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $mol_button_major['sub'] >
+		ReturnType< $mol_button_copy['sub'] >
 	>
-	type $mol_button_major__click_apxu_samosbor_map_block_card_48 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block_card['copy_click'] >
+	type $mol_button_copy__title_apxu_samosbor_map_block_card_48 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block_card['block_link'] >
 		,
-		ReturnType< $mol_button_major['click'] >
+		ReturnType< $mol_button_copy['title'] >
 	>
 	type $mol_button_major__enabled_apxu_samosbor_map_block_card_49 = $mol_type_enforce<
 		boolean
@@ -10704,8 +10704,8 @@ declare namespace $ {
 		name_size( ): $mol_view
 		block_info( ): $mol_view
 		copy_icon( ): $mol_icon_content_copy
-		copy_click( next?: any ): any
-		copy_button( ): $mol_button_major
+		block_link( ): string
+		copy_button( ): $mol_button_copy
 		path_icon( ): $mol_icon_map_marker_path
 		path_click( next?: any ): any
 		path_button( ): $mol_button_major
@@ -10896,6 +10896,7 @@ declare namespace $.$$ {
         is_doubled_floor(next?: boolean): boolean;
         is_pipe_block(next?: boolean): boolean;
         by_pipe_visible(id: keyof $apxu_samosbor_map_block_card): any;
+        block_link(): string;
     }
 }
 
@@ -11033,52 +11034,64 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $hyoo_crus_land_rights__land_apxu_samosbor_map_app_1 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_app_1 = $mol_type_enforce<
+		({ 
+			'display': string,
+		}) 
+		,
+		ReturnType< $mol_view['style'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_app_2 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $hyoo_crus_land_rights__land_apxu_samosbor_map_app_3 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['gigacluster_land'] >
 		,
 		ReturnType< $hyoo_crus_land_rights['land'] >
 	>
-	type $mol_string__value_apxu_samosbor_map_app_2 = $mol_type_enforce<
+	type $mol_string__value_apxu_samosbor_map_app_4 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['pub_key_value'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_button_minor__click_apxu_samosbor_map_app_3 = $mol_type_enforce<
+	type $mol_button_minor__click_apxu_samosbor_map_app_5 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['add_public_key'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_apxu_samosbor_map_app_4 = $mol_type_enforce<
+	type $mol_button_minor__sub_apxu_samosbor_map_app_6 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_bar__sub_apxu_samosbor_map_app_5 = $mol_type_enforce<
+	type $mol_bar__sub_apxu_samosbor_map_app_7 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_bar['sub'] >
 	>
-	type $mol_string__hint_apxu_samosbor_map_app_6 = $mol_type_enforce<
+	type $mol_string__hint_apxu_samosbor_map_app_8 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['lord_ref_value'] >
 		,
 		ReturnType< $mol_string['hint'] >
 	>
-	type $mol_string__value_apxu_samosbor_map_app_7 = $mol_type_enforce<
+	type $mol_string__value_apxu_samosbor_map_app_9 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['lord_description'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_button_copy__text_apxu_samosbor_map_app_8 = $mol_type_enforce<
+	type $mol_button_copy__text_apxu_samosbor_map_app_10 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['lord_ref_value'] >
 		,
 		ReturnType< $mol_button_copy['text'] >
 	>
-	type $mol_select__value_apxu_samosbor_map_app_9 = $mol_type_enforce<
+	type $mol_select__value_apxu_samosbor_map_app_11 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['lord_role_value'] >
 		,
 		ReturnType< $mol_select['value'] >
 	>
-	type $mol_select__dictionary_apxu_samosbor_map_app_10 = $mol_type_enforce<
+	type $mol_select__dictionary_apxu_samosbor_map_app_12 = $mol_type_enforce<
 		({ 
 			'no_role': string,
 			'cartographer': string,
@@ -11088,47 +11101,47 @@ declare namespace $ {
 		,
 		ReturnType< $mol_select['dictionary'] >
 	>
-	type $mol_bar__sub_apxu_samosbor_map_app_11 = $mol_type_enforce<
+	type $mol_bar__sub_apxu_samosbor_map_app_13 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_bar['sub'] >
 	>
-	type $mol_list__rows_apxu_samosbor_map_app_12 = $mol_type_enforce<
+	type $mol_list__rows_apxu_samosbor_map_app_14 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_expander__label_apxu_samosbor_map_app_13 = $mol_type_enforce<
+	type $mol_expander__label_apxu_samosbor_map_app_15 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_expander['label'] >
 	>
-	type $mol_expander__content_apxu_samosbor_map_app_14 = $mol_type_enforce<
+	type $mol_expander__content_apxu_samosbor_map_app_16 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_expander['content'] >
 	>
-	type $mol_button_copy__text_apxu_samosbor_map_app_15 = $mol_type_enforce<
+	type $mol_button_copy__text_apxu_samosbor_map_app_17 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['public_key'] >
 		,
 		ReturnType< $mol_button_copy['text'] >
 	>
-	type $mol_check_box__checked_apxu_samosbor_map_app_16 = $mol_type_enforce<
+	type $mol_check_box__checked_apxu_samosbor_map_app_18 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['inverted'] >
 		,
 		ReturnType< $mol_check_box['checked'] >
 	>
-	type $mol_check_box__Icon_apxu_samosbor_map_app_17 = $mol_type_enforce<
+	type $mol_check_box__Icon_apxu_samosbor_map_app_19 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['invert_icon'] >
 		,
 		ReturnType< $mol_check_box['Icon'] >
 	>
-	type $mol_switch__value_apxu_samosbor_map_app_18 = $mol_type_enforce<
+	type $mol_switch__value_apxu_samosbor_map_app_20 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['control_type'] >
 		,
 		ReturnType< $mol_switch['value'] >
 	>
-	type $mol_switch__options_apxu_samosbor_map_app_19 = $mol_type_enforce<
+	type $mol_switch__options_apxu_samosbor_map_app_21 = $mol_type_enforce<
 		({ 
 			'create': string,
 			'connect': string,
@@ -11137,87 +11150,87 @@ declare namespace $ {
 		,
 		ReturnType< $mol_switch['options'] >
 	>
-	type $mol_card__sub_apxu_samosbor_map_app_20 = $mol_type_enforce<
+	type $mol_card__sub_apxu_samosbor_map_app_22 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_card['sub'] >
 	>
-	type $mol_number__value_apxu_samosbor_map_app_21 = $mol_type_enforce<
+	type $mol_number__value_apxu_samosbor_map_app_23 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['current_layer'] >
 		,
 		ReturnType< $mol_number['value'] >
 	>
-	type $apxu_samosbor_map_slider__min_value_apxu_samosbor_map_app_22 = $mol_type_enforce<
+	type $apxu_samosbor_map_slider__min_value_apxu_samosbor_map_app_24 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $apxu_samosbor_map_slider['min_value'] >
 	>
-	type $apxu_samosbor_map_slider__max_value_apxu_samosbor_map_app_23 = $mol_type_enforce<
+	type $apxu_samosbor_map_slider__max_value_apxu_samosbor_map_app_25 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $apxu_samosbor_map_slider['max_value'] >
 	>
-	type $apxu_samosbor_map_slider__value_apxu_samosbor_map_app_24 = $mol_type_enforce<
+	type $apxu_samosbor_map_slider__value_apxu_samosbor_map_app_26 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['current_layer'] >
 		,
 		ReturnType< $apxu_samosbor_map_slider['value'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_app_25 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_app_27 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_string__value_apxu_samosbor_map_app_26 = $mol_type_enforce<
+	type $mol_string__value_apxu_samosbor_map_app_28 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['search_value'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_string__submit_apxu_samosbor_map_app_27 = $mol_type_enforce<
+	type $mol_string__submit_apxu_samosbor_map_app_29 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['do_search'] >
 		,
 		ReturnType< $mol_string['submit'] >
 	>
-	type $mol_button_minor__sub_apxu_samosbor_map_app_28 = $mol_type_enforce<
+	type $mol_button_minor__sub_apxu_samosbor_map_app_30 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__click_apxu_samosbor_map_app_29 = $mol_type_enforce<
+	type $mol_button_minor__click_apxu_samosbor_map_app_31 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['do_search'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_bar__sub_apxu_samosbor_map_app_30 = $mol_type_enforce<
+	type $mol_bar__sub_apxu_samosbor_map_app_32 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_bar['sub'] >
 	>
-	type $mol_labeler__title_apxu_samosbor_map_app_31 = $mol_type_enforce<
+	type $mol_labeler__title_apxu_samosbor_map_app_33 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__content_apxu_samosbor_map_app_32 = $mol_type_enforce<
+	type $mol_labeler__content_apxu_samosbor_map_app_34 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_labeler['content'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_app_33 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_app_35 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_vector_2d__apxu_samosbor_map_app_34 = $mol_type_enforce<
+	type $mol_vector_2d__apxu_samosbor_map_app_36 = $mol_type_enforce<
 		[ number, number ]
 		,
 		ConstructorParameters< typeof $mol_vector_2d<number> >
 	>
-	type $apxu_samosbor_map_area__cur_pan_apxu_samosbor_map_app_35 = $mol_type_enforce<
+	type $apxu_samosbor_map_area__cur_pan_apxu_samosbor_map_app_37 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['canvas_pos'] >
 		,
 		ReturnType< $apxu_samosbor_map_area['cur_pan'] >
 	>
-	type $apxu_samosbor_map_area__style_apxu_samosbor_map_app_36 = $mol_type_enforce<
+	type $apxu_samosbor_map_area__style_apxu_samosbor_map_app_38 = $mol_type_enforce<
 		({ 
 			'width': string,
 			'height': string,
@@ -11225,134 +11238,134 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_area['style'] >
 	>
-	type $apxu_samosbor_map_area__items_apxu_samosbor_map_app_37 = $mol_type_enforce<
+	type $apxu_samosbor_map_area__items_apxu_samosbor_map_app_39 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_area['items'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_app_38 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_app_40 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxu_samosbor_map_block__block_data_apxu_samosbor_map_app_39 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__block_data_apxu_samosbor_map_app_41 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['block'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['block_data'] >
 	>
-	type $apxu_samosbor_map_block__current_layer_apxu_samosbor_map_app_40 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__current_layer_apxu_samosbor_map_app_42 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['current_layer'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['current_layer'] >
 	>
-	type $apxu_samosbor_map_block__onclick_apxu_samosbor_map_app_41 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__onclick_apxu_samosbor_map_app_43 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['block_clicked'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['onclick'] >
 	>
-	type $apxu_samosbor_map_block__on_connection_select_apxu_samosbor_map_app_42 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__on_connection_select_apxu_samosbor_map_app_44 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['connection_selected'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['on_connection_select'] >
 	>
-	type $apxu_samosbor_map_block__show_connections_apxu_samosbor_map_app_43 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__show_connections_apxu_samosbor_map_app_45 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block['show_connections'] >
 	>
-	type $apxu_samosbor_map_block__create_block_mode_apxu_samosbor_map_app_44 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__create_block_mode_apxu_samosbor_map_app_46 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_create_block_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['create_block_mode'] >
 	>
-	type $apxu_samosbor_map_block__edit_mode_apxu_samosbor_map_app_45 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__edit_mode_apxu_samosbor_map_app_47 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_configure_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['edit_mode'] >
 	>
-	type $apxu_samosbor_map_block__selected_apxu_samosbor_map_app_46 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__selected_apxu_samosbor_map_app_48 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['block_selected'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['selected'] >
 	>
-	type $apxu_samosbor_map_block__connect_mode_apxu_samosbor_map_app_47 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__connect_mode_apxu_samosbor_map_app_49 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_connect_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['connect_mode'] >
 	>
-	type $apxu_samosbor_map_block__inverted_apxu_samosbor_map_app_48 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__inverted_apxu_samosbor_map_app_50 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['inverted'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['inverted'] >
 	>
-	type $apxu_samosbor_map_block__gigacluster_apxu_samosbor_map_app_49 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__gigacluster_apxu_samosbor_map_app_51 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['gigacluster'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['gigacluster'] >
 	>
-	type $apxu_samosbor_map_block_card__block_name_apxu_samosbor_map_app_50 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__block_name_apxu_samosbor_map_app_52 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['selected_block_name'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['block_name'] >
 	>
-	type $apxu_samosbor_map_block_card__max_floor_apxu_samosbor_map_app_51 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__max_floor_apxu_samosbor_map_app_53 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['max_floor'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['max_floor'] >
 	>
-	type $apxu_samosbor_map_block_card__min_floor_apxu_samosbor_map_app_52 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__min_floor_apxu_samosbor_map_app_54 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['min_floor'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['min_floor'] >
 	>
-	type $apxu_samosbor_map_block_card__close_click_apxu_samosbor_map_app_53 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__close_click_apxu_samosbor_map_app_55 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['close_click'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['close_click'] >
 	>
-	type $apxu_samosbor_map_block_card__pos_x_apxu_samosbor_map_app_54 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__pos_x_apxu_samosbor_map_app_56 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['pos_x_value'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['pos_x'] >
 	>
-	type $apxu_samosbor_map_block_card__pos_y_apxu_samosbor_map_app_55 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__pos_y_apxu_samosbor_map_app_57 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['pos_y_value'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['pos_y'] >
 	>
-	type $apxu_samosbor_map_block_card__block_layer_apxu_samosbor_map_app_56 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__block_layer_apxu_samosbor_map_app_58 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['layer_value'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['block_layer'] >
 	>
-	type $apxu_samosbor_map_block_card__block_apxu_samosbor_map_app_57 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__block_apxu_samosbor_map_app_59 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['Block'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['block'] >
 	>
-	type $apxu_samosbor_map_block_card__is_admin_apxu_samosbor_map_app_58 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__is_admin_apxu_samosbor_map_app_60 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_admin'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['is_admin'] >
 	>
-	type $apxu_samosbor_map_block_card__is_editor_apxu_samosbor_map_app_59 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__is_editor_apxu_samosbor_map_app_61 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_editor'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['is_editor'] >
 	>
-	type $apxu_samosbor_map_block_card__gigacluster_apxu_samosbor_map_app_60 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__gigacluster_apxu_samosbor_map_app_62 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['gigacluster'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['gigacluster'] >
 	>
-	type $mol_view__attr_apxu_samosbor_map_app_61 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_app_63 = $mol_type_enforce<
 		({ 
 			'direction': ReturnType< $apxu_samosbor_map_app['transition_direction'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxu_samosbor_map_app_62 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_app_64 = $mol_type_enforce<
 		({ 
 			'left': ReturnType< $apxu_samosbor_map_app['transition_left'] >,
 			'top': ReturnType< $apxu_samosbor_map_app['transition_top'] >,
@@ -11382,6 +11395,8 @@ declare namespace $ {
 		transition_direction( id: any): string
 		transition_left( id: any): number
 		transition_top( id: any): number
+		concentrated_block( ): any
+		trick( ): $mol_view
 		gigacluster_land( ): any
 		Right( ): $hyoo_crus_land_rights
 		pub_key_value( next?: string ): string
@@ -11501,6 +11516,8 @@ declare namespace $.$$ {
         block_view(ref: symbol): $.$apxu_samosbor_map_block;
         blocks(): $mol_view[];
         current_layer(next?: number): number;
+        concentrated_block(): void;
+        canvas_pos(next?: $mol_vector_2d<number>): $mol_vector_2d<number>;
         zoom_to_block(block: $apxu_samosbor_map_block_data): void;
         do_search(next?: any): void;
     }

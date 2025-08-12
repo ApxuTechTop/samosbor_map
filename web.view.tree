@@ -1322,10 +1322,10 @@ $apxu_samosbor_map_block_card $mol_view
 								<= by_pipe_visible*flights
 						<= block_buttons $mol_view
 							sub /
-								<= copy_button $mol_button_major
-									enabled false
+								<= copy_button $mol_button_copy
+									enabled true
 									sub / <= copy_icon $mol_icon_content_copy
-									click? <=> copy_click? null
+									title <= block_link \
 								<= path_button $mol_button_major
 									enabled false
 									sub / <= path_icon $mol_icon_map_marker_path
@@ -1467,6 +1467,10 @@ $apxu_samosbor_map_app $mol_view
 			left <= transition_left* 0
 			top <= transition_top* 0
 	sub /
+		<= trick $mol_view
+			style *
+				display \none
+			sub / <= concentrated_block null
 		- <= Access_Panel $mol_card
 			sub /
 				<= my_key $mol_text_code
