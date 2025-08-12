@@ -502,5 +502,13 @@ namespace $.$$ {
 			return this.is_pipe_block() ? null : ( this[ id ] as any )() // TODO поправить типы
 		}
 
+		@$mol_mem
+		block_link(): string {
+			const link = $mol_state_arg.make_link( {
+				block: this.block().block_data().ref().description!,
+				layer: this.block().current_layer().toString()
+			} )
+			return link
+		}
 	}
 }

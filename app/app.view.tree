@@ -32,6 +32,10 @@ $apxu_samosbor_map_app $mol_view
 			left <= transition_left* 0
 			top <= transition_top* 0
 	sub /
+		<= trick $mol_view
+			style *
+				display \none
+			sub / <= concentrated_block null
 		- <= Access_Panel $mol_card
 			sub /
 				<= my_key $mol_text_code

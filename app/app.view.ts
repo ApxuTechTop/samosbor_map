@@ -383,13 +383,38 @@ namespace $.$$ {
 			return parsed_layer ?? 0
 		}
 
+		@$mol_mem
+		concentrated_block() {
+			const block_ref = $mol_state_arg.value( "block" )
+			if( !block_ref ) return
+			const block_data = this.block( $hyoo_crus_ref( block_ref ) )
+			this.zoom_to_block( block_data )
+		}
+
+		@$mol_mem
+		canvas_pos( next?: $mol_vector_2d<number> ): $mol_vector_2d<number> {
+			return next ?? new $mol_vector_2d( 0, 0 )
+		}
+
 		@$mol_action
 		zoom_to_block( block: $apxu_samosbor_map_block_data ) {
 			const area = this.Area()
 			const canvas = this.Canvas()
 			const canvas_rect = canvas.dom_node().getBoundingClientRect()
 			const block_view = this.Block( block.ref() )
-			const block_rect = block_view.dom_node().getBoundingClientRect()
+			const get_block_rect = ( block: $apxu_samosbor_map_block_data, scale: number ) => {
+				const block_direction = block.direction()
+				const normal_width = 720 * scale
+				const normal_height = 360 * scale
+				if( block_direction === "up" || block_direction === "down" ) {
+					return { width: normal_width, height: normal_height }
+				} else {
+					return { width: normal_height, height: normal_width }
+				}
+			}
+
+
+			const block_rect = get_block_rect( block, area.cur_zoom() )
 			const top = block_view.top()
 			const left = block_view.left()
 			this.canvas_pos(

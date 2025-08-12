@@ -225,10 +225,10 @@ $apxu_samosbor_map_block_card $mol_view
 								<= by_pipe_visible*flights
 						<= block_buttons $mol_view
 							sub /
-								<= copy_button $mol_button_major
-									enabled false
+								<= copy_button $mol_button_copy
+									enabled true
 									sub / <= copy_icon $mol_icon_content_copy
-									click? <=> copy_click? null
+									title <= block_link \
 								<= path_button $mol_button_major
 									enabled false
 									sub / <= path_icon $mol_icon_map_marker_path
