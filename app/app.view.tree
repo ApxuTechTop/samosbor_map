@@ -136,6 +136,7 @@ $apxu_samosbor_map_app $mol_view
 					cur_pan? <=> canvas_pos? $mol_vector_2d<number> /
 						0
 						0
+					cur_zoom? <=> canvas_zoom? 1
 					style *
 						width \100%
 						height \100%

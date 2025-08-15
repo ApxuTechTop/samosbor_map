@@ -426,11 +426,12 @@ namespace $.$$ {
 
 		@$mol_action
 		do_search( next?: any ) {
-			const search_value = this.search_value()
-			const block = this.current_map()?.blocks()?.find( ( block ) => { return block.name().includes( search_value ) } )
+			const search_value = this.search_value().toLowerCase()
+			const block = this.current_map()?.blocks()?.find( ( block ) => { return block.name().toLowerCase().includes( search_value ) } )
 			if( !block ) return
 			this.current_layer( block.layer() )
 			this.selected_blocks( [ ...this.selected_blocks(), block.ref() ] )
+			this.canvas_zoom( 0.5 )
 			this.zoom_to_block( block )
 		}
 
