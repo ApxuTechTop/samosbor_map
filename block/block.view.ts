@@ -51,6 +51,7 @@ namespace $.$$ {
 			return this.is_interfloor() ? this.InterFloor() : null
 		}
 	}
+	type ConnectionPort = { block_ref: $hyoo_crus_ref, floor: number, position: TransitionPosition }
 	export class $apxu_samosbor_map_block extends $.$apxu_samosbor_map_block {
 		// @$mol_mem
 		// block_name(next?: string) {
@@ -238,11 +239,11 @@ namespace $.$$ {
 			const transition_views: $mol_view[] = []
 
 			for( const transition of this.block_data().transitions() ?? [] ) {
-				const from_block_ref = transition.From( null )?.Block( null )?.val()
+				const from_block_ref = transition.From()?.Block()?.val()
 				if( !from_block_ref ) continue
 				const block_data = $hyoo_crus_glob.Node( from_block_ref, $apxu_samosbor_map_block_data )
 				if( this.block_data() === block_data ) {
-					transition_views.push( this.Transition( transition.ref() ) )
+					transition_views.push( this.Transition( transition ) )
 				}
 			}
 
@@ -269,9 +270,7 @@ namespace $.$$ {
 		}
 
 		@$mol_mem_key
-		transition_direction( ref: any ): string {
-			const node = $hyoo_crus_glob.Node( ref, TransitionData )
-			const block_ref = node.From( null )?.Block( null )?.val()
+		transition_direction( node: TransitionData ): string {
 			const block = this.block_data()
 			const absolute_direction = $apxu_samosbor_map_app.absolute_direction( block.direction(), node.From( null )?.Position( null )?.val()! )
 			if( absolute_direction === "down" || absolute_direction === "up" ) {
@@ -282,44 +281,47 @@ namespace $.$$ {
 		}
 
 		@$mol_mem_key
-		transition_hidden( ref: any ): boolean {
-			const node = $hyoo_crus_glob.Node( ref, TransitionData )
-			const transition_floor = Number( node.From( null )?.Floor( null )?.val() )
+		transition_hidden( node: TransitionData ): boolean {
+			const transition_floor = Number( node.From()?.Floor()?.val() )
 			const current_floor = this.current_floor()
-			this.block_data().FloorsData( null )
 			return transition_floor !== current_floor
 		}
 
 		@$mol_mem_key
-		transition_left( ref: any ): number {
-			const transition = $hyoo_crus_glob.Node( ref, TransitionData )
-			const position = transition.From( null )?.Position( null )?.val()
+		transition_left( node: TransitionData ): number {
+			const position = node.From()?.Position()?.val()
 			if( !position ) return 0
 			return this.transition_pos( position ).x
 		}
 		@$mol_mem_key
-		transition_top( ref: any ): number {
-			const transition = $hyoo_crus_glob.Node( ref, TransitionData )
-			const position = transition.From( null )?.Position( null )?.val()
+		transition_top( node: TransitionData ): number {
+			const position = node.From()?.Position()?.val()
 			if( !position ) return 0
 			return this.transition_pos( position ).y
 		}
 
 		@$mol_mem
-		connections(): readonly ( any )[] {
+		connections() {
 			if( !this.show_connections() ) {
 				return []
 			}
 			const connections: $mol_view[] = []
 			for( const position of TransitionPositions ) {
-				const connection = this.Connection( position )
-				connections.push( connection )
+				if( !this.connection_hidden( position ) ) {
+					const connection = this.Connection( position )
+					connections.push( connection )
+				}
 			}
 			return connections
 		}
 		@$mol_mem_key
 		connection_hidden( position: TransitionPosition ) {
-			if( this.create_block_mode() || this.connect_mode() ) {
+			if( !( this.create_block_mode() || this.connect_mode() ) ) {
+				return true
+			}
+			const port: ConnectionPort = { block_ref: this.block_data().ref(), floor: this.current_floor(), position }
+			const first_port = $apxu_samosbor_map_block.first_port()
+			if( ( first_port && $apxu_samosbor_map_block.is_same_ports( first_port, port ) || this.hovered() ) ) {
 				const floor = this.current_floor()
 				const is_passage_free = FloorData.is_passage_free( position, this.block_data().FloorsData()?.key( floor ) )
 				return !( is_passage_free ?? false )
@@ -370,15 +372,22 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		static first_port( port?: { block_ref: any, floor: number, position: TransitionPosition } | null ) {
+		static first_port( port?: ConnectionPort | null ) {
 			return port ?? undefined
+		}
+
+		static is_same_ports( port1: ConnectionPort, port2: ConnectionPort ) {
+			return port1.block_ref.description === port2.block_ref.description
+				&& port1.floor === port2.floor
+				&& port1.position === port2.position
 		}
 
 		@$mol_action
 		select_connection( position: TransitionPosition ) {
 			const first_port = $apxu_samosbor_map_block.first_port()
-			const is_same_port = ( port: { block_ref: any, floor: number, position: TransitionPosition } ) => {
-				return port.block_ref.description == this.block_data().ref().description && port.floor == this.current_floor() && port.position == position
+			const is_same_port = ( port: ConnectionPort ) => {
+				return $apxu_samosbor_map_block.is_same_ports( port, { block_ref: this.block_data().ref(), floor: this.current_floor(), position } )
+				//return port.block_ref.description == this.block_data().ref().description && port.floor == this.current_floor() && port.position == position
 			}
 			// если кликнули по тому же соединению, убрать first_port
 			if( first_port && is_same_port( first_port ) ) {
@@ -434,7 +443,7 @@ namespace $.$$ {
 			const current_block = this.block_data().ref()
 			const current_floor = this.current_floor()
 			const current_position = position
-			const is_same_port = ( { block_ref, floor, position }: Exclude<typeof first_port, undefined> ) => {
+			const is_same_port = ( { block_ref, floor, position }: typeof first_port ) => {
 				if( current_block === block_ref &&
 					current_floor === floor &&
 					current_position === position
@@ -584,7 +593,7 @@ namespace $.$$ {
 		@$mol_mem_key
 		passage_type( what: TransitionPosition ) {
 			const floor = this.current_floor()
-			return this.block_data().passage_type( { floor, what } )
+			return this.block_data().passage_type( [ floor, what ] )
 		}
 
 		@$mol_action
@@ -594,10 +603,10 @@ namespace $.$$ {
 			if( !this.edit_mode() ) return
 			event?.stopImmediatePropagation()
 			const floor = this.current_floor()
-			const current_passage_type = this.block_data().passage_type( { floor, what } )
+			const current_passage_type = this.block_data().passage_type( [ floor, what ] )
 			console.log( current_passage_type )
 			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().passage_type( { floor, what }, next_passage_type )
+			this.block_data().passage_type( [ floor, what ], next_passage_type )
 		}
 
 		@$mol_mem

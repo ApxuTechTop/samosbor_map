@@ -366,7 +366,7 @@ namespace $.$$ {
 
 		@$mol_mem
 		blocks() {
-			const blocks: $mol_view[] = []
+			const blocks: $.$apxu_samosbor_map_block[] = []
 			const block_nodes = this.current_map()?.blocks()
 			for( const block_data of block_nodes ?? [] ) {
 				const block_view = this.Block( block_data.land_ref() )
@@ -374,6 +374,13 @@ namespace $.$$ {
 			}
 
 			return blocks
+		}
+		@$mol_mem
+		blocks_visible() {
+			const blocks = this.blocks()
+			return blocks.filter( ( block_view ) => {
+				return block_view.visible() || block_view.has_interfloor()
+			} )
 		}
 
 		@$mol_mem

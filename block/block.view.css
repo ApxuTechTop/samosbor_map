@@ -36,7 +36,6 @@
 	}
 }
 
-[apxu_samosbor_map_cluster]>*,
 [apxu_samosbor_map_block] {
 
 	[mol_view] {
@@ -219,7 +218,7 @@
 		}
 	}
 
-	&[editing] {
+	&:hover[editing] {
 
 		[apxu_samosbor_map_block_flight],
 		[apxu_samosbor_map_block_passage] {
@@ -242,6 +241,7 @@
 
 			&::after {
 				outline: unset;
+				animation: unset;
 			}
 		}
 
@@ -972,23 +972,25 @@
 		}
 	}
 
-	[apxu_samosbor_map_block_pipe_name] {
-		position: absolute;
-		z-index: 2000;
-		left: 50%;
-		right: 50%;
-		top: 50%;
-		bottom: 50%;
-		color: white;
-		font-family: "Roboto";
-		font-weight: 700;
-		font-size: 34px;
-		line-height: 100%;
-		letter-spacing: 0;
-		text-align: center;
 
-		&::before {
-			content: unset;
-		}
+}
+
+[apxu_samosbor_map_block_pipe_name] {
+	position: absolute !important;
+	z-index: 3000;
+	left: 50%;
+	top: 50%;
+	translate: -50% -50%;
+	white-space: nowrap;
+	color: white;
+	font-family: "Roboto";
+	font-weight: 700;
+	font-size: 34px;
+	line-height: 100%;
+	letter-spacing: 0;
+	text-align: center;
+
+	&::before {
+		content: unset;
 	}
 }
