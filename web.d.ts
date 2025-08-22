@@ -95,7 +95,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_base64_encode(src: string | Uint8Array): string;
+    function $mol_base64_encode(src: string | Uint8Array<ArrayBuffer>): string;
 }
 
 declare namespace $ {
@@ -110,7 +110,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_base64_encode_web(str: string | Uint8Array): string;
+    function $mol_base64_encode_web(str: string | Uint8Array<ArrayBuffer>): string;
 }
 
 declare namespace $ {
@@ -122,7 +122,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_base64_ae_encode(buffer: Uint8Array): string;
+    function $mol_base64_ae_encode(buffer: Uint8Array<ArrayBuffer>): string;
     function $mol_base64_ae_decode(str: string): Uint8Array<ArrayBuffer>;
 }
 
@@ -184,7 +184,7 @@ declare namespace $ {
     function $hyoo_crus_ref_area(ref: $hyoo_crus_ref): string;
     function $hyoo_crus_ref_head(ref: $hyoo_crus_ref): string;
     function $hyoo_crus_ref_encode(ref: $hyoo_crus_ref): Uint8Array<ArrayBuffer>;
-    function $hyoo_crus_ref_decode(bin: Uint8Array): symbol & {
+    function $hyoo_crus_ref_decode(bin: Uint8Array<ArrayBuffer>): symbol & {
         $hyoo_crus_ref: symbol;
     };
     function $hyoo_crus_ref_relate(base: $hyoo_crus_ref, ref: $hyoo_crus_ref): symbol & {
@@ -308,7 +308,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_base64_url_encode(buffer: Uint8Array): string;
+    function $mol_base64_url_encode(buffer: Uint8Array<ArrayBuffer>): string;
     function $mol_base64_url_decode(str: string): Uint8Array<ArrayBuffer>;
 }
 
@@ -595,6 +595,10 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_try<Result>(handler2: () => Result): Result | Error;
+}
+
+declare namespace $ {
     function $mol_fail_log(error: unknown): boolean;
 }
 
@@ -702,7 +706,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_crypto_sacred extends $mol_buffer {
+    type BufferSource = ArrayBufferView<ArrayBuffer> | ArrayBuffer;
+    export class $mol_crypto_sacred extends $mol_buffer {
         static size: 16;
         static make(): $mol_crypto_sacred;
         static from<This extends typeof $mol_buffer>(this: This, serial: string | ArrayBufferView<ArrayBuffer>): InstanceType<This>;
@@ -720,6 +725,7 @@ declare namespace $ {
         close(sacred: DataView<ArrayBuffer>, salt: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
         open(buf: Uint8Array<ArrayBuffer>, salt: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
     }
+    export {};
 }
 
 declare var $node: any;
@@ -3793,6 +3799,562 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_window extends $mol_object {
+        static size(): {
+            width: number;
+            height: number;
+        };
+        static resizes(next?: Event): Event | undefined;
+    }
+}
+
+declare namespace $ {
+    class $mol_view_selection extends $mol_object {
+        static focused(next?: Element[], notify?: 'notify'): Element[];
+    }
+}
+
+declare namespace $ {
+    enum $mol_keyboard_code {
+        backspace = 8,
+        tab = 9,
+        enter = 13,
+        shift = 16,
+        ctrl = 17,
+        alt = 18,
+        pause = 19,
+        capsLock = 20,
+        escape = 27,
+        space = 32,
+        pageUp = 33,
+        pageDown = 34,
+        end = 35,
+        home = 36,
+        left = 37,
+        up = 38,
+        right = 39,
+        down = 40,
+        insert = 45,
+        delete = 46,
+        key0 = 48,
+        key1 = 49,
+        key2 = 50,
+        key3 = 51,
+        key4 = 52,
+        key5 = 53,
+        key6 = 54,
+        key7 = 55,
+        key8 = 56,
+        key9 = 57,
+        A = 65,
+        B = 66,
+        C = 67,
+        D = 68,
+        E = 69,
+        F = 70,
+        G = 71,
+        H = 72,
+        I = 73,
+        J = 74,
+        K = 75,
+        L = 76,
+        M = 77,
+        N = 78,
+        O = 79,
+        P = 80,
+        Q = 81,
+        R = 82,
+        S = 83,
+        T = 84,
+        U = 85,
+        V = 86,
+        W = 87,
+        X = 88,
+        Y = 89,
+        Z = 90,
+        metaLeft = 91,
+        metaRight = 92,
+        select = 93,
+        numpad0 = 96,
+        numpad1 = 97,
+        numpad2 = 98,
+        numpad3 = 99,
+        numpad4 = 100,
+        numpad5 = 101,
+        numpad6 = 102,
+        numpad7 = 103,
+        numpad8 = 104,
+        numpad9 = 105,
+        multiply = 106,
+        add = 107,
+        subtract = 109,
+        decimal = 110,
+        divide = 111,
+        F1 = 112,
+        F2 = 113,
+        F3 = 114,
+        F4 = 115,
+        F5 = 116,
+        F6 = 117,
+        F7 = 118,
+        F8 = 119,
+        F9 = 120,
+        F10 = 121,
+        F11 = 122,
+        F12 = 123,
+        numLock = 144,
+        scrollLock = 145,
+        semicolon = 186,
+        equals = 187,
+        comma = 188,
+        dash = 189,
+        period = 190,
+        forwardSlash = 191,
+        graveAccent = 192,
+        bracketOpen = 219,
+        slashBack = 220,
+        slashBackLeft = 226,
+        bracketClose = 221,
+        quoteSingle = 222
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    function $mol_dom_qname(name: string): string;
+}
+
+declare namespace $ {
+    function $mol_wire_watch(): void;
+}
+
+declare namespace $ {
+    function $mol_dom_render_attributes(el: Element, attrs: {
+        [key: string]: string | number | boolean | null;
+    }): void;
+}
+
+declare namespace $ {
+    function $mol_dom_render_events(el: Element, events: {
+        [key: string]: (event: Event) => any;
+    }, passive?: boolean): void;
+}
+
+declare namespace $ {
+    function $mol_dom_render_styles(el: Element, styles: {
+        [key: string]: string | number;
+    }): void;
+}
+
+declare namespace $ {
+    function $mol_dom_render_fields(el: Element, fields: {
+        [key: string]: any;
+    }): void;
+}
+
+declare namespace $ {
+    class $mol_after_timeout extends $mol_object2 {
+        delay: number;
+        task: () => void;
+        id: any;
+        constructor(delay: number, task: () => void);
+        destructor(): void;
+    }
+}
+
+declare namespace $ {
+    type $mol_type_pick<Input, Upper> = Pick<Input, $mol_type_keys_extract<Input, Upper>>;
+}
+
+declare namespace $ {
+    function $mol_style_attach(id: string, text: string): HTMLStyleElement | null;
+}
+
+declare namespace $ {
+    class $mol_promise<Result = void> extends Promise<Result> {
+        done: (value: Result | PromiseLike<Result>) => void;
+        fail: (reason?: any) => void;
+        constructor(executor?: (done: (value: Result | PromiseLike<Result>) => void, fail: (reason?: any) => void) => void);
+    }
+}
+
+declare namespace $ {
+    class $mol_promise_blocker<Result> extends $mol_promise<Result> {
+        static [Symbol.toStringTag]: string;
+    }
+}
+
+declare namespace $ {
+    class $mol_decor<Value> {
+        readonly value: Value;
+        constructor(value: Value);
+        prefix(): string;
+        valueOf(): Value;
+        postfix(): string;
+        toString(): string;
+    }
+}
+
+declare namespace $ {
+    type $mol_style_unit_length = '%' | 'px' | 'cm' | 'mm' | 'Q' | 'in' | 'pc' | 'pt' | 'cap' | 'ch' | 'em' | 'rem' | 'ex' | 'ic' | 'lh' | 'rlh' | 'vh' | 'vw' | 'vi' | 'vb' | 'vmin' | 'vmax';
+    type $mol_style_unit_angle = 'deg' | 'rad' | 'grad' | 'turn';
+    type $mol_style_unit_time = 's' | 'ms';
+    type $mol_style_unit_any = $mol_style_unit_length | $mol_style_unit_angle | $mol_style_unit_time;
+    type $mol_style_unit_str<Quanity extends $mol_style_unit_any = $mol_style_unit_any> = `${number}${Quanity}`;
+    class $mol_style_unit<Literal extends $mol_style_unit_any> extends $mol_decor<number> {
+        readonly literal: Literal;
+        constructor(value: number, literal: Literal);
+        postfix(): Literal;
+        static per(value: number): `${number}%`;
+        static px(value: number): `${number}px`;
+        static mm(value: number): `${number}mm`;
+        static cm(value: number): `${number}cm`;
+        static Q(value: number): `${number}Q`;
+        static in(value: number): `${number}in`;
+        static pc(value: number): `${number}pc`;
+        static pt(value: number): `${number}pt`;
+        static cap(value: number): `${number}cap`;
+        static ch(value: number): `${number}ch`;
+        static em(value: number): `${number}em`;
+        static rem(value: number): `${number}rem`;
+        static ex(value: number): `${number}ex`;
+        static ic(value: number): `${number}ic`;
+        static lh(value: number): `${number}lh`;
+        static rlh(value: number): `${number}rlh`;
+        static vh(value: number): `${number}vh`;
+        static vw(value: number): `${number}vw`;
+        static vi(value: number): `${number}vi`;
+        static vb(value: number): `${number}vb`;
+        static vmin(value: number): `${number}vmin`;
+        static vmax(value: number): `${number}vmax`;
+        static deg(value: number): `${number}deg`;
+        static rad(value: number): `${number}rad`;
+        static grad(value: number): `${number}grad`;
+        static turn(value: number): `${number}turn`;
+        static s(value: number): `${number}s`;
+        static ms(value: number): `${number}ms`;
+    }
+}
+
+declare namespace $ {
+    type $mol_style_func_name = 'calc' | 'hsla' | 'rgba' | 'var' | 'clamp' | 'scale' | 'cubic-bezier' | 'linear' | 'steps' | $mol_style_func_image | $mol_style_func_filter;
+    type $mol_style_func_image = 'url' | 'linear-gradient' | 'radial-gradient' | 'conic-gradient';
+    type $mol_style_func_filter = 'blur' | 'brightness' | 'contrast' | 'drop-shadow' | 'grayscale' | 'hue-rotate' | 'invert' | 'opacity' | 'sepia' | 'saturate';
+    class $mol_style_func<Name extends $mol_style_func_name, Value = unknown> extends $mol_decor<Value> {
+        readonly name: Name;
+        constructor(name: Name, value: Value);
+        prefix(): string;
+        postfix(): string;
+        static linear_gradient<Value>(value: Value): $mol_style_func<"linear-gradient", Value>;
+        static radial_gradient<Value>(value: Value): $mol_style_func<"radial-gradient", Value>;
+        static calc<Value>(value: Value): $mol_style_func<"calc", Value>;
+        static vary<Name extends string, Value extends string>(name: Name, defaultValue?: Value): $mol_style_func<"var", Name | (Name | Value)[]>;
+        static url<Href extends string>(href: Href): $mol_style_func<"url", string>;
+        static hsla(hue: number, saturation: number, lightness: number, alpha: number): $mol_style_func<"hsla", (number | `${number}%`)[]>;
+        static clamp(min: $mol_style_unit_str<any>, mid: $mol_style_unit_str<any>, max: $mol_style_unit_str<any>): $mol_style_func<"clamp", `${number}${any}`[]>;
+        static rgba(red: number, green: number, blue: number, alpha: number): $mol_style_func<"rgba", number[]>;
+        static scale(zoom: number): $mol_style_func<"scale", number[]>;
+        static linear(...breakpoints: Array<number | [number, number | $mol_style_unit_str<'%'>]>): $mol_style_func<"linear", string[]>;
+        static cubic_bezier(x1: number, y1: number, x2: number, y2: number): $mol_style_func<"cubic-bezier", number[]>;
+        static steps(value: number, step_position: 'jump-start' | 'jump-end' | 'jump-none' | 'jump-both' | 'start' | 'end'): $mol_style_func<"steps", (number | "end" | "start" | "jump-start" | "jump-end" | "jump-none" | "jump-both")[]>;
+        static blur(value?: $mol_style_unit_str<$mol_style_unit_length>): $mol_style_func<"blur", string>;
+        static brightness(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"brightness", string | number>;
+        static contrast(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"contrast", string | number>;
+        static drop_shadow(color: $mol_style_properties_color, x_offset: $mol_style_unit_str<$mol_style_unit_length>, y_offset: $mol_style_unit_str<$mol_style_unit_length>, blur_radius?: $mol_style_unit_str<$mol_style_unit_length>): $mol_style_func<"drop-shadow", (`${number}%` | `${number}px` | `${number}mm` | `${number}cm` | `${number}Q` | `${number}in` | `${number}pc` | `${number}pt` | `${number}cap` | `${number}ch` | `${number}em` | `${number}rem` | `${number}ex` | `${number}ic` | `${number}lh` | `${number}rlh` | `${number}vh` | `${number}vw` | `${number}vi` | `${number}vb` | `${number}vmin` | `${number}vmax` | $mol_style_properties_color)[]>;
+        static grayscale(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"grayscale", string | number>;
+        static hue_rotate(value?: 0 | $mol_style_unit_str<$mol_style_unit_angle>): $mol_style_func<"hue-rotate", string | 0>;
+        static invert(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"invert", string | number>;
+        static opacity(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"opacity", string | number>;
+        static sepia(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"sepia", string | number>;
+        static saturate(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"saturate", string | number>;
+    }
+}
+
+declare namespace $ {
+    export type $mol_style_properties = Partial<$mol_type_override<CSSStyleDeclaration, Overrides>>;
+    type Common = 'inherit' | 'initial' | 'unset' | 'revert' | 'revert-layer' | 'none' | $mol_style_func<'var'>;
+    export type $mol_style_properties_color = 'aliceblue' | 'antiquewhite' | 'aqua' | 'aquamarine' | 'azure' | 'beige' | 'bisque' | 'black' | 'blanchedalmond' | 'blue' | 'blueviolet' | 'brown' | 'burlywood' | 'cadetblue' | 'chartreuse' | 'chocolate' | 'coral' | 'cornflowerblue' | 'cornsilk' | 'crimson' | 'cyan' | 'darkblue' | 'darkcyan' | 'darkgoldenrod' | 'darkgray' | 'darkgreen' | 'darkgrey' | 'darkkhaki' | 'darkmagenta' | 'darkolivegreen' | 'darkorange' | 'darkorchid' | 'darkred' | 'darksalmon' | 'darkseagreen' | 'darkslateblue' | 'darkslategrey' | 'darkturquoise' | 'darkviolet' | 'deeppink' | 'deepskyblue' | 'dimgray' | 'dimgrey' | 'dodgerblue' | 'firebrick' | 'floralwhite' | 'forestgreen' | 'fuchsia' | 'gainsboro' | 'ghostwhite' | 'gold' | 'goldenrod' | 'gray' | 'green' | 'greenyellow' | 'grey' | 'honeydew' | 'hotpink' | 'indianred' | 'indigo' | 'ivory' | 'khaki' | 'lavender' | 'lavenderblush' | 'lawngreen' | 'lemonchiffon' | 'lightblue' | 'lightcoral' | 'lightcyan' | 'lightgoldenrodyellow' | 'lightgray' | 'lightgreen' | 'lightgrey' | 'lightpink' | 'lightsalmon' | 'lightseagreen' | 'lightskyblue' | 'lightslategray' | 'lightslategrey' | 'lightsteelblue' | 'lightyellow' | 'lime' | 'limegreen' | 'linen' | 'magenta' | 'maroon' | 'mediumaquamarine' | 'mediumblue' | 'mediumorchid' | 'mediumpurple' | 'mediumseagreen' | 'mediumslateblue' | 'mediumspringgreen' | 'mediumturquoise' | 'mediumvioletred' | 'midnightblue' | 'mintcream' | 'mistyrose' | 'moccasin' | 'navajowhite' | 'navy' | 'oldlace' | 'olive' | 'olivedrab' | 'orange' | 'orangered' | 'orchid' | 'palegoldenrod' | 'palegreen' | 'paleturquoise' | 'palevioletred' | 'papayawhip' | 'peachpuff' | 'peru' | 'pink' | 'plum' | 'powderblue' | 'purple' | 'rebeccapurple' | 'red' | 'rosybrown' | 'royalblue' | 'saddlebrown' | 'salmon' | 'sandybrown' | 'seagreen' | 'seashell' | 'sienna' | 'silver' | 'skyblue' | 'slateblue' | 'slategray' | 'slategrey' | 'snow' | 'springgreen' | 'steelblue' | 'tan' | 'teal' | 'thistle' | 'tomato' | 'turquoise' | 'violet' | 'wheat' | 'white' | 'whitesmoke' | 'yellow' | 'yellowgreen' | 'transparent' | 'currentcolor' | $mol_style_func<'hsla' | 'rgba' | 'var'> | `#${string}`;
+    type Length = 0 | `${number}${$mol_style_unit_length}` | $mol_style_func<'calc' | 'var' | 'clamp'>;
+    type Size = 'auto' | 'max-content' | 'min-content' | 'fit-content' | Length | Common;
+    type Directions<Value> = Value | readonly [Value, Value] | {
+        top?: Value;
+        right?: Value;
+        bottom?: Value;
+        left?: Value;
+    };
+    type Single_animation_composition = 'replace' | 'add' | 'accumulate';
+    type Single_animation_direction = 'normal' | 'reverse' | 'alternate' | 'alternate-reverse';
+    type Single_animation_fill_mode = 'none' | 'forwards' | 'backwards' | 'both';
+    type Single_animation_iteration_count = 'infinite' | number;
+    type Single_animation_play_state = 'running' | 'paused';
+    type Easing_function = Linear_easing_function | Cubic_bezier_easing_function | Step_easing_function;
+    type Linear_easing_function = 'linear' | $mol_style_func<'linear'>;
+    type Cubic_bezier_easing_function = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | $mol_style_func<'cubic-bezier'>;
+    type Step_easing_function = 'step-start' | 'step-end' | $mol_style_func<'steps'>;
+    type Compat_auto = 'searchfield' | 'textarea' | 'push-button' | 'slider-horizontal' | 'checkbox' | 'radio' | 'menulist' | 'listbox' | 'meter' | 'progress-bar' | 'button';
+    type Compat_special = 'textfield' | 'menulist-button';
+    type Mix_blend_mode = Blend_mode | 'plus-darker' | 'plus-lighter';
+    type Blend_mode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity';
+    type Box = 'border-box' | 'padding-box' | 'content-box';
+    type Baseline_position = 'baseline' | `${'first' | 'last'} baseline`;
+    type Content_distribution = 'space-between' | 'space-around' | 'space-evenly' | 'stretch';
+    type Self_position = 'center' | 'start' | 'end' | 'self-start' | 'self-end' | 'flex-start' | 'flex-end';
+    type Content_position = 'center' | 'start' | 'end' | 'flex-start' | 'flex-end';
+    type Span_align = 'none' | 'start' | 'end' | 'center' | $mol_style_func<'var'>;
+    type Snap_axis = 'x' | 'y' | 'block' | 'inline' | 'both' | $mol_style_func<'var'>;
+    type Overflow = 'visible' | 'hidden' | 'clip' | 'scroll' | 'auto' | 'overlay' | Common;
+    type Overflow_position = 'unsafe' | 'safe';
+    type ContainRule = 'size' | 'layout' | 'style' | 'paint' | $mol_style_func<'var'>;
+    type Repeat = 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat' | $mol_style_func<'var'>;
+    type BG_size = Length | 'auto' | 'contain' | 'cover';
+    interface Overrides {
+        accentColor?: $mol_style_properties_color | Common;
+        align?: {
+            content?: 'normal' | Baseline_position | Content_distribution | Content_position | `${Overflow_position} ${Content_position}` | Common;
+            items?: 'normal' | 'stretch' | Baseline_position | Self_position | `${Overflow_position} ${Self_position}` | Common;
+            self?: 'auto' | 'normal' | 'stretch' | Baseline_position | Self_position | `${Overflow_position} ${Self_position}` | Common;
+        };
+        justify?: {
+            content?: 'normal' | Baseline_position | Content_distribution | Content_position | `${Overflow_position} ${Content_position}` | Common;
+            items?: 'normal' | 'stretch' | Baseline_position | Self_position | `${Overflow_position} ${Self_position}` | Common;
+            self?: 'auto' | 'normal' | 'stretch' | Baseline_position | Self_position | `${Overflow_position} ${Self_position}` | Common;
+        };
+        all?: Common;
+        animation?: {
+            composition?: Single_animation_composition | Single_animation_composition[][] | Common;
+            delay?: $mol_style_unit_str<$mol_style_unit_time> | $mol_style_unit_str<$mol_style_unit_time>[][] | Common;
+            direction?: Single_animation_direction | Single_animation_direction[][] | Common;
+            duration?: $mol_style_unit_str<$mol_style_unit_time> | $mol_style_unit_str<$mol_style_unit_time>[][] | Common;
+            fillMode?: Single_animation_fill_mode | Single_animation_fill_mode[][] | Common;
+            iterationCount?: Single_animation_iteration_count | Single_animation_iteration_count[][] | Common;
+            name?: 'none' | string & {} | ('none' | string & {})[][] | Common;
+            playState?: Single_animation_play_state | Single_animation_play_state[][] | Common;
+            timingFunction?: Easing_function | Easing_function[][] | Common;
+        };
+        appearance?: 'none' | 'auto' | Compat_auto | Compat_special | Common;
+        aspectRatio?: 'auto' | number | `${number} / ${number}`;
+        backdropFilter: $mol_style_func<$mol_style_func_filter> | $mol_style_func<'url'> | ($mol_style_func<$mol_style_func_filter> | $mol_style_func<'url'>)[][] | 'none' | Common;
+        backfaceVisibility: 'visible' | 'hidden' | Common;
+        justifyContent?: 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right' | 'space-between' | 'space-around' | 'space-evenly' | 'normal' | 'stretch' | 'center' | Common;
+        gap?: Length;
+        background?: 'none' | {
+            attachment?: 'scroll' | 'fixed' | 'local' | ('scroll' | 'fixed' | 'local')[][] | Common;
+            blendMode?: Mix_blend_mode | Mix_blend_mode[][] | Common;
+            clip?: Box | Box[][] | Common;
+            color?: $mol_style_properties_color | Common;
+            image?: readonly (readonly [$mol_style_func<$mol_style_func_image> | string & {}])[] | 'none' | Common;
+            repeat?: Repeat | [Repeat, Repeat] | Common;
+            position?: 'left' | 'right' | 'top' | 'bottom' | 'center' | Common;
+            size?: (BG_size | [BG_size] | [BG_size, BG_size])[];
+        };
+        box?: {
+            shadow?: readonly ([
+                ...[inset: 'inset'] | [],
+                x: Length,
+                y: Length,
+                blur: Length,
+                spread: Length,
+                color: $mol_style_properties_color
+            ] | {
+                inset?: boolean;
+                x: Length;
+                y: Length;
+                blur: Length;
+                spread: Length;
+                color: $mol_style_properties_color;
+            })[] | 'none' | Common;
+        };
+        font?: {
+            style?: 'normal' | 'italic' | Common;
+            weight?: 'normal' | 'bold' | 'lighter' | 'bolder' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | Common;
+            size?: 'xx-small' | 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'xx-large' | 'xxx-large' | 'smaller' | 'larger' | Length | Common;
+            family?: string & {} | 'serif' | 'sans-serif' | 'monospace' | 'cursive' | 'fantasy' | 'system-ui' | 'ui-serif' | 'ui-sans-serif' | 'ui-monospace' | 'ui-rounded' | 'emoji' | 'math' | 'fangsong' | Common;
+        };
+        color?: $mol_style_properties_color | Common;
+        display?: 'block' | 'inline' | 'run-in' | 'list-item' | 'none' | 'flow' | 'flow-root' | 'table' | 'flex' | 'grid' | 'contents' | 'table-row-group' | 'table-header-group' | 'table-footer-group' | 'table-column-group' | 'table-row' | 'table-cell' | 'table-column' | 'table-caption' | 'inline-block' | 'inline-table' | 'inline-flex' | 'inline-grid' | 'ruby' | 'ruby-base' | 'ruby-text' | 'ruby-base-container' | 'ruby-text-container' | Common;
+        overflow?: Overflow | {
+            x?: Overflow | Common;
+            y?: Overflow | Common;
+            anchor?: 'auto' | 'none' | Common;
+        };
+        contain?: 'none' | 'strict' | 'content' | ContainRule | readonly ContainRule[] | Common;
+        whiteSpace?: 'normal' | 'nowrap' | 'break-spaces' | 'pre' | 'pre-wrap' | 'pre-line' | Common;
+        webkitOverflowScrolling?: 'auto' | 'touch' | Common;
+        scrollbar?: {
+            color?: readonly [$mol_style_properties_color, $mol_style_properties_color] | 'auto' | Common;
+            width?: 'auto' | 'thin' | 'none' | Common;
+        };
+        scroll?: {
+            snap?: {
+                type: 'none' | Snap_axis | readonly [Snap_axis, 'mandatory' | 'proximity'] | Common;
+                stop: 'normal' | 'always' | Common;
+                align: Span_align | readonly [Span_align, Span_align] | Common;
+            };
+            padding?: Directions<Length | 'auto'>;
+        };
+        width?: Size;
+        minWidth?: Size;
+        maxWidth?: Size;
+        height?: Size;
+        minHeight?: Size;
+        maxHeight?: Size;
+        margin?: Directions<Length | 'auto'>;
+        padding?: Directions<Length | 'auto'>;
+        position?: 'static' | 'relative' | 'absolute' | 'sticky' | 'fixed' | Common;
+        top?: Length | 'auto' | Common;
+        right?: Length | 'auto' | Common;
+        bottom?: Length | 'auto' | Common;
+        left?: Length | 'auto' | Common;
+        border?: Directions<{
+            radius?: Length | [Length, Length];
+            style?: 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset' | Common;
+            color?: $mol_style_properties_color | Common;
+            width?: Length | Common;
+        }>;
+        flex?: 'none' | 'auto' | {
+            grow?: number | Common;
+            shrink?: number | Common;
+            basis?: Size | Common;
+            direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse' | Common;
+            wrap?: 'wrap' | 'nowrap' | 'wrap-reverse' | Common;
+        };
+        zIndex: number | Common;
+        opacity: number | Common;
+    }
+    export {};
+}
+
+declare namespace $ {
+    function $mol_style_prop<Keys extends string[]>(prefix: string, keys: Keys): Record<Keys[number], $mol_style_func<"var", unknown>>;
+}
+
+declare namespace $ {
+    const $mol_theme: Record<"image" | "line" | "text" | "current" | "field" | "focus" | "back" | "hover" | "card" | "special" | "control" | "shade" | "spirit", $mol_style_func<"var", unknown>>;
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    let $mol_gap: Record<"text" | "space" | "block" | "blur" | "round", $mol_style_func<"var", unknown>>;
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    type $mol_view_content = $mol_view | Node | string | number | boolean | null;
+    function $mol_view_visible_width(): number;
+    function $mol_view_visible_height(): number;
+    function $mol_view_state_key(suffix: string): string;
+    class $mol_view extends $mol_object {
+        static Root<This extends typeof $mol_view>(this: This, id: number): InstanceType<This>;
+        autorun(): void;
+        static autobind(): void;
+        title(): string;
+        focused(next?: boolean): boolean;
+        state_key(suffix?: string): string;
+        dom_name(): string;
+        dom_name_space(): string;
+        sub(): readonly $mol_view_content[];
+        sub_visible(): readonly $mol_view_content[];
+        minimal_width(): number;
+        maximal_width(): number;
+        minimal_height(): number;
+        static watchers: Set<$mol_view>;
+        view_rect(): {
+            width: number;
+            height: number;
+            left: number;
+            right: number;
+            top: number;
+            bottom: number;
+        } | null;
+        dom_id(): string;
+        dom_node_external(next?: Element): Element;
+        dom_node(next?: Element): Element;
+        dom_final(): Element | undefined;
+        dom_tree(next?: Element): Element;
+        dom_node_actual(): Element;
+        auto(): any;
+        render(): void;
+        static view_classes(): (typeof $mol_view)[];
+        static _view_names?: Map<string, string[]>;
+        static view_names(suffix: string): string[];
+        view_names_owned(): string[];
+        view_names(): Set<string>;
+        theme(next?: null | string): string | null;
+        attr_static(): {
+            [key: string]: string | number | boolean | null;
+        };
+        attr(): {};
+        style_size(): {
+            [key: string]: string | number;
+        };
+        style(): {
+            [key: string]: string | number;
+        };
+        field(): {
+            [key: string]: any;
+        };
+        event(): {
+            [key: string]: (event: Event) => void;
+        };
+        event_async(): {
+            [x: string]: (event: Event) => Promise<void>;
+        };
+        plugins(): readonly $mol_view[];
+        [$mol_dev_format_head](): any[];
+        view_find(check: (path: $mol_view, text?: string) => boolean, path?: $mol_view[]): Generator<$mol_view[]>;
+        force_render(path: Set<$mol_view>): void;
+        ensure_visible(view: $mol_view, align?: ScrollLogicalPosition): void;
+        bring(): void;
+        destructor(): void;
+    }
+    type $mol_view_all = $mol_type_pick<$, typeof $mol_view>;
+}
+
+declare namespace $ {
+}
+
+interface Window {
+    cordova: any;
+}
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_plugin extends $mol_view {
+        dom_node_external(next?: Element): Element;
+        render(): void;
+    }
+}
+
+declare namespace $ {
+
+	export class $apxu_hover extends $mol_plugin {
+		event_show( next?: any ): any
+		event_hide( next?: any ): any
+		hovered( next?: boolean ): boolean
+		event( ): ({ 
+			mouseenter( next?: ReturnType< $apxu_hover['event_show'] > ): ReturnType< $apxu_hover['event_show'] >,
+			mouseleave( next?: ReturnType< $apxu_hover['event_hide'] > ): ReturnType< $apxu_hover['event_hide'] >,
+		}) 
+	}
+	
+}
+
+//# sourceMappingURL=hover.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $apxu_hover extends $.$apxu_hover {
+        event_show(event?: MouseEvent): void;
+        event_hide(event?: MouseEvent): void;
+    }
+}
+
+declare namespace $ {
     const $hyoo_crus_home_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
         readonly Selection: (auto?: any) => $hyoo_crus_atom_str | null;
         readonly Hall: (auto?: any) => {
@@ -3955,6 +4517,2056 @@ declare namespace $ {
             units: $hyoo_crus_unit[];
         }>, rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer> | null][]): void;
     }
+}
+
+declare namespace $ {
+    class $mol_state_time extends $mol_object {
+        static task(precision: number, reset?: null): $mol_after_timeout | $mol_after_frame;
+        static now(precision: number): number;
+    }
+}
+
+declare namespace $ {
+
+	export class $mol_svg extends $mol_view {
+		dom_name( ): string
+		dom_name_space( ): string
+		font_size( ): number
+		font_family( ): string
+		style_size( ): Record<string, any>
+	}
+	
+}
+
+//# sourceMappingURL=svg.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_svg extends $.$mol_svg {
+        computed_style(): Record<string, any>;
+        font_size(): number;
+        font_family(): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_svg_root extends $mol_svg {
+		view_box( ): string
+		aspect( ): string
+		dom_name( ): string
+		attr( ): ({ 
+			'viewBox': ReturnType< $mol_svg_root['view_box'] >,
+			'preserveAspectRatio': ReturnType< $mol_svg_root['aspect'] >,
+		})  & ReturnType< $mol_svg['attr'] >
+	}
+	
+}
+
+//# sourceMappingURL=root.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_svg_path extends $mol_svg {
+		geometry( ): string
+		dom_name( ): string
+		attr( ): ({ 
+			'd': ReturnType< $mol_svg_path['geometry'] >,
+		})  & ReturnType< $mol_svg['attr'] >
+	}
+	
+}
+
+//# sourceMappingURL=path.view.tree.d.ts.map
+declare namespace $ {
+    type $mol_type_enforce<Actual extends Expected, Expected> = Actual;
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_svg_path__geometry_mol_icon_1 = $mol_type_enforce<
+		ReturnType< $mol_icon['path'] >
+		,
+		ReturnType< $mol_svg_path['geometry'] >
+	>
+	export class $mol_icon extends $mol_svg_root {
+		path( ): string
+		Path( ): $mol_svg_path
+		view_box( ): string
+		minimal_width( ): number
+		minimal_height( ): number
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=icon.view.tree.d.ts.map
+declare namespace $ {
+    export function num_to_bigint(num?: number): bigint | undefined;
+    export type DirectionType = "up" | "right" | "down" | "left";
+    export type TransitionPosition = "up_left" | "up_middle" | "up_right" | "right" | "down_right" | "down_middle" | "down_left" | "left";
+    export const TransitionPositions: TransitionPosition[];
+    const BlockDirection_base: (abstract new () => {
+        val(next?: "left" | "right" | "up" | "down" | undefined): "left" | "right" | "up" | "down" | null;
+        val_of(peer: string | null, next?: "left" | "right" | "up" | "down" | undefined): "left" | "right" | "up" | "down" | null;
+        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        [$mol_dev_format_head](): any[];
+        land(): $hyoo_crus_land;
+        head(): string;
+        land_ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        toJSON(): string | undefined;
+        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $hyoo_crus_sand[];
+        units_of(peer: string | null): $hyoo_crus_sand[];
+        filled(): boolean;
+        can_change(): boolean;
+        last_change(): $mol_time_moment | null;
+        author_peers(): string[];
+        author_lords(): (symbol & {
+            $hyoo_crus_ref: symbol;
+        })[];
+        get $(): $;
+        set $(next: $);
+        destructor(): void;
+        toString(): string;
+        [Symbol.toStringTag]: string;
+        [$mol_ambient_ref]: $;
+    }) & {
+        options: readonly ["up", "right", "down", "left"];
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class BlockDirection extends BlockDirection_base {
+    }
+    const TransitionPositionData_base: (abstract new () => {
+        val(next?: TransitionPosition | undefined): TransitionPosition | null;
+        val_of(peer: string | null, next?: TransitionPosition | undefined): TransitionPosition | null;
+        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        [$mol_dev_format_head](): any[];
+        land(): $hyoo_crus_land;
+        head(): string;
+        land_ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        toJSON(): string | undefined;
+        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $hyoo_crus_sand[];
+        units_of(peer: string | null): $hyoo_crus_sand[];
+        filled(): boolean;
+        can_change(): boolean;
+        last_change(): $mol_time_moment | null;
+        author_peers(): string[];
+        author_lords(): (symbol & {
+            $hyoo_crus_ref: symbol;
+        })[];
+        get $(): $;
+        set $(next: $);
+        destructor(): void;
+        toString(): string;
+        [Symbol.toStringTag]: string;
+        [$mol_ambient_ref]: $;
+    }) & {
+        options: TransitionPosition[];
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class TransitionPositionData extends TransitionPositionData_base {
+    }
+    const TransitionPort_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
+        readonly Block: (auto?: any) => {
+            Value: Value;
+            remote(next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
+            remote_of(peer: string | null, next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
+            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
+            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
+            ensure_here(peer: string | null): void;
+            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
+            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
+            remote_ensure(preset?: $hyoo_crus_rank_preset): $apxu_samosbor_map_block_data | null;
+            local_ensure(): $apxu_samosbor_map_block_data | null;
+            val(next?: (symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null | undefined): (symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null;
+            val_of(peer: string | null, next?: (symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null | undefined): (symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null;
+            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            [$mol_dev_format_head](): any[];
+            land(): $hyoo_crus_land;
+            head(): string;
+            land_ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            toJSON(): string | undefined;
+            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $hyoo_crus_sand[];
+            units_of(peer: string | null): $hyoo_crus_sand[];
+            filled(): boolean;
+            can_change(): boolean;
+            last_change(): $mol_time_moment | null;
+            author_peers(): string[];
+            author_lords(): (symbol & {
+                $hyoo_crus_ref: symbol;
+            })[];
+            get $(): $;
+            set $(next: $);
+            destructor(): void;
+            toString(): string;
+            [Symbol.toStringTag]: string;
+            [$mol_ambient_ref]: $;
+        } | null;
+        readonly Floor: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly Position: (auto?: any) => TransitionPositionData | null;
+    }>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        } & {
+            readonly Block: {
+                new (): {
+                    Value: () => typeof $apxu_samosbor_map_block_data;
+                    remote(next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
+                    remote_of(peer: string | null, next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
+                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
+                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
+                    ensure_here(peer: string | null): void;
+                    ensure_area(peer: string | null, land: $hyoo_crus_land): void;
+                    ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
+                    remote_ensure(preset?: $hyoo_crus_rank_preset): $apxu_samosbor_map_block_data | null;
+                    local_ensure(): $apxu_samosbor_map_block_data | null;
+                    val(next?: (symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null | undefined): (symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null;
+                    val_of(peer: string | null, next?: (symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null | undefined): (symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null;
+                    pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+                    vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+                    vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+                    [$mol_dev_format_head](): any[];
+                    land(): $hyoo_crus_land;
+                    head(): string;
+                    land_ref(): symbol & {
+                        $hyoo_crus_ref: symbol;
+                    };
+                    ref(): symbol & {
+                        $hyoo_crus_ref: symbol;
+                    };
+                    toJSON(): string | undefined;
+                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $hyoo_crus_sand[];
+                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    filled(): boolean;
+                    can_change(): boolean;
+                    last_change(): $mol_time_moment | null;
+                    author_peers(): string[];
+                    author_lords(): (symbol & {
+                        $hyoo_crus_ref: symbol;
+                    })[];
+                    get $(): $;
+                    set $(next: $);
+                    destructor(): void;
+                    toString(): string;
+                    [Symbol.toStringTag]: string;
+                    [$mol_ambient_ref]: $;
+                };
+                toString(): any;
+                Value: typeof $hyoo_crus_dict;
+                parse: typeof $hyoo_crus_vary_cast_ref;
+                tag: keyof typeof $hyoo_crus_sand_tag;
+                make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+                $: $;
+                create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+                toJSON(): any;
+                destructor(): void;
+                [Symbol.toPrimitive](): any;
+            };
+            readonly Floor: typeof $hyoo_crus_atom_int;
+            readonly Position: typeof TransitionPositionData;
+        };
+    };
+    export class TransitionPort extends TransitionPort_base {
+        is_correct(floor: number, position: typeof TransitionPositionData.options[number]): boolean;
+    }
+    const TransitionData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
+        readonly From: (auto?: any) => TransitionPort | null;
+        readonly To: (auto?: any) => TransitionPort | null;
+    }>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        } & {
+            readonly From: typeof TransitionPort;
+            readonly To: typeof TransitionPort;
+        };
+    };
+    export class TransitionData extends TransitionData_base {
+        get_connected_block(ref: any): (symbol & {
+            $hyoo_crus_ref: symbol;
+        }) | null | undefined;
+        remove_transition(): void;
+    }
+    const FlightType_base: (abstract new () => {
+        val(next?: "stairs" | "elevator" | "ladder_elevator" | undefined): "stairs" | "elevator" | "ladder_elevator" | null;
+        val_of(peer: string | null, next?: "stairs" | "elevator" | "ladder_elevator" | undefined): "stairs" | "elevator" | "ladder_elevator" | null;
+        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        [$mol_dev_format_head](): any[];
+        land(): $hyoo_crus_land;
+        head(): string;
+        land_ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        toJSON(): string | undefined;
+        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $hyoo_crus_sand[];
+        units_of(peer: string | null): $hyoo_crus_sand[];
+        filled(): boolean;
+        can_change(): boolean;
+        last_change(): $mol_time_moment | null;
+        author_peers(): string[];
+        author_lords(): (symbol & {
+            $hyoo_crus_ref: symbol;
+        })[];
+        get $(): $;
+        set $(next: $);
+        destructor(): void;
+        toString(): string;
+        [Symbol.toStringTag]: string;
+        [$mol_ambient_ref]: $;
+    }) & {
+        options: readonly ["stairs", "elevator", "ladder_elevator"];
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class FlightType extends FlightType_base {
+    }
+    const FlightStatus_base: (abstract new () => {
+        val(next?: "free" | "blocked" | undefined): "free" | "blocked" | null;
+        val_of(peer: string | null, next?: "free" | "blocked" | undefined): "free" | "blocked" | null;
+        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        [$mol_dev_format_head](): any[];
+        land(): $hyoo_crus_land;
+        head(): string;
+        land_ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        toJSON(): string | undefined;
+        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $hyoo_crus_sand[];
+        units_of(peer: string | null): $hyoo_crus_sand[];
+        filled(): boolean;
+        can_change(): boolean;
+        last_change(): $mol_time_moment | null;
+        author_peers(): string[];
+        author_lords(): (symbol & {
+            $hyoo_crus_ref: symbol;
+        })[];
+        get $(): $;
+        set $(next: $);
+        destructor(): void;
+        toString(): string;
+        [Symbol.toStringTag]: string;
+        [$mol_ambient_ref]: $;
+    }) & {
+        options: readonly ["free", "blocked"];
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class FlightStatus extends FlightStatus_base {
+    }
+    const FlightData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
+        readonly Type: (auto?: any) => FlightType | null;
+        readonly Status: (auto?: any) => FlightStatus | null;
+    }>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        } & {
+            readonly Type: typeof FlightType;
+            readonly Status: typeof FlightStatus;
+        };
+    };
+    export class FlightData extends FlightData_base {
+    }
+    const PassageType_base: (abstract new () => {
+        val(next?: "noway" | "normal" | "stairs_up" | "stairs_down" | undefined): "noway" | "normal" | "stairs_up" | "stairs_down" | null;
+        val_of(peer: string | null, next?: "noway" | "normal" | "stairs_up" | "stairs_down" | undefined): "noway" | "normal" | "stairs_up" | "stairs_down" | null;
+        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        [$mol_dev_format_head](): any[];
+        land(): $hyoo_crus_land;
+        head(): string;
+        land_ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        toJSON(): string | undefined;
+        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $hyoo_crus_sand[];
+        units_of(peer: string | null): $hyoo_crus_sand[];
+        filled(): boolean;
+        can_change(): boolean;
+        last_change(): $mol_time_moment | null;
+        author_peers(): string[];
+        author_lords(): (symbol & {
+            $hyoo_crus_ref: symbol;
+        })[];
+        get $(): $;
+        set $(next: $);
+        destructor(): void;
+        toString(): string;
+        [Symbol.toStringTag]: string;
+        [$mol_ambient_ref]: $;
+    }) & {
+        options: readonly ["noway", "normal", "stairs_up", "stairs_down"];
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class PassageType extends PassageType_base {
+    }
+    const PassageStatus_base: (abstract new () => {
+        val(next?: "free" | "blocked" | "danger" | undefined): "free" | "blocked" | "danger" | null;
+        val_of(peer: string | null, next?: "free" | "blocked" | "danger" | undefined): "free" | "blocked" | "danger" | null;
+        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        [$mol_dev_format_head](): any[];
+        land(): $hyoo_crus_land;
+        head(): string;
+        land_ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        toJSON(): string | undefined;
+        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $hyoo_crus_sand[];
+        units_of(peer: string | null): $hyoo_crus_sand[];
+        filled(): boolean;
+        can_change(): boolean;
+        last_change(): $mol_time_moment | null;
+        author_peers(): string[];
+        author_lords(): (symbol & {
+            $hyoo_crus_ref: symbol;
+        })[];
+        get $(): $;
+        set $(next: $);
+        destructor(): void;
+        toString(): string;
+        [Symbol.toStringTag]: string;
+        [$mol_ambient_ref]: $;
+    }) & {
+        options: readonly ["free", "blocked", "danger"];
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class PassageStatus extends PassageStatus_base {
+    }
+    const PassageData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
+        readonly Type: (auto?: any) => PassageType | null;
+        readonly Status: (auto?: any) => PassageStatus | null;
+    }>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        } & {
+            readonly Type: typeof PassageType;
+            readonly Status: typeof PassageStatus;
+        };
+    };
+    export class PassageData extends PassageData_base {
+    }
+    const PassageDirections: {
+        UpLeftPassage: typeof PassageData;
+        UpMiddlePassage: typeof PassageData;
+        UpRightPassage: typeof PassageData;
+        LeftPassage: typeof PassageData;
+        RightPassage: typeof PassageData;
+        DownLeftPassage: typeof PassageData;
+        DownMiddlePassage: typeof PassageData;
+        DownRightPassage: typeof PassageData;
+    };
+    const FenceData_base: (abstract new () => {
+        val(next?: "missing" | "hole" | "solid" | undefined): "missing" | "hole" | "solid" | null;
+        val_of(peer: string | null, next?: "missing" | "hole" | "solid" | undefined): "missing" | "hole" | "solid" | null;
+        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        [$mol_dev_format_head](): any[];
+        land(): $hyoo_crus_land;
+        head(): string;
+        land_ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        toJSON(): string | undefined;
+        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $hyoo_crus_sand[];
+        units_of(peer: string | null): $hyoo_crus_sand[];
+        filled(): boolean;
+        can_change(): boolean;
+        last_change(): $mol_time_moment | null;
+        author_peers(): string[];
+        author_lords(): (symbol & {
+            $hyoo_crus_ref: symbol;
+        })[];
+        get $(): $;
+        set $(next: $);
+        destructor(): void;
+        toString(): string;
+        [Symbol.toStringTag]: string;
+        [$mol_ambient_ref]: $;
+    }) & {
+        options: readonly ["missing", "hole", "solid"];
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class FenceData extends FenceData_base {
+    }
+    const FloorData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
+        readonly Fence: (auto?: any) => FenceData | null;
+        readonly LeftFlight: (auto?: any) => FlightStatus | null;
+        readonly RightFlight: (auto?: any) => FlightStatus | null;
+        readonly IsDouble: (auto?: any) => $hyoo_crus_atom_bool | null;
+        readonly UpLeftPassage: (auto?: any) => PassageData | null;
+        readonly UpMiddlePassage: (auto?: any) => PassageData | null;
+        readonly UpRightPassage: (auto?: any) => PassageData | null;
+        readonly LeftPassage: (auto?: any) => PassageData | null;
+        readonly RightPassage: (auto?: any) => PassageData | null;
+        readonly DownLeftPassage: (auto?: any) => PassageData | null;
+        readonly DownMiddlePassage: (auto?: any) => PassageData | null;
+        readonly DownRightPassage: (auto?: any) => PassageData | null;
+    }>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        } & {
+            readonly Fence: typeof FenceData;
+            readonly LeftFlight: typeof FlightStatus;
+            readonly RightFlight: typeof FlightStatus;
+            readonly IsDouble: typeof $hyoo_crus_atom_bool;
+            readonly UpLeftPassage: typeof PassageData;
+            readonly UpMiddlePassage: typeof PassageData;
+            readonly UpRightPassage: typeof PassageData;
+            readonly LeftPassage: typeof PassageData;
+            readonly RightPassage: typeof PassageData;
+            readonly DownLeftPassage: typeof PassageData;
+            readonly DownMiddlePassage: typeof PassageData;
+            readonly DownRightPassage: typeof PassageData;
+        };
+    };
+    export class FloorData extends FloorData_base {
+        static readonly positions_map: {
+            [pos in TransitionPosition]: keyof typeof PassageDirections;
+        };
+        static get_passage_type(transition: TransitionPosition, floor_data?: FloorData, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
+        static is_passage_free(transition: TransitionPosition, floor_data?: FloorData): boolean;
+        get_passage_type(transition: TransitionPosition): typeof PassageType.options[number];
+        is_passage_free(transition: TransitionPosition): boolean;
+        fence_type(next?: typeof FenceData.options[number]): "missing" | "hole" | "solid";
+        set_next_fence_type(): void;
+        flight_status(what: "left" | "right", next?: typeof FlightStatus.options[number]): "free" | "blocked";
+        next_flight_status(what: "left" | "right"): void;
+        all_passages(): ("noway" | "normal" | "stairs_up" | "stairs_down")[];
+        is_double_floor(next?: boolean): boolean;
+    }
+    const FloorsData_base: {
+        new (): {
+            Value: typeof FloorData;
+            key(key: $hyoo_crus_vary_type, auto?: any): FloorData;
+            keys(): readonly $hyoo_crus_vary_type[];
+            dive<Node_1 extends typeof $hyoo_crus_node>(key: $hyoo_crus_vary_type, Node: Node_1, auto?: any): InstanceType<Node_1> | null;
+            [$mol_dev_format_head](): any[];
+            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
+            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
+            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
+            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+            cut(vary: $hyoo_crus_vary_type): void;
+            move(from: number, to: number): void;
+            wipe(seat: number): void;
+            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            land(): $hyoo_crus_land;
+            head(): string;
+            land_ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            toJSON(): string | undefined;
+            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $hyoo_crus_sand[];
+            units_of(peer: string | null): $hyoo_crus_sand[];
+            filled(): boolean;
+            can_change(): boolean;
+            last_change(): $mol_time_moment | null;
+            author_peers(): string[];
+            author_lords(): (symbol & {
+                $hyoo_crus_ref: symbol;
+            })[];
+            get $(): $;
+            set $(next: $);
+            destructor(): void;
+            toString(): string;
+            [Symbol.toStringTag]: string;
+            [$mol_ambient_ref]: $;
+        };
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        schema: Record<string, typeof $hyoo_crus_node>;
+        with<This extends typeof $hyoo_crus_dict, const Schema extends Record<string, {
+            tag: keyof typeof $hyoo_crus_sand_tag;
+            new (): {};
+        }>>(this: This, schema: Schema): Omit<This, "prototype"> & (new (...args: any[]) => $mol_type_override<InstanceType<This>, { readonly [Key in keyof Schema]: (auto?: any) => InstanceType<Schema[Key]> | null; }>) & {
+            schema: {
+                [x: string]: typeof $hyoo_crus_node;
+            } & Schema;
+        };
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class FloorsData extends FloorsData_base {
+    }
+    const BlockType_base: (abstract new () => {
+        val(next?: "residential" | "frozen" | "infected" | "destroyed" | undefined): "residential" | "frozen" | "infected" | "destroyed" | null;
+        val_of(peer: string | null, next?: "residential" | "frozen" | "infected" | "destroyed" | undefined): "residential" | "frozen" | "infected" | "destroyed" | null;
+        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        [$mol_dev_format_head](): any[];
+        land(): $hyoo_crus_land;
+        head(): string;
+        land_ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        toJSON(): string | undefined;
+        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $hyoo_crus_sand[];
+        units_of(peer: string | null): $hyoo_crus_sand[];
+        filled(): boolean;
+        can_change(): boolean;
+        last_change(): $mol_time_moment | null;
+        author_peers(): string[];
+        author_lords(): (symbol & {
+            $hyoo_crus_ref: symbol;
+        })[];
+        get $(): $;
+        set $(next: $);
+        destructor(): void;
+        toString(): string;
+        [Symbol.toStringTag]: string;
+        [$mol_ambient_ref]: $;
+    }) & {
+        options: readonly ["residential", "frozen", "infected", "destroyed"];
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class BlockType extends BlockType_base {
+    }
+    const ProfessionType_base: (abstract new () => {
+        val(next?: "liquidator" | "repairman" | "cleaner" | "plumber" | undefined): "liquidator" | "repairman" | "cleaner" | "plumber" | null;
+        val_of(peer: string | null, next?: "liquidator" | "repairman" | "cleaner" | "plumber" | undefined): "liquidator" | "repairman" | "cleaner" | "plumber" | null;
+        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        [$mol_dev_format_head](): any[];
+        land(): $hyoo_crus_land;
+        head(): string;
+        land_ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        toJSON(): string | undefined;
+        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $hyoo_crus_sand[];
+        units_of(peer: string | null): $hyoo_crus_sand[];
+        filled(): boolean;
+        can_change(): boolean;
+        last_change(): $mol_time_moment | null;
+        author_peers(): string[];
+        author_lords(): (symbol & {
+            $hyoo_crus_ref: symbol;
+        })[];
+        get $(): $;
+        set $(next: $);
+        destructor(): void;
+        toString(): string;
+        [Symbol.toStringTag]: string;
+        [$mol_ambient_ref]: $;
+    }) & {
+        options: readonly ["liquidator", "repairman", "cleaner", "plumber"];
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class ProfessionType extends ProfessionType_base {
+    }
+    const ProfessionData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
+        readonly Type: (auto?: any) => ProfessionType | null;
+        readonly Floor: (auto?: any) => $hyoo_crus_atom_int | null;
+    }>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        } & {
+            readonly Type: typeof ProfessionType;
+            readonly Floor: typeof $hyoo_crus_atom_int;
+        };
+    };
+    export class ProfessionData extends ProfessionData_base {
+    }
+    const PlaceType_base: (abstract new () => {
+        val(next?: "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | undefined): "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | null;
+        val_of(peer: string | null, next?: "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | undefined): "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | null;
+        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
+        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        [$mol_dev_format_head](): any[];
+        land(): $hyoo_crus_land;
+        head(): string;
+        land_ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        ref(): symbol & {
+            $hyoo_crus_ref: symbol;
+        };
+        toJSON(): string | undefined;
+        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $hyoo_crus_sand[];
+        units_of(peer: string | null): $hyoo_crus_sand[];
+        filled(): boolean;
+        can_change(): boolean;
+        last_change(): $mol_time_moment | null;
+        author_peers(): string[];
+        author_lords(): (symbol & {
+            $hyoo_crus_ref: symbol;
+        })[];
+        get $(): $;
+        set $(next: $);
+        destructor(): void;
+        toString(): string;
+        [Symbol.toStringTag]: string;
+        [$mol_ambient_ref]: $;
+    }) & {
+        options: readonly ["theatre", "hospital", "party", "gym", "laundry", "postal", "overview", "racing", "hockey", "spleef", "pool", "warehouse", "shower", "toilet", "gallery"];
+        toString(): any;
+        tag: keyof typeof $hyoo_crus_sand_tag;
+        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+        $: $;
+        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+        toJSON(): any;
+        destructor(): void;
+        [Symbol.toPrimitive](): any;
+    };
+    export class PlaceType extends PlaceType_base {
+    }
+    const PlaceData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
+        readonly Type: (auto?: any) => PlaceType | null;
+        readonly Floor: (auto?: any) => $hyoo_crus_atom_int | null;
+    }>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        } & {
+            readonly Type: typeof PlaceType;
+            readonly Floor: typeof $hyoo_crus_atom_int;
+        };
+    };
+    export class PlaceData extends PlaceData_base {
+    }
+    const $apxu_samosbor_map_block_data_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
+        readonly IsPipe: (auto?: any) => $hyoo_crus_atom_bool | null;
+        readonly Name: (auto?: any) => $hyoo_crus_atom_str | null;
+        readonly Direction: (auto?: any) => BlockDirection | null;
+        readonly Type: (auto?: any) => BlockType | null;
+        readonly Transitions: (auto?: any) => {
+            remote_list(next?: readonly TransitionData[] | undefined): readonly TransitionData[];
+            remote_add(item: TransitionData): void;
+            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): TransitionData;
+            remote_make(config: $hyoo_crus_rank_preset): TransitionData;
+            local_make(idea?: number): TransitionData;
+            items(next?: readonly ((symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null)[] | undefined): readonly ((symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null)[];
+            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
+            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
+            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
+            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+            cut(vary: $hyoo_crus_vary_type): void;
+            move(from: number, to: number): void;
+            wipe(seat: number): void;
+            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            [$mol_dev_format_head](): any[];
+            land(): $hyoo_crus_land;
+            head(): string;
+            land_ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            toJSON(): string | undefined;
+            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $hyoo_crus_sand[];
+            units_of(peer: string | null): $hyoo_crus_sand[];
+            filled(): boolean;
+            can_change(): boolean;
+            last_change(): $mol_time_moment | null;
+            author_peers(): string[];
+            author_lords(): (symbol & {
+                $hyoo_crus_ref: symbol;
+            })[];
+            get $(): $;
+            set $(next: $);
+            destructor(): void;
+            toString(): string;
+            [Symbol.toStringTag]: string;
+            [$mol_ambient_ref]: $;
+        } | null;
+        readonly PositionX: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly PositionY: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly Layer: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly Generator: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly BoardFloor: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly MailFloor: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly RoofFloor: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly FloodFloor: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly MinFloor: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly MaxFloor: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly LeftFlight: (auto?: any) => FlightData | null;
+        readonly RightFlight: (auto?: any) => FlightData | null;
+        readonly FloorsData: (auto?: any) => FloorsData | null;
+        readonly IsMiddleFlight: (auto?: any) => $hyoo_crus_atom_bool | null;
+        readonly MiddleFlight: (auto?: any) => FlightData | null;
+        readonly HasBalcony: (auto?: any) => $hyoo_crus_atom_bool | null;
+        readonly Professions: (auto?: any) => {
+            remote_list(next?: readonly ProfessionData[] | undefined): readonly ProfessionData[];
+            remote_add(item: ProfessionData): void;
+            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): ProfessionData;
+            remote_make(config: $hyoo_crus_rank_preset): ProfessionData;
+            local_make(idea?: number): ProfessionData;
+            items(next?: readonly ((symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null)[] | undefined): readonly ((symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null)[];
+            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
+            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
+            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
+            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+            cut(vary: $hyoo_crus_vary_type): void;
+            move(from: number, to: number): void;
+            wipe(seat: number): void;
+            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            [$mol_dev_format_head](): any[];
+            land(): $hyoo_crus_land;
+            head(): string;
+            land_ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            toJSON(): string | undefined;
+            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $hyoo_crus_sand[];
+            units_of(peer: string | null): $hyoo_crus_sand[];
+            filled(): boolean;
+            can_change(): boolean;
+            last_change(): $mol_time_moment | null;
+            author_peers(): string[];
+            author_lords(): (symbol & {
+                $hyoo_crus_ref: symbol;
+            })[];
+            get $(): $;
+            set $(next: $);
+            destructor(): void;
+            toString(): string;
+            [Symbol.toStringTag]: string;
+            [$mol_ambient_ref]: $;
+        } | null;
+        readonly Places: (auto?: any) => {
+            remote_list(next?: readonly PlaceData[] | undefined): readonly PlaceData[];
+            remote_add(item: PlaceData): void;
+            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): PlaceData;
+            remote_make(config: $hyoo_crus_rank_preset): PlaceData;
+            local_make(idea?: number): PlaceData;
+            items(next?: readonly ((symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null)[] | undefined): readonly ((symbol & {
+                $hyoo_crus_ref: symbol;
+            }) | null)[];
+            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
+            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
+            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
+            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+            cut(vary: $hyoo_crus_vary_type): void;
+            move(from: number, to: number): void;
+            wipe(seat: number): void;
+            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            [$mol_dev_format_head](): any[];
+            land(): $hyoo_crus_land;
+            head(): string;
+            land_ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            ref(): symbol & {
+                $hyoo_crus_ref: symbol;
+            };
+            toJSON(): string | undefined;
+            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $hyoo_crus_sand[];
+            units_of(peer: string | null): $hyoo_crus_sand[];
+            filled(): boolean;
+            can_change(): boolean;
+            last_change(): $mol_time_moment | null;
+            author_peers(): string[];
+            author_lords(): (symbol & {
+                $hyoo_crus_ref: symbol;
+            })[];
+            get $(): $;
+            set $(next: $);
+            destructor(): void;
+            toString(): string;
+            [Symbol.toStringTag]: string;
+            [$mol_ambient_ref]: $;
+        } | null;
+    }>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        } & {
+            readonly IsPipe: typeof $hyoo_crus_atom_bool;
+            readonly Name: typeof $hyoo_crus_atom_str;
+            readonly Direction: typeof BlockDirection;
+            readonly Type: typeof BlockType;
+            readonly Transitions: {
+                new (): {
+                    remote_list(next?: readonly TransitionData[] | undefined): readonly TransitionData[];
+                    remote_add(item: TransitionData): void;
+                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): TransitionData;
+                    remote_make(config: $hyoo_crus_rank_preset): TransitionData;
+                    local_make(idea?: number): TransitionData;
+                    items(next?: readonly ((symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null)[] | undefined): readonly ((symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null)[];
+                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
+                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
+                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
+                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+                    cut(vary: $hyoo_crus_vary_type): void;
+                    move(from: number, to: number): void;
+                    wipe(seat: number): void;
+                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    [$mol_dev_format_head](): any[];
+                    land(): $hyoo_crus_land;
+                    head(): string;
+                    land_ref(): symbol & {
+                        $hyoo_crus_ref: symbol;
+                    };
+                    ref(): symbol & {
+                        $hyoo_crus_ref: symbol;
+                    };
+                    toJSON(): string | undefined;
+                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $hyoo_crus_sand[];
+                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    filled(): boolean;
+                    can_change(): boolean;
+                    last_change(): $mol_time_moment | null;
+                    author_peers(): string[];
+                    author_lords(): (symbol & {
+                        $hyoo_crus_ref: symbol;
+                    })[];
+                    get $(): $;
+                    set $(next: $);
+                    destructor(): void;
+                    toString(): string;
+                    [Symbol.toStringTag]: string;
+                    [$mol_ambient_ref]: $;
+                };
+                Value: Value;
+                toString(): any;
+                parse: typeof $hyoo_crus_vary_cast_ref;
+                tag: keyof typeof $hyoo_crus_sand_tag;
+                make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+                $: $;
+                create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+                toJSON(): any;
+                destructor(): void;
+                [Symbol.toPrimitive](): any;
+            };
+            readonly PositionX: typeof $hyoo_crus_atom_int;
+            readonly PositionY: typeof $hyoo_crus_atom_int;
+            readonly Layer: typeof $hyoo_crus_atom_int;
+            readonly Generator: typeof $hyoo_crus_atom_int;
+            readonly BoardFloor: typeof $hyoo_crus_atom_int;
+            readonly MailFloor: typeof $hyoo_crus_atom_int;
+            readonly RoofFloor: typeof $hyoo_crus_atom_int;
+            readonly FloodFloor: typeof $hyoo_crus_atom_int;
+            readonly MinFloor: typeof $hyoo_crus_atom_int;
+            readonly MaxFloor: typeof $hyoo_crus_atom_int;
+            readonly LeftFlight: typeof FlightData;
+            readonly RightFlight: typeof FlightData;
+            readonly FloorsData: typeof FloorsData;
+            readonly IsMiddleFlight: typeof $hyoo_crus_atom_bool;
+            readonly MiddleFlight: typeof FlightData;
+            readonly HasBalcony: typeof $hyoo_crus_atom_bool;
+            readonly Professions: {
+                new (): {
+                    remote_list(next?: readonly ProfessionData[] | undefined): readonly ProfessionData[];
+                    remote_add(item: ProfessionData): void;
+                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): ProfessionData;
+                    remote_make(config: $hyoo_crus_rank_preset): ProfessionData;
+                    local_make(idea?: number): ProfessionData;
+                    items(next?: readonly ((symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null)[] | undefined): readonly ((symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null)[];
+                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
+                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
+                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
+                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+                    cut(vary: $hyoo_crus_vary_type): void;
+                    move(from: number, to: number): void;
+                    wipe(seat: number): void;
+                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    [$mol_dev_format_head](): any[];
+                    land(): $hyoo_crus_land;
+                    head(): string;
+                    land_ref(): symbol & {
+                        $hyoo_crus_ref: symbol;
+                    };
+                    ref(): symbol & {
+                        $hyoo_crus_ref: symbol;
+                    };
+                    toJSON(): string | undefined;
+                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $hyoo_crus_sand[];
+                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    filled(): boolean;
+                    can_change(): boolean;
+                    last_change(): $mol_time_moment | null;
+                    author_peers(): string[];
+                    author_lords(): (symbol & {
+                        $hyoo_crus_ref: symbol;
+                    })[];
+                    get $(): $;
+                    set $(next: $);
+                    destructor(): void;
+                    toString(): string;
+                    [Symbol.toStringTag]: string;
+                    [$mol_ambient_ref]: $;
+                };
+                Value: Value;
+                toString(): any;
+                parse: typeof $hyoo_crus_vary_cast_ref;
+                tag: keyof typeof $hyoo_crus_sand_tag;
+                make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+                $: $;
+                create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+                toJSON(): any;
+                destructor(): void;
+                [Symbol.toPrimitive](): any;
+            };
+            readonly Places: {
+                new (): {
+                    remote_list(next?: readonly PlaceData[] | undefined): readonly PlaceData[];
+                    remote_add(item: PlaceData): void;
+                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): PlaceData;
+                    remote_make(config: $hyoo_crus_rank_preset): PlaceData;
+                    local_make(idea?: number): PlaceData;
+                    items(next?: readonly ((symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null)[] | undefined): readonly ((symbol & {
+                        $hyoo_crus_ref: symbol;
+                    }) | null)[];
+                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
+                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
+                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
+                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
+                    cut(vary: $hyoo_crus_vary_type): void;
+                    move(from: number, to: number): void;
+                    wipe(seat: number): void;
+                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    [$mol_dev_format_head](): any[];
+                    land(): $hyoo_crus_land;
+                    head(): string;
+                    land_ref(): symbol & {
+                        $hyoo_crus_ref: symbol;
+                    };
+                    ref(): symbol & {
+                        $hyoo_crus_ref: symbol;
+                    };
+                    toJSON(): string | undefined;
+                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $hyoo_crus_sand[];
+                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    filled(): boolean;
+                    can_change(): boolean;
+                    last_change(): $mol_time_moment | null;
+                    author_peers(): string[];
+                    author_lords(): (symbol & {
+                        $hyoo_crus_ref: symbol;
+                    })[];
+                    get $(): $;
+                    set $(next: $);
+                    destructor(): void;
+                    toString(): string;
+                    [Symbol.toStringTag]: string;
+                    [$mol_ambient_ref]: $;
+                };
+                Value: Value;
+                toString(): any;
+                parse: typeof $hyoo_crus_vary_cast_ref;
+                tag: keyof typeof $hyoo_crus_sand_tag;
+                make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
+                $: $;
+                create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
+                toJSON(): any;
+                destructor(): void;
+                [Symbol.toPrimitive](): any;
+            };
+        };
+    };
+    export class $apxu_samosbor_map_block_data extends $apxu_samosbor_map_block_data_base {
+        name(next?: string): string;
+        direction(next?: DirectionType): "left" | "right" | "up" | "down";
+        block_type(next?: typeof BlockType.options[number]): "residential" | "frozen" | "infected" | "destroyed";
+        transitions(next?: TransitionData[]): readonly TransitionData[];
+        transition_by_position(floor: number, position: TransitionPosition): TransitionData | undefined;
+        connect(my_floor: number, my_pos: TransitionPosition, block_node: $apxu_samosbor_map_block_data, another_floor: number, another_pos: TransitionPosition): void;
+        remove_transition(transition: TransitionData): void;
+        pos_x(next?: number): number;
+        pos_y(next?: number): number;
+        layer(next?: number): number;
+        min_floor(next?: number): number;
+        max_floor(next?: number): number;
+        generator_floor(next?: number): number;
+        left_flight_status(next?: typeof FlightStatus.options[number]): "free" | "blocked" | null | undefined;
+        left_flight_type(next?: typeof FlightType.options[number]): "stairs" | "elevator" | "ladder_elevator";
+        right_flight_status(next?: typeof FlightStatus.options[number]): "free" | "blocked" | null | undefined;
+        right_flight_type(next?: typeof FlightType.options[number]): "stairs" | "elevator" | "ladder_elevator";
+        middle_flight_type(next?: typeof FlightType.options[number]): "stairs" | "elevator" | "ladder_elevator";
+        passage_type([floor, what]: [number, TransitionPosition], next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
+        flight_status({ floor, what }: {
+            floor: number;
+            what: "left" | "right";
+        }): "free" | "blocked";
+        next_flight_status(floor: number, what: "left" | "right"): void;
+        board_floor(next?: number): bigint | null;
+        mail_floor(next?: number): bigint | null;
+        roof_floor(next?: number): bigint | null;
+        flood_floor(next?: number): bigint | null;
+        profession_floors(what: typeof ProfessionType.options[number]): ProfessionData[];
+        add_profession(what: typeof ProfessionType.options[number]): ProfessionData | undefined;
+        remove_profession(node: $hyoo_crus_vary_type): void;
+        place_floors(what: typeof PlaceType.options[number]): PlaceData[];
+        safe_floors(): (ProfessionData | PlaceData)[];
+        add_place(what: typeof PlaceType.options[number]): PlaceData | undefined;
+        remove_place(node: $hyoo_crus_vary_type): void;
+        all_passages(floor: number): ("noway" | "normal" | "stairs_up" | "stairs_down")[];
+        double_floors_count(floor: number): number;
+        is_double_floor(floor: number, next?: boolean): boolean;
+    }
+    const $apxu_samosbor_map_block_pipe_data_base: Omit<typeof $apxu_samosbor_map_block_data, "prototype"> & (new (...args: any[]) => $mol_type_override<$apxu_samosbor_map_block_data, {}>) & {
+        schema: {
+            [x: string]: typeof $hyoo_crus_node;
+        };
+    };
+    export class $apxu_samosbor_map_block_pipe_data extends $apxu_samosbor_map_block_pipe_data_base {
+    }
+    export {};
+}
+
+declare namespace $ {
+
+	export class $apxu_samosbor_map_block_row extends $mol_view {
+		sub( ): readonly(any)[]
+	}
+	
+	export class $apxu_samosbor_map_block_part extends $mol_view {
+		content( ): any
+		sub( ): readonly(any)[]
+	}
+	
+	export class $apxu_samosbor_map_block_flight extends $apxu_samosbor_map_block_part {
+		status( next?: string ): string
+		attr( ): ({ 
+			'status': ReturnType< $apxu_samosbor_map_block_flight['status'] >,
+		})  & ReturnType< $apxu_samosbor_map_block_part['attr'] >
+	}
+	
+	type $mol_view__sub_apxu_samosbor_map_block_passage_1 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_passage_2 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $apxu_samosbor_map_block_passage extends $mol_view {
+		type( next?: string ): string
+		flex_direction( ): string
+		floor_inc_value( ): string
+		floor_inc( ): $mol_view
+		stairs( ): $apxu_samosbor_map_icon_stairs
+		content( ): any
+		up( ): boolean
+		right( ): boolean
+		down( ): boolean
+		left( ): boolean
+		attr( ): ({ 
+			'type': ReturnType< $apxu_samosbor_map_block_passage['type'] >,
+			'up': ReturnType< $apxu_samosbor_map_block_passage['up'] >,
+			'right': ReturnType< $apxu_samosbor_map_block_passage['right'] >,
+			'down': ReturnType< $apxu_samosbor_map_block_passage['down'] >,
+			'left': ReturnType< $apxu_samosbor_map_block_passage['left'] >,
+		}) 
+		style( ): ({ 
+			'flex-direction': ReturnType< $apxu_samosbor_map_block_passage['flex_direction'] >,
+		}) 
+		InterFloor( ): $mol_view
+		sub( ): readonly(any)[]
+	}
+	
+	export class $apxu_samosbor_map_block_middle_flight extends $mol_view {
+	}
+	
+	type $mol_view__sub_apxu_samosbor_map_block_1 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_2 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_3 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_4 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_5 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_6 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_7 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_8 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_9 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_10 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_11 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_12 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_13 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_14 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_15 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_16 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_17 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['passage_type'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
+	>
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_18 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
+	>
+	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_19 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['up'] >
+	>
+	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_20 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['left'] >
+	>
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_21 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['passage_type'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
+	>
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_22 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
+	>
+	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_23 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['up'] >
+	>
+	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_24 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['right'] >
+	>
+	type $apxu_samosbor_map_block_row__sub_apxu_samosbor_map_block_25 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_row['sub'] >
+	>
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_26 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['left_passage_type'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
+	>
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_27 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
+	>
+	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_28 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['left'] >
+	>
+	type $mol_view__attr_apxu_samosbor_map_block_29 = $mol_type_enforce<
+		({ 
+			'type': ReturnType< $apxu_samosbor_map_block['fence_type'] >,
+		}) 
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	type $mol_view__event_apxu_samosbor_map_block_30 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['fence_click'] > ): ReturnType< $apxu_samosbor_map_block['fence_click'] >,
+		}) 
+		,
+		ReturnType< $mol_view['event'] >
+	>
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_31 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['right_passage_type'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
+	>
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_32 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['right_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['right_passage_click'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
+	>
+	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_33 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['right'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_34 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_35 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['passage_type'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
+	>
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_36 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
+	>
+	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_37 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['down'] >
+	>
+	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_38 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['left'] >
+	>
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_39 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['passage_type'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
+	>
+	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_40 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['event'] >
+	>
+	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_41 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['down'] >
+	>
+	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_42 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['right'] >
+	>
+	type $apxu_samosbor_map_block_row__sub_apxu_samosbor_map_block_43 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_row['sub'] >
+	>
+	type $mol_view__attr_apxu_samosbor_map_block_44 = $mol_type_enforce<
+		({ 
+			'interfloor': ReturnType< $apxu_samosbor_map_block['has_interfloor'] >,
+		}) 
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_45 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__attr_apxu_samosbor_map_block_46 = $mol_type_enforce<
+		({ 
+			'hidden': ReturnType< $apxu_samosbor_map_block['connection_hidden'] >,
+			'highlight': ReturnType< $apxu_samosbor_map_block['connection_highlight'] >,
+		}) 
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	type $mol_view__style_apxu_samosbor_map_block_47 = $mol_type_enforce<
+		({ 
+			'left': ReturnType< $apxu_samosbor_map_block['connection_left'] >,
+			'top': ReturnType< $apxu_samosbor_map_block['connection_top'] >,
+		}) 
+		,
+		ReturnType< $mol_view['style'] >
+	>
+	type $mol_view__event_apxu_samosbor_map_block_48 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['connection_click'] > ): ReturnType< $apxu_samosbor_map_block['connection_click'] >,
+		}) 
+		,
+		ReturnType< $mol_view['event'] >
+	>
+	type $mol_view__attr_apxu_samosbor_map_block_49 = $mol_type_enforce<
+		({ 
+			'hidden': ReturnType< $apxu_samosbor_map_block['transition_hidden'] >,
+			'direction': ReturnType< $apxu_samosbor_map_block['transition_direction'] >,
+		}) 
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	type $mol_view__style_apxu_samosbor_map_block_50 = $mol_type_enforce<
+		({ 
+			'left': ReturnType< $apxu_samosbor_map_block['transition_left'] >,
+			'top': ReturnType< $apxu_samosbor_map_block['transition_top'] >,
+		}) 
+		,
+		ReturnType< $mol_view['style'] >
+	>
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_51 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
+	>
+	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_52 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['up'] >
+	>
+	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_53 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['type'] >
+	>
+	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_54 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $apxu_samosbor_map_block_passage['down'] >
+	>
+	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_55 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
+	>
+	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_56 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__attr_apxu_samosbor_map_block_57 = $mol_type_enforce<
+		({ 
+			'semi-floor': ReturnType< $apxu_samosbor_map_block['is_part_of_double_floor'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_part['attr'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_58 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_59 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_60 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_61 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_62 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_apxu_samosbor_map_block_63 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_64 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	type $apxu_samosbor_map_block_flight__event_apxu_samosbor_map_block_65 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['left_flight_click'] > ): ReturnType< $apxu_samosbor_map_block['left_flight_click'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_flight['event'] >
+	>
+	type $apxu_samosbor_map_block_flight__status_apxu_samosbor_map_block_66 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['flight_status'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_flight['status'] >
+	>
+	type $apxu_samosbor_map_block_flight__sub_apxu_samosbor_map_block_67 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_flight['sub'] >
+	>
+	type $apxu_samosbor_map_block_flight__event_apxu_samosbor_map_block_68 = $mol_type_enforce<
+		({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['right_flight_click'] > ): ReturnType< $apxu_samosbor_map_block['right_flight_click'] >,
+		}) 
+		,
+		ReturnType< $apxu_samosbor_map_block_flight['event'] >
+	>
+	type $apxu_samosbor_map_block_flight__status_apxu_samosbor_map_block_69 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_block['flight_status'] >
+		,
+		ReturnType< $apxu_samosbor_map_block_flight['status'] >
+	>
+	type $apxu_samosbor_map_block_flight__sub_apxu_samosbor_map_block_70 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_flight['sub'] >
+	>
+	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_71 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $apxu_samosbor_map_block_part['sub'] >
+	>
+	export class $apxu_samosbor_map_block extends $mol_view {
+		hovered( ): ReturnType< ReturnType< $apxu_samosbor_map_block['Hover'] >['hovered'] >
+		Hover( ): $apxu_hover
+		block_direction( next?: string ): string
+		selected( ): boolean
+		color_letter( ): string
+		block_type( next?: string ): string
+		left( next?: number ): number
+		top( next?: number ): number
+		onclick( next?: any ): any
+		connection_hidden( id: any): boolean
+		connection_highlight( id: any): boolean
+		connection_left( id: any): number
+		connection_top( id: any): number
+		connection_click( id: any, next?: any ): any
+		transition_hidden( id: any): boolean
+		transition_direction( id: any): string
+		transition_left( id: any): number
+		transition_top( id: any): number
+		stairs_icon( id: any): $apxu_samosbor_map_icon_stairs
+		elevator_icon( id: any): $apxu_samosbor_map_icon_elevator
+		ladder_icon( id: any): $apxu_samosbor_map_icon_ladder
+		ladder_elevator( id: any): $mol_view
+		up_flight_icon( ): $apxu_samosbor_map_icon_stairs
+		middle_flight_icons( ): readonly(any)[]
+		down_flight_icon( ): $apxu_samosbor_map_icon_stairs
+		is_part_of_double_floor( ): boolean
+		block_name( next?: string ): string
+		BlockName( ): $mol_view
+		display_floor( ): string
+		CurrentFloor( ): $mol_view
+		gen_icon( ): $apxu_samosbor_map_icon_generator
+		generator_floor_value( next?: number ): number
+		generator_floor( ): $mol_view
+		Generator( ): $mol_view
+		mail_icon( ): $apxu_samosbor_map_icon_mail
+		mail_floor_value( next?: number | null ): number | null
+		mail_floor( ): $mol_view
+		Mail( ): $mol_view
+		mail_visible( ): readonly(any)[]
+		liquidator_profession( ): any
+		repairman_profession( ): any
+		cleaner_profession( ): any
+		plumber_profession( ): any
+		profession_wrapper( ): $mol_view
+		safe_place( ): any
+		theatre_place( ): any
+		hospital_place( ): any
+		party_place( ): any
+		places_wrapper( ): $mol_view
+		flooded_icon( ): $apxu_samosbor_map_icon_sinking
+		flooded_floor_view( ): $mol_view
+		roof_icon( ): $apxu_samosbor_map_icon_roof
+		roof_floor_view( ): $mol_view
+		flooded( ): any
+		roof( ): any
+		left_flight_click( next?: any ): any
+		flight_status( id: any): string
+		right_flight_click( next?: any ): any
+		max_floor_icon( ): $apxu_samosbor_map_icon_max_floor
+		max_floor( next?: number ): number
+		max_floor_value( ): $mol_view
+		max_floor_view( ): $mol_view
+		min_floor_icon( ): $apxu_samosbor_map_icon_min_floor
+		min_floor( next?: number ): number
+		min_floor_value( ): $mol_view
+		min_floor_view( ): $mol_view
+		has_interfloor( ): boolean
+		connections( ): readonly(any)[]
+		transitions( ): readonly(any)[]
+		transitions_list( ): ReturnType< $apxu_samosbor_map_block['transitions'] >
+		pipe_name( ): $mol_view
+		pipe_name_visible( ): readonly(any)[]
+		up_left_angle_part( ): $apxu_samosbor_map_block_part
+		up_left_angle_visible( ): ReturnType< $apxu_samosbor_map_block['up_left_angle_part'] >
+		passage_type( id: any): string
+		passage_click( id: any, next?: any ): any
+		up_left_passage( ): $apxu_samosbor_map_block_passage
+		up_left_part_empty( ): $apxu_samosbor_map_block_part
+		up_left_part( ): ReturnType< $apxu_samosbor_map_block['up_left_part_empty'] >
+		up_left_part_visible( ): ReturnType< $apxu_samosbor_map_block['up_left_part'] >
+		up_passage_or_flight( ): $mol_view
+		up_right_part_empty( ): $apxu_samosbor_map_block_part
+		up_right_part( ): ReturnType< $apxu_samosbor_map_block['up_right_part_empty'] >
+		up_right_part_visible( ): ReturnType< $apxu_samosbor_map_block['up_right_part'] >
+		up_right_passage( ): $apxu_samosbor_map_block_passage
+		up_right_angle_part( ): $apxu_samosbor_map_block_part
+		up_right_angle_visible( ): ReturnType< $apxu_samosbor_map_block['up_right_angle_part'] >
+		up_row( ): $apxu_samosbor_map_block_row
+		left_passage_type( ): ReturnType< $apxu_samosbor_map_block['passage_type'] >
+		left_passage( ): $apxu_samosbor_map_block_passage
+		left_crossroad( ): $mol_view
+		left_hallway( ): $mol_view
+		fence_type( next?: string ): string
+		fence_click( next?: any ): any
+		fence( ): $mol_view
+		right_hallway( ): $mol_view
+		right_crossroad( ): $mol_view
+		right_passage_type( ): ReturnType< $apxu_samosbor_map_block['passage_type'] >
+		right_passage_click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >
+		right_passage( ): $apxu_samosbor_map_block_passage
+		middle_row( ): $mol_view
+		down_left_angle_part( ): $apxu_samosbor_map_block_part
+		down_left_angle_visible( ): ReturnType< $apxu_samosbor_map_block['down_left_angle_part'] >
+		down_left_passage( ): $apxu_samosbor_map_block_passage
+		down_left_part_empty( ): $apxu_samosbor_map_block_part
+		down_left_part( ): ReturnType< $apxu_samosbor_map_block['down_left_part_empty'] >
+		down_left_part_visible( ): ReturnType< $apxu_samosbor_map_block['down_left_part'] >
+		down_right_part_empty( ): $apxu_samosbor_map_block_part
+		down_right_part( ): ReturnType< $apxu_samosbor_map_block['down_right_part_empty'] >
+		down_right_part_visible( ): ReturnType< $apxu_samosbor_map_block['down_right_part'] >
+		down_right_passage( ): $apxu_samosbor_map_block_passage
+		down_right_angle_part( ): $apxu_samosbor_map_block_part
+		down_right_angle_visible( ): ReturnType< $apxu_samosbor_map_block['down_right_angle_part'] >
+		down_row( ): $apxu_samosbor_map_block_row
+		content( ): $mol_view
+		plugins( ): readonly(any)[]
+		map( ): $apxu_samosbor_map
+		gigacluster( ): $apxu_samosbor_map_gigacluster
+		block_data( next?: $apxu_samosbor_map_block_data ): $apxu_samosbor_map_block_data
+		edit_mode( next?: boolean ): boolean
+		create_block_mode( next?: boolean ): boolean
+		connect_mode( next?: boolean ): boolean
+		is_doubled( next?: boolean ): boolean
+		is_pipe( next?: boolean ): boolean
+		block_layer( next?: number ): number
+		current_layer( next?: number ): number
+		current_floor( ): number
+		board_floor_value( next?: number | null ): number | null
+		roof_floor_value( next?: number | null ): number | null
+		flood_floor_value( next?: number | null ): number | null
+		profession_floors( id: any): readonly(any)[]
+		place_floors( id: any): readonly(any)[]
+		safe_floors( ): readonly(any)[]
+		inverted( next?: boolean ): boolean
+		pos_x( next?: number ): number
+		pos_y( next?: number ): number
+		is_up_flight( next?: boolean ): boolean
+		on_connection_select( next?: any ): any
+		visible( ): boolean
+		attr( ): ({ 
+			'direction': ReturnType< $apxu_samosbor_map_block['block_direction'] >,
+			'visible': boolean,
+			'selected': ReturnType< $apxu_samosbor_map_block['selected'] >,
+			'editing': ReturnType< $apxu_samosbor_map_block['edit_mode'] >,
+			'color': ReturnType< $apxu_samosbor_map_block['color_letter'] >,
+			'block-type': ReturnType< $apxu_samosbor_map_block['block_type'] >,
+		}) 
+		style( ): ({ 
+			'left': ReturnType< $apxu_samosbor_map_block['left'] >,
+			'top': ReturnType< $apxu_samosbor_map_block['top'] >,
+		}) 
+		event( ): ({ 
+			click( next?: ReturnType< $apxu_samosbor_map_block['onclick'] > ): ReturnType< $apxu_samosbor_map_block['onclick'] >,
+		}) 
+		Connection( id: any): $mol_view
+		Transition( id: any): $mol_view
+		show_connections( next?: boolean ): boolean
+		flight_icons( id: any): ({ 
+			'stairs': ReturnType< $apxu_samosbor_map_block['stairs_icon'] >,
+			'elevator': ReturnType< $apxu_samosbor_map_block['elevator_icon'] >,
+			'ladder_elevator': ReturnType< $apxu_samosbor_map_block['ladder_elevator'] >,
+		}) 
+		up_middle_passage( ): $apxu_samosbor_map_block_passage
+		down_middle_passage( ): $apxu_samosbor_map_block_passage
+		up_flight( ): $apxu_samosbor_map_block_middle_flight
+		down_flight( ): $apxu_samosbor_map_block_middle_flight
+		name_part( ): $apxu_samosbor_map_block_part
+		info_part( ): $apxu_samosbor_map_block_part
+		liquidator_icon( ): $apxu_samosbor_map_icon_liquidator
+		repairman_icon( ): $apxu_samosbor_map_icon_repairman
+		cleaner_icon( ): $apxu_samosbor_map_icon_cleaner
+		factory_icon( ): $apxu_samosbor_map_icon_factory
+		party_icon( ): $apxu_samosbor_map_icon_party
+		theatre_icon( ): $apxu_samosbor_map_icon_theatre
+		hospital_icon( ): $apxu_samosbor_map_icon_hospital
+		house_icon( ): $apxu_samosbor_map_icon_house
+		profession_part( ): $apxu_samosbor_map_block_part
+		places_part( ): $apxu_samosbor_map_block_part
+		flooded_effect( ): $mol_view
+		roof_effect( ): $mol_view
+		effects_part( ): $apxu_samosbor_map_block_part
+		left_flight( ): $apxu_samosbor_map_block_flight
+		right_flight( ): $apxu_samosbor_map_block_flight
+		floor_part( ): $apxu_samosbor_map_block_part
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=block.view.tree.d.ts.map
+declare namespace $.$$ {
+    export const block_full_cell = 380;
+    export const ru_to_eng: {
+        [ru: string]: string;
+    };
+    export class $apxu_samosbor_map_block_passage extends $.$apxu_samosbor_map_block_passage {
+        floor_inc_value(): string;
+        is_interfloor(): boolean;
+        content(): $mol_view | null;
+    }
+    type ConnectionPort = {
+        block_ref: $hyoo_crus_ref;
+        floor: number;
+        position: TransitionPosition;
+    };
+    export class $apxu_samosbor_map_block extends $.$apxu_samosbor_map_block {
+        block_ref(next?: $apxu_samosbor_map_block_data): $apxu_samosbor_map_block_data;
+        block_data(next?: $apxu_samosbor_map_block_data): $apxu_samosbor_map_block_data;
+        block_direction(next?: DirectionType): DirectionType;
+        pos_x(next?: number): number;
+        pos_y(next?: number): number;
+        left(): number;
+        top(): number;
+        block_name(next?: string): string;
+        current_floor(): number;
+        numerical_floor(): number;
+        display_floor(): string;
+        is_part_of_double_floor(): boolean;
+        is_doubled(): boolean;
+        generator_floor_value(next?: number): number;
+        board_floor_value(next?: number): number | null;
+        mail_visible(): readonly (any)[];
+        mail_floor_value(next?: number): number | null;
+        roof_floor_value(next?: number): number | null;
+        flood_floor_value(next?: number): number | null;
+        profession_floors(what: typeof ProfessionType.options[number]): ProfessionData[];
+        safe_floors(): (ProfessionData | PlaceData)[];
+        place_floors(what: typeof PlaceType.options[number]): PlaceData[];
+        block_layer(next?: number): number;
+        min_floor(next?: number): number;
+        max_floor(next?: number): number;
+        visible(): boolean;
+        has_interfloor(): boolean;
+        color_letter(): string;
+        block_type(next?: typeof BlockType.options[number]): typeof BlockType.options[number];
+        transitions(): $mol_view[];
+        transition_pos(position: TransitionPosition): {
+            x: number;
+            y: number;
+        };
+        transition_direction(node: TransitionData): string;
+        transition_hidden(node: TransitionData): boolean;
+        transition_left(node: TransitionData): number;
+        transition_top(node: TransitionData): number;
+        connections(): $mol_view[];
+        connection_hidden(position: TransitionPosition): boolean;
+        connection_pos(position: TransitionPosition): {
+            x: number;
+            y: number;
+        };
+        connection_left(position: TransitionPosition): number;
+        connection_top(position: TransitionPosition): number;
+        connection_click(position: TransitionPosition, event?: PointerEvent): $apxu_samosbor_map_block_data | undefined;
+        static first_port(port?: ConnectionPort | null): ConnectionPort | undefined;
+        static is_same_ports(port1: ConnectionPort, port2: ConnectionPort): boolean;
+        select_connection(position: TransitionPosition): void;
+        change_connection(position: TransitionPosition): void;
+        connection_highlight(position: TransitionPosition): boolean;
+        create_from_connection(position: TransitionPosition, event?: PointerEvent): $apxu_samosbor_map_block_data | undefined;
+        has_middle_flight(): boolean;
+        left_flight_icon(): $mol_view | $apxu_samosbor_map_icon_stairs | $apxu_samosbor_map_icon_elevator | undefined;
+        left_flight_click(event?: PointerEvent): void;
+        flight_status(what: "left" | "right"): "free" | "blocked";
+        right_flight_icon(): $mol_view | $apxu_samosbor_map_icon_stairs | $apxu_samosbor_map_icon_elevator | undefined;
+        middle_flight_icons(): readonly (any)[];
+        right_flight_click(event?: PointerEvent): void;
+        next_passage_type(current_passage_type: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
+        passage_type(what: TransitionPosition): "noway" | "normal" | "stairs_up" | "stairs_down";
+        passage_click(what: TransitionPosition, event: PointerEvent): void;
+        is_up_flight(next?: boolean): boolean;
+        up_passage_or_flight(): $.$apxu_samosbor_map_block_passage | $apxu_samosbor_map_block_middle_flight;
+        readonly parts: $apxu_samosbor_map_block_part[];
+        readonly dir_shift: {
+            [dir in DirectionType]: number;
+        };
+        up_left_part(): $apxu_samosbor_map_block_part;
+        up_right_part(): $apxu_samosbor_map_block_part;
+        down_right_part(): $apxu_samosbor_map_block_part;
+        down_left_part(): $apxu_samosbor_map_block_part;
+        has_profession(what: typeof ProfessionType.options[number]): boolean;
+        liquidator_profession(): ReturnType<$.$apxu_samosbor_map_block["liquidator_icon"]> | null;
+        repairman_profession(): $apxu_samosbor_map_icon_repairman | null;
+        cleaner_profession(): $apxu_samosbor_map_icon_cleaner | null;
+        plumber_profession(): $apxu_samosbor_map_icon_factory | null;
+        has_place(what: typeof PlaceType.options[number]): boolean;
+        has_safe_place(): boolean;
+        party_place(): $apxu_samosbor_map_icon_party | null;
+        theatre_place(): $apxu_samosbor_map_icon_theatre | null;
+        hospital_place(): $apxu_samosbor_map_icon_hospital | null;
+        safe_place(): $apxu_samosbor_map_icon_house | null;
+        flooded(): $mol_view | null;
+        roof(): $mol_view | null;
+        fence_type(next?: typeof FenceData.options[number]): string;
+        fence_click(event?: PointerEvent): void;
+        is_pipe(next?: boolean): boolean;
+        up_left_angle_visible(): $apxu_samosbor_map_block_part;
+        up_right_angle_visible(): $apxu_samosbor_map_block_part;
+        down_left_angle_visible(): ReturnType<$.$apxu_samosbor_map_block["down_left_angle_part"]>;
+        down_right_angle_visible(): ReturnType<$.$apxu_samosbor_map_block["down_left_angle_part"]>;
+        up_left_part_visible(): $apxu_samosbor_map_block_part;
+        up_right_part_visible(): $apxu_samosbor_map_block_part;
+        down_left_part_visible(): ReturnType<$.$apxu_samosbor_map_block["down_left_part"]>;
+        down_right_part_visible(): ReturnType<$.$apxu_samosbor_map_block["down_right_part"]>;
+        pipe_name_visible(): readonly (any)[];
+    }
+    export {};
+}
+
+declare namespace $ {
 }
 
 declare namespace $ {
@@ -4291,624 +6903,6 @@ declare namespace $ {
     export {};
 }
 
-declare namespace $ {
-    function $mol_style_attach(id: string, text: string): HTMLStyleElement | null;
-}
-
-declare namespace $ {
-    class $mol_window extends $mol_object {
-        static size(): {
-            width: number;
-            height: number;
-        };
-        static resizes(next?: Event): Event | undefined;
-    }
-}
-
-declare namespace $ {
-    class $mol_view_selection extends $mol_object {
-        static focused(next?: Element[], notify?: 'notify'): Element[];
-    }
-}
-
-declare namespace $ {
-    enum $mol_keyboard_code {
-        backspace = 8,
-        tab = 9,
-        enter = 13,
-        shift = 16,
-        ctrl = 17,
-        alt = 18,
-        pause = 19,
-        capsLock = 20,
-        escape = 27,
-        space = 32,
-        pageUp = 33,
-        pageDown = 34,
-        end = 35,
-        home = 36,
-        left = 37,
-        up = 38,
-        right = 39,
-        down = 40,
-        insert = 45,
-        delete = 46,
-        key0 = 48,
-        key1 = 49,
-        key2 = 50,
-        key3 = 51,
-        key4 = 52,
-        key5 = 53,
-        key6 = 54,
-        key7 = 55,
-        key8 = 56,
-        key9 = 57,
-        A = 65,
-        B = 66,
-        C = 67,
-        D = 68,
-        E = 69,
-        F = 70,
-        G = 71,
-        H = 72,
-        I = 73,
-        J = 74,
-        K = 75,
-        L = 76,
-        M = 77,
-        N = 78,
-        O = 79,
-        P = 80,
-        Q = 81,
-        R = 82,
-        S = 83,
-        T = 84,
-        U = 85,
-        V = 86,
-        W = 87,
-        X = 88,
-        Y = 89,
-        Z = 90,
-        metaLeft = 91,
-        metaRight = 92,
-        select = 93,
-        numpad0 = 96,
-        numpad1 = 97,
-        numpad2 = 98,
-        numpad3 = 99,
-        numpad4 = 100,
-        numpad5 = 101,
-        numpad6 = 102,
-        numpad7 = 103,
-        numpad8 = 104,
-        numpad9 = 105,
-        multiply = 106,
-        add = 107,
-        subtract = 109,
-        decimal = 110,
-        divide = 111,
-        F1 = 112,
-        F2 = 113,
-        F3 = 114,
-        F4 = 115,
-        F5 = 116,
-        F6 = 117,
-        F7 = 118,
-        F8 = 119,
-        F9 = 120,
-        F10 = 121,
-        F11 = 122,
-        F12 = 123,
-        numLock = 144,
-        scrollLock = 145,
-        semicolon = 186,
-        equals = 187,
-        comma = 188,
-        dash = 189,
-        period = 190,
-        forwardSlash = 191,
-        graveAccent = 192,
-        bracketOpen = 219,
-        slashBack = 220,
-        slashBackLeft = 226,
-        bracketClose = 221,
-        quoteSingle = 222
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    function $mol_dom_qname(name: string): string;
-}
-
-declare namespace $ {
-    function $mol_wire_watch(): void;
-}
-
-declare namespace $ {
-    function $mol_dom_render_attributes(el: Element, attrs: {
-        [key: string]: string | number | boolean | null;
-    }): void;
-}
-
-declare namespace $ {
-    function $mol_dom_render_events(el: Element, events: {
-        [key: string]: (event: Event) => any;
-    }, passive?: boolean): void;
-}
-
-declare namespace $ {
-    function $mol_dom_render_styles(el: Element, styles: {
-        [key: string]: string | number;
-    }): void;
-}
-
-declare namespace $ {
-    function $mol_dom_render_fields(el: Element, fields: {
-        [key: string]: any;
-    }): void;
-}
-
-declare namespace $ {
-    class $mol_after_timeout extends $mol_object2 {
-        delay: number;
-        task: () => void;
-        id: any;
-        constructor(delay: number, task: () => void);
-        destructor(): void;
-    }
-}
-
-declare namespace $ {
-    type $mol_type_pick<Input, Upper> = Pick<Input, $mol_type_keys_extract<Input, Upper>>;
-}
-
-declare namespace $ {
-    class $mol_promise<Result = void> extends Promise<Result> {
-        done: (value: Result | PromiseLike<Result>) => void;
-        fail: (reason?: any) => void;
-        constructor(executor?: (done: (value: Result | PromiseLike<Result>) => void, fail: (reason?: any) => void) => void);
-    }
-}
-
-declare namespace $ {
-    class $mol_promise_blocker<Result> extends $mol_promise<Result> {
-        static [Symbol.toStringTag]: string;
-    }
-}
-
-declare namespace $ {
-    class $mol_decor<Value> {
-        readonly value: Value;
-        constructor(value: Value);
-        prefix(): string;
-        valueOf(): Value;
-        postfix(): string;
-        toString(): string;
-    }
-}
-
-declare namespace $ {
-    type $mol_style_unit_length = '%' | 'px' | 'cm' | 'mm' | 'Q' | 'in' | 'pc' | 'pt' | 'cap' | 'ch' | 'em' | 'rem' | 'ex' | 'ic' | 'lh' | 'rlh' | 'vh' | 'vw' | 'vi' | 'vb' | 'vmin' | 'vmax';
-    type $mol_style_unit_angle = 'deg' | 'rad' | 'grad' | 'turn';
-    type $mol_style_unit_time = 's' | 'ms';
-    type $mol_style_unit_any = $mol_style_unit_length | $mol_style_unit_angle | $mol_style_unit_time;
-    type $mol_style_unit_str<Quanity extends $mol_style_unit_any = $mol_style_unit_any> = `${number}${Quanity}`;
-    class $mol_style_unit<Literal extends $mol_style_unit_any> extends $mol_decor<number> {
-        readonly literal: Literal;
-        constructor(value: number, literal: Literal);
-        postfix(): Literal;
-        static per(value: number): `${number}%`;
-        static px(value: number): `${number}px`;
-        static mm(value: number): `${number}mm`;
-        static cm(value: number): `${number}cm`;
-        static Q(value: number): `${number}Q`;
-        static in(value: number): `${number}in`;
-        static pc(value: number): `${number}pc`;
-        static pt(value: number): `${number}pt`;
-        static cap(value: number): `${number}cap`;
-        static ch(value: number): `${number}ch`;
-        static em(value: number): `${number}em`;
-        static rem(value: number): `${number}rem`;
-        static ex(value: number): `${number}ex`;
-        static ic(value: number): `${number}ic`;
-        static lh(value: number): `${number}lh`;
-        static rlh(value: number): `${number}rlh`;
-        static vh(value: number): `${number}vh`;
-        static vw(value: number): `${number}vw`;
-        static vi(value: number): `${number}vi`;
-        static vb(value: number): `${number}vb`;
-        static vmin(value: number): `${number}vmin`;
-        static vmax(value: number): `${number}vmax`;
-        static deg(value: number): `${number}deg`;
-        static rad(value: number): `${number}rad`;
-        static grad(value: number): `${number}grad`;
-        static turn(value: number): `${number}turn`;
-        static s(value: number): `${number}s`;
-        static ms(value: number): `${number}ms`;
-    }
-}
-
-declare namespace $ {
-    type $mol_style_func_name = 'calc' | 'hsla' | 'rgba' | 'var' | 'clamp' | 'scale' | 'cubic-bezier' | 'linear' | 'steps' | $mol_style_func_image | $mol_style_func_filter;
-    type $mol_style_func_image = 'url' | 'linear-gradient' | 'radial-gradient' | 'conic-gradient';
-    type $mol_style_func_filter = 'blur' | 'brightness' | 'contrast' | 'drop-shadow' | 'grayscale' | 'hue-rotate' | 'invert' | 'opacity' | 'sepia' | 'saturate';
-    class $mol_style_func<Name extends $mol_style_func_name, Value = unknown> extends $mol_decor<Value> {
-        readonly name: Name;
-        constructor(name: Name, value: Value);
-        prefix(): string;
-        postfix(): string;
-        static linear_gradient<Value>(value: Value): $mol_style_func<"linear-gradient", Value>;
-        static calc<Value>(value: Value): $mol_style_func<"calc", Value>;
-        static vary<Name extends string, Value extends string>(name: Name, defaultValue?: Value): $mol_style_func<"var", Name | (Name | Value)[]>;
-        static url<Href extends string>(href: Href): $mol_style_func<"url", string>;
-        static hsla(hue: number, saturation: number, lightness: number, alpha: number): $mol_style_func<"hsla", (number | `${number}%`)[]>;
-        static clamp(min: $mol_style_unit_str<any>, mid: $mol_style_unit_str<any>, max: $mol_style_unit_str<any>): $mol_style_func<"clamp", `${number}${any}`[]>;
-        static rgba(red: number, green: number, blue: number, alpha: number): $mol_style_func<"rgba", number[]>;
-        static scale(zoom: number): $mol_style_func<"scale", number[]>;
-        static linear(...breakpoints: Array<number | [number, number | $mol_style_unit_str<'%'>]>): $mol_style_func<"linear", string[]>;
-        static cubic_bezier(x1: number, y1: number, x2: number, y2: number): $mol_style_func<"cubic-bezier", number[]>;
-        static steps(value: number, step_position: 'jump-start' | 'jump-end' | 'jump-none' | 'jump-both' | 'start' | 'end'): $mol_style_func<"steps", (number | "end" | "start" | "jump-start" | "jump-end" | "jump-none" | "jump-both")[]>;
-        static blur(value?: $mol_style_unit_str<$mol_style_unit_length>): $mol_style_func<"blur", string>;
-        static brightness(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"brightness", string | number>;
-        static contrast(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"contrast", string | number>;
-        static drop_shadow(color: $mol_style_properties_color, x_offset: $mol_style_unit_str<$mol_style_unit_length>, y_offset: $mol_style_unit_str<$mol_style_unit_length>, blur_radius?: $mol_style_unit_str<$mol_style_unit_length>): $mol_style_func<"drop-shadow", (`${number}%` | `${number}px` | `${number}mm` | `${number}cm` | `${number}Q` | `${number}in` | `${number}pc` | `${number}pt` | `${number}cap` | `${number}ch` | `${number}em` | `${number}rem` | `${number}ex` | `${number}ic` | `${number}lh` | `${number}rlh` | `${number}vh` | `${number}vw` | `${number}vi` | `${number}vb` | `${number}vmin` | `${number}vmax` | $mol_style_properties_color)[]>;
-        static grayscale(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"grayscale", string | number>;
-        static hue_rotate(value?: 0 | $mol_style_unit_str<$mol_style_unit_angle>): $mol_style_func<"hue-rotate", string | 0>;
-        static invert(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"invert", string | number>;
-        static opacity(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"opacity", string | number>;
-        static sepia(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"sepia", string | number>;
-        static saturate(value?: number | $mol_style_unit_str<'%'>): $mol_style_func<"saturate", string | number>;
-    }
-}
-
-declare namespace $ {
-    export type $mol_style_properties = Partial<$mol_type_override<CSSStyleDeclaration, Overrides>>;
-    type Common = 'inherit' | 'initial' | 'unset' | 'revert' | 'revert-layer' | 'none' | $mol_style_func<'var'>;
-    export type $mol_style_properties_color = 'aliceblue' | 'antiquewhite' | 'aqua' | 'aquamarine' | 'azure' | 'beige' | 'bisque' | 'black' | 'blanchedalmond' | 'blue' | 'blueviolet' | 'brown' | 'burlywood' | 'cadetblue' | 'chartreuse' | 'chocolate' | 'coral' | 'cornflowerblue' | 'cornsilk' | 'crimson' | 'cyan' | 'darkblue' | 'darkcyan' | 'darkgoldenrod' | 'darkgray' | 'darkgreen' | 'darkgrey' | 'darkkhaki' | 'darkmagenta' | 'darkolivegreen' | 'darkorange' | 'darkorchid' | 'darkred' | 'darksalmon' | 'darkseagreen' | 'darkslateblue' | 'darkslategrey' | 'darkturquoise' | 'darkviolet' | 'deeppink' | 'deepskyblue' | 'dimgray' | 'dimgrey' | 'dodgerblue' | 'firebrick' | 'floralwhite' | 'forestgreen' | 'fuchsia' | 'gainsboro' | 'ghostwhite' | 'gold' | 'goldenrod' | 'gray' | 'green' | 'greenyellow' | 'grey' | 'honeydew' | 'hotpink' | 'indianred' | 'indigo' | 'ivory' | 'khaki' | 'lavender' | 'lavenderblush' | 'lawngreen' | 'lemonchiffon' | 'lightblue' | 'lightcoral' | 'lightcyan' | 'lightgoldenrodyellow' | 'lightgray' | 'lightgreen' | 'lightgrey' | 'lightpink' | 'lightsalmon' | 'lightseagreen' | 'lightskyblue' | 'lightslategray' | 'lightslategrey' | 'lightsteelblue' | 'lightyellow' | 'lime' | 'limegreen' | 'linen' | 'magenta' | 'maroon' | 'mediumaquamarine' | 'mediumblue' | 'mediumorchid' | 'mediumpurple' | 'mediumseagreen' | 'mediumslateblue' | 'mediumspringgreen' | 'mediumturquoise' | 'mediumvioletred' | 'midnightblue' | 'mintcream' | 'mistyrose' | 'moccasin' | 'navajowhite' | 'navy' | 'oldlace' | 'olive' | 'olivedrab' | 'orange' | 'orangered' | 'orchid' | 'palegoldenrod' | 'palegreen' | 'paleturquoise' | 'palevioletred' | 'papayawhip' | 'peachpuff' | 'peru' | 'pink' | 'plum' | 'powderblue' | 'purple' | 'rebeccapurple' | 'red' | 'rosybrown' | 'royalblue' | 'saddlebrown' | 'salmon' | 'sandybrown' | 'seagreen' | 'seashell' | 'sienna' | 'silver' | 'skyblue' | 'slateblue' | 'slategray' | 'slategrey' | 'snow' | 'springgreen' | 'steelblue' | 'tan' | 'teal' | 'thistle' | 'tomato' | 'turquoise' | 'violet' | 'wheat' | 'white' | 'whitesmoke' | 'yellow' | 'yellowgreen' | 'transparent' | 'currentcolor' | $mol_style_func<'hsla' | 'rgba' | 'var'> | `#${string}`;
-    type Length = 0 | `${number}${$mol_style_unit_length}` | $mol_style_func<'calc' | 'var' | 'clamp'>;
-    type Size = 'auto' | 'max-content' | 'min-content' | 'fit-content' | Length | Common;
-    type Directions<Value> = Value | readonly [Value, Value] | {
-        top?: Value;
-        right?: Value;
-        bottom?: Value;
-        left?: Value;
-    };
-    type Single_animation_composition = 'replace' | 'add' | 'accumulate';
-    type Single_animation_direction = 'normal' | 'reverse' | 'alternate' | 'alternate-reverse';
-    type Single_animation_fill_mode = 'none' | 'forwards' | 'backwards' | 'both';
-    type Single_animation_iteration_count = 'infinite' | number;
-    type Single_animation_play_state = 'running' | 'paused';
-    type Easing_function = Linear_easing_function | Cubic_bezier_easing_function | Step_easing_function;
-    type Linear_easing_function = 'linear' | $mol_style_func<'linear'>;
-    type Cubic_bezier_easing_function = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | $mol_style_func<'cubic-bezier'>;
-    type Step_easing_function = 'step-start' | 'step-end' | $mol_style_func<'steps'>;
-    type Compat_auto = 'searchfield' | 'textarea' | 'push-button' | 'slider-horizontal' | 'checkbox' | 'radio' | 'menulist' | 'listbox' | 'meter' | 'progress-bar' | 'button';
-    type Compat_special = 'textfield' | 'menulist-button';
-    type Mix_blend_mode = Blend_mode | 'plus-darker' | 'plus-lighter';
-    type Blend_mode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity';
-    type Box = 'border-box' | 'padding-box' | 'content-box';
-    type Baseline_position = 'baseline' | `${'first' | 'last'} baseline`;
-    type Content_distribution = 'space-between' | 'space-around' | 'space-evenly' | 'stretch';
-    type Self_position = 'center' | 'start' | 'end' | 'self-start' | 'self-end' | 'flex-start' | 'flex-end';
-    type Content_position = 'center' | 'start' | 'end' | 'flex-start' | 'flex-end';
-    type Span_align = 'none' | 'start' | 'end' | 'center' | $mol_style_func<'var'>;
-    type Snap_axis = 'x' | 'y' | 'block' | 'inline' | 'both' | $mol_style_func<'var'>;
-    type Overflow = 'visible' | 'hidden' | 'clip' | 'scroll' | 'auto' | 'overlay' | Common;
-    type Overflow_position = 'unsafe' | 'safe';
-    type ContainRule = 'size' | 'layout' | 'style' | 'paint' | $mol_style_func<'var'>;
-    type Repeat = 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat' | $mol_style_func<'var'>;
-    type BG_size = Length | 'auto' | 'contain' | 'cover';
-    interface Overrides {
-        accentColor?: $mol_style_properties_color | Common;
-        align?: {
-            content?: 'normal' | Baseline_position | Content_distribution | Content_position | `${Overflow_position} ${Content_position}` | Common;
-            items?: 'normal' | 'stretch' | Baseline_position | Self_position | `${Overflow_position} ${Self_position}` | Common;
-            self?: 'auto' | 'normal' | 'stretch' | Baseline_position | Self_position | `${Overflow_position} ${Self_position}` | Common;
-        };
-        justify?: {
-            content?: 'normal' | Baseline_position | Content_distribution | Content_position | `${Overflow_position} ${Content_position}` | Common;
-            items?: 'normal' | 'stretch' | Baseline_position | Self_position | `${Overflow_position} ${Self_position}` | Common;
-            self?: 'auto' | 'normal' | 'stretch' | Baseline_position | Self_position | `${Overflow_position} ${Self_position}` | Common;
-        };
-        all?: Common;
-        animation?: {
-            composition?: Single_animation_composition | Single_animation_composition[][] | Common;
-            delay?: $mol_style_unit_str<$mol_style_unit_time> | $mol_style_unit_str<$mol_style_unit_time>[][] | Common;
-            direction?: Single_animation_direction | Single_animation_direction[][] | Common;
-            duration?: $mol_style_unit_str<$mol_style_unit_time> | $mol_style_unit_str<$mol_style_unit_time>[][] | Common;
-            fillMode?: Single_animation_fill_mode | Single_animation_fill_mode[][] | Common;
-            iterationCount?: Single_animation_iteration_count | Single_animation_iteration_count[][] | Common;
-            name?: 'none' | string & {} | ('none' | string & {})[][] | Common;
-            playState?: Single_animation_play_state | Single_animation_play_state[][] | Common;
-            timingFunction?: Easing_function | Easing_function[][] | Common;
-        };
-        appearance?: 'none' | 'auto' | Compat_auto | Compat_special | Common;
-        aspectRatio?: 'auto' | number | `${number} / ${number}`;
-        backdropFilter: $mol_style_func<$mol_style_func_filter> | $mol_style_func<'url'> | ($mol_style_func<$mol_style_func_filter> | $mol_style_func<'url'>)[][] | 'none' | Common;
-        backfaceVisibility: 'visible' | 'hidden' | Common;
-        justifyContent?: 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right' | 'space-between' | 'space-around' | 'space-evenly' | 'normal' | 'stretch' | 'center' | Common;
-        gap?: Length;
-        background?: 'none' | {
-            attachment?: 'scroll' | 'fixed' | 'local' | ('scroll' | 'fixed' | 'local')[][] | Common;
-            blendMode?: Mix_blend_mode | Mix_blend_mode[][] | Common;
-            clip?: Box | Box[][] | Common;
-            color?: $mol_style_properties_color | Common;
-            image?: readonly (readonly [$mol_style_func<$mol_style_func_image> | string & {}])[] | 'none' | Common;
-            repeat?: Repeat | [Repeat, Repeat] | Common;
-            position?: 'left' | 'right' | 'top' | 'bottom' | 'center' | Common;
-            size?: (BG_size | [BG_size] | [BG_size, BG_size])[];
-        };
-        box?: {
-            shadow?: readonly ([
-                ...[inset: 'inset'] | [],
-                x: Length,
-                y: Length,
-                blur: Length,
-                spread: Length,
-                color: $mol_style_properties_color
-            ] | {
-                inset?: boolean;
-                x: Length;
-                y: Length;
-                blur: Length;
-                spread: Length;
-                color: $mol_style_properties_color;
-            })[] | 'none' | Common;
-        };
-        font?: {
-            style?: 'normal' | 'italic' | Common;
-            weight?: 'normal' | 'bold' | 'lighter' | 'bolder' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | Common;
-            size?: 'xx-small' | 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'xx-large' | 'xxx-large' | 'smaller' | 'larger' | Length | Common;
-            family?: string & {} | 'serif' | 'sans-serif' | 'monospace' | 'cursive' | 'fantasy' | 'system-ui' | 'ui-serif' | 'ui-sans-serif' | 'ui-monospace' | 'ui-rounded' | 'emoji' | 'math' | 'fangsong' | Common;
-        };
-        color?: $mol_style_properties_color | Common;
-        display?: 'block' | 'inline' | 'run-in' | 'list-item' | 'none' | 'flow' | 'flow-root' | 'table' | 'flex' | 'grid' | 'contents' | 'table-row-group' | 'table-header-group' | 'table-footer-group' | 'table-column-group' | 'table-row' | 'table-cell' | 'table-column' | 'table-caption' | 'inline-block' | 'inline-table' | 'inline-flex' | 'inline-grid' | 'ruby' | 'ruby-base' | 'ruby-text' | 'ruby-base-container' | 'ruby-text-container' | Common;
-        overflow?: Overflow | {
-            x?: Overflow | Common;
-            y?: Overflow | Common;
-            anchor?: 'auto' | 'none' | Common;
-        };
-        contain?: 'none' | 'strict' | 'content' | ContainRule | readonly ContainRule[] | Common;
-        whiteSpace?: 'normal' | 'nowrap' | 'break-spaces' | 'pre' | 'pre-wrap' | 'pre-line' | Common;
-        webkitOverflowScrolling?: 'auto' | 'touch' | Common;
-        scrollbar?: {
-            color?: readonly [$mol_style_properties_color, $mol_style_properties_color] | 'auto' | Common;
-            width?: 'auto' | 'thin' | 'none' | Common;
-        };
-        scroll?: {
-            snap?: {
-                type: 'none' | Snap_axis | readonly [Snap_axis, 'mandatory' | 'proximity'] | Common;
-                stop: 'normal' | 'always' | Common;
-                align: Span_align | readonly [Span_align, Span_align] | Common;
-            };
-            padding?: Directions<Length | 'auto'>;
-        };
-        width?: Size;
-        minWidth?: Size;
-        maxWidth?: Size;
-        height?: Size;
-        minHeight?: Size;
-        maxHeight?: Size;
-        margin?: Directions<Length | 'auto'>;
-        padding?: Directions<Length | 'auto'>;
-        position?: 'static' | 'relative' | 'absolute' | 'sticky' | 'fixed' | Common;
-        top?: Length | 'auto' | Common;
-        right?: Length | 'auto' | Common;
-        bottom?: Length | 'auto' | Common;
-        left?: Length | 'auto' | Common;
-        border?: Directions<{
-            radius?: Length | [Length, Length];
-            style?: 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset' | Common;
-            color?: $mol_style_properties_color | Common;
-            width?: Length | Common;
-        }>;
-        flex?: 'none' | 'auto' | {
-            grow?: number | Common;
-            shrink?: number | Common;
-            basis?: Size | Common;
-            direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse' | Common;
-            wrap?: 'wrap' | 'nowrap' | 'wrap-reverse' | Common;
-        };
-        zIndex: number | Common;
-        opacity: number | Common;
-    }
-    export {};
-}
-
-declare namespace $ {
-    function $mol_style_prop<Keys extends string[]>(prefix: string, keys: Keys): Record<Keys[number], $mol_style_func<"var", unknown>>;
-}
-
-declare namespace $ {
-    const $mol_theme: Record<"image" | "line" | "text" | "field" | "current" | "focus" | "back" | "hover" | "card" | "special" | "control" | "shade" | "spirit", $mol_style_func<"var", unknown>>;
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    let $mol_gap: Record<"text" | "space" | "block" | "blur" | "round", $mol_style_func<"var", unknown>>;
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    type $mol_view_content = $mol_view | Node | string | number | boolean | null;
-    function $mol_view_visible_width(): number;
-    function $mol_view_visible_height(): number;
-    function $mol_view_state_key(suffix: string): string;
-    class $mol_view extends $mol_object {
-        static Root<This extends typeof $mol_view>(this: This, id: number): InstanceType<This>;
-        autorun(): void;
-        static autobind(): void;
-        title(): string;
-        focused(next?: boolean): boolean;
-        state_key(suffix?: string): string;
-        dom_name(): string;
-        dom_name_space(): string;
-        sub(): readonly $mol_view_content[];
-        sub_visible(): readonly $mol_view_content[];
-        minimal_width(): number;
-        maximal_width(): number;
-        minimal_height(): number;
-        static watchers: Set<$mol_view>;
-        view_rect(): {
-            width: number;
-            height: number;
-            left: number;
-            right: number;
-            top: number;
-            bottom: number;
-        } | null;
-        dom_id(): string;
-        dom_node_external(next?: Element): Element;
-        dom_node(next?: Element): Element;
-        dom_final(): Element | undefined;
-        dom_tree(next?: Element): Element;
-        dom_node_actual(): Element;
-        auto(): any;
-        render(): void;
-        static view_classes(): (typeof $mol_view)[];
-        static _view_names?: Map<string, string[]>;
-        static view_names(suffix: string): string[];
-        view_names_owned(): string[];
-        view_names(): Set<string>;
-        theme(next?: null | string): string | null;
-        attr_static(): {
-            [key: string]: string | number | boolean | null;
-        };
-        attr(): {};
-        style_size(): {
-            [key: string]: string | number;
-        };
-        style(): {
-            [key: string]: string | number;
-        };
-        field(): {
-            [key: string]: any;
-        };
-        event(): {
-            [key: string]: (event: Event) => void;
-        };
-        event_async(): {
-            [x: string]: (event: Event) => Promise<void>;
-        };
-        plugins(): readonly $mol_view[];
-        [$mol_dev_format_head](): any[];
-        view_find(check: (path: $mol_view, text?: string) => boolean, path?: $mol_view[]): Generator<$mol_view[]>;
-        force_render(path: Set<$mol_view>): void;
-        ensure_visible(view: $mol_view, align?: ScrollLogicalPosition): void;
-        bring(): void;
-        destructor(): void;
-    }
-    type $mol_view_all = $mol_type_pick<$, typeof $mol_view>;
-}
-
-declare namespace $ {
-}
-
-interface Window {
-    cordova: any;
-}
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_plugin extends $mol_view {
-        dom_node_external(next?: Element): Element;
-        render(): void;
-    }
-}
-
-declare namespace $ {
-    class $mol_state_time extends $mol_object {
-        static task(precision: number, reset?: null): $mol_after_timeout | $mol_after_frame;
-        static now(precision: number): number;
-    }
-}
-
-declare namespace $ {
-
-	export class $mol_svg extends $mol_view {
-		dom_name( ): string
-		dom_name_space( ): string
-		font_size( ): number
-		font_family( ): string
-		style_size( ): Record<string, any>
-	}
-	
-}
-
-//# sourceMappingURL=svg.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_svg extends $.$mol_svg {
-        computed_style(): Record<string, any>;
-        font_size(): number;
-        font_family(): any;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_svg_root extends $mol_svg {
-		view_box( ): string
-		aspect( ): string
-		dom_name( ): string
-		attr( ): ({ 
-			'viewBox': ReturnType< $mol_svg_root['view_box'] >,
-			'preserveAspectRatio': ReturnType< $mol_svg_root['aspect'] >,
-		})  & ReturnType< $mol_svg['attr'] >
-	}
-	
-}
-
-//# sourceMappingURL=root.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_svg_path extends $mol_svg {
-		geometry( ): string
-		dom_name( ): string
-		attr( ): ({ 
-			'd': ReturnType< $mol_svg_path['geometry'] >,
-		})  & ReturnType< $mol_svg['attr'] >
-	}
-	
-}
-
-//# sourceMappingURL=path.view.tree.d.ts.map
-declare namespace $ {
-    type $mol_type_enforce<Actual extends Expected, Expected> = Actual;
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_svg_path__geometry_mol_icon_1 = $mol_type_enforce<
-		ReturnType< $mol_icon['path'] >
-		,
-		ReturnType< $mol_svg_path['geometry'] >
-	>
-	export class $mol_icon extends $mol_svg_root {
-		path( ): string
-		Path( ): $mol_svg_path
-		view_box( ): string
-		minimal_width( ): number
-		minimal_height( ): number
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=icon.view.tree.d.ts.map
 declare namespace $ {
 
 	export class $mol_icon_spider extends $mol_icon {
@@ -6107,7 +8101,7 @@ declare namespace $.$$ {
         height_max(): number;
         align(): string;
         align_vert(): "suspense" | "top" | "bottom";
-        align_hor(): "suspense" | "left" | "right";
+        align_hor(): "right" | "left" | "suspense";
         View_port(): $mol_view;
         view_port(): {
             width: number;
@@ -7768,1979 +9762,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    export function num_to_bigint(num?: number): bigint | undefined;
-    export type DirectionType = "up" | "right" | "down" | "left";
-    export type TransitionPosition = "up_left" | "up_middle" | "up_right" | "right" | "down_right" | "down_middle" | "down_left" | "left";
-    export const TransitionPositions: TransitionPosition[];
-    const BlockDirection_base: (abstract new () => {
-        val(next?: "left" | "right" | "up" | "down" | undefined): "left" | "right" | "up" | "down" | null;
-        val_of(peer: string | null, next?: "left" | "right" | "up" | "down" | undefined): "left" | "right" | "up" | "down" | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-    }) & {
-        options: readonly ["up", "right", "down", "left"];
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class BlockDirection extends BlockDirection_base {
-    }
-    const TransitionPositionData_base: (abstract new () => {
-        val(next?: TransitionPosition | undefined): TransitionPosition | null;
-        val_of(peer: string | null, next?: TransitionPosition | undefined): TransitionPosition | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-    }) & {
-        options: TransitionPosition[];
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class TransitionPositionData extends TransitionPositionData_base {
-    }
-    const TransitionPort_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
-        readonly Block: (auto?: any) => {
-            Value: Value;
-            remote(next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
-            remote_of(peer: string | null, next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
-            ensure_here(peer: string | null): void;
-            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $apxu_samosbor_map_block_data | null;
-            local_ensure(): $apxu_samosbor_map_block_data | null;
-            val(next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            val_of(peer: string | null, next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
-            filled(): boolean;
-            can_change(): boolean;
-            last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
-            get $(): $;
-            set $(next: $);
-            destructor(): void;
-            toString(): string;
-            [Symbol.toStringTag]: string;
-            [$mol_ambient_ref]: $;
-        } | null;
-        readonly Floor: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly Position: (auto?: any) => TransitionPositionData | null;
-    }>) & {
-        schema: {
-            [x: string]: typeof $hyoo_crus_node;
-        } & {
-            readonly Block: {
-                new (): {
-                    Value: () => typeof $apxu_samosbor_map_block_data;
-                    remote(next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
-                    remote_of(peer: string | null, next?: $apxu_samosbor_map_block_data | null | undefined): $apxu_samosbor_map_block_data | null;
-                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
-                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $apxu_samosbor_map_block_data | null;
-                    ensure_here(peer: string | null): void;
-                    ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-                    ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-                    remote_ensure(preset?: $hyoo_crus_rank_preset): $apxu_samosbor_map_block_data | null;
-                    local_ensure(): $apxu_samosbor_map_block_data | null;
-                    val(next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    val_of(peer: string | null, next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-                    vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-                    vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-                    [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
-                    filled(): boolean;
-                    can_change(): boolean;
-                    last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
-                    get $(): $;
-                    set $(next: $);
-                    destructor(): void;
-                    toString(): string;
-                    [Symbol.toStringTag]: string;
-                    [$mol_ambient_ref]: $;
-                };
-                toString(): any;
-                Value: typeof $hyoo_crus_dict;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
-                make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-                $: $;
-                create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-                toJSON(): any;
-                destructor(): void;
-                [Symbol.toPrimitive](): any;
-            };
-            readonly Floor: typeof $hyoo_crus_atom_int;
-            readonly Position: typeof TransitionPositionData;
-        };
-    };
-    export class TransitionPort extends TransitionPort_base {
-        is_correct(floor: number, position: typeof TransitionPositionData.options[number]): boolean;
-    }
-    const TransitionData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
-        readonly From: (auto?: any) => TransitionPort | null;
-        readonly To: (auto?: any) => TransitionPort | null;
-    }>) & {
-        schema: {
-            [x: string]: typeof $hyoo_crus_node;
-        } & {
-            readonly From: typeof TransitionPort;
-            readonly To: typeof TransitionPort;
-        };
-    };
-    export class TransitionData extends TransitionData_base {
-        get_connected_block(ref: any): (symbol & {
-            $hyoo_crus_ref: symbol;
-        }) | null | undefined;
-        remove_transition(): void;
-    }
-    const FlightType_base: (abstract new () => {
-        val(next?: "stairs" | "elevator" | "ladder_elevator" | undefined): "stairs" | "elevator" | "ladder_elevator" | null;
-        val_of(peer: string | null, next?: "stairs" | "elevator" | "ladder_elevator" | undefined): "stairs" | "elevator" | "ladder_elevator" | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-    }) & {
-        options: readonly ["stairs", "elevator", "ladder_elevator"];
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class FlightType extends FlightType_base {
-    }
-    const FlightStatus_base: (abstract new () => {
-        val(next?: "free" | "blocked" | undefined): "free" | "blocked" | null;
-        val_of(peer: string | null, next?: "free" | "blocked" | undefined): "free" | "blocked" | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-    }) & {
-        options: readonly ["free", "blocked"];
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class FlightStatus extends FlightStatus_base {
-    }
-    const FlightData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
-        readonly Type: (auto?: any) => FlightType | null;
-        readonly Status: (auto?: any) => FlightStatus | null;
-    }>) & {
-        schema: {
-            [x: string]: typeof $hyoo_crus_node;
-        } & {
-            readonly Type: typeof FlightType;
-            readonly Status: typeof FlightStatus;
-        };
-    };
-    export class FlightData extends FlightData_base {
-    }
-    const PassageType_base: (abstract new () => {
-        val(next?: "noway" | "normal" | "stairs_up" | "stairs_down" | undefined): "noway" | "normal" | "stairs_up" | "stairs_down" | null;
-        val_of(peer: string | null, next?: "noway" | "normal" | "stairs_up" | "stairs_down" | undefined): "noway" | "normal" | "stairs_up" | "stairs_down" | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-    }) & {
-        options: readonly ["noway", "normal", "stairs_up", "stairs_down"];
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class PassageType extends PassageType_base {
-    }
-    const PassageStatus_base: (abstract new () => {
-        val(next?: "free" | "blocked" | "danger" | undefined): "free" | "blocked" | "danger" | null;
-        val_of(peer: string | null, next?: "free" | "blocked" | "danger" | undefined): "free" | "blocked" | "danger" | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-    }) & {
-        options: readonly ["free", "blocked", "danger"];
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class PassageStatus extends PassageStatus_base {
-    }
-    const PassageData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
-        readonly Type: (auto?: any) => PassageType | null;
-        readonly Status: (auto?: any) => PassageStatus | null;
-    }>) & {
-        schema: {
-            [x: string]: typeof $hyoo_crus_node;
-        } & {
-            readonly Type: typeof PassageType;
-            readonly Status: typeof PassageStatus;
-        };
-    };
-    export class PassageData extends PassageData_base {
-    }
-    const PassageDirections: {
-        UpLeftPassage: typeof PassageData;
-        UpMiddlePassage: typeof PassageData;
-        UpRightPassage: typeof PassageData;
-        LeftPassage: typeof PassageData;
-        RightPassage: typeof PassageData;
-        DownLeftPassage: typeof PassageData;
-        DownMiddlePassage: typeof PassageData;
-        DownRightPassage: typeof PassageData;
-    };
-    const FenceData_base: (abstract new () => {
-        val(next?: "missing" | "hole" | "solid" | undefined): "missing" | "hole" | "solid" | null;
-        val_of(peer: string | null, next?: "missing" | "hole" | "solid" | undefined): "missing" | "hole" | "solid" | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-    }) & {
-        options: readonly ["missing", "hole", "solid"];
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class FenceData extends FenceData_base {
-    }
-    const FloorData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
-        readonly Fence: (auto?: any) => FenceData | null;
-        readonly LeftFlight: (auto?: any) => FlightStatus | null;
-        readonly RightFlight: (auto?: any) => FlightStatus | null;
-        readonly IsDouble: (auto?: any) => $hyoo_crus_atom_bool | null;
-        readonly UpLeftPassage: (auto?: any) => PassageData | null;
-        readonly UpMiddlePassage: (auto?: any) => PassageData | null;
-        readonly UpRightPassage: (auto?: any) => PassageData | null;
-        readonly LeftPassage: (auto?: any) => PassageData | null;
-        readonly RightPassage: (auto?: any) => PassageData | null;
-        readonly DownLeftPassage: (auto?: any) => PassageData | null;
-        readonly DownMiddlePassage: (auto?: any) => PassageData | null;
-        readonly DownRightPassage: (auto?: any) => PassageData | null;
-    }>) & {
-        schema: {
-            [x: string]: typeof $hyoo_crus_node;
-        } & {
-            readonly Fence: typeof FenceData;
-            readonly LeftFlight: typeof FlightStatus;
-            readonly RightFlight: typeof FlightStatus;
-            readonly IsDouble: typeof $hyoo_crus_atom_bool;
-            readonly UpLeftPassage: typeof PassageData;
-            readonly UpMiddlePassage: typeof PassageData;
-            readonly UpRightPassage: typeof PassageData;
-            readonly LeftPassage: typeof PassageData;
-            readonly RightPassage: typeof PassageData;
-            readonly DownLeftPassage: typeof PassageData;
-            readonly DownMiddlePassage: typeof PassageData;
-            readonly DownRightPassage: typeof PassageData;
-        };
-    };
-    export class FloorData extends FloorData_base {
-        static readonly positions_map: {
-            [pos in TransitionPosition]: keyof typeof PassageDirections;
-        };
-        static get_passage_type(transition: TransitionPosition, floor_data?: FloorData, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
-        static is_passage_free(transition: TransitionPosition, floor_data?: FloorData): boolean;
-        get_passage_type(transition: TransitionPosition): typeof PassageType.options[number];
-        is_passage_free(transition: TransitionPosition): boolean;
-        fence_type(next?: typeof FenceData.options[number]): "missing" | "hole" | "solid";
-        set_next_fence_type(): void;
-        flight_status(what: "left" | "right", next?: typeof FlightStatus.options[number]): "free" | "blocked";
-        next_flight_status(what: "left" | "right"): void;
-        all_passages(): ("noway" | "normal" | "stairs_up" | "stairs_down")[];
-        is_double_floor(next?: boolean): boolean;
-    }
-    const FloorsData_base: {
-        new (): {
-            Value: typeof FloorData;
-            key(key: $hyoo_crus_vary_type, auto?: any): FloorData;
-            keys(): readonly $hyoo_crus_vary_type[];
-            dive<Node_1 extends typeof $hyoo_crus_node>(key: $hyoo_crus_vary_type, Node: Node_1, auto?: any): InstanceType<Node_1> | null;
-            [$mol_dev_format_head](): any[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
-            move(from: number, to: number): void;
-            wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
-            filled(): boolean;
-            can_change(): boolean;
-            last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
-            get $(): $;
-            set $(next: $);
-            destructor(): void;
-            toString(): string;
-            [Symbol.toStringTag]: string;
-            [$mol_ambient_ref]: $;
-        };
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        schema: Record<string, typeof $hyoo_crus_node>;
-        with<This extends typeof $hyoo_crus_dict, const Schema extends Record<string, {
-            tag: keyof typeof $hyoo_crus_sand_tag;
-            new (): {};
-        }>>(this: This, schema: Schema): Omit<This, "prototype"> & (new (...args: any[]) => $mol_type_override<InstanceType<This>, { readonly [Key in keyof Schema]: (auto?: any) => InstanceType<Schema[Key]> | null; }>) & {
-            schema: {
-                [x: string]: typeof $hyoo_crus_node;
-            } & Schema;
-        };
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class FloorsData extends FloorsData_base {
-    }
-    const BlockType_base: (abstract new () => {
-        val(next?: "residential" | "frozen" | "infected" | "destroyed" | undefined): "residential" | "frozen" | "infected" | "destroyed" | null;
-        val_of(peer: string | null, next?: "residential" | "frozen" | "infected" | "destroyed" | undefined): "residential" | "frozen" | "infected" | "destroyed" | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-    }) & {
-        options: readonly ["residential", "frozen", "infected", "destroyed"];
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class BlockType extends BlockType_base {
-    }
-    const ProfessionType_base: (abstract new () => {
-        val(next?: "liquidator" | "repairman" | "cleaner" | "plumber" | undefined): "liquidator" | "repairman" | "cleaner" | "plumber" | null;
-        val_of(peer: string | null, next?: "liquidator" | "repairman" | "cleaner" | "plumber" | undefined): "liquidator" | "repairman" | "cleaner" | "plumber" | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-    }) & {
-        options: readonly ["liquidator", "repairman", "cleaner", "plumber"];
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class ProfessionType extends ProfessionType_base {
-    }
-    const ProfessionData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
-        readonly Type: (auto?: any) => ProfessionType | null;
-        readonly Floor: (auto?: any) => $hyoo_crus_atom_int | null;
-    }>) & {
-        schema: {
-            [x: string]: typeof $hyoo_crus_node;
-        } & {
-            readonly Type: typeof ProfessionType;
-            readonly Floor: typeof $hyoo_crus_atom_int;
-        };
-    };
-    export class ProfessionData extends ProfessionData_base {
-    }
-    const PlaceType_base: (abstract new () => {
-        val(next?: "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | undefined): "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | null;
-        val_of(peer: string | null, next?: "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | undefined): "theatre" | "hospital" | "party" | "gym" | "laundry" | "postal" | "overview" | "racing" | "hockey" | "spleef" | "pool" | "warehouse" | "shower" | "toilet" | "gallery" | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-    }) & {
-        options: readonly ["theatre", "hospital", "party", "gym", "laundry", "postal", "overview", "racing", "hockey", "spleef", "pool", "warehouse", "shower", "toilet", "gallery"];
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class PlaceType extends PlaceType_base {
-    }
-    const PlaceData_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
-        readonly Type: (auto?: any) => PlaceType | null;
-        readonly Floor: (auto?: any) => $hyoo_crus_atom_int | null;
-    }>) & {
-        schema: {
-            [x: string]: typeof $hyoo_crus_node;
-        } & {
-            readonly Type: typeof PlaceType;
-            readonly Floor: typeof $hyoo_crus_atom_int;
-        };
-    };
-    export class PlaceData extends PlaceData_base {
-    }
-    const $apxu_samosbor_map_block_data_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
-        readonly IsPipe: (auto?: any) => $hyoo_crus_atom_bool | null;
-        readonly Name: (auto?: any) => $hyoo_crus_atom_str | null;
-        readonly Direction: (auto?: any) => BlockDirection | null;
-        readonly Type: (auto?: any) => BlockType | null;
-        readonly Transitions: (auto?: any) => {
-            remote_list(next?: readonly TransitionData[] | undefined): readonly TransitionData[];
-            remote_add(item: TransitionData): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): TransitionData;
-            remote_make(config: $hyoo_crus_rank_preset): TransitionData;
-            local_make(idea?: number): TransitionData;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
-            move(from: number, to: number): void;
-            wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
-            [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
-            filled(): boolean;
-            can_change(): boolean;
-            last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
-            get $(): $;
-            set $(next: $);
-            destructor(): void;
-            toString(): string;
-            [Symbol.toStringTag]: string;
-            [$mol_ambient_ref]: $;
-        } | null;
-        readonly PositionX: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly PositionY: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly Layer: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly Generator: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly BoardFloor: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly MailFloor: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly RoofFloor: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly FloodFloor: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly MinFloor: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly MaxFloor: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly LeftFlight: (auto?: any) => FlightData | null;
-        readonly RightFlight: (auto?: any) => FlightData | null;
-        readonly FloorsData: (auto?: any) => FloorsData | null;
-        readonly IsMiddleFlight: (auto?: any) => $hyoo_crus_atom_bool | null;
-        readonly MiddleFlight: (auto?: any) => FlightData | null;
-        readonly HasBalcony: (auto?: any) => $hyoo_crus_atom_bool | null;
-        readonly Professions: (auto?: any) => {
-            remote_list(next?: readonly ProfessionData[] | undefined): readonly ProfessionData[];
-            remote_add(item: ProfessionData): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): ProfessionData;
-            remote_make(config: $hyoo_crus_rank_preset): ProfessionData;
-            local_make(idea?: number): ProfessionData;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
-            move(from: number, to: number): void;
-            wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
-            [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
-            filled(): boolean;
-            can_change(): boolean;
-            last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
-            get $(): $;
-            set $(next: $);
-            destructor(): void;
-            toString(): string;
-            [Symbol.toStringTag]: string;
-            [$mol_ambient_ref]: $;
-        } | null;
-        readonly Places: (auto?: any) => {
-            remote_list(next?: readonly PlaceData[] | undefined): readonly PlaceData[];
-            remote_add(item: PlaceData): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): PlaceData;
-            remote_make(config: $hyoo_crus_rank_preset): PlaceData;
-            local_make(idea?: number): PlaceData;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
-            move(from: number, to: number): void;
-            wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
-            [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
-            filled(): boolean;
-            can_change(): boolean;
-            last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
-            get $(): $;
-            set $(next: $);
-            destructor(): void;
-            toString(): string;
-            [Symbol.toStringTag]: string;
-            [$mol_ambient_ref]: $;
-        } | null;
-    }>) & {
-        schema: {
-            [x: string]: typeof $hyoo_crus_node;
-        } & {
-            readonly IsPipe: typeof $hyoo_crus_atom_bool;
-            readonly Name: typeof $hyoo_crus_atom_str;
-            readonly Direction: typeof BlockDirection;
-            readonly Type: typeof BlockType;
-            readonly Transitions: {
-                new (): {
-                    remote_list(next?: readonly TransitionData[] | undefined): readonly TransitionData[];
-                    remote_add(item: TransitionData): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): TransitionData;
-                    remote_make(config: $hyoo_crus_rank_preset): TransitionData;
-                    local_make(idea?: number): TransitionData;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
-                    move(from: number, to: number): void;
-                    wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
-                    [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
-                    filled(): boolean;
-                    can_change(): boolean;
-                    last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
-                    get $(): $;
-                    set $(next: $);
-                    destructor(): void;
-                    toString(): string;
-                    [Symbol.toStringTag]: string;
-                    [$mol_ambient_ref]: $;
-                };
-                Value: Value;
-                toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
-                make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-                $: $;
-                create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-                toJSON(): any;
-                destructor(): void;
-                [Symbol.toPrimitive](): any;
-            };
-            readonly PositionX: typeof $hyoo_crus_atom_int;
-            readonly PositionY: typeof $hyoo_crus_atom_int;
-            readonly Layer: typeof $hyoo_crus_atom_int;
-            readonly Generator: typeof $hyoo_crus_atom_int;
-            readonly BoardFloor: typeof $hyoo_crus_atom_int;
-            readonly MailFloor: typeof $hyoo_crus_atom_int;
-            readonly RoofFloor: typeof $hyoo_crus_atom_int;
-            readonly FloodFloor: typeof $hyoo_crus_atom_int;
-            readonly MinFloor: typeof $hyoo_crus_atom_int;
-            readonly MaxFloor: typeof $hyoo_crus_atom_int;
-            readonly LeftFlight: typeof FlightData;
-            readonly RightFlight: typeof FlightData;
-            readonly FloorsData: typeof FloorsData;
-            readonly IsMiddleFlight: typeof $hyoo_crus_atom_bool;
-            readonly MiddleFlight: typeof FlightData;
-            readonly HasBalcony: typeof $hyoo_crus_atom_bool;
-            readonly Professions: {
-                new (): {
-                    remote_list(next?: readonly ProfessionData[] | undefined): readonly ProfessionData[];
-                    remote_add(item: ProfessionData): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): ProfessionData;
-                    remote_make(config: $hyoo_crus_rank_preset): ProfessionData;
-                    local_make(idea?: number): ProfessionData;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
-                    move(from: number, to: number): void;
-                    wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
-                    [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
-                    filled(): boolean;
-                    can_change(): boolean;
-                    last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
-                    get $(): $;
-                    set $(next: $);
-                    destructor(): void;
-                    toString(): string;
-                    [Symbol.toStringTag]: string;
-                    [$mol_ambient_ref]: $;
-                };
-                Value: Value;
-                toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
-                make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-                $: $;
-                create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-                toJSON(): any;
-                destructor(): void;
-                [Symbol.toPrimitive](): any;
-            };
-            readonly Places: {
-                new (): {
-                    remote_list(next?: readonly PlaceData[] | undefined): readonly PlaceData[];
-                    remote_add(item: PlaceData): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): PlaceData;
-                    remote_make(config: $hyoo_crus_rank_preset): PlaceData;
-                    local_make(idea?: number): PlaceData;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
-                    move(from: number, to: number): void;
-                    wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
-                    [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
-                    filled(): boolean;
-                    can_change(): boolean;
-                    last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
-                    get $(): $;
-                    set $(next: $);
-                    destructor(): void;
-                    toString(): string;
-                    [Symbol.toStringTag]: string;
-                    [$mol_ambient_ref]: $;
-                };
-                Value: Value;
-                toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
-                make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-                $: $;
-                create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-                toJSON(): any;
-                destructor(): void;
-                [Symbol.toPrimitive](): any;
-            };
-        };
-    };
-    export class $apxu_samosbor_map_block_data extends $apxu_samosbor_map_block_data_base {
-        name(next?: string): string;
-        direction(next?: DirectionType): "left" | "right" | "up" | "down";
-        block_type(next?: typeof BlockType.options[number]): "residential" | "frozen" | "infected" | "destroyed";
-        transitions(next?: TransitionData[]): readonly TransitionData[];
-        transition_by_position(floor: number, position: TransitionPosition): TransitionData | undefined;
-        connect(my_floor: number, my_pos: TransitionPosition, block_node: $apxu_samosbor_map_block_data, another_floor: number, another_pos: TransitionPosition): void;
-        remove_transition(transition: TransitionData): void;
-        pos_x(next?: number): number;
-        pos_y(next?: number): number;
-        layer(next?: number): number;
-        min_floor(next?: number): number;
-        max_floor(next?: number): number;
-        generator_floor(next?: number): number;
-        left_flight_status(next?: typeof FlightStatus.options[number]): "free" | "blocked" | null | undefined;
-        left_flight_type(next?: typeof FlightType.options[number]): "stairs" | "elevator" | "ladder_elevator";
-        right_flight_status(next?: typeof FlightStatus.options[number]): "free" | "blocked" | null | undefined;
-        right_flight_type(next?: typeof FlightType.options[number]): "stairs" | "elevator" | "ladder_elevator";
-        middle_flight_type(next?: typeof FlightType.options[number]): "stairs" | "elevator" | "ladder_elevator";
-        up_left_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
-        up_middle_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
-        up_right_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
-        down_left_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
-        down_middle_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
-        down_right_passage_type(floor: number, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
-        passage_type({ floor, what }: {
-            floor: number;
-            what: TransitionPosition;
-        }, next?: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
-        flight_status({ floor, what }: {
-            floor: number;
-            what: "left" | "right";
-        }): "free" | "blocked";
-        next_flight_status(floor: number, what: "left" | "right"): void;
-        board_floor(next?: number): bigint | null;
-        mail_floor(next?: number): bigint | null;
-        roof_floor(next?: number): bigint | null;
-        flood_floor(next?: number): bigint | null;
-        profession_floors(what: typeof ProfessionType.options[number]): ProfessionData[];
-        add_profession(what: typeof ProfessionType.options[number]): ProfessionData | undefined;
-        remove_profession(node: $hyoo_crus_vary_type): void;
-        place_floors(what: typeof PlaceType.options[number]): PlaceData[];
-        safe_floors(): (ProfessionData | PlaceData)[];
-        add_place(what: typeof PlaceType.options[number]): PlaceData | undefined;
-        remove_place(node: $hyoo_crus_vary_type): void;
-        all_passages(floor: number): ("noway" | "normal" | "stairs_up" | "stairs_down")[];
-        double_floors_count(floor: number): number;
-        is_double_floor(floor: number, next?: boolean): boolean;
-    }
-    const $apxu_samosbor_map_block_pipe_data_base: Omit<typeof $apxu_samosbor_map_block_data, "prototype"> & (new (...args: any[]) => $mol_type_override<$apxu_samosbor_map_block_data, {}>) & {
-        schema: {
-            [x: string]: typeof $hyoo_crus_node;
-        };
-    };
-    export class $apxu_samosbor_map_block_pipe_data extends $apxu_samosbor_map_block_pipe_data_base {
-    }
-    export {};
-}
-
-declare namespace $ {
-
-	export class $apxu_samosbor_map_block_row extends $mol_view {
-		sub( ): readonly(any)[]
-	}
-	
-	export class $apxu_samosbor_map_block_part extends $mol_view {
-		content( ): any
-		sub( ): readonly(any)[]
-	}
-	
-	export class $apxu_samosbor_map_block_flight extends $apxu_samosbor_map_block_part {
-		status( next?: string ): string
-		attr( ): ({ 
-			'status': ReturnType< $apxu_samosbor_map_block_flight['status'] >,
-		})  & ReturnType< $apxu_samosbor_map_block_part['attr'] >
-	}
-	
-	type $mol_view__sub_apxu_samosbor_map_block_passage_1 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_passage_2 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $apxu_samosbor_map_block_passage extends $mol_view {
-		type( next?: string ): string
-		flex_direction( ): string
-		floor_inc_value( ): string
-		floor_inc( ): $mol_view
-		stairs( ): $apxu_samosbor_map_icon_stairs
-		content( ): any
-		up( ): boolean
-		right( ): boolean
-		down( ): boolean
-		left( ): boolean
-		attr( ): ({ 
-			'type': ReturnType< $apxu_samosbor_map_block_passage['type'] >,
-			'up': ReturnType< $apxu_samosbor_map_block_passage['up'] >,
-			'right': ReturnType< $apxu_samosbor_map_block_passage['right'] >,
-			'down': ReturnType< $apxu_samosbor_map_block_passage['down'] >,
-			'left': ReturnType< $apxu_samosbor_map_block_passage['left'] >,
-		}) 
-		style( ): ({ 
-			'flex-direction': ReturnType< $apxu_samosbor_map_block_passage['flex_direction'] >,
-		}) 
-		InterFloor( ): $mol_view
-		sub( ): readonly(any)[]
-	}
-	
-	export class $apxu_samosbor_map_block_middle_flight extends $mol_view {
-	}
-	
-	type $mol_view__sub_apxu_samosbor_map_block_1 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_2 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_3 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_4 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_5 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_6 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_7 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_8 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_9 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_10 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_11 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_12 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_13 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_14 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_15 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_16 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_17 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['passage_type'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['type'] >
-	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_18 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['event'] >
-	>
-	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_19 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['up'] >
-	>
-	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_20 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['left'] >
-	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_21 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['passage_type'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['type'] >
-	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_22 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['event'] >
-	>
-	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_23 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['up'] >
-	>
-	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_24 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['right'] >
-	>
-	type $apxu_samosbor_map_block_row__sub_apxu_samosbor_map_block_25 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_row['sub'] >
-	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_26 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['left_passage_type'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['type'] >
-	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_27 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['event'] >
-	>
-	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_28 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['left'] >
-	>
-	type $mol_view__attr_apxu_samosbor_map_block_29 = $mol_type_enforce<
-		({ 
-			'type': ReturnType< $apxu_samosbor_map_block['fence_type'] >,
-		}) 
-		,
-		ReturnType< $mol_view['attr'] >
-	>
-	type $mol_view__event_apxu_samosbor_map_block_30 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['fence_click'] > ): ReturnType< $apxu_samosbor_map_block['fence_click'] >,
-		}) 
-		,
-		ReturnType< $mol_view['event'] >
-	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_31 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['right_passage_type'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['type'] >
-	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_32 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['right_passage_click'] > ): ReturnType< $apxu_samosbor_map_block['right_passage_click'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['event'] >
-	>
-	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_33 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['right'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_34 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_35 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['passage_type'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['type'] >
-	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_36 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['event'] >
-	>
-	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_37 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['down'] >
-	>
-	type $apxu_samosbor_map_block_passage__left_apxu_samosbor_map_block_38 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['left'] >
-	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_39 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['passage_type'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['type'] >
-	>
-	type $apxu_samosbor_map_block_passage__event_apxu_samosbor_map_block_40 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['event'] >
-	>
-	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_41 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['down'] >
-	>
-	type $apxu_samosbor_map_block_passage__right_apxu_samosbor_map_block_42 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['right'] >
-	>
-	type $apxu_samosbor_map_block_row__sub_apxu_samosbor_map_block_43 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_row['sub'] >
-	>
-	type $mol_view__attr_apxu_samosbor_map_block_44 = $mol_type_enforce<
-		({ 
-			'interfloor': ReturnType< $apxu_samosbor_map_block['has_interfloor'] >,
-		}) 
-		,
-		ReturnType< $mol_view['attr'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_45 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__attr_apxu_samosbor_map_block_46 = $mol_type_enforce<
-		({ 
-			'hidden': ReturnType< $apxu_samosbor_map_block['connection_hidden'] >,
-			'highlight': ReturnType< $apxu_samosbor_map_block['connection_highlight'] >,
-		}) 
-		,
-		ReturnType< $mol_view['attr'] >
-	>
-	type $mol_view__style_apxu_samosbor_map_block_47 = $mol_type_enforce<
-		({ 
-			'left': ReturnType< $apxu_samosbor_map_block['connection_left'] >,
-			'top': ReturnType< $apxu_samosbor_map_block['connection_top'] >,
-		}) 
-		,
-		ReturnType< $mol_view['style'] >
-	>
-	type $mol_view__event_apxu_samosbor_map_block_48 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['connection_click'] > ): ReturnType< $apxu_samosbor_map_block['connection_click'] >,
-		}) 
-		,
-		ReturnType< $mol_view['event'] >
-	>
-	type $mol_view__attr_apxu_samosbor_map_block_49 = $mol_type_enforce<
-		({ 
-			'hidden': ReturnType< $apxu_samosbor_map_block['transition_hidden'] >,
-			'direction': ReturnType< $apxu_samosbor_map_block['transition_direction'] >,
-		}) 
-		,
-		ReturnType< $mol_view['attr'] >
-	>
-	type $mol_view__style_apxu_samosbor_map_block_50 = $mol_type_enforce<
-		({ 
-			'left': ReturnType< $apxu_samosbor_map_block['transition_left'] >,
-			'top': ReturnType< $apxu_samosbor_map_block['transition_top'] >,
-		}) 
-		,
-		ReturnType< $mol_view['style'] >
-	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_51 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['type'] >
-	>
-	type $apxu_samosbor_map_block_passage__up_apxu_samosbor_map_block_52 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['up'] >
-	>
-	type $apxu_samosbor_map_block_passage__type_apxu_samosbor_map_block_53 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['type'] >
-	>
-	type $apxu_samosbor_map_block_passage__down_apxu_samosbor_map_block_54 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $apxu_samosbor_map_block_passage['down'] >
-	>
-	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_55 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
-	>
-	type $apxu_samosbor_map_block_middle_flight__sub_apxu_samosbor_map_block_56 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_middle_flight['sub'] >
-	>
-	type $apxu_samosbor_map_block_part__attr_apxu_samosbor_map_block_57 = $mol_type_enforce<
-		({ 
-			'semi-floor': ReturnType< $apxu_samosbor_map_block['is_part_of_double_floor'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_part['attr'] >
-	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_58 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
-	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_59 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
-	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_60 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
-	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_61 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_62 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_apxu_samosbor_map_block_63 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_64 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
-	>
-	type $apxu_samosbor_map_block_flight__event_apxu_samosbor_map_block_65 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['left_flight_click'] > ): ReturnType< $apxu_samosbor_map_block['left_flight_click'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['event'] >
-	>
-	type $apxu_samosbor_map_block_flight__status_apxu_samosbor_map_block_66 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['flight_status'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['status'] >
-	>
-	type $apxu_samosbor_map_block_flight__sub_apxu_samosbor_map_block_67 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['sub'] >
-	>
-	type $apxu_samosbor_map_block_flight__event_apxu_samosbor_map_block_68 = $mol_type_enforce<
-		({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['right_flight_click'] > ): ReturnType< $apxu_samosbor_map_block['right_flight_click'] >,
-		}) 
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['event'] >
-	>
-	type $apxu_samosbor_map_block_flight__status_apxu_samosbor_map_block_69 = $mol_type_enforce<
-		ReturnType< $apxu_samosbor_map_block['flight_status'] >
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['status'] >
-	>
-	type $apxu_samosbor_map_block_flight__sub_apxu_samosbor_map_block_70 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_flight['sub'] >
-	>
-	type $apxu_samosbor_map_block_part__sub_apxu_samosbor_map_block_71 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $apxu_samosbor_map_block_part['sub'] >
-	>
-	export class $apxu_samosbor_map_block extends $mol_view {
-		block_direction( next?: string ): string
-		visible( ): boolean
-		selected( ): boolean
-		color_letter( ): string
-		block_type( next?: string ): string
-		left( next?: number ): number
-		top( next?: number ): number
-		onclick( next?: any ): any
-		connection_hidden( id: any): boolean
-		connection_highlight( id: any): boolean
-		connection_left( id: any): number
-		connection_top( id: any): number
-		connection_click( id: any, next?: any ): any
-		transition_hidden( id: any): boolean
-		transition_direction( id: any): string
-		transition_left( id: any): number
-		transition_top( id: any): number
-		stairs_icon( id: any): $apxu_samosbor_map_icon_stairs
-		elevator_icon( id: any): $apxu_samosbor_map_icon_elevator
-		ladder_icon( id: any): $apxu_samosbor_map_icon_ladder
-		ladder_elevator( id: any): $mol_view
-		up_flight_icon( ): $apxu_samosbor_map_icon_stairs
-		middle_flight_icons( ): readonly(any)[]
-		down_flight_icon( ): $apxu_samosbor_map_icon_stairs
-		is_part_of_double_floor( ): boolean
-		block_name( next?: string ): string
-		BlockName( ): $mol_view
-		display_floor( ): string
-		CurrentFloor( ): $mol_view
-		gen_icon( ): $apxu_samosbor_map_icon_generator
-		generator_floor_value( next?: number ): number
-		generator_floor( ): $mol_view
-		Generator( ): $mol_view
-		mail_icon( ): $apxu_samosbor_map_icon_mail
-		mail_floor_value( next?: number | null ): number | null
-		mail_floor( ): $mol_view
-		Mail( ): $mol_view
-		mail_visible( ): readonly(any)[]
-		liquidator_profession( ): any
-		repairman_profession( ): any
-		cleaner_profession( ): any
-		plumber_profession( ): any
-		profession_wrapper( ): $mol_view
-		safe_place( ): any
-		theatre_place( ): any
-		hospital_place( ): any
-		party_place( ): any
-		places_wrapper( ): $mol_view
-		flooded_icon( ): $apxu_samosbor_map_icon_sinking
-		flooded_floor_view( ): $mol_view
-		roof_icon( ): $apxu_samosbor_map_icon_roof
-		roof_floor_view( ): $mol_view
-		flooded( ): any
-		roof( ): any
-		left_flight_click( next?: any ): any
-		flight_status( id: any): string
-		right_flight_click( next?: any ): any
-		max_floor_icon( ): $apxu_samosbor_map_icon_max_floor
-		max_floor( next?: number ): number
-		max_floor_value( ): $mol_view
-		max_floor_view( ): $mol_view
-		min_floor_icon( ): $apxu_samosbor_map_icon_min_floor
-		min_floor( next?: number ): number
-		min_floor_value( ): $mol_view
-		min_floor_view( ): $mol_view
-		has_interfloor( ): boolean
-		connections( ): readonly(any)[]
-		connections_list( ): ReturnType< $apxu_samosbor_map_block['connections'] >
-		transitions( ): readonly(any)[]
-		transitions_list( ): ReturnType< $apxu_samosbor_map_block['transitions'] >
-		pipe_name( ): $mol_view
-		pipe_name_visible( ): readonly(any)[]
-		up_left_angle_part( ): $apxu_samosbor_map_block_part
-		up_left_angle_visible( ): ReturnType< $apxu_samosbor_map_block['up_left_angle_part'] >
-		passage_type( id: any): string
-		passage_click( id: any, next?: any ): any
-		up_left_passage( ): $apxu_samosbor_map_block_passage
-		up_left_part_empty( ): $apxu_samosbor_map_block_part
-		up_left_part( ): ReturnType< $apxu_samosbor_map_block['up_left_part_empty'] >
-		up_left_part_visible( ): ReturnType< $apxu_samosbor_map_block['up_left_part'] >
-		up_passage_or_flight( ): $mol_view
-		up_right_part_empty( ): $apxu_samosbor_map_block_part
-		up_right_part( ): ReturnType< $apxu_samosbor_map_block['up_right_part_empty'] >
-		up_right_part_visible( ): ReturnType< $apxu_samosbor_map_block['up_right_part'] >
-		up_right_passage( ): $apxu_samosbor_map_block_passage
-		up_right_angle_part( ): $apxu_samosbor_map_block_part
-		up_right_angle_visible( ): ReturnType< $apxu_samosbor_map_block['up_right_angle_part'] >
-		up_row( ): $apxu_samosbor_map_block_row
-		left_passage_type( ): ReturnType< $apxu_samosbor_map_block['passage_type'] >
-		left_passage( ): $apxu_samosbor_map_block_passage
-		left_crossroad( ): $mol_view
-		left_hallway( ): $mol_view
-		fence_type( next?: string ): string
-		fence_click( next?: any ): any
-		fence( ): $mol_view
-		right_hallway( ): $mol_view
-		right_crossroad( ): $mol_view
-		right_passage_type( ): ReturnType< $apxu_samosbor_map_block['passage_type'] >
-		right_passage_click( next?: ReturnType< $apxu_samosbor_map_block['passage_click'] > ): ReturnType< $apxu_samosbor_map_block['passage_click'] >
-		right_passage( ): $apxu_samosbor_map_block_passage
-		middle_row( ): $mol_view
-		down_left_angle_part( ): $apxu_samosbor_map_block_part
-		down_left_angle_visible( ): ReturnType< $apxu_samosbor_map_block['down_left_angle_part'] >
-		down_left_passage( ): $apxu_samosbor_map_block_passage
-		down_left_part_empty( ): $apxu_samosbor_map_block_part
-		down_left_part( ): ReturnType< $apxu_samosbor_map_block['down_left_part_empty'] >
-		down_left_part_visible( ): ReturnType< $apxu_samosbor_map_block['down_left_part'] >
-		down_right_part_empty( ): $apxu_samosbor_map_block_part
-		down_right_part( ): ReturnType< $apxu_samosbor_map_block['down_right_part_empty'] >
-		down_right_part_visible( ): ReturnType< $apxu_samosbor_map_block['down_right_part'] >
-		down_right_passage( ): $apxu_samosbor_map_block_passage
-		down_right_angle_part( ): $apxu_samosbor_map_block_part
-		down_right_angle_visible( ): ReturnType< $apxu_samosbor_map_block['down_right_angle_part'] >
-		down_row( ): $apxu_samosbor_map_block_row
-		content( ): $mol_view
-		map( ): $apxu_samosbor_map
-		gigacluster( ): $apxu_samosbor_map_gigacluster
-		block_data( next?: $apxu_samosbor_map_block_data ): $apxu_samosbor_map_block_data
-		edit_mode( next?: boolean ): boolean
-		create_block_mode( next?: boolean ): boolean
-		connect_mode( next?: boolean ): boolean
-		is_doubled( next?: boolean ): boolean
-		is_pipe( next?: boolean ): boolean
-		block_layer( next?: number ): number
-		current_layer( next?: number ): number
-		current_floor( ): number
-		board_floor_value( next?: number | null ): number | null
-		roof_floor_value( next?: number | null ): number | null
-		flood_floor_value( next?: number | null ): number | null
-		profession_floors( id: any): readonly(any)[]
-		place_floors( id: any): readonly(any)[]
-		safe_floors( ): readonly(any)[]
-		inverted( next?: boolean ): boolean
-		pos_x( next?: number ): number
-		pos_y( next?: number ): number
-		is_up_flight( next?: boolean ): boolean
-		on_connection_select( next?: any ): any
-		attr( ): ({ 
-			'direction': ReturnType< $apxu_samosbor_map_block['block_direction'] >,
-			'visible': ReturnType< $apxu_samosbor_map_block['visible'] >,
-			'selected': ReturnType< $apxu_samosbor_map_block['selected'] >,
-			'editing': ReturnType< $apxu_samosbor_map_block['edit_mode'] >,
-			'color': ReturnType< $apxu_samosbor_map_block['color_letter'] >,
-			'block-type': ReturnType< $apxu_samosbor_map_block['block_type'] >,
-		}) 
-		style( ): ({ 
-			'left': ReturnType< $apxu_samosbor_map_block['left'] >,
-			'top': ReturnType< $apxu_samosbor_map_block['top'] >,
-		}) 
-		event( ): ({ 
-			click( next?: ReturnType< $apxu_samosbor_map_block['onclick'] > ): ReturnType< $apxu_samosbor_map_block['onclick'] >,
-		}) 
-		Connection( id: any): $mol_view
-		Transition( id: any): $mol_view
-		show_connections( next?: boolean ): boolean
-		flight_icons( id: any): ({ 
-			'stairs': ReturnType< $apxu_samosbor_map_block['stairs_icon'] >,
-			'elevator': ReturnType< $apxu_samosbor_map_block['elevator_icon'] >,
-			'ladder_elevator': ReturnType< $apxu_samosbor_map_block['ladder_elevator'] >,
-		}) 
-		up_middle_passage( ): $apxu_samosbor_map_block_passage
-		down_middle_passage( ): $apxu_samosbor_map_block_passage
-		up_flight( ): $apxu_samosbor_map_block_middle_flight
-		down_flight( ): $apxu_samosbor_map_block_middle_flight
-		name_part( ): $apxu_samosbor_map_block_part
-		info_part( ): $apxu_samosbor_map_block_part
-		liquidator_icon( ): $apxu_samosbor_map_icon_liquidator
-		repairman_icon( ): $apxu_samosbor_map_icon_repairman
-		cleaner_icon( ): $apxu_samosbor_map_icon_cleaner
-		factory_icon( ): $apxu_samosbor_map_icon_factory
-		party_icon( ): $apxu_samosbor_map_icon_party
-		theatre_icon( ): $apxu_samosbor_map_icon_theatre
-		hospital_icon( ): $apxu_samosbor_map_icon_hospital
-		house_icon( ): $apxu_samosbor_map_icon_house
-		profession_part( ): $apxu_samosbor_map_block_part
-		places_part( ): $apxu_samosbor_map_block_part
-		flooded_effect( ): $mol_view
-		roof_effect( ): $mol_view
-		effects_part( ): $apxu_samosbor_map_block_part
-		left_flight( ): $apxu_samosbor_map_block_flight
-		right_flight( ): $apxu_samosbor_map_block_flight
-		floor_part( ): $apxu_samosbor_map_block_part
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=block.view.tree.d.ts.map
-declare namespace $.$$ {
-    const block_full_cell = 380;
-    const ru_to_eng: {
-        [ru: string]: string;
-    };
-    class $apxu_samosbor_map_block_passage extends $.$apxu_samosbor_map_block_passage {
-        floor_inc_value(): string;
-        is_interfloor(): boolean;
-        content(): $mol_view | null;
-    }
-    class $apxu_samosbor_map_block extends $.$apxu_samosbor_map_block {
-        block_ref(next?: $apxu_samosbor_map_block_data): $apxu_samosbor_map_block_data;
-        block_data(next?: $apxu_samosbor_map_block_data): $apxu_samosbor_map_block_data;
-        block_direction(next?: DirectionType): DirectionType;
-        pos_x(next?: number): number;
-        pos_y(next?: number): number;
-        left(): number;
-        top(): number;
-        block_name(next?: string): string;
-        current_floor(): number;
-        numerical_floor(): number;
-        display_floor(): string;
-        is_part_of_double_floor(): boolean;
-        is_doubled(): boolean;
-        generator_floor_value(next?: number): number;
-        board_floor_value(next?: number): number | null;
-        mail_visible(): readonly (any)[];
-        mail_floor_value(next?: number): number | null;
-        roof_floor_value(next?: number): number | null;
-        flood_floor_value(next?: number): number | null;
-        profession_floors(what: typeof ProfessionType.options[number]): ProfessionData[];
-        safe_floors(): (ProfessionData | PlaceData)[];
-        place_floors(what: typeof PlaceType.options[number]): PlaceData[];
-        block_layer(next?: number): number;
-        min_floor(next?: number): number;
-        max_floor(next?: number): number;
-        visible(): boolean;
-        has_interfloor(): boolean;
-        color_letter(): string;
-        block_type(next?: typeof BlockType.options[number]): typeof BlockType.options[number];
-        transitions(): $mol_view[];
-        transition_pos(position: TransitionPosition): {
-            x: number;
-            y: number;
-        };
-        transition_direction(ref: any): string;
-        transition_hidden(ref: any): boolean;
-        transition_left(ref: any): number;
-        transition_top(ref: any): number;
-        connections(): readonly (any)[];
-        connection_hidden(position: TransitionPosition): boolean;
-        connection_pos(position: TransitionPosition): {
-            x: number;
-            y: number;
-        };
-        connection_left(position: TransitionPosition): number;
-        connection_top(position: TransitionPosition): number;
-        connection_click(position: TransitionPosition, event?: PointerEvent): $apxu_samosbor_map_block_data | undefined;
-        static first_port(port?: {
-            block_ref: any;
-            floor: number;
-            position: TransitionPosition;
-        } | null): {
-            block_ref: any;
-            floor: number;
-            position: TransitionPosition;
-        } | undefined;
-        select_connection(position: TransitionPosition): void;
-        change_connection(position: TransitionPosition): void;
-        connection_highlight(position: TransitionPosition): boolean;
-        create_from_connection(position: TransitionPosition, event?: PointerEvent): $apxu_samosbor_map_block_data | undefined;
-        has_middle_flight(): boolean;
-        left_flight_icon(): $mol_view | $apxu_samosbor_map_icon_stairs | $apxu_samosbor_map_icon_elevator | undefined;
-        left_flight_click(event?: PointerEvent): void;
-        flight_status(what: "left" | "right"): "free" | "blocked";
-        right_flight_icon(): $mol_view | $apxu_samosbor_map_icon_stairs | $apxu_samosbor_map_icon_elevator | undefined;
-        middle_flight_icons(): readonly (any)[];
-        right_flight_click(event?: PointerEvent): void;
-        next_passage_type(current_passage_type: typeof PassageType.options[number]): "noway" | "normal" | "stairs_up" | "stairs_down";
-        passage_type(what: TransitionPosition): "noway" | "normal" | "stairs_up" | "stairs_down";
-        passage_click(what: TransitionPosition, event: PointerEvent): void;
-        is_up_flight(next?: boolean): boolean;
-        up_passage_or_flight(): $.$apxu_samosbor_map_block_passage | $apxu_samosbor_map_block_middle_flight;
-        readonly parts: $apxu_samosbor_map_block_part[];
-        readonly dir_shift: {
-            [dir in DirectionType]: number;
-        };
-        up_left_part(): $apxu_samosbor_map_block_part;
-        up_right_part(): $apxu_samosbor_map_block_part;
-        down_right_part(): $apxu_samosbor_map_block_part;
-        down_left_part(): $apxu_samosbor_map_block_part;
-        has_profession(what: typeof ProfessionType.options[number]): boolean;
-        liquidator_profession(): ReturnType<$.$apxu_samosbor_map_block["liquidator_icon"]> | null;
-        repairman_profession(): $apxu_samosbor_map_icon_repairman | null;
-        cleaner_profession(): $apxu_samosbor_map_icon_cleaner | null;
-        plumber_profession(): $apxu_samosbor_map_icon_factory | null;
-        has_place(what: typeof PlaceType.options[number]): boolean;
-        has_safe_place(): boolean;
-        party_place(): $apxu_samosbor_map_icon_party | null;
-        theatre_place(): $apxu_samosbor_map_icon_theatre | null;
-        hospital_place(): $apxu_samosbor_map_icon_hospital | null;
-        safe_place(): $apxu_samosbor_map_icon_house | null;
-        flooded(): $mol_view | null;
-        roof(): $mol_view | null;
-        fence_type(next?: typeof FenceData.options[number]): string;
-        fence_click(event?: PointerEvent): void;
-        is_pipe(next?: boolean): boolean;
-        up_left_angle_visible(): $apxu_samosbor_map_block_part;
-        up_right_angle_visible(): $apxu_samosbor_map_block_part;
-        down_left_angle_visible(): ReturnType<$.$apxu_samosbor_map_block["down_left_angle_part"]>;
-        down_right_angle_visible(): ReturnType<$.$apxu_samosbor_map_block["down_left_angle_part"]>;
-        up_left_part_visible(): $apxu_samosbor_map_block_part;
-        up_right_part_visible(): $apxu_samosbor_map_block_part;
-        down_left_part_visible(): ReturnType<$.$apxu_samosbor_map_block["down_left_part"]>;
-        down_right_part_visible(): ReturnType<$.$apxu_samosbor_map_block["down_right_part"]>;
-        pipe_name_visible(): readonly (any)[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {
@@ -11230,7 +11251,12 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_area['cur_pan'] >
 	>
-	type $apxu_samosbor_map_area__style_apxu_samosbor_map_app_38 = $mol_type_enforce<
+	type $apxu_samosbor_map_area__cur_zoom_apxu_samosbor_map_app_38 = $mol_type_enforce<
+		ReturnType< $apxu_samosbor_map_app['canvas_zoom'] >
+		,
+		ReturnType< $apxu_samosbor_map_area['cur_zoom'] >
+	>
+	type $apxu_samosbor_map_area__style_apxu_samosbor_map_app_39 = $mol_type_enforce<
 		({ 
 			'width': string,
 			'height': string,
@@ -11238,134 +11264,134 @@ declare namespace $ {
 		,
 		ReturnType< $apxu_samosbor_map_area['style'] >
 	>
-	type $apxu_samosbor_map_area__items_apxu_samosbor_map_app_39 = $mol_type_enforce<
+	type $apxu_samosbor_map_area__items_apxu_samosbor_map_app_40 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $apxu_samosbor_map_area['items'] >
 	>
-	type $mol_view__sub_apxu_samosbor_map_app_40 = $mol_type_enforce<
+	type $mol_view__sub_apxu_samosbor_map_app_41 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $apxu_samosbor_map_block__block_data_apxu_samosbor_map_app_41 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__block_data_apxu_samosbor_map_app_42 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['block'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['block_data'] >
 	>
-	type $apxu_samosbor_map_block__current_layer_apxu_samosbor_map_app_42 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__current_layer_apxu_samosbor_map_app_43 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['current_layer'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['current_layer'] >
 	>
-	type $apxu_samosbor_map_block__onclick_apxu_samosbor_map_app_43 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__onclick_apxu_samosbor_map_app_44 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['block_clicked'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['onclick'] >
 	>
-	type $apxu_samosbor_map_block__on_connection_select_apxu_samosbor_map_app_44 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__on_connection_select_apxu_samosbor_map_app_45 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['connection_selected'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['on_connection_select'] >
 	>
-	type $apxu_samosbor_map_block__show_connections_apxu_samosbor_map_app_45 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__show_connections_apxu_samosbor_map_app_46 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $apxu_samosbor_map_block['show_connections'] >
 	>
-	type $apxu_samosbor_map_block__create_block_mode_apxu_samosbor_map_app_46 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__create_block_mode_apxu_samosbor_map_app_47 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_create_block_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['create_block_mode'] >
 	>
-	type $apxu_samosbor_map_block__edit_mode_apxu_samosbor_map_app_47 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__edit_mode_apxu_samosbor_map_app_48 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_configure_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['edit_mode'] >
 	>
-	type $apxu_samosbor_map_block__selected_apxu_samosbor_map_app_48 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__selected_apxu_samosbor_map_app_49 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['block_selected'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['selected'] >
 	>
-	type $apxu_samosbor_map_block__connect_mode_apxu_samosbor_map_app_49 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__connect_mode_apxu_samosbor_map_app_50 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_connect_mode'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['connect_mode'] >
 	>
-	type $apxu_samosbor_map_block__inverted_apxu_samosbor_map_app_50 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__inverted_apxu_samosbor_map_app_51 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['inverted'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['inverted'] >
 	>
-	type $apxu_samosbor_map_block__gigacluster_apxu_samosbor_map_app_51 = $mol_type_enforce<
+	type $apxu_samosbor_map_block__gigacluster_apxu_samosbor_map_app_52 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['gigacluster'] >
 		,
 		ReturnType< $apxu_samosbor_map_block['gigacluster'] >
 	>
-	type $apxu_samosbor_map_block_card__block_name_apxu_samosbor_map_app_52 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__block_name_apxu_samosbor_map_app_53 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['selected_block_name'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['block_name'] >
 	>
-	type $apxu_samosbor_map_block_card__max_floor_apxu_samosbor_map_app_53 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__max_floor_apxu_samosbor_map_app_54 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['max_floor'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['max_floor'] >
 	>
-	type $apxu_samosbor_map_block_card__min_floor_apxu_samosbor_map_app_54 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__min_floor_apxu_samosbor_map_app_55 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['min_floor'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['min_floor'] >
 	>
-	type $apxu_samosbor_map_block_card__close_click_apxu_samosbor_map_app_55 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__close_click_apxu_samosbor_map_app_56 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['close_click'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['close_click'] >
 	>
-	type $apxu_samosbor_map_block_card__pos_x_apxu_samosbor_map_app_56 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__pos_x_apxu_samosbor_map_app_57 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['pos_x_value'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['pos_x'] >
 	>
-	type $apxu_samosbor_map_block_card__pos_y_apxu_samosbor_map_app_57 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__pos_y_apxu_samosbor_map_app_58 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['pos_y_value'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['pos_y'] >
 	>
-	type $apxu_samosbor_map_block_card__block_layer_apxu_samosbor_map_app_58 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__block_layer_apxu_samosbor_map_app_59 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['layer_value'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['block_layer'] >
 	>
-	type $apxu_samosbor_map_block_card__block_apxu_samosbor_map_app_59 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__block_apxu_samosbor_map_app_60 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['Block'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['block'] >
 	>
-	type $apxu_samosbor_map_block_card__is_admin_apxu_samosbor_map_app_60 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__is_admin_apxu_samosbor_map_app_61 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_admin'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['is_admin'] >
 	>
-	type $apxu_samosbor_map_block_card__is_editor_apxu_samosbor_map_app_61 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__is_editor_apxu_samosbor_map_app_62 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['is_editor'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['is_editor'] >
 	>
-	type $apxu_samosbor_map_block_card__gigacluster_apxu_samosbor_map_app_62 = $mol_type_enforce<
+	type $apxu_samosbor_map_block_card__gigacluster_apxu_samosbor_map_app_63 = $mol_type_enforce<
 		ReturnType< $apxu_samosbor_map_app['gigacluster'] >
 		,
 		ReturnType< $apxu_samosbor_map_block_card['gigacluster'] >
 	>
-	type $mol_view__attr_apxu_samosbor_map_app_63 = $mol_type_enforce<
+	type $mol_view__attr_apxu_samosbor_map_app_64 = $mol_type_enforce<
 		({ 
 			'direction': ReturnType< $apxu_samosbor_map_app['transition_direction'] >,
 		}) 
 		,
 		ReturnType< $mol_view['attr'] >
 	>
-	type $mol_view__style_apxu_samosbor_map_app_64 = $mol_type_enforce<
+	type $mol_view__style_apxu_samosbor_map_app_65 = $mol_type_enforce<
 		({ 
 			'left': ReturnType< $apxu_samosbor_map_app['transition_left'] >,
 			'top': ReturnType< $apxu_samosbor_map_app['transition_top'] >,
@@ -11437,7 +11463,8 @@ declare namespace $ {
 		SearchLabel( ): $mol_labeler
 		Searcher( ): $mol_view
 		canvas_pos( next?: $mol_vector_2d<number> ): $mol_vector_2d<number>
-		blocks( ): readonly(any)[]
+		canvas_zoom( next?: number ): number
+		blocks_visible( ): readonly(any)[]
 		Area( ): $apxu_samosbor_map_area
 		Canvas( ): $mol_view
 		title( ): string
@@ -11514,7 +11541,8 @@ declare namespace $.$$ {
         };
         static absolute_direction(direction: DirectionType, position: TransitionPosition): DirectionType;
         block_view(ref: symbol): $.$apxu_samosbor_map_block;
-        blocks(): $mol_view[];
+        blocks(): $.$apxu_samosbor_map_block[];
+        blocks_visible(): $.$apxu_samosbor_map_block[];
         current_layer(next?: number): number;
         concentrated_block(): void;
         canvas_pos(next?: $mol_vector_2d<number>): $mol_vector_2d<number>;

@@ -609,7 +609,7 @@ var $;
                 get: () => stack_get() + '\n' + [
                     this.cause ?? 'no cause',
                     ...this.errors.flatMap(e => [
-                        e.stack,
+                        String(e.stack),
                         ...e instanceof $mol_error_mix || !e.cause ? [] : [e.cause]
                     ])
                 ].map(frame_normalize).join('\n')
@@ -821,12 +821,27 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_try(handler) {
+        try {
+            return handler();
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    $.$mol_try = $mol_try;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     function $mol_fail_log(error) {
         if ($mol_promise_like(error))
             return false;
         if (!$mol_fail_catch(error))
             return false;
-        console.error(error);
+        $mol_try(() => { $mol_fail_hidden(error); });
         return true;
     }
     $.$mol_fail_log = $mol_fail_log;
@@ -1028,6 +1043,17 @@ var $;
     $.$mol_dev_format_register = $mol_dev_format_register;
     $.$mol_dev_format_head = Symbol('$mol_dev_format_head');
     $.$mol_dev_format_body = Symbol('$mol_dev_format_body');
+    function $mol_dev_format_button(label, click) {
+        return $mol_dev_format_auto({
+            [$.$mol_dev_format_head]() {
+                return $mol_dev_format_span({ color: 'cornflowerblue' }, label);
+            },
+            [$.$mol_dev_format_body]() {
+                Promise.resolve().then(click);
+                return $mol_dev_format_span({});
+            }
+        });
+    }
     $mol_dev_format_register({
         header: (val, config = false) => {
             if (config)
@@ -1045,13 +1071,41 @@ var $;
             if (typeof val === 'function') {
                 return $mol_dev_format_native(val);
             }
+            if (Error.isError(val)) {
+                return $mol_dev_format_span({}, $mol_dev_format_native(val), ' ', $mol_dev_format_button('throw', () => $mol_fail_hidden(val)));
+            }
+            if (val instanceof Promise) {
+                return $.$mol_dev_format_shade($mol_dev_format_native(val), ' ', val[Symbol.toStringTag] ?? '');
+            }
             if (Symbol.toStringTag in val) {
                 return $mol_dev_format_native(val);
             }
             return null;
         },
-        hasBody: val => val[$.$mol_dev_format_body],
-        body: val => val[$.$mol_dev_format_body](),
+        hasBody: (val, config = false) => {
+            if (config)
+                return false;
+            if (!val)
+                return false;
+            if (val[$.$mol_dev_format_body])
+                return true;
+            return false;
+        },
+        body: (val, config = false) => {
+            if (config)
+                return null;
+            if (!val)
+                return null;
+            if ($.$mol_dev_format_body in val) {
+                try {
+                    return val[$.$mol_dev_format_body]();
+                }
+                catch (error) {
+                    return $.$mol_dev_format_accent($mol_dev_format_native(val), '💨', $mol_dev_format_native(error), '');
+                }
+            }
+            return null;
+        },
     });
     function $mol_dev_format_native(obj) {
         if (typeof obj === 'undefined')
@@ -1117,6 +1171,69 @@ var $;
     $.$mol_dev_format_indent = $.$mol_dev_format_div.bind(null, {
         'margin-left': '13px'
     });
+    class Stack extends Array {
+        toString() {
+            return this.join('\n');
+        }
+    }
+    class Call extends Object {
+        type;
+        function;
+        method;
+        eval;
+        source;
+        offset;
+        pos;
+        object;
+        flags;
+        [Symbol.toStringTag];
+        constructor(call) {
+            super();
+            this.type = call.getTypeName() ?? '';
+            this.function = call.getFunctionName() ?? '';
+            this.method = call.getMethodName() ?? '';
+            if (this.method === this.function)
+                this.method = '';
+            this.pos = [call.getEnclosingLineNumber() ?? 0, call.getEnclosingColumnNumber() ?? 0];
+            this.eval = call.getEvalOrigin() ?? '';
+            this.source = call.getScriptNameOrSourceURL() ?? '';
+            this.object = call.getThis();
+            this.offset = call.getPosition();
+            const flags = [];
+            if (call.isAsync())
+                flags.push('async');
+            if (call.isConstructor())
+                flags.push('constructor');
+            if (call.isEval())
+                flags.push('eval');
+            if (call.isNative())
+                flags.push('native');
+            if (call.isPromiseAll())
+                flags.push('PromiseAll');
+            if (call.isToplevel())
+                flags.push('top');
+            this.flags = flags;
+            const type = this.type ? this.type + '.' : '';
+            const func = this.function || '<anon>';
+            const method = this.method ? ' [' + this.method + '] ' : '';
+            this[Symbol.toStringTag] = `${type}${func}${method}`;
+        }
+        [Symbol.toPrimitive]() {
+            return this.toString();
+        }
+        toString() {
+            const object = this.object || '';
+            const label = this[Symbol.toStringTag];
+            const source = `${this.source}:${this.pos.join(':')} #${this.offset}`;
+            return `\tat ${object}${label} (${source})`;
+        }
+        [$.$mol_dev_format_head]() {
+            return $.$mol_dev_format_div({}, $mol_dev_format_native(this), $.$mol_dev_format_shade(' '), ...this.object ? [
+                $mol_dev_format_native(this.object),
+            ] : [], ...this.method ? [$.$mol_dev_format_shade(' ', ' [', this.method, ']')] : [], $.$mol_dev_format_shade(' ', this.flags.join(', ')));
+        }
+    }
+    Error.prepareStackTrace ??= (error, stack) => new Stack(...stack.map(call => new Call(call)));
 })($ || ($ = {}));
 
 ;
@@ -1566,7 +1683,7 @@ var $;
         if (left instanceof RegExp)
             return left.source === right.source && left.flags === right.flags;
         if (left instanceof Error)
-            return left.message === right.message && left.stack === right.stack;
+            return left.message === right.message && $mol_compare_deep(left.stack, right.stack);
         let left_cache = $.$mol_compare_deep_cache.get(left);
         if (left_cache) {
             const right_cache = left_cache.get(right);
@@ -9300,349 +9417,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_crus_home extends $hyoo_crus_entity.with({
-        Selection: $hyoo_crus_atom_str,
-        Hall: $hyoo_crus_atom_ref_to(() => $hyoo_crus_dict),
-    }) {
-        hall_by(Node, preset) {
-            return this.Hall(null)?.ensure(preset)?.cast(Node) ?? null;
-        }
-    }
-    $.$hyoo_crus_home = $hyoo_crus_home;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    class $hyoo_crus_glob extends $mol_object {
-        static lands_touched = new $mol_wire_set();
-        lands_touched = this.constructor.lands_touched;
-        static yard() {
-            return new this.$.$hyoo_crus_yard;
-        }
-        yard() {
-            return this.$.$hyoo_crus_glob.yard();
-        }
-        static home(Node) {
-            return this.Land(this.$.$hyoo_crus_auth.current().lord()).Data(Node ?? $hyoo_crus_home);
-        }
-        home() {
-            return this.$.$hyoo_crus_glob.home();
-        }
-        static king_grab(preset = { '': $hyoo_crus_rank_read }) {
-            const king = this.$.$hyoo_crus_auth.grab();
-            const colony = $mol_wire_sync($hyoo_crus_land).make({ $: this.$ });
-            colony.auth = $mol_const(king);
-            if ((preset[''] ?? $hyoo_crus_rank_deny) === $hyoo_crus_rank_deny) {
-                colony.encrypted(true);
-            }
-            const self = this.$.$hyoo_crus_auth.current();
-            colony.give(self, $hyoo_crus_rank_rule);
-            for (const key in preset)
-                colony.give(key ? $hyoo_crus_auth.from(key) : null, preset[key]);
-            this.Land(colony.ref()).apply_unit(colony.delta_unit());
-            return king;
-        }
-        king_grab(preset = { '': $hyoo_crus_rank_read }) {
-            return this.$.$hyoo_crus_glob.king_grab(preset);
-        }
-        static land_grab(preset = { '': $hyoo_crus_rank_read }) {
-            return this.Land(this.king_grab(preset).lord());
-        }
-        land_grab(preset = { '': $hyoo_crus_rank_read }) {
-            return this.$.$hyoo_crus_glob.land_grab(preset);
-        }
-        static Land(ref) {
-            this.lands_touched.add(ref);
-            return $hyoo_crus_land.make({
-                ref: $mol_const(ref),
-            });
-        }
-        Land(ref) {
-            return this.$.$hyoo_crus_glob.Land(ref);
-        }
-        static Node(ref, Node) {
-            const land = this.Land($hyoo_crus_ref_land(ref));
-            return land.Node(Node).Item($hyoo_crus_ref_head(ref));
-        }
-        Node(ref, Node) {
-            return this.$.$hyoo_crus_glob.Node(ref, Node);
-        }
-        static apply_pack(pack) {
-            const { lands, rocks } = pack.parts();
-            return this.apply_parts(lands, rocks);
-        }
-        apply_pack(pack) {
-            return this.$.$hyoo_crus_glob.apply_pack(pack);
-        }
-        static apply_parts(lands, rocks) {
-            for (const land of Reflect.ownKeys(lands)) {
-                const errors = this.Land(land).apply_unit(lands[land].units).filter(Boolean);
-                for (const error of errors)
-                    this.$.$mol_log3_warn({
-                        place: `${this}.apply_pack()`,
-                        message: error,
-                        hint: 'Send it to developer',
-                    });
-            }
-            for (const [hash, rock] of rocks) {
-                if (!rock)
-                    continue;
-                this.$.$hyoo_crus_mine.rock_save(rock);
-            }
-        }
-        apply_parts(lands, rocks) {
-            return this.$.$hyoo_crus_glob.apply_parts(lands, rocks);
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $hyoo_crus_glob, "yard", null);
-    __decorate([
-        $mol_action
-    ], $hyoo_crus_glob, "king_grab", null);
-    __decorate([
-        $mol_action
-    ], $hyoo_crus_glob, "land_grab", null);
-    __decorate([
-        $mol_mem_key
-    ], $hyoo_crus_glob, "Land", null);
-    __decorate([
-        $mol_action
-    ], $hyoo_crus_glob, "apply_pack", null);
-    __decorate([
-        $mol_action
-    ], $hyoo_crus_glob, "apply_parts", null);
-    $.$hyoo_crus_glob = $hyoo_crus_glob;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    class $apxu_samosbor_map_gigacluster extends ($hyoo_crus_dict.with({
-        Blocks: $hyoo_crus_list_ref_to(() => $apxu_samosbor_map_block_data),
-    })) {
-        delete_block(ref) {
-            const block = $hyoo_crus_glob.Node(ref, $apxu_samosbor_map_block_data);
-            block.transitions()?.forEach((transition) => {
-                const connected_block_ref = transition.get_connected_block(ref);
-                if (!connected_block_ref)
-                    return;
-                const connected_block = $hyoo_crus_glob.Node(connected_block_ref, $apxu_samosbor_map_block_data);
-                connected_block.transitions()?.forEach((connected_transition) => {
-                    if (connected_transition.get_connected_block(connected_block_ref) === ref) {
-                        connected_block.Transitions(null)?.cut(connected_transition.ref());
-                    }
-                });
-            });
-            this.Blocks(true)?.cut(ref);
-        }
-        create_block() {
-            const current_auth = $hyoo_crus_auth.current();
-            const block = this.Blocks(true)?.make({ '': $hyoo_crus_rank_join("just") });
-            console.log("created", block);
-            return block;
-        }
-        delete_all_blocks() {
-            this.blocks()?.map((node) => this.delete_block(node.ref()));
-        }
-        blocks() {
-            const blocks = this.Blocks(null)?.remote_list();
-            return blocks;
-        }
-        block_by_name(block_name) {
-            return this.blocks()?.find((block) => block.name() === block_name);
-        }
-        transition(block, floor, position) {
-            return block?.transitions()?.find((trans) => {
-                const check = (port) => {
-                    if (!port)
-                        return;
-                    const block_ref = port.Block(null)?.val();
-                    if (!block_ref)
-                        return;
-                    if ($hyoo_crus_glob.Node(block_ref, $apxu_samosbor_map_block_data) === block && Number(port.Floor(null)?.val()) === floor && port.Position(null)?.val() === position) {
-                        return true;
-                    }
-                };
-                if (check(trans.From(null)) || check(trans.To(null))) {
-                    return true;
-                }
-            });
-        }
-    }
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_gigacluster.prototype, "delete_block", null);
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_gigacluster.prototype, "create_block", null);
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_gigacluster.prototype, "delete_all_blocks", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_gigacluster.prototype, "blocks", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_gigacluster.prototype, "block_by_name", null);
-    $.$apxu_samosbor_map_gigacluster = $apxu_samosbor_map_gigacluster;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    function bigint_to_rank(val, def) {
-        if (val == null) {
-            return def;
-        }
-        const num = Number(val);
-        return num;
-    }
-    $.bigint_to_rank = bigint_to_rank;
-    function rank_to_bigint(rank) {
-        return BigInt(rank);
-    }
-    $.rank_to_bigint = rank_to_bigint;
-    class $apxu_samosbor_map_role extends $hyoo_crus_atom_enum(["cartographer", "researcher", "traveler"]) {
-    }
-    $.$apxu_samosbor_map_role = $apxu_samosbor_map_role;
-    class $apxu_samosbor_map_role_right extends $hyoo_crus_dict.with({
-        Key: $hyoo_crus_atom_str,
-        Description: $hyoo_crus_atom_str,
-        Role: $apxu_samosbor_map_role,
-    }) {
-        key(next) {
-            return this.Key(true)?.val(next) ?? "";
-        }
-        description(next) {
-            return this.Description(true)?.val(next) ?? "";
-        }
-        role(next) {
-            return this.Role(true)?.val(next) ?? "no_role";
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_role_right.prototype, "key", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_role_right.prototype, "description", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_role_right.prototype, "role", null);
-    $.$apxu_samosbor_map_role_right = $apxu_samosbor_map_role_right;
-    class $apxu_samosbor_map_role_infos extends $hyoo_crus_dict.with({
-        Rights: $hyoo_crus_list_ref_to(() => $apxu_samosbor_map_role_right),
-        Ruler: $hyoo_crus_atom_str,
-    }) {
-        get_rights() {
-            return this.Rights(true)?.remote_list();
-        }
-        ruler_key() {
-            return this.Ruler(true)?.val() ?? $apxu_samosbor_map_app_my_public_key;
-        }
-        add_key(key) {
-            const new_rights = this.Rights(true)?.make({ '': $hyoo_crus_rank_read });
-            new_rights?.key(key);
-            new_rights?.role("researcher");
-            return new_rights;
-        }
-        lord_rights(key) {
-            const finded = this.get_rights()?.find((right) => { return right.key() === key; });
-            return finded;
-        }
-        lord_role(key, next) {
-            const finded = this.lord_rights(key);
-            if (next === "no_role") {
-                if (finded) {
-                    this.Rights(true)?.cut(finded.ref());
-                }
-                return "no_role";
-            }
-            return finded?.role(next);
-        }
-        rank_for_role(current_role, needed_role) {
-            if (needed_role === "traveler") {
-                return $hyoo_crus_rank_join("just");
-            }
-            if (current_role === needed_role) {
-                return $hyoo_crus_rank_post("just");
-            }
-            if (current_role === "cartographer" && needed_role === "researcher") {
-                return $hyoo_crus_rank_post("just");
-            }
-            return $hyoo_crus_rank_join("just");
-        }
-        preset(role) {
-            const all_rights = this.get_rights();
-            const preset = {};
-            for (const right of all_rights ?? []) {
-                preset[right.key()] = this.rank_for_role(right.role(), role);
-            }
-            console.log("RULER KEY", this.ruler_key());
-            preset[this.ruler_key()] = $hyoo_crus_rank_rule;
-            return preset;
-        }
-        preset_no_current(role) {
-            const preset = { ...this.preset(role) };
-            delete preset[$hyoo_crus_auth.current().public().toString()];
-            return preset;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_role_infos.prototype, "get_rights", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_role_infos.prototype, "ruler_key", null);
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_role_infos.prototype, "add_key", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_role_infos.prototype, "lord_rights", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_role_infos.prototype, "lord_role", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_role_infos.prototype, "preset", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_role_infos.prototype, "preset_no_current", null);
-    $.$apxu_samosbor_map_role_infos = $apxu_samosbor_map_role_infos;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_style_attach(id, text) {
-        const doc = $mol_dom_context.document;
-        if (!doc)
-            return null;
-        const elid = `$mol_style_attach:${id}`;
-        let el = doc.getElementById(elid);
-        if (!el) {
-            el = doc.createElement('style');
-            el.id = elid;
-            doc.head.appendChild(el);
-        }
-        if (el.innerHTML != text)
-            el.innerHTML = text;
-        return el;
-    }
-    $.$mol_style_attach = $mol_style_attach;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_window extends $mol_object {
         static size() {
             return {
@@ -9802,6 +9576,28 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_style_attach(id, text) {
+        const doc = $mol_dom_context.document;
+        if (!doc)
+            return null;
+        const elid = `$mol_style_attach:${id}`;
+        let el = doc.getElementById(elid);
+        if (!el) {
+            el = doc.createElement('style');
+            el.id = elid;
+            doc.head.appendChild(el);
+        }
+        if (el.innerHTML != text)
+            el.innerHTML = text;
+        return el;
+    }
+    $.$mol_style_attach = $mol_style_attach;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_promise extends Promise {
         done;
         fail;
@@ -9909,6 +9705,9 @@ var $;
         postfix() { return ')'; }
         static linear_gradient(value) {
             return new $mol_style_func('linear-gradient', value);
+        }
+        static radial_gradient(value) {
+            return new $mol_style_func('radial-gradient', value);
         }
         static calc(value) {
             return new $mol_style_func('calc', value);
@@ -10508,6 +10307,1113 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$apxu_hover) = class $apxu_hover extends ($.$mol_plugin) {
+		event_show(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event_hide(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		hovered(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		event(){
+			return {"mouseenter": (next) => (this.event_show(next)), "mouseleave": (next) => (this.event_hide(next))};
+		}
+	};
+	($mol_mem(($.$apxu_hover.prototype), "event_show"));
+	($mol_mem(($.$apxu_hover.prototype), "event_hide"));
+	($mol_mem(($.$apxu_hover.prototype), "hovered"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $apxu_hover extends $.$apxu_hover {
+            event_show(event) {
+                this.hovered(true);
+            }
+            event_hide(event) {
+                this.hovered(false);
+            }
+        }
+        $$.$apxu_hover = $apxu_hover;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$apxu_samosbor_map_block_row) = class $apxu_samosbor_map_block_row extends ($.$mol_view) {
+		sub(){
+			return [null];
+		}
+	};
+	($.$apxu_samosbor_map_block_part) = class $apxu_samosbor_map_block_part extends ($.$mol_view) {
+		content(){
+			return null;
+		}
+		sub(){
+			return [(this.content())];
+		}
+	};
+	($.$apxu_samosbor_map_block_flight) = class $apxu_samosbor_map_block_flight extends ($.$apxu_samosbor_map_block_part) {
+		status(next){
+			if(next !== undefined) return next;
+			return "free";
+		}
+		attr(){
+			return {...(super.attr()), "status": (this.status())};
+		}
+	};
+	($mol_mem(($.$apxu_samosbor_map_block_flight.prototype), "status"));
+	($.$apxu_samosbor_map_block_passage) = class $apxu_samosbor_map_block_passage extends ($.$mol_view) {
+		type(next){
+			if(next !== undefined) return next;
+			return "normal";
+		}
+		flex_direction(){
+			return "column";
+		}
+		floor_inc_value(){
+			return "0";
+		}
+		floor_inc(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.floor_inc_value())]);
+			return obj;
+		}
+		stairs(){
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
+			return obj;
+		}
+		content(){
+			return null;
+		}
+		up(){
+			return false;
+		}
+		right(){
+			return false;
+		}
+		down(){
+			return false;
+		}
+		left(){
+			return false;
+		}
+		attr(){
+			return {
+				"type": (this.type()), 
+				"up": (this.up()), 
+				"right": (this.right()), 
+				"down": (this.down()), 
+				"left": (this.left())
+			};
+		}
+		style(){
+			return {"flex-direction": (this.flex_direction())};
+		}
+		InterFloor(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.floor_inc()), (this.stairs())]);
+			return obj;
+		}
+		sub(){
+			return [(this.content())];
+		}
+	};
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "type"));
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "floor_inc"));
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "stairs"));
+	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "InterFloor"));
+	($.$apxu_samosbor_map_block_middle_flight) = class $apxu_samosbor_map_block_middle_flight extends ($.$mol_view) {};
+	($.$apxu_samosbor_map_block) = class $apxu_samosbor_map_block extends ($.$mol_view) {
+		hovered(){
+			return (this.Hover().hovered());
+		}
+		Hover(){
+			const obj = new this.$.$apxu_hover();
+			return obj;
+		}
+		block_direction(next){
+			if(next !== undefined) return next;
+			return "up";
+		}
+		selected(){
+			return false;
+		}
+		color_letter(){
+			return "b";
+		}
+		block_type(next){
+			if(next !== undefined) return next;
+			return "destroyed";
+		}
+		left(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		top(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		onclick(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		connection_hidden(id){
+			return false;
+		}
+		connection_highlight(id){
+			return false;
+		}
+		connection_left(id){
+			return 0;
+		}
+		connection_top(id){
+			return 0;
+		}
+		connection_click(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		transition_hidden(id){
+			return false;
+		}
+		transition_direction(id){
+			return "vertical";
+		}
+		transition_left(id){
+			return 0;
+		}
+		transition_top(id){
+			return 0;
+		}
+		stairs_icon(id){
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
+			return obj;
+		}
+		elevator_icon(id){
+			const obj = new this.$.$apxu_samosbor_map_icon_elevator();
+			return obj;
+		}
+		ladder_icon(id){
+			const obj = new this.$.$apxu_samosbor_map_icon_ladder();
+			return obj;
+		}
+		ladder_elevator(id){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.ladder_icon(id)), (this.elevator_icon(id))]);
+			return obj;
+		}
+		up_flight_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
+			return obj;
+		}
+		middle_flight_icons(){
+			return [(this.up_flight_icon())];
+		}
+		down_flight_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
+			return obj;
+		}
+		is_part_of_double_floor(){
+			return false;
+		}
+		block_name(next){
+			if(next !== undefined) return next;
+			return "А-00";
+		}
+		BlockName(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.block_name())]);
+			return obj;
+		}
+		display_floor(){
+			return "?";
+		}
+		CurrentFloor(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => (["Эт. ", (this.display_floor())]);
+			return obj;
+		}
+		gen_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_generator();
+			return obj;
+		}
+		generator_floor_value(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		generator_floor(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.generator_floor_value())]);
+			return obj;
+		}
+		Generator(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.gen_icon()), (this.generator_floor())]);
+			return obj;
+		}
+		mail_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_mail();
+			return obj;
+		}
+		mail_floor_value(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		mail_floor(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.mail_floor_value())]);
+			return obj;
+		}
+		Mail(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.mail_icon()), (this.mail_floor())]);
+			return obj;
+		}
+		mail_visible(){
+			return [(this.Mail())];
+		}
+		liquidator_profession(){
+			return null;
+		}
+		repairman_profession(){
+			return null;
+		}
+		cleaner_profession(){
+			return null;
+		}
+		plumber_profession(){
+			return null;
+		}
+		profession_wrapper(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.liquidator_profession()), 
+				(this.repairman_profession()), 
+				(this.cleaner_profession()), 
+				(this.plumber_profession())
+			]);
+			return obj;
+		}
+		safe_place(){
+			return null;
+		}
+		theatre_place(){
+			return null;
+		}
+		hospital_place(){
+			return null;
+		}
+		party_place(){
+			return null;
+		}
+		places_wrapper(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.safe_place()), 
+				(this.theatre_place()), 
+				(this.hospital_place()), 
+				(this.party_place())
+			]);
+			return obj;
+		}
+		flooded_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_sinking();
+			return obj;
+		}
+		flooded_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.flood_floor_value())]);
+			return obj;
+		}
+		roof_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_roof();
+			return obj;
+		}
+		roof_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.roof_floor_value())]);
+			return obj;
+		}
+		flooded(){
+			return null;
+		}
+		roof(){
+			return null;
+		}
+		left_flight_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		flight_status(id){
+			return "free";
+		}
+		right_flight_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		max_floor_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_max_floor();
+			return obj;
+		}
+		max_floor(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		max_floor_value(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.max_floor())]);
+			return obj;
+		}
+		max_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.max_floor_icon()), (this.max_floor_value())]);
+			return obj;
+		}
+		min_floor_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_min_floor();
+			return obj;
+		}
+		min_floor(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		min_floor_value(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.min_floor())]);
+			return obj;
+		}
+		min_floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.min_floor_icon()), (this.min_floor_value())]);
+			return obj;
+		}
+		has_interfloor(){
+			return false;
+		}
+		connections(){
+			return [];
+		}
+		transitions(){
+			return [];
+		}
+		transitions_list(){
+			return (this.transitions());
+		}
+		pipe_name(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.block_name())]);
+			return obj;
+		}
+		pipe_name_visible(){
+			return [(this.pipe_name())];
+		}
+		up_left_angle_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		up_left_angle_visible(){
+			return (this.up_left_angle_part());
+		}
+		passage_type(id){
+			return "noway";
+		}
+		passage_click(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		up_left_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = (next) => ((this.passage_type("up_left")));
+			(obj.event) = () => ({"click": (next) => (this.passage_click("up_left", next))});
+			(obj.up) = () => (true);
+			(obj.left) = () => (true);
+			return obj;
+		}
+		up_left_part_empty(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		up_left_part(){
+			return (this.up_left_part_empty());
+		}
+		up_left_part_visible(){
+			return (this.up_left_part());
+		}
+		up_passage_or_flight(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		up_right_part_empty(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		up_right_part(){
+			return (this.up_right_part_empty());
+		}
+		up_right_part_visible(){
+			return (this.up_right_part());
+		}
+		up_right_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.passage_type("up_right")));
+			(obj.event) = () => ({"click": (next) => (this.passage_click("up_right", next))});
+			(obj.up) = () => (true);
+			(obj.right) = () => (true);
+			return obj;
+		}
+		up_right_angle_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		up_right_angle_visible(){
+			return (this.up_right_angle_part());
+		}
+		up_row(){
+			const obj = new this.$.$apxu_samosbor_map_block_row();
+			(obj.sub) = () => ([
+				...(this.pipe_name_visible()), 
+				(this.up_left_angle_visible()), 
+				(this.up_left_passage()), 
+				(this.up_left_part_visible()), 
+				(this.up_passage_or_flight()), 
+				(this.up_right_part_visible()), 
+				(this.up_right_passage()), 
+				(this.up_right_angle_visible())
+			]);
+			return obj;
+		}
+		left_passage_type(){
+			return (this.passage_type("left"));
+		}
+		left_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.left_passage_type()));
+			(obj.event) = () => ({"click": (next) => (this.passage_click("left", next))});
+			(obj.left) = () => (true);
+			return obj;
+		}
+		left_crossroad(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		left_hallway(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		fence_type(next){
+			if(next !== undefined) return next;
+			return "hole";
+		}
+		fence_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		fence(){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"type": (this.fence_type())});
+			(obj.event) = () => ({"click": (next) => (this.fence_click(next))});
+			return obj;
+		}
+		right_hallway(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		right_crossroad(){
+			const obj = new this.$.$mol_view();
+			return obj;
+		}
+		right_passage_type(){
+			return (this.passage_type("right"));
+		}
+		right_passage_click(next){
+			return (this.passage_click("right", next));
+		}
+		right_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.right_passage_type()));
+			(obj.event) = () => ({"click": (next) => (this.right_passage_click(next))});
+			(obj.right) = () => (true);
+			return obj;
+		}
+		middle_row(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.left_passage()), 
+				(this.left_crossroad()), 
+				(this.left_hallway()), 
+				(this.fence()), 
+				(this.right_hallway()), 
+				(this.right_crossroad()), 
+				(this.right_passage())
+			]);
+			return obj;
+		}
+		down_left_angle_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		down_left_angle_visible(){
+			return (this.down_left_angle_part());
+		}
+		down_left_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.passage_type("down_left")));
+			(obj.event) = () => ({"click": (next) => (this.passage_click("down_left", next))});
+			(obj.down) = () => (true);
+			(obj.left) = () => (true);
+			return obj;
+		}
+		down_left_part_empty(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		down_left_part(){
+			return (this.down_left_part_empty());
+		}
+		down_left_part_visible(){
+			return (this.down_left_part());
+		}
+		down_right_part_empty(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		down_right_part(){
+			return (this.down_right_part_empty());
+		}
+		down_right_part_visible(){
+			return (this.down_right_part());
+		}
+		down_right_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = () => ((this.passage_type("down_right")));
+			(obj.event) = () => ({"click": (next) => (this.passage_click("down_right", next))});
+			(obj.down) = () => (true);
+			(obj.right) = () => (true);
+			return obj;
+		}
+		down_right_angle_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			return obj;
+		}
+		down_right_angle_visible(){
+			return (this.down_right_angle_part());
+		}
+		down_row(){
+			const obj = new this.$.$apxu_samosbor_map_block_row();
+			(obj.sub) = () => ([
+				(this.down_left_angle_visible()), 
+				(this.down_left_passage()), 
+				(this.down_left_part_visible()), 
+				(this.down_middle_passage()), 
+				(this.down_right_part_visible()), 
+				(this.down_right_passage()), 
+				(this.down_right_angle_visible())
+			]);
+			return obj;
+		}
+		content(){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"interfloor": (this.has_interfloor())});
+			(obj.sub) = () => ([
+				...(this.connections()), 
+				...(this.transitions_list()), 
+				(this.up_row()), 
+				(this.middle_row()), 
+				(this.down_row())
+			]);
+			return obj;
+		}
+		plugins(){
+			return [(this.Hover())];
+		}
+		map(){
+			const obj = new this.$.$apxu_samosbor_map();
+			return obj;
+		}
+		gigacluster(){
+			const obj = new this.$.$apxu_samosbor_map_gigacluster();
+			return obj;
+		}
+		block_data(next){
+			if(next !== undefined) return next;
+			const obj = new this.$.$apxu_samosbor_map_block_data();
+			return obj;
+		}
+		edit_mode(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		create_block_mode(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		connect_mode(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		is_doubled(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		is_pipe(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		block_layer(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		current_layer(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		current_floor(){
+			return 0;
+		}
+		board_floor_value(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		roof_floor_value(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		flood_floor_value(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		profession_floors(id){
+			return [];
+		}
+		place_floors(id){
+			return [];
+		}
+		safe_floors(){
+			return [];
+		}
+		inverted(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		pos_x(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		pos_y(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		is_up_flight(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		on_connection_select(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		visible(){
+			return true;
+		}
+		attr(){
+			return {
+				"direction": (this.block_direction()), 
+				"visible": true, 
+				"selected": (this.selected()), 
+				"editing": (this.edit_mode()), 
+				"color": (this.color_letter()), 
+				"block-type": (this.block_type())
+			};
+		}
+		style(){
+			return {"left": (this.left()), "top": (this.top())};
+		}
+		event(){
+			return {"click": (next) => (this.onclick(next))};
+		}
+		Connection(id){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"hidden": (this.connection_hidden(id)), "highlight": (this.connection_highlight(id))});
+			(obj.style) = () => ({"left": (this.connection_left(id)), "top": (this.connection_top(id))});
+			(obj.event) = () => ({"click": (next) => (this.connection_click(id, next))});
+			return obj;
+		}
+		Transition(id){
+			const obj = new this.$.$mol_view();
+			(obj.attr) = () => ({"hidden": (this.transition_hidden(id)), "direction": (this.transition_direction(id))});
+			(obj.style) = () => ({"left": (this.transition_left(id)), "top": (this.transition_top(id))});
+			return obj;
+		}
+		show_connections(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		flight_icons(id){
+			return {
+				"stairs": (this.stairs_icon(id)), 
+				"elevator": (this.elevator_icon(id)), 
+				"ladder_elevator": (this.ladder_elevator(id))
+			};
+		}
+		up_middle_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = (next) => ("noway");
+			(obj.up) = () => (true);
+			return obj;
+		}
+		down_middle_passage(){
+			const obj = new this.$.$apxu_samosbor_map_block_passage();
+			(obj.type) = (next) => ("noway");
+			(obj.down) = () => (true);
+			return obj;
+		}
+		up_flight(){
+			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
+			(obj.sub) = () => ([...(this.middle_flight_icons())]);
+			return obj;
+		}
+		down_flight(){
+			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
+			(obj.sub) = () => ([(this.down_flight_icon())]);
+			return obj;
+		}
+		name_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.attr) = () => ({"semi-floor": (this.is_part_of_double_floor())});
+			(obj.sub) = () => ([(this.BlockName()), (this.CurrentFloor())]);
+			return obj;
+		}
+		info_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.Generator()), ...(this.mail_visible())]);
+			return obj;
+		}
+		liquidator_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_liquidator();
+			return obj;
+		}
+		repairman_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_repairman();
+			return obj;
+		}
+		cleaner_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_cleaner();
+			return obj;
+		}
+		factory_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_factory();
+			return obj;
+		}
+		party_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_party();
+			return obj;
+		}
+		theatre_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_theatre();
+			return obj;
+		}
+		hospital_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_hospital();
+			return obj;
+		}
+		house_icon(){
+			const obj = new this.$.$apxu_samosbor_map_icon_house();
+			return obj;
+		}
+		profession_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.profession_wrapper())]);
+			return obj;
+		}
+		places_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.places_wrapper())]);
+			return obj;
+		}
+		flooded_effect(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.flooded_icon()), (this.flooded_floor_view())]);
+			return obj;
+		}
+		roof_effect(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.roof_icon()), (this.roof_floor_view())]);
+			return obj;
+		}
+		effects_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.flooded()), (this.roof())]);
+			return obj;
+		}
+		left_flight(){
+			const obj = new this.$.$apxu_samosbor_map_block_flight();
+			(obj.event) = () => ({"click": (next) => (this.left_flight_click(next))});
+			(obj.status) = () => ((this.flight_status("left")));
+			(obj.sub) = () => ([(this.left_flight_icon())]);
+			return obj;
+		}
+		right_flight(){
+			const obj = new this.$.$apxu_samosbor_map_block_flight();
+			(obj.event) = () => ({"click": (next) => (this.right_flight_click(next))});
+			(obj.status) = () => ((this.flight_status("right")));
+			(obj.sub) = () => ([(this.right_flight_icon())]);
+			return obj;
+		}
+		floor_part(){
+			const obj = new this.$.$apxu_samosbor_map_block_part();
+			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
+			return obj;
+		}
+		sub(){
+			return [(this.content())];
+		}
+	};
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "Hover"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_direction"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_type"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "top"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "onclick"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "connection_click"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "stairs_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "elevator_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "ladder_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "ladder_elevator"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_flight_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_flight_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_name"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "BlockName"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "CurrentFloor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "gen_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "generator_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "generator_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "Generator"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "mail_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "mail_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "mail_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "Mail"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_wrapper"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_wrapper"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pipe_name"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_angle_part"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "passage_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_part_empty"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_passage_or_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_part_empty"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_angle_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_crossroad"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_hallway"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_type"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_click"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_hallway"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_crossroad"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "middle_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_angle_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_part_empty"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_part_empty"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_angle_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_row"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "content"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "map"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "gigacluster"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_data"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "edit_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "create_block_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "connect_mode"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_doubled"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_pipe"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_layer"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "current_layer"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "board_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flood_floor_value"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "inverted"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pos_x"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pos_y"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_up_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "on_connection_select"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "Connection"));
+	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "Transition"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "show_connections"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_middle_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_middle_passage"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "name_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "info_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "liquidator_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "repairman_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "cleaner_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "factory_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "party_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "theatre_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "hospital_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "house_icon"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_effect"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_effect"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "effects_part"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight"));
+	($mol_mem(($.$apxu_samosbor_map_block.prototype), "floor_part"));
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_crus_home extends $hyoo_crus_entity.with({
+        Selection: $hyoo_crus_atom_str,
+        Hall: $hyoo_crus_atom_ref_to(() => $hyoo_crus_dict),
+    }) {
+        hall_by(Node, preset) {
+            return this.Hall(null)?.ensure(preset)?.cast(Node) ?? null;
+        }
+    }
+    $.$hyoo_crus_home = $hyoo_crus_home;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_crus_glob extends $mol_object {
+        static lands_touched = new $mol_wire_set();
+        lands_touched = this.constructor.lands_touched;
+        static yard() {
+            return new this.$.$hyoo_crus_yard;
+        }
+        yard() {
+            return this.$.$hyoo_crus_glob.yard();
+        }
+        static home(Node) {
+            return this.Land(this.$.$hyoo_crus_auth.current().lord()).Data(Node ?? $hyoo_crus_home);
+        }
+        home() {
+            return this.$.$hyoo_crus_glob.home();
+        }
+        static king_grab(preset = { '': $hyoo_crus_rank_read }) {
+            const king = this.$.$hyoo_crus_auth.grab();
+            const colony = $mol_wire_sync($hyoo_crus_land).make({ $: this.$ });
+            colony.auth = $mol_const(king);
+            if ((preset[''] ?? $hyoo_crus_rank_deny) === $hyoo_crus_rank_deny) {
+                colony.encrypted(true);
+            }
+            const self = this.$.$hyoo_crus_auth.current();
+            colony.give(self, $hyoo_crus_rank_rule);
+            for (const key in preset)
+                colony.give(key ? $hyoo_crus_auth.from(key) : null, preset[key]);
+            this.Land(colony.ref()).apply_unit(colony.delta_unit());
+            return king;
+        }
+        king_grab(preset = { '': $hyoo_crus_rank_read }) {
+            return this.$.$hyoo_crus_glob.king_grab(preset);
+        }
+        static land_grab(preset = { '': $hyoo_crus_rank_read }) {
+            return this.Land(this.king_grab(preset).lord());
+        }
+        land_grab(preset = { '': $hyoo_crus_rank_read }) {
+            return this.$.$hyoo_crus_glob.land_grab(preset);
+        }
+        static Land(ref) {
+            this.lands_touched.add(ref);
+            return $hyoo_crus_land.make({
+                ref: $mol_const(ref),
+            });
+        }
+        Land(ref) {
+            return this.$.$hyoo_crus_glob.Land(ref);
+        }
+        static Node(ref, Node) {
+            const land = this.Land($hyoo_crus_ref_land(ref));
+            return land.Node(Node).Item($hyoo_crus_ref_head(ref));
+        }
+        Node(ref, Node) {
+            return this.$.$hyoo_crus_glob.Node(ref, Node);
+        }
+        static apply_pack(pack) {
+            const { lands, rocks } = pack.parts();
+            return this.apply_parts(lands, rocks);
+        }
+        apply_pack(pack) {
+            return this.$.$hyoo_crus_glob.apply_pack(pack);
+        }
+        static apply_parts(lands, rocks) {
+            for (const land of Reflect.ownKeys(lands)) {
+                const errors = this.Land(land).apply_unit(lands[land].units).filter(Boolean);
+                for (const error of errors)
+                    this.$.$mol_log3_warn({
+                        place: `${this}.apply_pack()`,
+                        message: error,
+                        hint: 'Send it to developer',
+                    });
+            }
+            for (const [hash, rock] of rocks) {
+                if (!rock)
+                    continue;
+                this.$.$hyoo_crus_mine.rock_save(rock);
+            }
+        }
+        apply_parts(lands, rocks) {
+            return this.$.$hyoo_crus_glob.apply_parts(lands, rocks);
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_crus_glob, "yard", null);
+    __decorate([
+        $mol_action
+    ], $hyoo_crus_glob, "king_grab", null);
+    __decorate([
+        $mol_action
+    ], $hyoo_crus_glob, "land_grab", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_crus_glob, "Land", null);
+    __decorate([
+        $mol_action
+    ], $hyoo_crus_glob, "apply_pack", null);
+    __decorate([
+        $mol_action
+    ], $hyoo_crus_glob, "apply_parts", null);
+    $.$hyoo_crus_glob = $hyoo_crus_glob;
+})($ || ($ = {}));
+
+;
 	($.$mol_svg) = class $mol_svg extends ($.$mol_view) {
 		dom_name(){
 			return "svg";
@@ -10677,6 +11583,1616 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    function num_to_bigint(num) {
+        return (num !== undefined && !isNaN(num)) ? BigInt(num) : undefined;
+    }
+    $.num_to_bigint = num_to_bigint;
+    $.TransitionPositions = ["up_left", "up_middle", "up_right", "right", "down_right", "down_middle", "down_left", "left"];
+    class BlockDirection extends $hyoo_crus_atom_enum(["up", "right", "down", "left"]) {
+    }
+    $.BlockDirection = BlockDirection;
+    class TransitionPositionData extends $hyoo_crus_atom_enum($.TransitionPositions) {
+    }
+    $.TransitionPositionData = TransitionPositionData;
+    class TransitionPort extends $hyoo_crus_dict.with({
+        Block: $hyoo_crus_atom_ref_to(() => $apxu_samosbor_map_block_data),
+        Floor: $hyoo_crus_atom_int,
+        Position: TransitionPositionData,
+    }) {
+        is_correct(floor, position) {
+            return this.Floor(null)?.val() === BigInt(floor) && this.Position(null)?.val() === position;
+        }
+    }
+    $.TransitionPort = TransitionPort;
+    class TransitionData extends $hyoo_crus_dict.with({
+        From: TransitionPort,
+        To: TransitionPort
+    }) {
+        get_connected_block(ref) {
+            if (this.From(null)?.Block(null)?.val() === ref) {
+                return this.To(null)?.Block()?.val();
+            }
+            return this.From(null)?.Block(null)?.val();
+        }
+        remove_transition() {
+            const from_block_ref = this.From(null)?.Block(null)?.val();
+            const from_block = from_block_ref && this.$.$apxu_samosbor_map_app.block(from_block_ref);
+            const to_block_ref = this.To(null)?.Block(null)?.val();
+            const to_block = to_block_ref && this.$.$apxu_samosbor_map_app.block(to_block_ref);
+            to_block?.Transitions(null)?.cut(this.ref());
+            from_block?.Transitions(null)?.cut(this.ref());
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], TransitionData.prototype, "get_connected_block", null);
+    __decorate([
+        $mol_action
+    ], TransitionData.prototype, "remove_transition", null);
+    $.TransitionData = TransitionData;
+    class FlightType extends $hyoo_crus_atom_enum(["stairs", "elevator", "ladder_elevator"]) {
+    }
+    $.FlightType = FlightType;
+    class FlightStatus extends $hyoo_crus_atom_enum(["free", "blocked"]) {
+    }
+    $.FlightStatus = FlightStatus;
+    class FlightData extends $hyoo_crus_dict.with({
+        Type: FlightType,
+        Status: FlightStatus,
+    }) {
+    }
+    $.FlightData = FlightData;
+    class PassageType extends $hyoo_crus_atom_enum(["noway", "normal", "stairs_up", "stairs_down"]) {
+    }
+    $.PassageType = PassageType;
+    class PassageStatus extends $hyoo_crus_atom_enum(["free", "blocked", "danger"]) {
+    }
+    $.PassageStatus = PassageStatus;
+    class PassageData extends $hyoo_crus_dict.with({
+        Type: PassageType,
+        Status: PassageStatus,
+    }) {
+    }
+    $.PassageData = PassageData;
+    const PassageDirections = {
+        UpLeftPassage: PassageData,
+        UpMiddlePassage: PassageData,
+        UpRightPassage: PassageData,
+        LeftPassage: PassageData,
+        RightPassage: PassageData,
+        DownLeftPassage: PassageData,
+        DownMiddlePassage: PassageData,
+        DownRightPassage: PassageData,
+    };
+    const FenceTypes = ["missing", "hole", "solid"];
+    class FenceData extends $hyoo_crus_atom_enum(FenceTypes) {
+    }
+    $.FenceData = FenceData;
+    class FloorData extends $hyoo_crus_dict.with({
+        ...PassageDirections,
+        Fence: FenceData,
+        LeftFlight: FlightStatus,
+        RightFlight: FlightStatus,
+        IsDouble: $hyoo_crus_atom_bool,
+    }) {
+        static positions_map = {
+            up_left: "UpLeftPassage",
+            up_middle: "UpMiddlePassage",
+            up_right: "UpRightPassage",
+            right: "RightPassage",
+            down_right: "DownRightPassage",
+            down_middle: "DownMiddlePassage",
+            down_left: "DownLeftPassage",
+            left: "LeftPassage"
+        };
+        static get_passage_type(transition, floor_data, next) {
+            if (transition === "up_middle" || transition === "down_middle") {
+                return "noway";
+            }
+            const property_name = FloorData.positions_map[transition];
+            const passage_type = floor_data?.[property_name](next)?.Type(next)?.val(next);
+            if (transition === "right" || transition === "left") {
+                return passage_type ?? "normal";
+            }
+            return passage_type ?? "noway";
+        }
+        static is_passage_free(transition, floor_data) {
+            return this.get_passage_type(transition, floor_data) !== "noway";
+        }
+        get_passage_type(transition) {
+            return FloorData.get_passage_type(transition, this);
+        }
+        is_passage_free(transition) {
+            return FloorData.is_passage_free(transition, this);
+        }
+        fence_type(next) {
+            return this.Fence(next)?.val(next) ?? "missing";
+        }
+        set_next_fence_type() {
+            const current_type = this.fence_type();
+            const id = FenceTypes.indexOf(current_type);
+            const new_type = FenceTypes[(id + 1) % FenceTypes.length];
+            this.fence_type(new_type);
+        }
+        flight_status(what, next) {
+            if (what === "left") {
+                return this.LeftFlight(next)?.val(next) ?? "free";
+            }
+            if (what === "right") {
+                return this.RightFlight(next)?.val(next) ?? "free";
+            }
+            return "free";
+        }
+        next_flight_status(what) {
+            const current_status = this.flight_status(what);
+            const id = FlightStatus.options.indexOf(current_status);
+            const new_status = FlightStatus.options[(id + 1) % FlightStatus.options.length];
+            this.flight_status(what, new_status);
+        }
+        all_passages() {
+            return $.TransitionPositions.map((pos) => {
+                return this.get_passage_type(pos);
+            });
+        }
+        is_double_floor(next) {
+            return this.IsDouble(next)?.val(next) ?? false;
+        }
+    }
+    __decorate([
+        $mol_mem_key
+    ], FloorData.prototype, "get_passage_type", null);
+    __decorate([
+        $mol_mem_key
+    ], FloorData.prototype, "is_passage_free", null);
+    __decorate([
+        $mol_mem
+    ], FloorData.prototype, "fence_type", null);
+    __decorate([
+        $mol_action
+    ], FloorData.prototype, "set_next_fence_type", null);
+    __decorate([
+        $mol_mem_key
+    ], FloorData.prototype, "flight_status", null);
+    __decorate([
+        $mol_action
+    ], FloorData.prototype, "next_flight_status", null);
+    __decorate([
+        $mol_mem
+    ], FloorData.prototype, "all_passages", null);
+    __decorate([
+        $mol_mem
+    ], FloorData.prototype, "is_double_floor", null);
+    $.FloorData = FloorData;
+    class FloorsData extends $hyoo_crus_dict_to(FloorData) {
+    }
+    $.FloorsData = FloorsData;
+    class BlockType extends $hyoo_crus_atom_enum(["residential", "frozen", "infected", "destroyed"]) {
+    }
+    $.BlockType = BlockType;
+    class ProfessionType extends $hyoo_crus_atom_enum(["liquidator", "repairman", "cleaner", "plumber"]) {
+    }
+    $.ProfessionType = ProfessionType;
+    class ProfessionData extends $hyoo_crus_dict.with({
+        Type: ProfessionType,
+        Floor: $hyoo_crus_atom_int,
+    }) {
+    }
+    $.ProfessionData = ProfessionData;
+    class PlaceType extends $hyoo_crus_atom_enum([
+        "theatre", "hospital", "party", "gym",
+        "laundry", "postal", "overview", "racing", "hockey",
+        "spleef", "pool", "warehouse", "shower", "toilet", "gallery"
+    ]) {
+    }
+    $.PlaceType = PlaceType;
+    class PlaceData extends $hyoo_crus_dict.with({
+        Type: PlaceType,
+        Floor: $hyoo_crus_atom_int,
+    }) {
+    }
+    $.PlaceData = PlaceData;
+    class $apxu_samosbor_map_block_data extends ($hyoo_crus_entity.with({
+        IsPipe: $hyoo_crus_atom_bool,
+        Name: $hyoo_crus_atom_str,
+        Direction: BlockDirection,
+        Type: BlockType,
+        Transitions: $hyoo_crus_list_ref_to(() => TransitionData),
+        PositionX: $hyoo_crus_atom_int,
+        PositionY: $hyoo_crus_atom_int,
+        Layer: $hyoo_crus_atom_int,
+        Generator: $hyoo_crus_atom_int,
+        BoardFloor: $hyoo_crus_atom_int,
+        MailFloor: $hyoo_crus_atom_int,
+        RoofFloor: $hyoo_crus_atom_int,
+        FloodFloor: $hyoo_crus_atom_int,
+        MinFloor: $hyoo_crus_atom_int,
+        MaxFloor: $hyoo_crus_atom_int,
+        LeftFlight: FlightData,
+        RightFlight: FlightData,
+        FloorsData: FloorsData,
+        IsMiddleFlight: $hyoo_crus_atom_bool,
+        MiddleFlight: FlightData,
+        HasBalcony: $hyoo_crus_atom_bool,
+        Professions: $hyoo_crus_list_ref_to(() => ProfessionData),
+        Places: $hyoo_crus_list_ref_to(() => PlaceData),
+    })) {
+        name(next) {
+            return this.Name(next)?.val(next) ?? "N-00";
+        }
+        direction(next) {
+            return this.Direction(next)?.val(next) ?? "up";
+        }
+        block_type(next) {
+            return this.Type(next)?.val(next) ?? "residential";
+        }
+        transitions(next) {
+            return this.Transitions(next)?.remote_list(next) ?? [];
+        }
+        transition_by_position(floor, position) {
+            return this.transitions()?.find((transition) => {
+                return (transition.From(null)?.Block(null)?.val() === this.ref() && transition.From(null)?.is_correct(floor, position)) || transition.To(null)?.Block(null)?.val() === this.ref() && transition.To(null)?.is_correct(floor, position);
+            });
+        }
+        connect(my_floor, my_pos, block_node, another_floor, another_pos) {
+            const trans = this.Transitions(null)?.make(this.land());
+            if (!trans)
+                return;
+            block_node.Transitions(null)?.add(trans.ref());
+            trans.From(null)?.Floor(null)?.val(BigInt(my_floor));
+            trans.From(null)?.Position(null)?.val(my_pos);
+            trans.From(null)?.Block(null)?.val(this.ref());
+            trans.To(null)?.Floor(null)?.val(BigInt(another_floor));
+            trans.To(null)?.Position(null)?.val(another_pos);
+            trans.To(null)?.Block(null)?.val(block_node.ref());
+        }
+        remove_transition(transition) {
+        }
+        pos_x(next) {
+            return Number(this.PositionX(next)?.val(num_to_bigint(next)) ?? 0);
+        }
+        pos_y(next) {
+            return Number(this.PositionY(next)?.val(num_to_bigint(next)) ?? 0);
+        }
+        layer(next) {
+            return Number(this.Layer(next)?.val(num_to_bigint(next)) ?? 0);
+        }
+        min_floor(next) {
+            return Number(this.MinFloor(next)?.val(num_to_bigint(next)) ?? 0);
+        }
+        max_floor(next) {
+            return Number(this.MaxFloor(next)?.val(num_to_bigint(next)) ?? 0);
+        }
+        generator_floor(next) {
+            return Number(this.Generator(next)?.val(num_to_bigint(next)) ?? 0);
+        }
+        left_flight_status(next) {
+            return this.LeftFlight(next)?.Status(next)?.val(next);
+        }
+        left_flight_type(next) {
+            return this.LeftFlight(next)?.Type(next)?.val(next) ?? "stairs";
+        }
+        right_flight_status(next) {
+            return this.RightFlight(next)?.Status(next)?.val(next);
+        }
+        right_flight_type(next) {
+            return this.RightFlight(next)?.Type(next)?.val(next) ?? "stairs";
+        }
+        middle_flight_type(next) {
+            return this.MiddleFlight(next)?.Type(next)?.val(next) ?? "stairs";
+        }
+        passage_type([floor, what], next) {
+            return FloorData.get_passage_type(what, this.FloorsData(next)?.key(floor, next), next);
+        }
+        flight_status({ floor, what }) {
+            return this.FloorsData()?.key(floor)?.flight_status(what) ?? "free";
+        }
+        next_flight_status(floor, what) {
+            this.FloorsData(true)?.key(floor, true).next_flight_status(what);
+        }
+        board_floor(next) {
+            const holder = this.BoardFloor(next);
+            if (!holder)
+                return null;
+            if (next !== undefined && isNaN(next)) {
+                return holder.val(null);
+            }
+            const val = typeof next === "number" ? BigInt(next) : next;
+            return holder.val(val);
+        }
+        mail_floor(next) {
+            const holder = this.MailFloor(next);
+            if (!holder)
+                return null;
+            if (next !== undefined && isNaN(next)) {
+                return holder.val(null);
+            }
+            const val = typeof next === "number" ? BigInt(next) : next;
+            return holder.val(val);
+        }
+        roof_floor(next) {
+            const holder = this.RoofFloor(next);
+            if (!holder)
+                return null;
+            if (next !== undefined && isNaN(next)) {
+                return holder.val(null);
+            }
+            const val = typeof next === "number" ? BigInt(next) : next;
+            return holder.val(val);
+        }
+        flood_floor(next) {
+            const holder = this.FloodFloor(next);
+            if (!holder)
+                return null;
+            if (next !== undefined && isNaN(next)) {
+                return holder.val(null);
+            }
+            const val = typeof next === "number" ? BigInt(next) : next;
+            return holder.val(val);
+        }
+        profession_floors(what) {
+            return this.Professions()?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
+        }
+        add_profession(what) {
+            const node = this.Professions(true)?.make(this.land());
+            node?.Type(true)?.val(what);
+            return node;
+        }
+        remove_profession(node) {
+            this.Professions(true)?.cut(node);
+        }
+        place_floors(what) {
+            return this.Places()?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
+        }
+        safe_floors() {
+            const safe_place_types = [
+                "theatre", "party", "gym", "overview", "gallery",
+                "racing", "hockey", "spleef", "pool", "warehouse"
+            ];
+            const safe_places = this.Places()?.remote_list()
+                .filter((place) => {
+                const place_type = place.Type()?.val();
+                if (!place_type)
+                    return;
+                return safe_place_types.includes(place_type);
+            }) ?? [];
+            const safe_profession_types = ["liquidator", "plumber"];
+            const safe_professions = this.Professions()?.remote_list()
+                .filter((profession) => {
+                const profession_type = profession.Type()?.val();
+                if (!profession_type)
+                    return;
+                return safe_profession_types.includes(profession_type);
+            }) ?? [];
+            const all_safe_places = [];
+            return all_safe_places.concat(safe_places).concat(safe_professions);
+        }
+        add_place(what) {
+            const node = this.Places(true)?.make(this.land());
+            node?.Type(true)?.val(what);
+            return node;
+        }
+        remove_place(node) {
+            this.Places(true)?.cut(node);
+        }
+        all_passages(floor) {
+            return this.FloorsData()?.key(floor)?.all_passages() ?? [];
+        }
+        double_floors_count(floor) {
+            const all_floors = this.FloorsData()?.keys()
+                .filter((num) => floor > 0 ? (Number(num) > 0 && Number(num) < floor) : (Number(num) < 0 && Number(num) > floor)) ?? [];
+            const count = all_floors.reduce((count, floor_num) => {
+                if (this.is_double_floor(Number(floor_num))) {
+                    return count + 1;
+                }
+                return count;
+            }, 0);
+            return count;
+        }
+        is_double_floor(floor, next) {
+            return this.FloorsData(next)?.key(floor, next)?.is_double_floor(next) ?? false;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "name", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "direction", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "block_type", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "transitions", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "connect", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "remove_transition", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "pos_x", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "pos_y", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "layer", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "min_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "max_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "generator_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "left_flight_status", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "left_flight_type", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "right_flight_status", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "right_flight_type", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "middle_flight_type", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "passage_type", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "flight_status", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "next_flight_status", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "board_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "mail_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "roof_floor", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "flood_floor", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "profession_floors", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "add_profession", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "remove_profession", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "place_floors", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_block_data.prototype, "safe_floors", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "add_place", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_block_data.prototype, "remove_place", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "all_passages", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "double_floors_count", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_block_data.prototype, "is_double_floor", null);
+    $.$apxu_samosbor_map_block_data = $apxu_samosbor_map_block_data;
+    class $apxu_samosbor_map_block_pipe_data extends $apxu_samosbor_map_block_data.with({}) {
+    }
+    $.$apxu_samosbor_map_block_pipe_data = $apxu_samosbor_map_block_pipe_data;
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $$.block_full_cell = 380;
+        $$.ru_to_eng = {
+            "А": "a",
+            "Б": "b",
+            "В": "v",
+            "Г": "g",
+            "Д": "d",
+            "Е": "e",
+            "Ж": "j",
+            "З": "z",
+            "И": "i",
+            "К": "k",
+            "Л": "l",
+            "М": "m",
+            "Н": "n",
+            "О": "o",
+            "П": "p",
+            "Р": "r",
+            "С": "s",
+            "Т": "t",
+            "У": "u",
+            "Ф": "f",
+            "Х": "h",
+            "Ц": "c",
+            "Ч": "ch",
+            "Ш": "sh",
+            "Щ": "shch",
+            "Ы": "y",
+            "Ю": "yu",
+            "Э": "je",
+            "Я": "ya",
+        };
+        class $apxu_samosbor_map_block_passage extends $.$apxu_samosbor_map_block_passage {
+            floor_inc_value() {
+                if (this.type() === "stairs_up") {
+                    return "+1";
+                }
+                if (this.type() === "stairs_down") {
+                    return "-1";
+                }
+                return "0";
+            }
+            is_interfloor() {
+                return this.type() === "stairs_up" || this.type() === "stairs_down";
+            }
+            content() {
+                return this.is_interfloor() ? this.InterFloor() : null;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_passage.prototype, "is_interfloor", null);
+        $$.$apxu_samosbor_map_block_passage = $apxu_samosbor_map_block_passage;
+        class $apxu_samosbor_map_block extends $.$apxu_samosbor_map_block {
+            block_ref(next) {
+                return next;
+            }
+            block_data(next) {
+                return next;
+            }
+            block_direction(next) {
+                const is_inverted = this.inverted();
+                const maybe_invert = (next) => {
+                    return next ? (is_inverted ? $apxu_samosbor_map_app.next_direction(next, 2) : next) : undefined;
+                };
+                return maybe_invert(this.block_data().direction(maybe_invert(next)));
+            }
+            pos_x(next) {
+                const is_inverted = this.inverted();
+                const dir = this.block_direction();
+                const block_width = (dir === "up" || dir === "down") ? 2 : 1;
+                const maybe_invert = (val) => {
+                    if (val === undefined)
+                        return undefined;
+                    return is_inverted ? -(val + block_width) : val;
+                };
+                return maybe_invert(this.block_data().pos_x(maybe_invert(next)));
+            }
+            pos_y(next) {
+                const is_inverted = this.inverted();
+                const dir = this.block_direction();
+                const block_height = (dir === "up" || dir === "down") ? 1 : 2;
+                const maybe_invert = (val) => {
+                    if (val === undefined)
+                        return undefined;
+                    return is_inverted ? -(val + block_height) : val;
+                };
+                return maybe_invert(this.block_data().pos_y(maybe_invert(next)));
+            }
+            left() {
+                return this.pos_x() * $$.block_full_cell;
+            }
+            top() {
+                return this.pos_y() * $$.block_full_cell;
+            }
+            block_name(next) {
+                return this.block_data().name(next) ?? "";
+            }
+            current_floor() {
+                return this.current_layer() - this.block_layer();
+            }
+            numerical_floor() {
+                const double_count = this.block_data().double_floors_count(this.current_floor());
+                const numerical_floor = this.current_floor() - (this.current_floor() > 0 ? double_count : -double_count);
+                return numerical_floor;
+            }
+            display_floor() {
+                const numerical_floor = this.numerical_floor();
+                const rounded_floor = Math.max(this.min_floor(), Math.min(numerical_floor, this.max_floor()));
+                const data = this.block_data();
+                const suffix = this.is_doubled()
+                    ? "/1" : data.is_double_floor(this.current_floor() - Math.sign(this.current_floor()))
+                    ? "/2" : "";
+                return `${rounded_floor}${suffix}`;
+            }
+            is_part_of_double_floor() {
+                const data = this.block_data();
+                return this.is_doubled()
+                    ? true : data.is_double_floor(this.current_floor() - Math.sign(this.current_floor()))
+                    ? true : false;
+            }
+            is_doubled() {
+                return this.block_data().is_double_floor(this.current_floor());
+            }
+            generator_floor_value(next) {
+                return this.block_data().generator_floor(next);
+            }
+            board_floor_value(next) {
+                const value = this.block_data().board_floor(next);
+                if (value === null)
+                    return value;
+                return Number(value);
+            }
+            mail_visible() {
+                const value = this.block_data().mail_floor();
+                if (value === null)
+                    return [];
+                return [this.Mail()];
+            }
+            mail_floor_value(next) {
+                const value = this.block_data().mail_floor(next);
+                if (value === null)
+                    return value;
+                return Number(value);
+            }
+            roof_floor_value(next) {
+                const value = this.block_data().roof_floor(next);
+                if (value === null)
+                    return value;
+                return Number(value);
+            }
+            flood_floor_value(next) {
+                const value = this.block_data().flood_floor(next);
+                if (value === null)
+                    return value;
+                return Number(value);
+            }
+            profession_floors(what) {
+                return this.block_data().profession_floors(what);
+            }
+            safe_floors() {
+                return this.block_data().safe_floors();
+            }
+            place_floors(what) {
+                return this.block_data().place_floors(what);
+            }
+            block_layer(next) {
+                return this.block_data().layer(next);
+            }
+            min_floor(next) {
+                return this.block_data().min_floor(next);
+            }
+            max_floor(next) {
+                return this.block_data().max_floor(next);
+            }
+            visible() {
+                const real_floor = this.numerical_floor();
+                return (this.min_floor() <= real_floor) && (real_floor <= this.max_floor());
+            }
+            has_interfloor() {
+                const real_floor = this.current_layer() - this.block_layer();
+                const bottom_passages = this.block_data().all_passages(real_floor - 1);
+                const top_passages = this.block_data().all_passages(real_floor + 1);
+                if (top_passages?.includes("stairs_down") || bottom_passages?.includes("stairs_up")) {
+                    return true;
+                }
+                return false;
+            }
+            color_letter() {
+                const block_letter = this.block_name()[0];
+                return $$.ru_to_eng[block_letter];
+            }
+            block_type(next) {
+                return this.block_data().block_type(next);
+            }
+            transitions() {
+                const transition_views = [];
+                for (const transition of this.block_data().transitions() ?? []) {
+                    const from_block_ref = transition.From()?.Block()?.val();
+                    if (!from_block_ref)
+                        continue;
+                    const block_data = $hyoo_crus_glob.Node(from_block_ref, $apxu_samosbor_map_block_data);
+                    if (this.block_data() === block_data) {
+                        transition_views.push(this.Transition(transition));
+                    }
+                }
+                return transition_views;
+            }
+            transition_pos(position) {
+                const padding = 0;
+                const adjustments = {
+                    up: { x: 0, y: padding },
+                    down: { x: 0, y: -padding },
+                    left: { x: padding, y: 0 },
+                    right: { x: -padding, y: 0 },
+                };
+                const transition_offset = $apxu_samosbor_map_app.getOffset(position, this.block_direction());
+                const abs_dir = $apxu_samosbor_map_app.absolute_direction(this.block_direction(), position);
+                const adjustment = adjustments[abs_dir] ?? { x: 0, y: 0 };
+                const adjusted_offset = {
+                    x: transition_offset.x - 50,
+                    y: transition_offset.y - 50
+                };
+                return adjusted_offset;
+            }
+            transition_direction(node) {
+                const block = this.block_data();
+                const absolute_direction = $apxu_samosbor_map_app.absolute_direction(block.direction(), node.From(null)?.Position(null)?.val());
+                if (absolute_direction === "down" || absolute_direction === "up") {
+                    return "horizontal";
+                }
+                else {
+                    return "vertical";
+                }
+            }
+            transition_hidden(node) {
+                const transition_floor = Number(node.From()?.Floor()?.val());
+                const current_floor = this.current_floor();
+                return transition_floor !== current_floor;
+            }
+            transition_left(node) {
+                const position = node.From()?.Position()?.val();
+                if (!position)
+                    return 0;
+                return this.transition_pos(position).x;
+            }
+            transition_top(node) {
+                const position = node.From()?.Position()?.val();
+                if (!position)
+                    return 0;
+                return this.transition_pos(position).y;
+            }
+            connections() {
+                if (!this.show_connections()) {
+                    return [];
+                }
+                const connections = [];
+                for (const position of TransitionPositions) {
+                    if (!this.connection_hidden(position)) {
+                        const connection = this.Connection(position);
+                        connections.push(connection);
+                    }
+                }
+                return connections;
+            }
+            connection_hidden(position) {
+                if (!(this.create_block_mode() || this.connect_mode())) {
+                    return true;
+                }
+                const port = { block_ref: this.block_data().ref(), floor: this.current_floor(), position };
+                const first_port = $apxu_samosbor_map_block.first_port();
+                if ((first_port && $apxu_samosbor_map_block.is_same_ports(first_port, port) || this.hovered())) {
+                    const floor = this.current_floor();
+                    const is_passage_free = FloorData.is_passage_free(position, this.block_data().FloorsData()?.key(floor));
+                    return !(is_passage_free ?? false);
+                }
+                return true;
+            }
+            connection_pos(position) {
+                const padding = 30;
+                const adjustments = {
+                    up: { x: 0, y: padding },
+                    down: { x: 0, y: -padding },
+                    left: { x: padding, y: 0 },
+                    right: { x: -padding, y: 0 },
+                };
+                const connectionOffset = $apxu_samosbor_map_app.getOffset(position, this.block_direction());
+                const abs_dir = $apxu_samosbor_map_app.absolute_direction(this.block_direction(), position);
+                const adjustment = adjustments[abs_dir] ?? { x: 0, y: 0 };
+                const adjustedOffset = {
+                    x: connectionOffset.x + adjustment.x,
+                    y: connectionOffset.y + adjustment.y
+                };
+                return adjustedOffset;
+            }
+            connection_left(position) {
+                return this.connection_pos(position).x;
+            }
+            connection_top(position) {
+                return this.connection_pos(position).y;
+            }
+            connection_click(position, event) {
+                console.log(event);
+                event?.stopImmediatePropagation();
+                event?.stopPropagation();
+                if (this.create_block_mode()) {
+                    return this.create_from_connection(position, event);
+                }
+                if (this.connect_mode()) {
+                    console.log("select");
+                    this.select_connection(position);
+                }
+            }
+            static first_port(port) {
+                return port ?? undefined;
+            }
+            static is_same_ports(port1, port2) {
+                return port1.block_ref.description === port2.block_ref.description
+                    && port1.floor === port2.floor
+                    && port1.position === port2.position;
+            }
+            select_connection(position) {
+                const first_port = $apxu_samosbor_map_block.first_port();
+                const is_same_port = (port) => {
+                    return $apxu_samosbor_map_block.is_same_ports(port, { block_ref: this.block_data().ref(), floor: this.current_floor(), position });
+                };
+                if (first_port && is_same_port(first_port)) {
+                    $apxu_samosbor_map_block.first_port(null);
+                    return;
+                }
+                if (this.block_data().ref() === first_port?.block_ref)
+                    return;
+                if (!first_port) {
+                    $apxu_samosbor_map_block.first_port({ block_ref: this.block_data().ref(), floor: this.current_floor(), position: position });
+                    return;
+                }
+                this.change_connection(position);
+            }
+            change_connection(position) {
+                const first_port = $apxu_samosbor_map_block.first_port();
+                console.log("first port: ", first_port);
+                if (!first_port)
+                    return;
+                const first_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxu_samosbor_map_block_data);
+                const transition = this.block_data().transition_by_position(this.current_floor(), position);
+                if (transition) {
+                    if (first_block.transition_by_position(first_port.floor, first_port.position) !== transition) {
+                        return;
+                    }
+                    transition.remove_transition();
+                }
+                else {
+                    const another_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxu_samosbor_map_block_data);
+                    const another_floor = first_port.floor;
+                    const another_position = first_port.position;
+                    this.block_data().connect(this.current_floor(), position, another_block, another_floor, another_position);
+                }
+                $apxu_samosbor_map_block.first_port(null);
+            }
+            connection_highlight(position) {
+                if (this.connection_hidden(position)) {
+                    return false;
+                }
+                const first_port = $apxu_samosbor_map_block.first_port();
+                if (!first_port) {
+                    return false;
+                }
+                const current_block = this.block_data().ref();
+                const current_floor = this.current_floor();
+                const current_position = position;
+                const is_same_port = ({ block_ref, floor, position }) => {
+                    if (current_block === block_ref &&
+                        current_floor === floor &&
+                        current_position === position) {
+                        return true;
+                    }
+                };
+                if (is_same_port(first_port)) {
+                    return true;
+                }
+                const first_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxu_samosbor_map_block_data);
+                const transition = first_block.transition_by_position(first_port.floor, first_port.position);
+                const current_port = (transition?.From(null)?.Block(null)?.val() === first_block.ref()) ? transition.To(null) : transition?.From(null);
+                if (!current_port) {
+                    return false;
+                }
+                const second_port = {
+                    block_ref: current_port.Block(null)?.val(),
+                    floor: Number(current_port.Floor(null)?.val()),
+                    position: current_port.Position(null)?.val(),
+                };
+                if (is_same_port(second_port)) {
+                    return true;
+                }
+                return false;
+            }
+            create_from_connection(position, event) {
+                event?.stopPropagation();
+                const new_block_name = `N-${Math.floor(Math.random() * 100)}`;
+                const block_name = this.block_name();
+                const floor_num = this.current_floor();
+                console.log(this, this.gigacluster(), this.block_data());
+                const trans = this.gigacluster().transition(this.block_data(), floor_num, position);
+                console.log(trans);
+                if (this.connect_mode()) {
+                    this.on_connection_select(position);
+                }
+                if (trans) {
+                    return;
+                }
+                if (this.connect_mode())
+                    return;
+                const offset = $apxu_samosbor_map_app.getPositionOffset(position, this.block_direction());
+                const new_block_direction = "up";
+                const new_offset = $apxu_samosbor_map_app.getPositionOffset("up_left", new_block_direction);
+                console.log(offset);
+                const pos_x = Math.round((this.block_data().pos_x() + (this.inverted() ? (-1) : 1) * offset.x));
+                const pos_y = Math.round((this.block_data().pos_y() + (this.inverted() ? (-1) : 1) * offset.y));
+                const new_block_node = this.gigacluster().create_block();
+                console.log(new_block_node);
+                if (!new_block_node)
+                    return;
+                new_block_node.name(new_block_name);
+                new_block_node.direction(new_block_direction);
+                new_block_node.pos_x(pos_x);
+                new_block_node.pos_y(pos_y);
+                new_block_node.layer(this.current_layer());
+                return new_block_node;
+            }
+            has_middle_flight() {
+                return this.is_up_flight();
+            }
+            left_flight_icon() {
+                const flight_type = this.block_data().left_flight_type();
+                if (!flight_type || this.has_middle_flight()) {
+                    return;
+                }
+                return this.flight_icons("left")[flight_type];
+            }
+            left_flight_click(event) {
+                if (!this.edit_mode())
+                    return;
+                event?.stopImmediatePropagation();
+                const current_floor = this.current_floor();
+                this.block_data().next_flight_status(current_floor, "left");
+            }
+            flight_status(what) {
+                const current_floor = this.current_floor();
+                return this.block_data().flight_status({ floor: current_floor, what });
+            }
+            right_flight_icon() {
+                const flight_type = this.block_data().right_flight_type();
+                if (!flight_type || this.has_middle_flight()) {
+                    return;
+                }
+                return this.flight_icons("right")[flight_type];
+            }
+            middle_flight_icons() {
+                const flight_type = this.block_data().middle_flight_type();
+                const flight_icon_map = {
+                    "elevator": [this.flight_icons("middle")["elevator"]],
+                    "ladder_elevator": [this.flight_icons("middle")["elevator"], this.ladder_icon("middle")],
+                    "stairs": [this.flight_icons("middle")["stairs"]]
+                };
+                return flight_icon_map[flight_type];
+            }
+            right_flight_click(event) {
+                if (!this.edit_mode())
+                    return;
+                event?.stopImmediatePropagation();
+                const current_floor = this.current_floor();
+                this.block_data().next_flight_status(current_floor, "right");
+            }
+            next_passage_type(current_passage_type) {
+                const passage_type_map = {};
+                PassageType.options.forEach((t, i) => {
+                    const next_passage_type = PassageType.options[(i + 1) % PassageType.options.length];
+                    passage_type_map[t] = next_passage_type;
+                });
+                return passage_type_map[current_passage_type];
+            }
+            passage_type(what) {
+                const floor = this.current_floor();
+                return this.block_data().passage_type([floor, what]);
+            }
+            passage_click(what, event) {
+                console.log(what, event);
+                if (!this.edit_mode())
+                    return;
+                event?.stopImmediatePropagation();
+                const floor = this.current_floor();
+                const current_passage_type = this.block_data().passage_type([floor, what]);
+                console.log(current_passage_type);
+                const next_passage_type = this.next_passage_type(current_passage_type);
+                this.block_data().passage_type([floor, what], next_passage_type);
+            }
+            is_up_flight(next) {
+                return this.block_data().IsMiddleFlight(next)?.val(next) ?? false;
+            }
+            up_passage_or_flight() {
+                if (this.is_up_flight()) {
+                    return this.up_flight();
+                }
+                else {
+                    return this.up_middle_passage();
+                }
+            }
+            parts = [this.name_part(), this.info_part(), this.places_part(), this.profession_part()];
+            dir_shift = {
+                up: 0,
+                right: 1,
+                down: 2,
+                left: 3,
+            };
+            up_left_part() {
+                const shift = (this.dir_shift[this.block_direction()] + 0) % 4;
+                return this.parts[shift];
+            }
+            up_right_part() {
+                const shift = (this.dir_shift[this.block_direction()] + 1) % 4;
+                return this.parts[shift];
+            }
+            down_right_part() {
+                const shift = (this.dir_shift[this.block_direction()] + 2) % 4;
+                return this.parts[shift];
+            }
+            down_left_part() {
+                const shift = (this.dir_shift[this.block_direction()] + 3) % 4;
+                return this.parts[shift];
+            }
+            has_profession(what) {
+                return this.profession_floors(what).length > 0;
+            }
+            liquidator_profession() {
+                return this.has_profession("liquidator") ? this.liquidator_icon() : null;
+            }
+            repairman_profession() {
+                return this.has_profession("repairman") ? this.repairman_icon() : null;
+            }
+            cleaner_profession() {
+                return this.has_profession("cleaner") ? this.cleaner_icon() : null;
+            }
+            plumber_profession() {
+                return this.has_profession("plumber") ? this.factory_icon() : null;
+            }
+            has_place(what) {
+                return this.place_floors(what).length > 0;
+            }
+            has_safe_place() {
+                return this.safe_floors().length > 0;
+            }
+            party_place() {
+                return this.has_place("party") ? this.party_icon() : null;
+            }
+            theatre_place() {
+                return this.has_place("theatre") ? this.theatre_icon() : null;
+            }
+            hospital_place() {
+                return this.has_place("hospital") ? this.hospital_icon() : null;
+            }
+            safe_place() {
+                return this.has_safe_place() ? this.house_icon() : null;
+            }
+            flooded() {
+                return this.flood_floor_value() !== null ? this.flooded_effect() : null;
+            }
+            roof() {
+                return this.roof_floor_value() !== null ? this.roof_effect() : null;
+            }
+            fence_type(next) {
+                return this.block_data().FloorsData(next)?.key(this.current_floor(), next)?.fence_type(next) ?? "missing";
+            }
+            fence_click(event) {
+                if (!this.edit_mode())
+                    return;
+                event?.stopImmediatePropagation();
+                event?.preventDefault();
+                this.block_data().FloorsData(true)?.key(this.current_floor(), true).set_next_fence_type();
+            }
+            is_pipe(next) {
+                return this.block_data().IsPipe(next)?.val(next) ?? false;
+            }
+            up_left_angle_visible() {
+                return this.is_pipe() ? this.up_left_angle_part() : this.left_flight();
+            }
+            up_right_angle_visible() {
+                return this.is_pipe() ? this.up_right_angle_part() : this.right_flight();
+            }
+            down_left_angle_visible() {
+                return this.is_pipe() ? this.down_left_angle_part() : this.floor_part();
+            }
+            down_right_angle_visible() {
+                return this.is_pipe() ? this.down_right_angle_part() : this.effects_part();
+            }
+            up_left_part_visible() {
+                return this.is_pipe() ? this.up_left_part_empty() : this.up_left_part();
+            }
+            up_right_part_visible() {
+                return this.is_pipe() ? this.up_right_part_empty() : this.up_right_part();
+            }
+            down_left_part_visible() {
+                return this.is_pipe() ? this.down_left_part_empty() : this.down_left_part();
+            }
+            down_right_part_visible() {
+                return this.is_pipe() ? this.down_right_part_empty() : this.down_right_part();
+            }
+            pipe_name_visible() {
+                return this.is_pipe() ? [this.pipe_name()] : [];
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "block_ref", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "block_data", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "block_direction", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "pos_x", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "pos_y", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "left", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "top", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "block_name", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "current_floor", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "numerical_floor", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "display_floor", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "is_part_of_double_floor", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "is_doubled", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "generator_floor_value", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "board_floor_value", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "mail_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "mail_floor_value", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "roof_floor_value", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "flood_floor_value", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "profession_floors", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "safe_floors", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "place_floors", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "block_layer", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "min_floor", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "max_floor", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "has_interfloor", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "color_letter", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "block_type", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "transitions", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "transition_pos", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "transition_direction", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "transition_hidden", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "transition_left", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "transition_top", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "connections", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "connection_hidden", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "connection_pos", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "connection_left", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "connection_top", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block.prototype, "connection_click", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block.prototype, "select_connection", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block.prototype, "change_connection", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "connection_highlight", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block.prototype, "create_from_connection", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "has_middle_flight", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "left_flight_icon", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block.prototype, "left_flight_click", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "flight_status", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "right_flight_icon", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "middle_flight_icons", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block.prototype, "right_flight_click", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "passage_type", null);
+        __decorate([
+            $mol_action,
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "passage_click", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "is_up_flight", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_passage_or_flight", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_left_part", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_right_part", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "down_right_part", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "down_left_part", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "has_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "liquidator_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "repairman_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "cleaner_profession", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "plumber_profession", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block.prototype, "has_place", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "has_safe_place", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "party_place", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "theatre_place", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "hospital_place", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "safe_place", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "flooded", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "roof", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "fence_type", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block.prototype, "fence_click", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "is_pipe", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_left_angle_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_right_angle_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "down_left_angle_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "down_right_angle_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_left_part_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "up_right_part_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "down_left_part_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "down_right_part_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block.prototype, "pipe_name_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block, "first_port", null);
+        $$.$apxu_samosbor_map_block = $apxu_samosbor_map_block;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("apxu/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxu_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tcolor: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: #EEFF00;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: #FF0000;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: #0051FF;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxu_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]):has([apxu_samosbor_map_block_content]:not([interfloor])) {\n\t\tpointer-events: none;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxu_samosbor_map_block_content]:not([interfloor]) {\n\t\t\tvisibility: hidden;\n\t\t\tz-index: 500;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content][interfloor] {\n\t\t\topacity: 0.3;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxu_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\t\tposition: absolute;\n\t\tbackground-color: #FFFFFF80;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\n\t}\n\n\t[apxu_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_profession_part],\n\t[apxu_samosbor_map_block_places_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_flight] {\n\t\t&[status=\"blocked\"] {\n\t\t\t[mol_icon] {\n\t\t\t\topacity: 0.25;\n\t\t\t}\n\n\t\t}\n\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&:hover[editing] {\n\n\t\t[apxu_samosbor_map_block_flight],\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_up_middle_passage],\n\t\t[apxu_samosbor_map_block_down_middle_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t\tanimation: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxu_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxu_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 20px 20px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: 100% !important;\n\t\t\t\t\theight: 100% !important;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tposition: relative;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxu_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&[semi-floor] {\n\t\t\tpadding: unset;\n\n\t\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\t\tfont-size: 24px;\n\t\t\t}\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_info_part],\n\t[apxu_samosbor_map_block_effects_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_flooded_icon] {\n\t\t\twidth: 34px;\n\t\t\theight: 34px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_roof_icon] {\n\t\t\twidth: 36px;\n\t\t\theight: 30px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_mail_icon] {\n\t\t\twidth: 32px;\n\t\t\theight: 27px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_generator_floor],\n\t\t[apxu_samosbor_map_block_mail_floor],\n\t\t[apxu_samosbor_map_block_flooded_floor_view],\n\t\t[apxu_samosbor_map_block_roof_floor_view] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n\n\n}\n\n[apxu_samosbor_map_block_pipe_name] {\n\tposition: absolute !important;\n\tz-index: 3000;\n\tleft: 50%;\n\ttop: 50%;\n\ttranslate: -50% -50%;\n\twhite-space: nowrap;\n\tcolor: white;\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: 34px;\n\tline-height: 100%;\n\tletter-spacing: 0;\n\ttext-align: center;\n\n\t&::before {\n\t\tcontent: unset;\n\t}\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    class $apxu_samosbor_map_gigacluster extends ($hyoo_crus_dict.with({
+        Blocks: $hyoo_crus_list_ref_to(() => $apxu_samosbor_map_block_data),
+    })) {
+        delete_block(ref) {
+            const block = $hyoo_crus_glob.Node(ref, $apxu_samosbor_map_block_data);
+            block.transitions()?.forEach((transition) => {
+                const connected_block_ref = transition.get_connected_block(ref);
+                if (!connected_block_ref)
+                    return;
+                const connected_block = $hyoo_crus_glob.Node(connected_block_ref, $apxu_samosbor_map_block_data);
+                connected_block.transitions()?.forEach((connected_transition) => {
+                    if (connected_transition.get_connected_block(connected_block_ref) === ref) {
+                        connected_block.Transitions(null)?.cut(connected_transition.ref());
+                    }
+                });
+            });
+            this.Blocks(true)?.cut(ref);
+        }
+        create_block() {
+            const current_auth = $hyoo_crus_auth.current();
+            const block = this.Blocks(true)?.make({ '': $hyoo_crus_rank_join("just") });
+            console.log("created", block);
+            return block;
+        }
+        delete_all_blocks() {
+            this.blocks()?.map((node) => this.delete_block(node.ref()));
+        }
+        blocks() {
+            const blocks = this.Blocks(null)?.remote_list();
+            return blocks;
+        }
+        block_by_name(block_name) {
+            return this.blocks()?.find((block) => block.name() === block_name);
+        }
+        transition(block, floor, position) {
+            return block?.transitions()?.find((trans) => {
+                const check = (port) => {
+                    if (!port)
+                        return;
+                    const block_ref = port.Block(null)?.val();
+                    if (!block_ref)
+                        return;
+                    if ($hyoo_crus_glob.Node(block_ref, $apxu_samosbor_map_block_data) === block && Number(port.Floor(null)?.val()) === floor && port.Position(null)?.val() === position) {
+                        return true;
+                    }
+                };
+                if (check(trans.From(null)) || check(trans.To(null))) {
+                    return true;
+                }
+            });
+        }
+    }
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_gigacluster.prototype, "delete_block", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_gigacluster.prototype, "create_block", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_gigacluster.prototype, "delete_all_blocks", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_gigacluster.prototype, "blocks", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_gigacluster.prototype, "block_by_name", null);
+    $.$apxu_samosbor_map_gigacluster = $apxu_samosbor_map_gigacluster;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function bigint_to_rank(val, def) {
+        if (val == null) {
+            return def;
+        }
+        const num = Number(val);
+        return num;
+    }
+    $.bigint_to_rank = bigint_to_rank;
+    function rank_to_bigint(rank) {
+        return BigInt(rank);
+    }
+    $.rank_to_bigint = rank_to_bigint;
+    class $apxu_samosbor_map_role extends $hyoo_crus_atom_enum(["cartographer", "researcher", "traveler"]) {
+    }
+    $.$apxu_samosbor_map_role = $apxu_samosbor_map_role;
+    class $apxu_samosbor_map_role_right extends $hyoo_crus_dict.with({
+        Key: $hyoo_crus_atom_str,
+        Description: $hyoo_crus_atom_str,
+        Role: $apxu_samosbor_map_role,
+    }) {
+        key(next) {
+            return this.Key(true)?.val(next) ?? "";
+        }
+        description(next) {
+            return this.Description(true)?.val(next) ?? "";
+        }
+        role(next) {
+            return this.Role(true)?.val(next) ?? "no_role";
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_role_right.prototype, "key", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_role_right.prototype, "description", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_role_right.prototype, "role", null);
+    $.$apxu_samosbor_map_role_right = $apxu_samosbor_map_role_right;
+    class $apxu_samosbor_map_role_infos extends $hyoo_crus_dict.with({
+        Rights: $hyoo_crus_list_ref_to(() => $apxu_samosbor_map_role_right),
+        Ruler: $hyoo_crus_atom_str,
+    }) {
+        get_rights() {
+            return this.Rights(true)?.remote_list();
+        }
+        ruler_key() {
+            return this.Ruler(true)?.val() ?? $apxu_samosbor_map_app_my_public_key;
+        }
+        add_key(key) {
+            const new_rights = this.Rights(true)?.make({ '': $hyoo_crus_rank_read });
+            new_rights?.key(key);
+            new_rights?.role("researcher");
+            return new_rights;
+        }
+        lord_rights(key) {
+            const finded = this.get_rights()?.find((right) => { return right.key() === key; });
+            return finded;
+        }
+        lord_role(key, next) {
+            const finded = this.lord_rights(key);
+            if (next === "no_role") {
+                if (finded) {
+                    this.Rights(true)?.cut(finded.ref());
+                }
+                return "no_role";
+            }
+            return finded?.role(next);
+        }
+        rank_for_role(current_role, needed_role) {
+            if (needed_role === "traveler") {
+                return $hyoo_crus_rank_join("just");
+            }
+            if (current_role === needed_role) {
+                return $hyoo_crus_rank_post("just");
+            }
+            if (current_role === "cartographer" && needed_role === "researcher") {
+                return $hyoo_crus_rank_post("just");
+            }
+            return $hyoo_crus_rank_join("just");
+        }
+        preset(role) {
+            const all_rights = this.get_rights();
+            const preset = {};
+            for (const right of all_rights ?? []) {
+                preset[right.key()] = this.rank_for_role(right.role(), role);
+            }
+            console.log("RULER KEY", this.ruler_key());
+            preset[this.ruler_key()] = $hyoo_crus_rank_rule;
+            return preset;
+        }
+        preset_no_current(role) {
+            const preset = { ...this.preset(role) };
+            delete preset[$hyoo_crus_auth.current().public().toString()];
+            return preset;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_role_infos.prototype, "get_rights", null);
+    __decorate([
+        $mol_mem
+    ], $apxu_samosbor_map_role_infos.prototype, "ruler_key", null);
+    __decorate([
+        $mol_action
+    ], $apxu_samosbor_map_role_infos.prototype, "add_key", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_role_infos.prototype, "lord_rights", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_role_infos.prototype, "lord_role", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_role_infos.prototype, "preset", null);
+    __decorate([
+        $mol_mem_key
+    ], $apxu_samosbor_map_role_infos.prototype, "preset_no_current", null);
+    $.$apxu_samosbor_map_role_infos = $apxu_samosbor_map_role_infos;
+})($ || ($ = {}));
 
 ;
 	($.$mol_icon_spider) = class $mol_icon_spider extends ($.$mol_icon) {
@@ -12095,7 +14611,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/button/button.view.css", "[mol_button] {\n\tborder: none;\n\tfont: inherit;\n\tdisplay: inline-flex;\n\tflex-shrink: 0;\n\ttext-decoration: inherit;\n\tcursor: inherit;\n\tposition: relative;\n\tbox-sizing: border-box;\n\tword-break: normal;\n\tcursor: default;\n\tuser-select: none;\n\tborder-radius: var(--mol_gap_round);\n\tbackground: transparent;\n\tcolor: inherit;\n}\n\n[mol_button]:where(:not(:disabled)):hover {\n\tz-index: var(--mol_layer_hover);\n}\n\n[mol_button]:focus {\n\toutline: none;\n\tz-index: var(--mol_layer_focus);\n}\n");
+    $mol_style_attach("mol/button/button.view.css", "[mol_button] {\n\tborder: none;\n\tfont: inherit;\n\tdisplay: inline-flex;\n\tflex-shrink: 0;\n\ttext-decoration: inherit;\n\tcursor: inherit;\n\tposition: relative;\n\tbox-sizing: border-box;\n\tword-break: normal;\n\tcursor: default;\n\tuser-select: none;\n\t-webkit-user-select: none;\n\tborder-radius: var(--mol_gap_round);\n\tbackground: transparent;\n\tcolor: inherit;\n}\n\n[mol_button]:where(:not(:disabled)):hover {\n\tz-index: var(--mol_layer_hover);\n}\n\n[mol_button]:focus {\n\toutline: none;\n\tz-index: var(--mol_layer_focus);\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -12113,7 +14629,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/button/typed/typed.view.css", "[mol_button_typed] {\n\talign-content: center;\n\talign-items: center;\n\tpadding: var(--mol_gap_text);\n\tborder-radius: var(--mol_gap_round);\n\tgap: var(--mol_gap_space);\n\tuser-select: none;\n\tcursor: pointer;\n}\n\n[mol_button_typed][disabled] {\n\tpointer-events: none;\n}\n\n[mol_button_typed]:hover ,\n[mol_button_typed]:focus {\n\tbox-shadow: inset 0 0 0 10rem var(--mol_theme_hover);\n}\n\n[mol_button_typed]:active {\n\tcolor: var(--mol_theme_focus);\n}\n\n");
+    $mol_style_attach("mol/button/typed/typed.view.css", "[mol_button_typed] {\n\talign-content: center;\n\talign-items: center;\n\tpadding: var(--mol_gap_text);\n\tborder-radius: var(--mol_gap_round);\n\tgap: var(--mol_gap_space);\n\tuser-select: none;\n\tcursor: pointer;\n}\n\n[mol_button_typed][disabled] {\n\tpointer-events: none;\n}\n\n[mol_button_typed]:hover ,\n[mol_button_typed]:focus-visible {\n\tbox-shadow: inset 0 0 0 10rem var(--mol_theme_hover);\n}\n\n[mol_button_typed]:active {\n\tcolor: var(--mol_theme_focus);\n}\n\n");
 })($ || ($ = {}));
 
 ;
@@ -14265,7 +16781,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/check/expand/expand.view.css", "[mol_check_expand] {\n\tmin-width: 20px;\n\tgap: 0;\n}\n\n:where([mol_check_expand][disabled]) [mol_check_expand_icon] {\n\tvisibility: hidden;\n}\n\n[mol_check_expand_icon] {\n\tbox-shadow: none;\n\tmargin-left: -0.375rem;\n}\n[mol_check_expand_icon] {\n\ttransform: rotateZ(0deg);\n}\n\n:where([mol_check_checked]) [mol_check_expand_icon] {\n\ttransform: rotateZ(90deg);\n}\n\n[mol_check_expand_icon] {\n\tvertical-align: text-top;\n}\n\n[mol_check_expand_label] {\n\tmargin-left: 0;\n}\n");
+    $mol_style_attach("mol/check/expand/expand.view.css", "[mol_check_expand] {\n\tmin-width: 20px;\n}\n\n:where([mol_check_expand][disabled]) [mol_check_expand_icon] {\n\tvisibility: hidden;\n}\n\n[mol_check_expand_icon] {\n\tbox-shadow: none;\n\tmargin-left: -0.375rem;\n}\n[mol_check_expand_icon] {\n\ttransform: rotateZ(0deg);\n}\n\n:where([mol_check_checked]) [mol_check_expand_icon] {\n\ttransform: rotateZ(90deg);\n}\n\n[mol_check_expand_icon] {\n\tvertical-align: text-top;\n}\n\n[mol_check_expand_label] {\n\tmargin-left: 0;\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -16133,2383 +18649,6 @@ var $;
 var $;
 (function ($) {
     $mol_style_attach("apxu/samosbor/map/area/area.view.css", "[apxu_samosbor_map_area] {\n\twidth: 300px;\n\theight: 300px;\n\toverflow: hidden;\n\tborder: 2px solid seagreen;\n\tcursor: grab;\n\t&[dragging] {\n\t\tcursor: grabbing;\n\t}\n\tdisplay: block;\n}\n[apxu_samosbor_map_area_plane] {\n\tposition: relative;\n\twidth: 0px;\n\theight: 0px;\n\t/* transition: translate 0.2s ease, scale 0.2s ease-out; */\n}\n");
-})($ || ($ = {}));
-
-;
-	($.$apxu_samosbor_map_block_row) = class $apxu_samosbor_map_block_row extends ($.$mol_view) {
-		sub(){
-			return [null];
-		}
-	};
-	($.$apxu_samosbor_map_block_part) = class $apxu_samosbor_map_block_part extends ($.$mol_view) {
-		content(){
-			return null;
-		}
-		sub(){
-			return [(this.content())];
-		}
-	};
-	($.$apxu_samosbor_map_block_flight) = class $apxu_samosbor_map_block_flight extends ($.$apxu_samosbor_map_block_part) {
-		status(next){
-			if(next !== undefined) return next;
-			return "free";
-		}
-		attr(){
-			return {...(super.attr()), "status": (this.status())};
-		}
-	};
-	($mol_mem(($.$apxu_samosbor_map_block_flight.prototype), "status"));
-	($.$apxu_samosbor_map_block_passage) = class $apxu_samosbor_map_block_passage extends ($.$mol_view) {
-		type(next){
-			if(next !== undefined) return next;
-			return "normal";
-		}
-		flex_direction(){
-			return "column";
-		}
-		floor_inc_value(){
-			return "0";
-		}
-		floor_inc(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.floor_inc_value())]);
-			return obj;
-		}
-		stairs(){
-			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
-			return obj;
-		}
-		content(){
-			return null;
-		}
-		up(){
-			return false;
-		}
-		right(){
-			return false;
-		}
-		down(){
-			return false;
-		}
-		left(){
-			return false;
-		}
-		attr(){
-			return {
-				"type": (this.type()), 
-				"up": (this.up()), 
-				"right": (this.right()), 
-				"down": (this.down()), 
-				"left": (this.left())
-			};
-		}
-		style(){
-			return {"flex-direction": (this.flex_direction())};
-		}
-		InterFloor(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.floor_inc()), (this.stairs())]);
-			return obj;
-		}
-		sub(){
-			return [(this.content())];
-		}
-	};
-	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "type"));
-	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "floor_inc"));
-	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "stairs"));
-	($mol_mem(($.$apxu_samosbor_map_block_passage.prototype), "InterFloor"));
-	($.$apxu_samosbor_map_block_middle_flight) = class $apxu_samosbor_map_block_middle_flight extends ($.$mol_view) {};
-	($.$apxu_samosbor_map_block) = class $apxu_samosbor_map_block extends ($.$mol_view) {
-		block_direction(next){
-			if(next !== undefined) return next;
-			return "up";
-		}
-		visible(){
-			return true;
-		}
-		selected(){
-			return false;
-		}
-		color_letter(){
-			return "b";
-		}
-		block_type(next){
-			if(next !== undefined) return next;
-			return "destroyed";
-		}
-		left(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		top(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		onclick(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		connection_hidden(id){
-			return false;
-		}
-		connection_highlight(id){
-			return false;
-		}
-		connection_left(id){
-			return 0;
-		}
-		connection_top(id){
-			return 0;
-		}
-		connection_click(id, next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		transition_hidden(id){
-			return false;
-		}
-		transition_direction(id){
-			return "vertical";
-		}
-		transition_left(id){
-			return 0;
-		}
-		transition_top(id){
-			return 0;
-		}
-		stairs_icon(id){
-			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
-			return obj;
-		}
-		elevator_icon(id){
-			const obj = new this.$.$apxu_samosbor_map_icon_elevator();
-			return obj;
-		}
-		ladder_icon(id){
-			const obj = new this.$.$apxu_samosbor_map_icon_ladder();
-			return obj;
-		}
-		ladder_elevator(id){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.ladder_icon(id)), (this.elevator_icon(id))]);
-			return obj;
-		}
-		up_flight_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
-			return obj;
-		}
-		middle_flight_icons(){
-			return [(this.up_flight_icon())];
-		}
-		down_flight_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_stairs();
-			return obj;
-		}
-		is_part_of_double_floor(){
-			return false;
-		}
-		block_name(next){
-			if(next !== undefined) return next;
-			return "А-00";
-		}
-		BlockName(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.block_name())]);
-			return obj;
-		}
-		display_floor(){
-			return "?";
-		}
-		CurrentFloor(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => (["Эт. ", (this.display_floor())]);
-			return obj;
-		}
-		gen_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_generator();
-			return obj;
-		}
-		generator_floor_value(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		generator_floor(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.generator_floor_value())]);
-			return obj;
-		}
-		Generator(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.gen_icon()), (this.generator_floor())]);
-			return obj;
-		}
-		mail_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_mail();
-			return obj;
-		}
-		mail_floor_value(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		mail_floor(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.mail_floor_value())]);
-			return obj;
-		}
-		Mail(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.mail_icon()), (this.mail_floor())]);
-			return obj;
-		}
-		mail_visible(){
-			return [(this.Mail())];
-		}
-		liquidator_profession(){
-			return null;
-		}
-		repairman_profession(){
-			return null;
-		}
-		cleaner_profession(){
-			return null;
-		}
-		plumber_profession(){
-			return null;
-		}
-		profession_wrapper(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.liquidator_profession()), 
-				(this.repairman_profession()), 
-				(this.cleaner_profession()), 
-				(this.plumber_profession())
-			]);
-			return obj;
-		}
-		safe_place(){
-			return null;
-		}
-		theatre_place(){
-			return null;
-		}
-		hospital_place(){
-			return null;
-		}
-		party_place(){
-			return null;
-		}
-		places_wrapper(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.safe_place()), 
-				(this.theatre_place()), 
-				(this.hospital_place()), 
-				(this.party_place())
-			]);
-			return obj;
-		}
-		flooded_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_sinking();
-			return obj;
-		}
-		flooded_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.flood_floor_value())]);
-			return obj;
-		}
-		roof_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_roof();
-			return obj;
-		}
-		roof_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.roof_floor_value())]);
-			return obj;
-		}
-		flooded(){
-			return null;
-		}
-		roof(){
-			return null;
-		}
-		left_flight_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		flight_status(id){
-			return "free";
-		}
-		right_flight_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		max_floor_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_max_floor();
-			return obj;
-		}
-		max_floor(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		max_floor_value(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.max_floor())]);
-			return obj;
-		}
-		max_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.max_floor_icon()), (this.max_floor_value())]);
-			return obj;
-		}
-		min_floor_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_min_floor();
-			return obj;
-		}
-		min_floor(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		min_floor_value(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.min_floor())]);
-			return obj;
-		}
-		min_floor_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.min_floor_icon()), (this.min_floor_value())]);
-			return obj;
-		}
-		has_interfloor(){
-			return false;
-		}
-		connections(){
-			return [];
-		}
-		connections_list(){
-			return (this.connections());
-		}
-		transitions(){
-			return [];
-		}
-		transitions_list(){
-			return (this.transitions());
-		}
-		pipe_name(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.block_name())]);
-			return obj;
-		}
-		pipe_name_visible(){
-			return [(this.pipe_name())];
-		}
-		up_left_angle_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			return obj;
-		}
-		up_left_angle_visible(){
-			return (this.up_left_angle_part());
-		}
-		passage_type(id){
-			return "noway";
-		}
-		passage_click(id, next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		up_left_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = (next) => ((this.passage_type("up_left")));
-			(obj.event) = () => ({"click": (next) => (this.passage_click("up_left", next))});
-			(obj.up) = () => (true);
-			(obj.left) = () => (true);
-			return obj;
-		}
-		up_left_part_empty(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			return obj;
-		}
-		up_left_part(){
-			return (this.up_left_part_empty());
-		}
-		up_left_part_visible(){
-			return (this.up_left_part());
-		}
-		up_passage_or_flight(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		up_right_part_empty(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			return obj;
-		}
-		up_right_part(){
-			return (this.up_right_part_empty());
-		}
-		up_right_part_visible(){
-			return (this.up_right_part());
-		}
-		up_right_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.passage_type("up_right")));
-			(obj.event) = () => ({"click": (next) => (this.passage_click("up_right", next))});
-			(obj.up) = () => (true);
-			(obj.right) = () => (true);
-			return obj;
-		}
-		up_right_angle_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			return obj;
-		}
-		up_right_angle_visible(){
-			return (this.up_right_angle_part());
-		}
-		up_row(){
-			const obj = new this.$.$apxu_samosbor_map_block_row();
-			(obj.sub) = () => ([
-				...(this.pipe_name_visible()), 
-				(this.up_left_angle_visible()), 
-				(this.up_left_passage()), 
-				(this.up_left_part_visible()), 
-				(this.up_passage_or_flight()), 
-				(this.up_right_part_visible()), 
-				(this.up_right_passage()), 
-				(this.up_right_angle_visible())
-			]);
-			return obj;
-		}
-		left_passage_type(){
-			return (this.passage_type("left"));
-		}
-		left_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.left_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.passage_click("left", next))});
-			(obj.left) = () => (true);
-			return obj;
-		}
-		left_crossroad(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		left_hallway(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		fence_type(next){
-			if(next !== undefined) return next;
-			return "hole";
-		}
-		fence_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		fence(){
-			const obj = new this.$.$mol_view();
-			(obj.attr) = () => ({"type": (this.fence_type())});
-			(obj.event) = () => ({"click": (next) => (this.fence_click(next))});
-			return obj;
-		}
-		right_hallway(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		right_crossroad(){
-			const obj = new this.$.$mol_view();
-			return obj;
-		}
-		right_passage_type(){
-			return (this.passage_type("right"));
-		}
-		right_passage_click(next){
-			return (this.passage_click("right", next));
-		}
-		right_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.right_passage_type()));
-			(obj.event) = () => ({"click": (next) => (this.right_passage_click(next))});
-			(obj.right) = () => (true);
-			return obj;
-		}
-		middle_row(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.left_passage()), 
-				(this.left_crossroad()), 
-				(this.left_hallway()), 
-				(this.fence()), 
-				(this.right_hallway()), 
-				(this.right_crossroad()), 
-				(this.right_passage())
-			]);
-			return obj;
-		}
-		down_left_angle_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			return obj;
-		}
-		down_left_angle_visible(){
-			return (this.down_left_angle_part());
-		}
-		down_left_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.passage_type("down_left")));
-			(obj.event) = () => ({"click": (next) => (this.passage_click("down_left", next))});
-			(obj.down) = () => (true);
-			(obj.left) = () => (true);
-			return obj;
-		}
-		down_left_part_empty(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			return obj;
-		}
-		down_left_part(){
-			return (this.down_left_part_empty());
-		}
-		down_left_part_visible(){
-			return (this.down_left_part());
-		}
-		down_right_part_empty(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			return obj;
-		}
-		down_right_part(){
-			return (this.down_right_part_empty());
-		}
-		down_right_part_visible(){
-			return (this.down_right_part());
-		}
-		down_right_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = () => ((this.passage_type("down_right")));
-			(obj.event) = () => ({"click": (next) => (this.passage_click("down_right", next))});
-			(obj.down) = () => (true);
-			(obj.right) = () => (true);
-			return obj;
-		}
-		down_right_angle_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			return obj;
-		}
-		down_right_angle_visible(){
-			return (this.down_right_angle_part());
-		}
-		down_row(){
-			const obj = new this.$.$apxu_samosbor_map_block_row();
-			(obj.sub) = () => ([
-				(this.down_left_angle_visible()), 
-				(this.down_left_passage()), 
-				(this.down_left_part_visible()), 
-				(this.down_middle_passage()), 
-				(this.down_right_part_visible()), 
-				(this.down_right_passage()), 
-				(this.down_right_angle_visible())
-			]);
-			return obj;
-		}
-		content(){
-			const obj = new this.$.$mol_view();
-			(obj.attr) = () => ({"interfloor": (this.has_interfloor())});
-			(obj.sub) = () => ([
-				...(this.connections_list()), 
-				...(this.transitions_list()), 
-				(this.up_row()), 
-				(this.middle_row()), 
-				(this.down_row())
-			]);
-			return obj;
-		}
-		map(){
-			const obj = new this.$.$apxu_samosbor_map();
-			return obj;
-		}
-		gigacluster(){
-			const obj = new this.$.$apxu_samosbor_map_gigacluster();
-			return obj;
-		}
-		block_data(next){
-			if(next !== undefined) return next;
-			const obj = new this.$.$apxu_samosbor_map_block_data();
-			return obj;
-		}
-		edit_mode(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		create_block_mode(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		connect_mode(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		is_doubled(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		is_pipe(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		block_layer(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		current_layer(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		current_floor(){
-			return 0;
-		}
-		board_floor_value(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		roof_floor_value(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		flood_floor_value(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		profession_floors(id){
-			return [];
-		}
-		place_floors(id){
-			return [];
-		}
-		safe_floors(){
-			return [];
-		}
-		inverted(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		pos_x(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		pos_y(next){
-			if(next !== undefined) return next;
-			return 0;
-		}
-		is_up_flight(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		on_connection_select(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		attr(){
-			return {
-				"direction": (this.block_direction()), 
-				"visible": (this.visible()), 
-				"selected": (this.selected()), 
-				"editing": (this.edit_mode()), 
-				"color": (this.color_letter()), 
-				"block-type": (this.block_type())
-			};
-		}
-		style(){
-			return {"left": (this.left()), "top": (this.top())};
-		}
-		event(){
-			return {"click": (next) => (this.onclick(next))};
-		}
-		Connection(id){
-			const obj = new this.$.$mol_view();
-			(obj.attr) = () => ({"hidden": (this.connection_hidden(id)), "highlight": (this.connection_highlight(id))});
-			(obj.style) = () => ({"left": (this.connection_left(id)), "top": (this.connection_top(id))});
-			(obj.event) = () => ({"click": (next) => (this.connection_click(id, next))});
-			return obj;
-		}
-		Transition(id){
-			const obj = new this.$.$mol_view();
-			(obj.attr) = () => ({"hidden": (this.transition_hidden(id)), "direction": (this.transition_direction(id))});
-			(obj.style) = () => ({"left": (this.transition_left(id)), "top": (this.transition_top(id))});
-			return obj;
-		}
-		show_connections(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		flight_icons(id){
-			return {
-				"stairs": (this.stairs_icon(id)), 
-				"elevator": (this.elevator_icon(id)), 
-				"ladder_elevator": (this.ladder_elevator(id))
-			};
-		}
-		up_middle_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = (next) => ("noway");
-			(obj.up) = () => (true);
-			return obj;
-		}
-		down_middle_passage(){
-			const obj = new this.$.$apxu_samosbor_map_block_passage();
-			(obj.type) = (next) => ("noway");
-			(obj.down) = () => (true);
-			return obj;
-		}
-		up_flight(){
-			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
-			(obj.sub) = () => ([...(this.middle_flight_icons())]);
-			return obj;
-		}
-		down_flight(){
-			const obj = new this.$.$apxu_samosbor_map_block_middle_flight();
-			(obj.sub) = () => ([(this.down_flight_icon())]);
-			return obj;
-		}
-		name_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.attr) = () => ({"semi-floor": (this.is_part_of_double_floor())});
-			(obj.sub) = () => ([(this.BlockName()), (this.CurrentFloor())]);
-			return obj;
-		}
-		info_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.Generator()), ...(this.mail_visible())]);
-			return obj;
-		}
-		liquidator_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_liquidator();
-			return obj;
-		}
-		repairman_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_repairman();
-			return obj;
-		}
-		cleaner_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_cleaner();
-			return obj;
-		}
-		factory_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_factory();
-			return obj;
-		}
-		party_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_party();
-			return obj;
-		}
-		theatre_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_theatre();
-			return obj;
-		}
-		hospital_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_hospital();
-			return obj;
-		}
-		house_icon(){
-			const obj = new this.$.$apxu_samosbor_map_icon_house();
-			return obj;
-		}
-		profession_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.profession_wrapper())]);
-			return obj;
-		}
-		places_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.places_wrapper())]);
-			return obj;
-		}
-		flooded_effect(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.flooded_icon()), (this.flooded_floor_view())]);
-			return obj;
-		}
-		roof_effect(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.roof_icon()), (this.roof_floor_view())]);
-			return obj;
-		}
-		effects_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.flooded()), (this.roof())]);
-			return obj;
-		}
-		left_flight(){
-			const obj = new this.$.$apxu_samosbor_map_block_flight();
-			(obj.event) = () => ({"click": (next) => (this.left_flight_click(next))});
-			(obj.status) = () => ((this.flight_status("left")));
-			(obj.sub) = () => ([(this.left_flight_icon())]);
-			return obj;
-		}
-		right_flight(){
-			const obj = new this.$.$apxu_samosbor_map_block_flight();
-			(obj.event) = () => ({"click": (next) => (this.right_flight_click(next))});
-			(obj.status) = () => ((this.flight_status("right")));
-			(obj.sub) = () => ([(this.right_flight_icon())]);
-			return obj;
-		}
-		floor_part(){
-			const obj = new this.$.$apxu_samosbor_map_block_part();
-			(obj.sub) = () => ([(this.max_floor_view()), (this.min_floor_view())]);
-			return obj;
-		}
-		sub(){
-			return [(this.content())];
-		}
-	};
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_direction"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_type"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "top"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "onclick"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "connection_click"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "stairs_icon"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "elevator_icon"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "ladder_icon"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "ladder_elevator"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_flight_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_flight_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_name"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "BlockName"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "CurrentFloor"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "gen_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "generator_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "generator_floor"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "Generator"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "mail_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "mail_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "mail_floor"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "Mail"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_wrapper"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_wrapper"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "max_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "min_floor_view"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pipe_name"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_angle_part"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "passage_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_left_part_empty"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_passage_or_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_part_empty"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_right_angle_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_row"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_crossroad"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_hallway"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_type"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence_click"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "fence"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_hallway"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_crossroad"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "middle_row"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_angle_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_left_part_empty"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_part_empty"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_right_angle_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_row"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "content"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "map"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "gigacluster"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_data"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "edit_mode"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "create_block_mode"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "connect_mode"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_doubled"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_pipe"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "block_layer"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "current_layer"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "board_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flood_floor_value"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "inverted"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pos_x"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "pos_y"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "is_up_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "on_connection_select"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "Connection"));
-	($mol_mem_key(($.$apxu_samosbor_map_block.prototype), "Transition"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "show_connections"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_middle_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_middle_passage"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "up_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "down_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "name_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "info_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "liquidator_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "repairman_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "cleaner_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "factory_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "party_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "theatre_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "hospital_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "house_icon"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "profession_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "places_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "flooded_effect"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "roof_effect"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "effects_part"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "left_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "right_flight"));
-	($mol_mem(($.$apxu_samosbor_map_block.prototype), "floor_part"));
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    function num_to_bigint(num) {
-        return (num !== undefined && !isNaN(num)) ? BigInt(num) : undefined;
-    }
-    $.num_to_bigint = num_to_bigint;
-    $.TransitionPositions = ["up_left", "up_middle", "up_right", "right", "down_right", "down_middle", "down_left", "left"];
-    class BlockDirection extends $hyoo_crus_atom_enum(["up", "right", "down", "left"]) {
-    }
-    $.BlockDirection = BlockDirection;
-    class TransitionPositionData extends $hyoo_crus_atom_enum($.TransitionPositions) {
-    }
-    $.TransitionPositionData = TransitionPositionData;
-    class TransitionPort extends $hyoo_crus_dict.with({
-        Block: $hyoo_crus_atom_ref_to(() => $apxu_samosbor_map_block_data),
-        Floor: $hyoo_crus_atom_int,
-        Position: TransitionPositionData,
-    }) {
-        is_correct(floor, position) {
-            return this.Floor(null)?.val() === BigInt(floor) && this.Position(null)?.val() === position;
-        }
-    }
-    $.TransitionPort = TransitionPort;
-    class TransitionData extends $hyoo_crus_dict.with({
-        From: TransitionPort,
-        To: TransitionPort
-    }) {
-        get_connected_block(ref) {
-            if (this.From(null)?.Block(null)?.val() === ref) {
-                return this.To(null)?.Block()?.val();
-            }
-            return this.From(null)?.Block(null)?.val();
-        }
-        remove_transition() {
-            const from_block_ref = this.From(null)?.Block(null)?.val();
-            const from_block = from_block_ref && this.$.$apxu_samosbor_map_app.block(from_block_ref);
-            const to_block_ref = this.To(null)?.Block(null)?.val();
-            const to_block = to_block_ref && this.$.$apxu_samosbor_map_app.block(to_block_ref);
-            to_block?.Transitions(null)?.cut(this.ref());
-            from_block?.Transitions(null)?.cut(this.ref());
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], TransitionData.prototype, "get_connected_block", null);
-    __decorate([
-        $mol_action
-    ], TransitionData.prototype, "remove_transition", null);
-    $.TransitionData = TransitionData;
-    class FlightType extends $hyoo_crus_atom_enum(["stairs", "elevator", "ladder_elevator"]) {
-    }
-    $.FlightType = FlightType;
-    class FlightStatus extends $hyoo_crus_atom_enum(["free", "blocked"]) {
-    }
-    $.FlightStatus = FlightStatus;
-    class FlightData extends $hyoo_crus_dict.with({
-        Type: FlightType,
-        Status: FlightStatus,
-    }) {
-    }
-    $.FlightData = FlightData;
-    class PassageType extends $hyoo_crus_atom_enum(["noway", "normal", "stairs_up", "stairs_down"]) {
-    }
-    $.PassageType = PassageType;
-    class PassageStatus extends $hyoo_crus_atom_enum(["free", "blocked", "danger"]) {
-    }
-    $.PassageStatus = PassageStatus;
-    class PassageData extends $hyoo_crus_dict.with({
-        Type: PassageType,
-        Status: PassageStatus,
-    }) {
-    }
-    $.PassageData = PassageData;
-    const PassageDirections = {
-        UpLeftPassage: PassageData,
-        UpMiddlePassage: PassageData,
-        UpRightPassage: PassageData,
-        LeftPassage: PassageData,
-        RightPassage: PassageData,
-        DownLeftPassage: PassageData,
-        DownMiddlePassage: PassageData,
-        DownRightPassage: PassageData,
-    };
-    const FenceTypes = ["missing", "hole", "solid"];
-    class FenceData extends $hyoo_crus_atom_enum(FenceTypes) {
-    }
-    $.FenceData = FenceData;
-    class FloorData extends $hyoo_crus_dict.with({
-        ...PassageDirections,
-        Fence: FenceData,
-        LeftFlight: FlightStatus,
-        RightFlight: FlightStatus,
-        IsDouble: $hyoo_crus_atom_bool,
-    }) {
-        static positions_map = {
-            up_left: "UpLeftPassage",
-            up_middle: "UpMiddlePassage",
-            up_right: "UpRightPassage",
-            right: "RightPassage",
-            down_right: "DownRightPassage",
-            down_middle: "DownMiddlePassage",
-            down_left: "DownLeftPassage",
-            left: "LeftPassage"
-        };
-        static get_passage_type(transition, floor_data, next) {
-            if (transition === "up_middle" || transition === "down_middle") {
-                return "noway";
-            }
-            const property_name = FloorData.positions_map[transition];
-            const passage_type = floor_data?.[property_name](next)?.Type(next)?.val(next);
-            if (transition === "right" || transition === "left") {
-                return passage_type ?? "normal";
-            }
-            return passage_type ?? "noway";
-        }
-        static is_passage_free(transition, floor_data) {
-            return this.get_passage_type(transition, floor_data) !== "noway";
-        }
-        get_passage_type(transition) {
-            return FloorData.get_passage_type(transition, this);
-        }
-        is_passage_free(transition) {
-            return FloorData.is_passage_free(transition, this);
-        }
-        fence_type(next) {
-            return this.Fence(next)?.val(next) ?? "missing";
-        }
-        set_next_fence_type() {
-            const current_type = this.fence_type();
-            const id = FenceTypes.indexOf(current_type);
-            const new_type = FenceTypes[(id + 1) % FenceTypes.length];
-            this.fence_type(new_type);
-        }
-        flight_status(what, next) {
-            if (what === "left") {
-                return this.LeftFlight(next)?.val(next) ?? "free";
-            }
-            if (what === "right") {
-                return this.RightFlight(next)?.val(next) ?? "free";
-            }
-            return "free";
-        }
-        next_flight_status(what) {
-            const current_status = this.flight_status(what);
-            const id = FlightStatus.options.indexOf(current_status);
-            const new_status = FlightStatus.options[(id + 1) % FlightStatus.options.length];
-            this.flight_status(what, new_status);
-        }
-        all_passages() {
-            return $.TransitionPositions.map((pos) => {
-                return this.get_passage_type(pos);
-            });
-        }
-        is_double_floor(next) {
-            return this.IsDouble(next)?.val(next) ?? false;
-        }
-    }
-    __decorate([
-        $mol_mem_key
-    ], FloorData.prototype, "get_passage_type", null);
-    __decorate([
-        $mol_mem_key
-    ], FloorData.prototype, "is_passage_free", null);
-    __decorate([
-        $mol_mem
-    ], FloorData.prototype, "fence_type", null);
-    __decorate([
-        $mol_action
-    ], FloorData.prototype, "set_next_fence_type", null);
-    __decorate([
-        $mol_mem_key
-    ], FloorData.prototype, "flight_status", null);
-    __decorate([
-        $mol_action
-    ], FloorData.prototype, "next_flight_status", null);
-    __decorate([
-        $mol_mem
-    ], FloorData.prototype, "all_passages", null);
-    __decorate([
-        $mol_mem
-    ], FloorData.prototype, "is_double_floor", null);
-    __decorate([
-        $mol_mem_key
-    ], FloorData, "get_passage_type", null);
-    $.FloorData = FloorData;
-    class FloorsData extends $hyoo_crus_dict_to(FloorData) {
-    }
-    $.FloorsData = FloorsData;
-    class BlockType extends $hyoo_crus_atom_enum(["residential", "frozen", "infected", "destroyed"]) {
-    }
-    $.BlockType = BlockType;
-    class ProfessionType extends $hyoo_crus_atom_enum(["liquidator", "repairman", "cleaner", "plumber"]) {
-    }
-    $.ProfessionType = ProfessionType;
-    class ProfessionData extends $hyoo_crus_dict.with({
-        Type: ProfessionType,
-        Floor: $hyoo_crus_atom_int,
-    }) {
-    }
-    $.ProfessionData = ProfessionData;
-    class PlaceType extends $hyoo_crus_atom_enum([
-        "theatre", "hospital", "party", "gym",
-        "laundry", "postal", "overview", "racing", "hockey",
-        "spleef", "pool", "warehouse", "shower", "toilet", "gallery"
-    ]) {
-    }
-    $.PlaceType = PlaceType;
-    class PlaceData extends $hyoo_crus_dict.with({
-        Type: PlaceType,
-        Floor: $hyoo_crus_atom_int,
-    }) {
-    }
-    $.PlaceData = PlaceData;
-    class $apxu_samosbor_map_block_data extends ($hyoo_crus_entity.with({
-        IsPipe: $hyoo_crus_atom_bool,
-        Name: $hyoo_crus_atom_str,
-        Direction: BlockDirection,
-        Type: BlockType,
-        Transitions: $hyoo_crus_list_ref_to(() => TransitionData),
-        PositionX: $hyoo_crus_atom_int,
-        PositionY: $hyoo_crus_atom_int,
-        Layer: $hyoo_crus_atom_int,
-        Generator: $hyoo_crus_atom_int,
-        BoardFloor: $hyoo_crus_atom_int,
-        MailFloor: $hyoo_crus_atom_int,
-        RoofFloor: $hyoo_crus_atom_int,
-        FloodFloor: $hyoo_crus_atom_int,
-        MinFloor: $hyoo_crus_atom_int,
-        MaxFloor: $hyoo_crus_atom_int,
-        LeftFlight: FlightData,
-        RightFlight: FlightData,
-        FloorsData: FloorsData,
-        IsMiddleFlight: $hyoo_crus_atom_bool,
-        MiddleFlight: FlightData,
-        HasBalcony: $hyoo_crus_atom_bool,
-        Professions: $hyoo_crus_list_ref_to(() => ProfessionData),
-        Places: $hyoo_crus_list_ref_to(() => PlaceData),
-    })) {
-        name(next) {
-            return this.Name(next)?.val(next) ?? "N-00";
-        }
-        direction(next) {
-            return this.Direction(next)?.val(next) ?? "up";
-        }
-        block_type(next) {
-            return this.Type(next)?.val(next) ?? "residential";
-        }
-        transitions(next) {
-            return this.Transitions(next)?.remote_list(next) ?? [];
-        }
-        transition_by_position(floor, position) {
-            return this.transitions()?.find((transition) => {
-                return (transition.From(null)?.Block(null)?.val() === this.ref() && transition.From(null)?.is_correct(floor, position)) || transition.To(null)?.Block(null)?.val() === this.ref() && transition.To(null)?.is_correct(floor, position);
-            });
-        }
-        connect(my_floor, my_pos, block_node, another_floor, another_pos) {
-            const trans = this.Transitions(null)?.make(this.land());
-            if (!trans)
-                return;
-            block_node.Transitions(null)?.add(trans.ref());
-            trans.From(null)?.Floor(null)?.val(BigInt(my_floor));
-            trans.From(null)?.Position(null)?.val(my_pos);
-            trans.From(null)?.Block(null)?.val(this.ref());
-            trans.To(null)?.Floor(null)?.val(BigInt(another_floor));
-            trans.To(null)?.Position(null)?.val(another_pos);
-            trans.To(null)?.Block(null)?.val(block_node.ref());
-        }
-        remove_transition(transition) {
-        }
-        pos_x(next) {
-            return Number(this.PositionX(next)?.val(num_to_bigint(next)) ?? 0);
-        }
-        pos_y(next) {
-            return Number(this.PositionY(next)?.val(num_to_bigint(next)) ?? 0);
-        }
-        layer(next) {
-            return Number(this.Layer(next)?.val(num_to_bigint(next)) ?? 0);
-        }
-        min_floor(next) {
-            return Number(this.MinFloor(next)?.val(num_to_bigint(next)) ?? 0);
-        }
-        max_floor(next) {
-            return Number(this.MaxFloor(next)?.val(num_to_bigint(next)) ?? 0);
-        }
-        generator_floor(next) {
-            return Number(this.Generator(next)?.val(num_to_bigint(next)) ?? 0);
-        }
-        left_flight_status(next) {
-            return this.LeftFlight(next)?.Status(next)?.val(next);
-        }
-        left_flight_type(next) {
-            return this.LeftFlight(next)?.Type(next)?.val(next) ?? "stairs";
-        }
-        right_flight_status(next) {
-            return this.RightFlight(next)?.Status(next)?.val(next);
-        }
-        right_flight_type(next) {
-            return this.RightFlight(next)?.Type(next)?.val(next) ?? "stairs";
-        }
-        middle_flight_type(next) {
-            return this.MiddleFlight(next)?.Type(next)?.val(next) ?? "stairs";
-        }
-        up_left_passage_type(floor, next) {
-            return this.FloorsData(next)?.key(floor, next)?.UpLeftPassage(next)?.Type(next)?.val(next) ?? "noway";
-        }
-        up_middle_passage_type(floor, next) {
-            return this.FloorsData(next)?.key(floor, next)?.UpMiddlePassage(next)?.Type(next)?.val(next) ?? "noway";
-        }
-        up_right_passage_type(floor, next) {
-            return this.FloorsData(next)?.key(floor, next)?.UpRightPassage(next)?.Type(next)?.val(next) ?? "noway";
-        }
-        down_left_passage_type(floor, next) {
-            return this.FloorsData(next)?.key(floor, next)?.DownLeftPassage(next)?.Type(next)?.val(next) ?? "noway";
-        }
-        down_middle_passage_type(floor, next) {
-            return this.FloorsData(next)?.key(floor, next)?.DownMiddlePassage(next)?.Type(next)?.val(next) ?? "noway";
-        }
-        down_right_passage_type(floor, next) {
-            return this.FloorsData(next)?.key(floor, next)?.DownRightPassage(next)?.Type(next)?.val(next) ?? "noway";
-        }
-        passage_type({ floor, what }, next) {
-            return FloorData.get_passage_type(what, this.FloorsData(next)?.key(floor, next), next);
-        }
-        flight_status({ floor, what }) {
-            return this.FloorsData()?.key(floor)?.flight_status(what) ?? "free";
-        }
-        next_flight_status(floor, what) {
-            this.FloorsData(true)?.key(floor, true).next_flight_status(what);
-        }
-        board_floor(next) {
-            const holder = this.BoardFloor(next);
-            if (!holder)
-                return null;
-            if (next !== undefined && isNaN(next)) {
-                return holder.val(null);
-            }
-            const val = typeof next === "number" ? BigInt(next) : next;
-            return holder.val(val);
-        }
-        mail_floor(next) {
-            const holder = this.MailFloor(next);
-            if (!holder)
-                return null;
-            if (next !== undefined && isNaN(next)) {
-                return holder.val(null);
-            }
-            const val = typeof next === "number" ? BigInt(next) : next;
-            return holder.val(val);
-        }
-        roof_floor(next) {
-            const holder = this.RoofFloor(next);
-            if (!holder)
-                return null;
-            if (next !== undefined && isNaN(next)) {
-                return holder.val(null);
-            }
-            const val = typeof next === "number" ? BigInt(next) : next;
-            return holder.val(val);
-        }
-        flood_floor(next) {
-            const holder = this.FloodFloor(next);
-            if (!holder)
-                return null;
-            if (next !== undefined && isNaN(next)) {
-                return holder.val(null);
-            }
-            const val = typeof next === "number" ? BigInt(next) : next;
-            return holder.val(val);
-        }
-        profession_floors(what) {
-            return this.Professions()?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
-        }
-        add_profession(what) {
-            const node = this.Professions(true)?.make(this.land());
-            node?.Type(true)?.val(what);
-            return node;
-        }
-        remove_profession(node) {
-            this.Professions(true)?.cut(node);
-        }
-        place_floors(what) {
-            return this.Places()?.remote_list().filter((data) => data.Type(null)?.val() === what) ?? [];
-        }
-        safe_floors() {
-            const safe_place_types = [
-                "theatre", "party", "gym", "overview", "gallery",
-                "racing", "hockey", "spleef", "pool", "warehouse"
-            ];
-            const safe_places = this.Places()?.remote_list()
-                .filter((place) => {
-                const place_type = place.Type()?.val();
-                if (!place_type)
-                    return;
-                return safe_place_types.includes(place_type);
-            }) ?? [];
-            const safe_profession_types = ["liquidator", "plumber"];
-            const safe_professions = this.Professions()?.remote_list()
-                .filter((profession) => {
-                const profession_type = profession.Type()?.val();
-                if (!profession_type)
-                    return;
-                return safe_profession_types.includes(profession_type);
-            }) ?? [];
-            const all_safe_places = [];
-            return all_safe_places.concat(safe_places).concat(safe_professions);
-        }
-        add_place(what) {
-            const node = this.Places(true)?.make(this.land());
-            node?.Type(true)?.val(what);
-            return node;
-        }
-        remove_place(node) {
-            this.Places(true)?.cut(node);
-        }
-        all_passages(floor) {
-            return this.FloorsData()?.key(floor)?.all_passages() ?? [];
-        }
-        double_floors_count(floor) {
-            const all_floors = this.FloorsData()?.keys()
-                .filter((num) => floor > 0 ? (Number(num) > 0 && Number(num) < floor) : (Number(num) < 0 && Number(num) > floor)) ?? [];
-            const count = all_floors.reduce((count, floor_num) => {
-                if (this.is_double_floor(Number(floor_num))) {
-                    return count + 1;
-                }
-                return count;
-            }, 0);
-            return count;
-        }
-        is_double_floor(floor, next) {
-            return this.FloorsData(next)?.key(floor, next)?.is_double_floor(next) ?? false;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "name", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "direction", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "block_type", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "transitions", null);
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_block_data.prototype, "connect", null);
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_block_data.prototype, "remove_transition", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "pos_x", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "pos_y", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "layer", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "min_floor", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "max_floor", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "generator_floor", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "left_flight_status", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "left_flight_type", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "right_flight_status", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "right_flight_type", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "middle_flight_type", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "up_left_passage_type", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "up_middle_passage_type", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "up_right_passage_type", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "down_left_passage_type", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "down_middle_passage_type", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "down_right_passage_type", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "passage_type", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "flight_status", null);
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_block_data.prototype, "next_flight_status", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "board_floor", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "mail_floor", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "roof_floor", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "flood_floor", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "profession_floors", null);
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_block_data.prototype, "add_profession", null);
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_block_data.prototype, "remove_profession", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "place_floors", null);
-    __decorate([
-        $mol_mem
-    ], $apxu_samosbor_map_block_data.prototype, "safe_floors", null);
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_block_data.prototype, "add_place", null);
-    __decorate([
-        $mol_action
-    ], $apxu_samosbor_map_block_data.prototype, "remove_place", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "all_passages", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "double_floors_count", null);
-    __decorate([
-        $mol_mem_key
-    ], $apxu_samosbor_map_block_data.prototype, "is_double_floor", null);
-    $.$apxu_samosbor_map_block_data = $apxu_samosbor_map_block_data;
-    class $apxu_samosbor_map_block_pipe_data extends $apxu_samosbor_map_block_data.with({}) {
-    }
-    $.$apxu_samosbor_map_block_pipe_data = $apxu_samosbor_map_block_pipe_data;
-})($ || ($ = {}));
-
-;
-"use strict";
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        $$.block_full_cell = 380;
-        $$.ru_to_eng = {
-            "А": "a",
-            "Б": "b",
-            "В": "v",
-            "Г": "g",
-            "Д": "d",
-            "Е": "e",
-            "Ж": "j",
-            "З": "z",
-            "И": "i",
-            "К": "k",
-            "Л": "l",
-            "М": "m",
-            "Н": "n",
-            "О": "o",
-            "П": "p",
-            "Р": "r",
-            "С": "s",
-            "Т": "t",
-            "У": "u",
-            "Ф": "f",
-            "Х": "h",
-            "Ц": "c",
-            "Ч": "ch",
-            "Ш": "sh",
-            "Щ": "shch",
-            "Ы": "y",
-            "Ю": "yu",
-            "Э": "je",
-            "Я": "ya",
-        };
-        class $apxu_samosbor_map_block_passage extends $.$apxu_samosbor_map_block_passage {
-            floor_inc_value() {
-                if (this.type() === "stairs_up") {
-                    return "+1";
-                }
-                if (this.type() === "stairs_down") {
-                    return "-1";
-                }
-                return "0";
-            }
-            is_interfloor() {
-                return this.type() === "stairs_up" || this.type() === "stairs_down";
-            }
-            content() {
-                return this.is_interfloor() ? this.InterFloor() : null;
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block_passage.prototype, "is_interfloor", null);
-        $$.$apxu_samosbor_map_block_passage = $apxu_samosbor_map_block_passage;
-        class $apxu_samosbor_map_block extends $.$apxu_samosbor_map_block {
-            block_ref(next) {
-                return next;
-            }
-            block_data(next) {
-                return next;
-            }
-            block_direction(next) {
-                const is_inverted = this.inverted();
-                const maybe_invert = (next) => {
-                    return next ? (is_inverted ? $apxu_samosbor_map_app.next_direction(next, 2) : next) : undefined;
-                };
-                return maybe_invert(this.block_data().direction(maybe_invert(next)));
-            }
-            pos_x(next) {
-                const is_inverted = this.inverted();
-                const dir = this.block_direction();
-                const block_width = (dir === "up" || dir === "down") ? 2 : 1;
-                const maybe_invert = (val) => {
-                    if (val === undefined)
-                        return undefined;
-                    return is_inverted ? -(val + block_width) : val;
-                };
-                return maybe_invert(this.block_data().pos_x(maybe_invert(next)));
-            }
-            pos_y(next) {
-                const is_inverted = this.inverted();
-                const dir = this.block_direction();
-                const block_height = (dir === "up" || dir === "down") ? 1 : 2;
-                const maybe_invert = (val) => {
-                    if (val === undefined)
-                        return undefined;
-                    return is_inverted ? -(val + block_height) : val;
-                };
-                return maybe_invert(this.block_data().pos_y(maybe_invert(next)));
-            }
-            left() {
-                return this.pos_x() * $$.block_full_cell;
-            }
-            top() {
-                return this.pos_y() * $$.block_full_cell;
-            }
-            block_name(next) {
-                return this.block_data().name(next) ?? "";
-            }
-            current_floor() {
-                return this.current_layer() - this.block_layer();
-            }
-            numerical_floor() {
-                const double_count = this.block_data().double_floors_count(this.current_floor());
-                const numerical_floor = this.current_floor() - (this.current_floor() > 0 ? double_count : -double_count);
-                return numerical_floor;
-            }
-            display_floor() {
-                const numerical_floor = this.numerical_floor();
-                const rounded_floor = Math.max(this.min_floor(), Math.min(numerical_floor, this.max_floor()));
-                const data = this.block_data();
-                const suffix = this.is_doubled()
-                    ? "/1" : data.is_double_floor(this.current_floor() - Math.sign(this.current_floor()))
-                    ? "/2" : "";
-                return `${rounded_floor}${suffix}`;
-            }
-            is_part_of_double_floor() {
-                const data = this.block_data();
-                return this.is_doubled()
-                    ? true : data.is_double_floor(this.current_floor() - Math.sign(this.current_floor()))
-                    ? true : false;
-            }
-            is_doubled() {
-                return this.block_data().is_double_floor(this.current_floor());
-            }
-            generator_floor_value(next) {
-                return this.block_data().generator_floor(next);
-            }
-            board_floor_value(next) {
-                const value = this.block_data().board_floor(next);
-                if (value === null)
-                    return value;
-                return Number(value);
-            }
-            mail_visible() {
-                const value = this.block_data().mail_floor();
-                if (value === null)
-                    return [];
-                return [this.Mail()];
-            }
-            mail_floor_value(next) {
-                const value = this.block_data().mail_floor(next);
-                if (value === null)
-                    return value;
-                return Number(value);
-            }
-            roof_floor_value(next) {
-                const value = this.block_data().roof_floor(next);
-                if (value === null)
-                    return value;
-                return Number(value);
-            }
-            flood_floor_value(next) {
-                const value = this.block_data().flood_floor(next);
-                if (value === null)
-                    return value;
-                return Number(value);
-            }
-            profession_floors(what) {
-                return this.block_data().profession_floors(what);
-            }
-            safe_floors() {
-                return this.block_data().safe_floors();
-            }
-            place_floors(what) {
-                return this.block_data().place_floors(what);
-            }
-            block_layer(next) {
-                return this.block_data().layer(next);
-            }
-            min_floor(next) {
-                return this.block_data().min_floor(next);
-            }
-            max_floor(next) {
-                return this.block_data().max_floor(next);
-            }
-            visible() {
-                const real_floor = this.numerical_floor();
-                return (this.min_floor() <= real_floor) && (real_floor <= this.max_floor());
-            }
-            has_interfloor() {
-                const real_floor = this.current_layer() - this.block_layer();
-                const bottom_passages = this.block_data().all_passages(real_floor - 1);
-                const top_passages = this.block_data().all_passages(real_floor + 1);
-                if (top_passages?.includes("stairs_down") || bottom_passages?.includes("stairs_up")) {
-                    return true;
-                }
-                return false;
-            }
-            color_letter() {
-                const block_letter = this.block_name()[0];
-                return $$.ru_to_eng[block_letter];
-            }
-            block_type(next) {
-                return this.block_data().block_type(next);
-            }
-            transitions() {
-                const transition_views = [];
-                for (const transition of this.block_data().transitions() ?? []) {
-                    const from_block_ref = transition.From(null)?.Block(null)?.val();
-                    if (!from_block_ref)
-                        continue;
-                    const block_data = $hyoo_crus_glob.Node(from_block_ref, $apxu_samosbor_map_block_data);
-                    if (this.block_data() === block_data) {
-                        transition_views.push(this.Transition(transition.ref()));
-                    }
-                }
-                return transition_views;
-            }
-            transition_pos(position) {
-                const padding = 0;
-                const adjustments = {
-                    up: { x: 0, y: padding },
-                    down: { x: 0, y: -padding },
-                    left: { x: padding, y: 0 },
-                    right: { x: -padding, y: 0 },
-                };
-                const transition_offset = $apxu_samosbor_map_app.getOffset(position, this.block_direction());
-                const abs_dir = $apxu_samosbor_map_app.absolute_direction(this.block_direction(), position);
-                const adjustment = adjustments[abs_dir] ?? { x: 0, y: 0 };
-                const adjusted_offset = {
-                    x: transition_offset.x - 50,
-                    y: transition_offset.y - 50
-                };
-                return adjusted_offset;
-            }
-            transition_direction(ref) {
-                const node = $hyoo_crus_glob.Node(ref, TransitionData);
-                const block_ref = node.From(null)?.Block(null)?.val();
-                const block = this.block_data();
-                const absolute_direction = $apxu_samosbor_map_app.absolute_direction(block.direction(), node.From(null)?.Position(null)?.val());
-                if (absolute_direction === "down" || absolute_direction === "up") {
-                    return "horizontal";
-                }
-                else {
-                    return "vertical";
-                }
-            }
-            transition_hidden(ref) {
-                const node = $hyoo_crus_glob.Node(ref, TransitionData);
-                const transition_floor = Number(node.From(null)?.Floor(null)?.val());
-                const current_floor = this.current_floor();
-                this.block_data().FloorsData(null);
-                return transition_floor !== current_floor;
-            }
-            transition_left(ref) {
-                const transition = $hyoo_crus_glob.Node(ref, TransitionData);
-                const position = transition.From(null)?.Position(null)?.val();
-                if (!position)
-                    return 0;
-                return this.transition_pos(position).x;
-            }
-            transition_top(ref) {
-                const transition = $hyoo_crus_glob.Node(ref, TransitionData);
-                const position = transition.From(null)?.Position(null)?.val();
-                if (!position)
-                    return 0;
-                return this.transition_pos(position).y;
-            }
-            connections() {
-                if (!this.show_connections()) {
-                    return [];
-                }
-                const connections = [];
-                for (const position of TransitionPositions) {
-                    const connection = this.Connection(position);
-                    connections.push(connection);
-                }
-                return connections;
-            }
-            connection_hidden(position) {
-                if (this.create_block_mode() || this.connect_mode()) {
-                    const floor = this.current_floor();
-                    const is_passage_free = FloorData.is_passage_free(position, this.block_data().FloorsData()?.key(floor));
-                    return !(is_passage_free ?? false);
-                }
-                return true;
-            }
-            connection_pos(position) {
-                const padding = 30;
-                const adjustments = {
-                    up: { x: 0, y: padding },
-                    down: { x: 0, y: -padding },
-                    left: { x: padding, y: 0 },
-                    right: { x: -padding, y: 0 },
-                };
-                const connectionOffset = $apxu_samosbor_map_app.getOffset(position, this.block_direction());
-                const abs_dir = $apxu_samosbor_map_app.absolute_direction(this.block_direction(), position);
-                const adjustment = adjustments[abs_dir] ?? { x: 0, y: 0 };
-                const adjustedOffset = {
-                    x: connectionOffset.x + adjustment.x,
-                    y: connectionOffset.y + adjustment.y
-                };
-                return adjustedOffset;
-            }
-            connection_left(position) {
-                return this.connection_pos(position).x;
-            }
-            connection_top(position) {
-                return this.connection_pos(position).y;
-            }
-            connection_click(position, event) {
-                console.log(event);
-                event?.stopImmediatePropagation();
-                event?.stopPropagation();
-                if (this.create_block_mode()) {
-                    return this.create_from_connection(position, event);
-                }
-                if (this.connect_mode()) {
-                    console.log("select");
-                    this.select_connection(position);
-                }
-            }
-            static first_port(port) {
-                return port ?? undefined;
-            }
-            select_connection(position) {
-                const first_port = $apxu_samosbor_map_block.first_port();
-                const is_same_port = (port) => {
-                    return port.block_ref.description == this.block_data().ref().description && port.floor == this.current_floor() && port.position == position;
-                };
-                if (first_port && is_same_port(first_port)) {
-                    $apxu_samosbor_map_block.first_port(null);
-                    return;
-                }
-                if (this.block_data().ref() === first_port?.block_ref)
-                    return;
-                if (!first_port) {
-                    $apxu_samosbor_map_block.first_port({ block_ref: this.block_data().ref(), floor: this.current_floor(), position: position });
-                    return;
-                }
-                this.change_connection(position);
-            }
-            change_connection(position) {
-                const first_port = $apxu_samosbor_map_block.first_port();
-                console.log("first port: ", first_port);
-                if (!first_port)
-                    return;
-                const first_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxu_samosbor_map_block_data);
-                const transition = this.block_data().transition_by_position(this.current_floor(), position);
-                if (transition) {
-                    if (first_block.transition_by_position(first_port.floor, first_port.position) !== transition) {
-                        return;
-                    }
-                    transition.remove_transition();
-                }
-                else {
-                    const another_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxu_samosbor_map_block_data);
-                    const another_floor = first_port.floor;
-                    const another_position = first_port.position;
-                    this.block_data().connect(this.current_floor(), position, another_block, another_floor, another_position);
-                }
-                $apxu_samosbor_map_block.first_port(null);
-            }
-            connection_highlight(position) {
-                if (this.connection_hidden(position)) {
-                    return false;
-                }
-                const first_port = $apxu_samosbor_map_block.first_port();
-                if (!first_port) {
-                    return false;
-                }
-                const current_block = this.block_data().ref();
-                const current_floor = this.current_floor();
-                const current_position = position;
-                const is_same_port = ({ block_ref, floor, position }) => {
-                    if (current_block === block_ref &&
-                        current_floor === floor &&
-                        current_position === position) {
-                        return true;
-                    }
-                };
-                if (is_same_port(first_port)) {
-                    return true;
-                }
-                const first_block = $hyoo_crus_glob.Node(first_port.block_ref, $apxu_samosbor_map_block_data);
-                const transition = first_block.transition_by_position(first_port.floor, first_port.position);
-                const current_port = (transition?.From(null)?.Block(null)?.val() === first_block.ref()) ? transition.To(null) : transition?.From(null);
-                if (!current_port) {
-                    return false;
-                }
-                const second_port = {
-                    block_ref: current_port.Block(null)?.val(),
-                    floor: Number(current_port.Floor(null)?.val()),
-                    position: current_port.Position(null)?.val(),
-                };
-                if (is_same_port(second_port)) {
-                    return true;
-                }
-                return false;
-            }
-            create_from_connection(position, event) {
-                event?.stopPropagation();
-                const new_block_name = `N-${Math.floor(Math.random() * 100)}`;
-                const block_name = this.block_name();
-                const floor_num = this.current_floor();
-                console.log(this, this.gigacluster(), this.block_data());
-                const trans = this.gigacluster().transition(this.block_data(), floor_num, position);
-                console.log(trans);
-                if (this.connect_mode()) {
-                    this.on_connection_select(position);
-                }
-                if (trans) {
-                    return;
-                }
-                if (this.connect_mode())
-                    return;
-                const offset = $apxu_samosbor_map_app.getPositionOffset(position, this.block_direction());
-                const new_block_direction = "up";
-                const new_offset = $apxu_samosbor_map_app.getPositionOffset("up_left", new_block_direction);
-                console.log(offset);
-                const pos_x = Math.round((this.block_data().pos_x() + (this.inverted() ? (-1) : 1) * offset.x));
-                const pos_y = Math.round((this.block_data().pos_y() + (this.inverted() ? (-1) : 1) * offset.y));
-                const new_block_node = this.gigacluster().create_block();
-                console.log(new_block_node);
-                if (!new_block_node)
-                    return;
-                new_block_node.name(new_block_name);
-                new_block_node.direction(new_block_direction);
-                new_block_node.pos_x(pos_x);
-                new_block_node.pos_y(pos_y);
-                new_block_node.layer(this.current_layer());
-                return new_block_node;
-            }
-            has_middle_flight() {
-                return this.is_up_flight();
-            }
-            left_flight_icon() {
-                const flight_type = this.block_data().left_flight_type();
-                if (!flight_type || this.has_middle_flight()) {
-                    return;
-                }
-                return this.flight_icons("left")[flight_type];
-            }
-            left_flight_click(event) {
-                if (!this.edit_mode())
-                    return;
-                event?.stopImmediatePropagation();
-                const current_floor = this.current_floor();
-                this.block_data().next_flight_status(current_floor, "left");
-            }
-            flight_status(what) {
-                const current_floor = this.current_floor();
-                return this.block_data().flight_status({ floor: current_floor, what });
-            }
-            right_flight_icon() {
-                const flight_type = this.block_data().right_flight_type();
-                if (!flight_type || this.has_middle_flight()) {
-                    return;
-                }
-                return this.flight_icons("right")[flight_type];
-            }
-            middle_flight_icons() {
-                const flight_type = this.block_data().middle_flight_type();
-                const flight_icon_map = {
-                    "elevator": [this.flight_icons("middle")["elevator"]],
-                    "ladder_elevator": [this.flight_icons("middle")["elevator"], this.ladder_icon("middle")],
-                    "stairs": [this.flight_icons("middle")["stairs"]]
-                };
-                return flight_icon_map[flight_type];
-            }
-            right_flight_click(event) {
-                if (!this.edit_mode())
-                    return;
-                event?.stopImmediatePropagation();
-                const current_floor = this.current_floor();
-                this.block_data().next_flight_status(current_floor, "right");
-            }
-            next_passage_type(current_passage_type) {
-                const passage_type_map = {};
-                PassageType.options.forEach((t, i) => {
-                    const next_passage_type = PassageType.options[(i + 1) % PassageType.options.length];
-                    passage_type_map[t] = next_passage_type;
-                });
-                return passage_type_map[current_passage_type];
-            }
-            passage_type(what) {
-                const floor = this.current_floor();
-                return this.block_data().passage_type({ floor, what });
-            }
-            passage_click(what, event) {
-                console.log(what, event);
-                if (!this.edit_mode())
-                    return;
-                event?.stopImmediatePropagation();
-                const floor = this.current_floor();
-                const current_passage_type = this.block_data().passage_type({ floor, what });
-                console.log(current_passage_type);
-                const next_passage_type = this.next_passage_type(current_passage_type);
-                this.block_data().passage_type({ floor, what }, next_passage_type);
-            }
-            is_up_flight(next) {
-                return this.block_data().IsMiddleFlight(next)?.val(next) ?? false;
-            }
-            up_passage_or_flight() {
-                if (this.is_up_flight()) {
-                    return this.up_flight();
-                }
-                else {
-                    return this.up_middle_passage();
-                }
-            }
-            parts = [this.name_part(), this.info_part(), this.places_part(), this.profession_part()];
-            dir_shift = {
-                up: 0,
-                right: 1,
-                down: 2,
-                left: 3,
-            };
-            up_left_part() {
-                const shift = (this.dir_shift[this.block_direction()] + 0) % 4;
-                return this.parts[shift];
-            }
-            up_right_part() {
-                const shift = (this.dir_shift[this.block_direction()] + 1) % 4;
-                return this.parts[shift];
-            }
-            down_right_part() {
-                const shift = (this.dir_shift[this.block_direction()] + 2) % 4;
-                return this.parts[shift];
-            }
-            down_left_part() {
-                const shift = (this.dir_shift[this.block_direction()] + 3) % 4;
-                return this.parts[shift];
-            }
-            has_profession(what) {
-                return this.profession_floors(what).length > 0;
-            }
-            liquidator_profession() {
-                return this.has_profession("liquidator") ? this.liquidator_icon() : null;
-            }
-            repairman_profession() {
-                return this.has_profession("repairman") ? this.repairman_icon() : null;
-            }
-            cleaner_profession() {
-                return this.has_profession("cleaner") ? this.cleaner_icon() : null;
-            }
-            plumber_profession() {
-                return this.has_profession("plumber") ? this.factory_icon() : null;
-            }
-            has_place(what) {
-                return this.place_floors(what).length > 0;
-            }
-            has_safe_place() {
-                return this.safe_floors().length > 0;
-            }
-            party_place() {
-                return this.has_place("party") ? this.party_icon() : null;
-            }
-            theatre_place() {
-                return this.has_place("theatre") ? this.theatre_icon() : null;
-            }
-            hospital_place() {
-                return this.has_place("hospital") ? this.hospital_icon() : null;
-            }
-            safe_place() {
-                return this.has_safe_place() ? this.house_icon() : null;
-            }
-            flooded() {
-                return this.flood_floor_value() !== null ? this.flooded_effect() : null;
-            }
-            roof() {
-                return this.roof_floor_value() !== null ? this.roof_effect() : null;
-            }
-            fence_type(next) {
-                return this.block_data().FloorsData(next)?.key(this.current_floor(), next)?.fence_type(next) ?? "missing";
-            }
-            fence_click(event) {
-                if (!this.edit_mode())
-                    return;
-                event?.stopImmediatePropagation();
-                event?.preventDefault();
-                this.block_data().FloorsData(true)?.key(this.current_floor(), true).set_next_fence_type();
-            }
-            is_pipe(next) {
-                return this.block_data().IsPipe(next)?.val(next) ?? false;
-            }
-            up_left_angle_visible() {
-                return this.is_pipe() ? this.up_left_angle_part() : this.left_flight();
-            }
-            up_right_angle_visible() {
-                return this.is_pipe() ? this.up_right_angle_part() : this.right_flight();
-            }
-            down_left_angle_visible() {
-                return this.is_pipe() ? this.down_left_angle_part() : this.floor_part();
-            }
-            down_right_angle_visible() {
-                return this.is_pipe() ? this.down_right_angle_part() : this.effects_part();
-            }
-            up_left_part_visible() {
-                return this.is_pipe() ? this.up_left_part_empty() : this.up_left_part();
-            }
-            up_right_part_visible() {
-                return this.is_pipe() ? this.up_right_part_empty() : this.up_right_part();
-            }
-            down_left_part_visible() {
-                return this.is_pipe() ? this.down_left_part_empty() : this.down_left_part();
-            }
-            down_right_part_visible() {
-                return this.is_pipe() ? this.down_right_part_empty() : this.down_right_part();
-            }
-            pipe_name_visible() {
-                return this.is_pipe() ? [this.pipe_name()] : [];
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "block_ref", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "block_data", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "block_direction", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "pos_x", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "pos_y", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "left", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "top", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "block_name", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "current_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "numerical_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "display_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "is_part_of_double_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "is_doubled", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "generator_floor_value", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "board_floor_value", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "mail_visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "mail_floor_value", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "roof_floor_value", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "flood_floor_value", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "profession_floors", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "safe_floors", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "place_floors", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "block_layer", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "min_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "max_floor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_interfloor", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "color_letter", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "block_type", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "transitions", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "transition_pos", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "transition_direction", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "transition_hidden", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "transition_left", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "transition_top", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "connections", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "connection_hidden", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "connection_pos", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "connection_left", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "connection_top", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "connection_click", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "select_connection", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "change_connection", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "connection_highlight", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "create_from_connection", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_middle_flight", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "left_flight_icon", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "left_flight_click", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "flight_status", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "right_flight_icon", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "middle_flight_icons", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "right_flight_click", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "passage_type", null);
-        __decorate([
-            $mol_action,
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "passage_click", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "is_up_flight", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "up_passage_or_flight", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "up_left_part", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "up_right_part", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "down_right_part", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "down_left_part", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "has_profession", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "liquidator_profession", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "repairman_profession", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "cleaner_profession", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "plumber_profession", null);
-        __decorate([
-            $mol_mem_key
-        ], $apxu_samosbor_map_block.prototype, "has_place", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "has_safe_place", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "party_place", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "theatre_place", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "hospital_place", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "safe_place", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "flooded", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "roof", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "fence_type", null);
-        __decorate([
-            $mol_action
-        ], $apxu_samosbor_map_block.prototype, "fence_click", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "is_pipe", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "up_left_angle_visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "up_right_angle_visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "down_left_angle_visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "down_right_angle_visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "up_left_part_visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "up_right_part_visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "down_left_part_visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "down_right_part_visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block.prototype, "pipe_name_visible", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_block, "first_port", null);
-        $$.$apxu_samosbor_map_block = $apxu_samosbor_map_block;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("apxu/samosbor/map/block/block.view.css", "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');\n@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap');\n\n@font-face {\n\tfont-family: \"Roboto\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n@keyframes blink-edit {\n\n\t0%,\n\t100% {\n\t\toutline-color: black;\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n@keyframes blink-border {\n\n\t0%,\n\t100% {\n\t\toutline-color: rgb(14, 211, 237);\n\t\t/* Цвет обводки в начале и конце цикла */\n\t}\n\n\t50% {\n\t\toutline-color: transparent;\n\t\t/* Обводка исчезает посередине цикла */\n\t}\n}\n\n[apxu_samosbor_map_cluster]>*,\n[apxu_samosbor_map_block] {\n\n\t[mol_view] {\n\t\ttransition: none;\n\t}\n\n\t[mol_icon] {\n\t\tcolor: white;\n\t\tfilter: unset;\n\t\tz-index: 100;\n\t}\n\n\t--block-type-stroke-color: #00000000;\n\n\t&[block-type=destroyed] {\n\t\t--block-type-stroke-color: #EEFF00;\n\t}\n\n\t&[block-type=infected] {\n\t\t--block-type-stroke-color: #FF0000;\n\t}\n\n\t&[block-type=frozen] {\n\t\t--block-type-stroke-color: #0051FF;\n\t}\n\n\tpadding: calc(var(--transition-length) / 2);\n\n\t[apxu_samosbor_map_block_content] {\n\t\tz-index: 501;\n\t}\n\n\t&:not([visible]):has([apxu_samosbor_map_block_content]:not([interfloor])) {\n\t\tpointer-events: none;\n\t}\n\n\t&:not([visible]) {\n\t\t[apxu_samosbor_map_block_content]:not([interfloor]) {\n\t\t\tvisibility: hidden;\n\t\t\tz-index: 500;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content][interfloor] {\n\t\t\topacity: 0.3;\n\t\t\tz-index: 500;\n\t\t}\n\t}\n\n\tanimation: blink-border 2s infinite;\n\toutline: unset;\n\n\t&[selected] {\n\t\toutline: 5px solid rgb(14, 211, 237);\n\t}\n\n\ttop: 0px;\n\tleft: 0px;\n\tposition: absolute;\n\n\t[apxu_samosbor_map_block_transition] {\n\t\t--transition-width: 50px;\n\t\t--transition-height: 50px;\n\t\tbox-sizing: content-box;\n\t\tz-index: 4000;\n\t\tposition: absolute;\n\t\tbackground-color: #FFFFFF80;\n\n\t\t&[hidden] {\n\t\t\tdisplay: none;\n\t\t}\n\n\t\t&[direction=vertical] {\n\t\t\theight: var(--transition-width);\n\t\t\twidth: var(--transition-length);\n\n\t\t\tborder-bottom: 10px solid white;\n\t\t\tborder-top: 10px solid white;\n\t\t\ttranslate: 0px -10px;\n\t\t}\n\n\t\t&[direction=horizontal] {\n\t\t\theight: var(--transition-length);\n\t\t\twidth: var(--transition-width);\n\t\t\tborder-left: 10px solid white;\n\t\t\tborder-right: 10px solid white;\n\t\t\ttranslate: -10px;\n\t\t}\n\n\n\t}\n\n\t[apxu_samosbor_map_block_part] {\n\t\twidth: var(--part-width);\n\t\theight: var(--part-width);\n\n\t\t&::before {\n\t\t\tleft: 0px;\n\t\t\tbackground-color: var(--main);\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_profession_part],\n\t[apxu_samosbor_map_block_places_part] {\n\n\t\t&>* {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-wrap: wrap;\n\t\t\tflex-direction: row;\n\t\t\tgap: 26px;\n\n\t\t\tpadding: 13px;\n\t\t\tjustify-content: flex-start;\n\t\t\talign-items: flex-start;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_floor_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\n\t\t&>* {\n\t\t\tdisplay: flex;\n\t\t\tz-index: 10;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 32px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: row;\n\t\t\tjustify-content: space-around;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-self: stretch;\n\t\t\tjustify-items: stretch;\n\n\t\t\t&>* {\n\t\t\t\twidth: 34px;\n\t\t\t\theight: 34px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_flight] {\n\t\t&[status=\"blocked\"] {\n\t\t\t[mol_icon] {\n\t\t\t\topacity: 0.25;\n\t\t\t}\n\n\t\t}\n\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\t\t}\n\t}\n\n\t&[editing] {\n\n\t\t[apxu_samosbor_map_block_flight],\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\toutline: 3px solid black;\n\t\t\t\tanimation: blink-edit 2s infinite;\n\t\t\t}\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_up_middle_passage],\n\t\t[apxu_samosbor_map_block_down_middle_passage] {\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\toutline: unset;\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\toutline: 3px solid black;\n\t\t\tanimation: blink-edit 2s infinite;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_passage] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t\t&[type=normal],\n\t\t&[type=stairs_up],\n\t\t&[type=stairs_down] {\n\t\t\t&::before {\n\t\t\t\tbackground-color: var(--bg);\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\tdisplay: flex;\n\t\t\tgap: 10px;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_floor_inc] {\n\t\t\tz-index: 2000;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 26px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage_stairs] {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_flight] {\n\t\t&::before {\n\t\t\tbackground-color: var(--main);\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_blockname] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\t[apxu_samosbor_map_block_currentfloor] {\n\t\tz-index: 10;\n\t\talign-items: center;\n\t}\n\n\n\t[apxu_samosbor_map_block_content] {\n\t\tbox-sizing: border-box;\n\t\tbackground-color: white;\n\t\tcursor: pointer;\n\t\tuser-select: none;\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tflex-wrap: wrap;\n\t\tcolor: black;\n\t\tfont-size: 40px;\n\t\tdisplay: flex;\n\t\tposition: relative;\n\t\tpadding: 10px;\n\t\t--stroke-color: var(--block-type-stroke-color);\n\t\tborder-radius: 10px;\n\n\t\t&::after {\n\t\t\tposition: absolute;\n\t\t\tinset: 0px;\n\t\t\tcontent: \"\";\n\t\t\tz-index: 100;\n\t\t\tborder-radius: 10px;\n\n\t\t\twidth: calc(100% - 0px);\n\t\t\theight: calc(100% - 0px);\n\n\t\t\t/* border: 10px solid var(--stroke-color); */\n\t\t\tbox-shadow: 0 0 20px 20px var(--stroke-color);\n\t\t\t/* blur = 20px, spread = 5px */\n\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_middle_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tbackground-color: var(--bg);\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_fence] {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--passage-width);\n\t\t\tz-index: 2000;\n\n\t\t\t&::after {\n\t\t\t\tcontent: \"\";\n\t\t\t}\n\n\t\t\t&[type=missing] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: #00000000;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=solid] {\n\t\t\t\t&::after {\n\t\t\t\t\tbackground-color: white;\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\t&>* {\n\t\t\tbackground-color: var(--bg);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\tposition: relative;\n\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: 100% !important;\n\t\t\t\t\theight: 100% !important;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t}\n\n\t[apxu_samosbor_map_block_row] {\n\t\tdisplay: flex;\n\t\tgap: 10px;\n\t\tposition: relative;\n\n\t\t&>* {\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tbackground-color: unset !important;\n\t\t\tposition: relative;\n\n\t\t\t&::before {\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcontent: \"\";\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: absolute;\n\t\t\t\t/* background-color: var(--main); */\n\t\t\t}\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_left_flight] {\n\t\t[mol_icon] {\n\t\t\twidth: var(--duo-icon-size);\n\t\t\theight: var(--duo-icon-size);\n\n\t\t\t&:only-child {\n\t\t\t\twidth: var(--solo-icon-size);\n\t\t\t\theight: var(--solo-icon-size);\n\t\t\t}\n\n\t\t\tfill: white;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_name_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t[apxu_samosbor_map_block_blockname] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 36px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t}\n\n\t\t&[semi-floor] {\n\t\t\tpadding: unset;\n\n\t\t\t[apxu_samosbor_map_block_currentfloor] {\n\t\t\t\tfont-size: 24px;\n\t\t\t}\n\t\t}\n\n\t\t&>* {\n\t\t\t/* height: 50%; */\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_info_part],\n\t[apxu_samosbor_map_block_effects_part] {\n\t\tpadding-top: 50px;\n\t\tpadding-right: 11px;\n\t\tpadding-bottom: 50px;\n\t\tpadding-left: 11px;\n\t\tgap: 15px;\n\t\tflex-direction: column;\n\t\tflex-wrap: nowrap;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\n\t\t&>* {\n\t\t\tgap: 10px;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\twidth: 100%;\n\t\t\ttext-align: center;\n\t\t\tvertical-align: middle;\n\t\t\tline-height: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_gen_icon] {\n\t\t\twidth: 28px;\n\t\t\theight: 36px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_flooded_icon] {\n\t\t\twidth: 34px;\n\t\t\theight: 34px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_roof_icon] {\n\t\t\twidth: 36px;\n\t\t\theight: 30px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_mail_icon] {\n\t\t\twidth: 32px;\n\t\t\theight: 27px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_generator_floor],\n\t\t[apxu_samosbor_map_block_mail_floor],\n\t\t[apxu_samosbor_map_block_flooded_floor_view],\n\t\t[apxu_samosbor_map_block_roof_floor_view] {\n\t\t\tz-index: 1000;\n\t\t\tcolor: white;\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 28px;\n\t\t\tline-height: 100%;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n\n\t&[direction=up],\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--part-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--width);\n\t\t\theight: var(--height);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: 100%;\n\t\t\theight: var(--passage-width);\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: var(--part-width);\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t\theight: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t\t\theight: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\twidth: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\t&::after {\n\t\t\t\t\twidth: 10px;\n\t\t\t\t\theight: calc(100% + 10px);\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to bottom,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t;\n\n\t&[direction=left],\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\twidth: var(--height);\n\t\t\theight: var(--width);\n\n\t\t\t--stroke-length-vertical: var(--stroke-length-top);\n\t\t\t/* Длина штриха ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--empty-length-vertical: var(--empty-length-top);\n\t\t\t/* Длина пропуска ВЕРТИКАЛЬНЫХ линий */\n\t\t\t--stroke-length-horizontal: var(--stroke-length-left);\n\t\t\t/* Длина штриха ГОРИЗОНТАЛЬНЫХ линий */\n\t\t\t--empty-length-horizontal: var(--empty-length-left);\n\t\t\t/* Длина пропуска ГОРИЗОНТАЛЬНЫХ линий */\n\t\t}\n\n\t\t;\n\n\t\t[apxu_samosbor_map_block_hallway] {\n\t\t\twidth: var(--passage-width);\n\t\t\theight: 100%;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\twidth: var(--part-width);\n\t\t\theight: var(--passage-width);\n\n\t\t\t&[type=normal],\n\t\t\t&[type=stairs_up],\n\t\t\t&[type=stairs_down] {\n\t\t\t\t&::before {\n\t\t\t\t\twidth: calc(var(--part-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[type=noway] {\n\t\t\t\t&::before {\n\t\t\t\t\theight: calc(var(--passage-width) + 25px);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_flight] {\n\t\t\theight: var(--passage-width);\n\t\t\twidth: var(--part-width);\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t\theight: var(--part-width);\n\t\t\t\twidth: var(--passage-width);\n\n\t\t\t\t&[type=normal],\n\t\t\t\t&[type=stairs_up],\n\t\t\t\t&[type=stairs_down] {\n\t\t\t\t\t&::before {\n\t\t\t\t\t\theight: calc(var(--part-width) + 25px);\n\t\t\t\t\t\twidth: var(--passage-width);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_crossroad],\n\t\t\t[apxu_samosbor_map_block_right_crossroad] {\n\t\t\t\twidth: var(--passage-width);\n\t\t\t\theight: var(--passage-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_left_hallway],\n\t\t\t[apxu_samosbor_map_block_right_hallway] {\n\t\t\t\theight: var(--part-width);\n\t\t\t}\n\n\t\t\t[apxu_samosbor_map_block_fence] {\n\t\t\t\tflex-direction: column;\n\n\t\t\t\t&::after {\n\t\t\t\t\twidth: calc(100% + 10px);\n\t\t\t\t\theight: 10px;\n\t\t\t\t}\n\n\t\t\t\t&[type=hole] {\n\t\t\t\t\t&::after {\n\t\t\t\t\t\tbackground:\n\t\t\t\t\t\t\tlinear-gradient(to right,\n\t\t\t\t\t\t\t\twhite 0%,\n\t\t\t\t\t\t\t\twhite 35%,\n\t\t\t\t\t\t\t\ttransparent 35%,\n\t\t\t\t\t\t\t\ttransparent 65%,\n\t\t\t\t\t\t\t\twhite 65%,\n\t\t\t\t\t\t\t\twhite 100%);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t&[direction=up] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t}\n\n\t\t[apxu_samosbor_map_block_name_part] {\n\t\t\tleft: var(--pos);\n\t\t\ttop: 0px;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row;\n\t\t}\n\t}\n\n\t&[direction=down] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\t}\n\n\t&[direction=left] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column-reverse;\n\t\t}\n\t}\n\n\t&[direction=right] {\n\t\t[apxu_samosbor_map_block_content] {\n\t\t\tflex-direction: row-reverse;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\n\t\t[apxu_samosbor_map_block_passage] {\n\t\t\t&[left] {\n\t\t\t\t&::before {\n\t\t\t\t\ttop: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[right] {\n\t\t\t\t&::before {\n\t\t\t\t\tbottom: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: column-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[up] {\n\t\t\t\t&::before {\n\t\t\t\t\tright: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row-reverse;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t&[down] {\n\t\t\t\t&::before {\n\t\t\t\t\tleft: 0px;\n\t\t\t\t}\n\n\t\t\t\t[apxu_samosbor_map_block_passage_interfloor] {\n\t\t\t\t\tflex-direction: row;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t[apxu_samosbor_map_block_middle_row] {\n\t\t\tflex-direction: column;\n\t\t}\n\t}\n\n\t[apxu_samosbor_map_block_pipe_name] {\n\t\tposition: absolute;\n\t\tz-index: 2000;\n\t\tleft: 50%;\n\t\tright: 50%;\n\t\ttop: 50%;\n\t\tbottom: 50%;\n\t\tcolor: white;\n\t\tfont-family: \"Roboto\";\n\t\tfont-weight: 700;\n\t\tfont-size: 34px;\n\t\tline-height: 100%;\n\t\tletter-spacing: 0;\n\t\ttext-align: center;\n\n\t\t&::before {\n\t\t\tcontent: unset;\n\t\t}\n\t}\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -20668,14 +20807,19 @@ var $;
 			const obj = new this.$.$mol_vector_2d(0, 0);
 			return obj;
 		}
-		blocks(){
+		canvas_zoom(next){
+			if(next !== undefined) return next;
+			return 1;
+		}
+		blocks_visible(){
 			return [];
 		}
 		Area(){
 			const obj = new this.$.$apxu_samosbor_map_area();
 			(obj.cur_pan) = (next) => ((this.canvas_pos(next)));
+			(obj.cur_zoom) = (next) => ((this.canvas_zoom(next)));
 			(obj.style) = () => ({"width": "100%", "height": "100%"});
-			(obj.items) = () => ([...(this.blocks())]);
+			(obj.items) = () => ([...(this.blocks_visible())]);
 			return obj;
 		}
 		Canvas(){
@@ -20786,6 +20930,7 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_app.prototype), "SearchLabel"));
 	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Searcher"));
 	($mol_mem(($.$apxu_samosbor_map_app.prototype), "canvas_pos"));
+	($mol_mem(($.$apxu_samosbor_map_app.prototype), "canvas_zoom"));
 	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Area"));
 	($mol_mem(($.$apxu_samosbor_map_app.prototype), "Canvas"));
 	($mol_mem(($.$apxu_samosbor_map_app.prototype), "inverted"));
@@ -21132,6 +21277,12 @@ var $;
                 }
                 return blocks;
             }
+            blocks_visible() {
+                const blocks = this.blocks();
+                return blocks.filter((block_view) => {
+                    return block_view.visible() || block_view.has_interfloor();
+                });
+            }
             current_layer(next) {
                 const str_layer = $mol_state_arg.value("layer", next !== undefined ? next.toString() : undefined);
                 const parsed_layer = next ?? (str_layer ? parseInt(str_layer) : undefined);
@@ -21171,12 +21322,13 @@ var $;
                     .added1([(canvas_rect.width - block_rect.width) / 2, (canvas_rect.height - block_rect.height) / 2]));
             }
             do_search(next) {
-                const search_value = this.search_value();
-                const block = this.current_map()?.blocks()?.find((block) => { return block.name().includes(search_value); });
+                const search_value = this.search_value().toLowerCase();
+                const block = this.current_map()?.blocks()?.find((block) => { return block.name().toLowerCase().includes(search_value); });
                 if (!block)
                     return;
                 this.current_layer(block.layer());
                 this.selected_blocks([...this.selected_blocks(), block.ref()]);
+                this.canvas_zoom(0.5);
                 this.zoom_to_block(block);
             }
         }
@@ -21308,6 +21460,9 @@ var $;
         ], $apxu_samosbor_map_app.prototype, "blocks", null);
         __decorate([
             $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "blocks_visible", null);
+        __decorate([
+            $mol_mem
         ], $apxu_samosbor_map_app.prototype, "current_layer", null);
         __decorate([
             $mol_mem
@@ -21430,6 +21585,17 @@ var $;
         process.exit(0);
     }
     $.$mol_test_complete = $mol_test_complete;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'return result without errors'() {
+            $mol_assert_equal($mol_try(() => false), false);
+        },
+    });
 })($ || ($ = {}));
 
 ;
@@ -22006,7 +22172,7 @@ var $;
         catch (error) {
             $.$mol_fail = fail;
             if (typeof ErrorRight === 'string') {
-                $mol_assert_equal(error.message, ErrorRight);
+                $mol_assert_equal(error.message ?? error, ErrorRight);
             }
             else {
                 $mol_assert_equal(error instanceof ErrorRight, true);
@@ -22030,7 +22196,7 @@ var $;
                     continue;
                 if (!$mol_compare_deep(args[i], args[j]))
                     continue;
-                $mol_fail(new Error(`args[${i}] = args[${j}] = ${print(args[i])}`));
+                return $mol_fail(new Error(`Uniquesess assertion failure`, { cause: { [i]: args[i], [i]: args[i] } }));
             }
         }
     }
@@ -22041,29 +22207,10 @@ var $;
                 continue;
             if (args[0] instanceof $mol_dom_context.Element && args[i] instanceof $mol_dom_context.Element && args[0].outerHTML === args[i].outerHTML)
                 continue;
-            return $mol_fail(new Error(`args[0] ≠ args[${i}]\n${print(args[0])}\n---\n${print(args[i])}`));
+            return $mol_fail(new Error(`Equality assertion failure`, { cause: { 0: args[0], [i]: args[i] } }));
         }
     }
     $.$mol_assert_equal = $mol_assert_equal;
-    const print = (val) => {
-        if (!val)
-            return val;
-        if (typeof val === 'bigint')
-            return String(val) + 'n';
-        if (typeof val === 'symbol')
-            return `Symbol(${val.description})`;
-        if (typeof val !== 'object')
-            return val;
-        if ('outerHTML' in val)
-            return val.outerHTML;
-        try {
-            return JSON.stringify(val, (k, v) => typeof v === 'bigint' ? String(v) : v, '\t');
-        }
-        catch (error) {
-            console.error(error);
-            return val;
-        }
-    };
 })($ || ($ = {}));
 
 ;
@@ -26134,32 +26281,6 @@ var $;
 
 ;
 "use strict";
-var $;
-(function ($_1) {
-    $mol_test({
-        'Per app profiles'($) {
-            const base = $.$hyoo_crus_glob.home();
-            const hall = base.hall_by($hyoo_crus_dict, { '': $hyoo_crus_rank_read });
-            $mol_assert_unique(base.land(), hall);
-        },
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($_1) {
-    $mol_test_mocks.push($ => {
-        class $hyoo_crus_glob_mock extends $.$hyoo_crus_glob {
-            static $ = $;
-            static lands_touched = new $mol_wire_set();
-        }
-        $.$hyoo_crus_glob = $hyoo_crus_glob_mock;
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -26266,6 +26387,32 @@ var $;
             node.click();
             $mol_assert_ok(clicked);
         },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test({
+        'Per app profiles'($) {
+            const base = $.$hyoo_crus_glob.home();
+            const hall = base.hall_by($hyoo_crus_dict, { '': $hyoo_crus_rank_read });
+            $mol_assert_unique(base.land(), hall);
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push($ => {
+        class $hyoo_crus_glob_mock extends $.$hyoo_crus_glob {
+            static $ = $;
+            static lands_touched = new $mol_wire_set();
+        }
+        $.$hyoo_crus_glob = $hyoo_crus_glob_mock;
     });
 })($ || ($ = {}));
 

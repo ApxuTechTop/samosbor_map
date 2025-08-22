@@ -645,7 +645,7 @@ var $;
         catch (error) {
             $.$mol_fail = fail;
             if (typeof ErrorRight === 'string') {
-                $mol_assert_equal(error.message, ErrorRight);
+                $mol_assert_equal(error.message ?? error, ErrorRight);
             }
             else {
                 $mol_assert_equal(error instanceof ErrorRight, true);
@@ -669,7 +669,7 @@ var $;
                     continue;
                 if (!$mol_compare_deep(args[i], args[j]))
                     continue;
-                $mol_fail(new Error(`args[${i}] = args[${j}] = ${print(args[i])}`));
+                return $mol_fail(new Error(`Uniquesess assertion failure`, { cause: { [i]: args[i], [i]: args[i] } }));
             }
         }
     }
@@ -680,29 +680,10 @@ var $;
                 continue;
             if (args[0] instanceof $mol_dom_context.Element && args[i] instanceof $mol_dom_context.Element && args[0].outerHTML === args[i].outerHTML)
                 continue;
-            return $mol_fail(new Error(`args[0] ≠ args[${i}]\n${print(args[0])}\n---\n${print(args[i])}`));
+            return $mol_fail(new Error(`Equality assertion failure`, { cause: { 0: args[0], [i]: args[i] } }));
         }
     }
     $.$mol_assert_equal = $mol_assert_equal;
-    const print = (val) => {
-        if (!val)
-            return val;
-        if (typeof val === 'bigint')
-            return String(val) + 'n';
-        if (typeof val === 'symbol')
-            return `Symbol(${val.description})`;
-        if (typeof val !== 'object')
-            return val;
-        if ('outerHTML' in val)
-            return val.outerHTML;
-        try {
-            return JSON.stringify(val, (k, v) => typeof v === 'bigint' ? String(v) : v, '\t');
-        }
-        catch (error) {
-            console.error(error);
-            return val;
-        }
-    };
 })($ || ($ = {}));
 
 ;
@@ -2511,6 +2492,17 @@ var $;
 (function ($_1) {
     $mol_test_mocks.push($ => {
         $.$mol_after_frame = $mol_after_mock_commmon;
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'return result without errors'() {
+            $mol_assert_equal($mol_try(() => false), false);
+        },
     });
 })($ || ($ = {}));
 
@@ -5027,32 +5019,6 @@ var $;
 var $;
 (function ($_1) {
     $mol_test({
-        'Per app profiles'($) {
-            const base = $.$hyoo_crus_glob.home();
-            const hall = base.hall_by($hyoo_crus_dict, { '': $hyoo_crus_rank_read });
-            $mol_assert_unique(base.land(), hall);
-        },
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($_1) {
-    $mol_test_mocks.push($ => {
-        class $hyoo_crus_glob_mock extends $.$hyoo_crus_glob {
-            static $ = $;
-            static lands_touched = new $mol_wire_set();
-        }
-        $.$hyoo_crus_glob = $hyoo_crus_glob_mock;
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($_1) {
-    $mol_test({
         'id auto generation'($) {
             class $mol_view_test_item extends $mol_view {
             }
@@ -5153,6 +5119,32 @@ var $;
             node.click();
             $mol_assert_ok(clicked);
         },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test({
+        'Per app profiles'($) {
+            const base = $.$hyoo_crus_glob.home();
+            const hall = base.hall_by($hyoo_crus_dict, { '': $hyoo_crus_rank_read });
+            $mol_assert_unique(base.land(), hall);
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push($ => {
+        class $hyoo_crus_glob_mock extends $.$hyoo_crus_glob {
+            static $ = $;
+            static lands_touched = new $mol_wire_set();
+        }
+        $.$hyoo_crus_glob = $hyoo_crus_glob_mock;
     });
 })($ || ($ = {}));
 
