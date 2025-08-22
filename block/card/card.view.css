@@ -403,3 +403,16 @@
 	height: 200%;
 	fill: var(--main-color);
 }
+
+[apxu_samosbor_map_block_card_port] {
+	flex-direction: column;
+	padding: 5px;
+}
+
+[apxu_samosbor_map_block_card_port_coordinate] {
+	gap: 10px;
+}
+
+[apxu_samosbor_map_block_card_transitions_list] {
+	flex-wrap: wrap;
+}
