@@ -35,6 +35,9 @@ $apxu_samosbor_map_block_passage $mol_view
 $apxu_samosbor_map_block_middle_flight $mol_view
 
 $apxu_samosbor_map_block $mol_view
+	plugins /
+		<= Hover $apxu_hover
+			hovered => hovered
 	map $apxu_samosbor_map
 	gigacluster $apxu_samosbor_map_gigacluster
 	block_data? $apxu_samosbor_map_block_data
@@ -60,9 +63,10 @@ $apxu_samosbor_map_block $mol_view
 	pos_y? 0
 	is_up_flight? false
 	on_connection_select? null
+	visible true
 	attr *
 		direction <= block_direction? \up
-		visible <= visible true
+		visible true
 		selected <= selected false
 		editing <= edit_mode
 		color <= color_letter \b
@@ -201,7 +205,7 @@ $apxu_samosbor_map_block $mol_view
 			attr *
 				interfloor <= has_interfloor false
 			sub /
-				^ connections_list <= connections /
+				^ connections /
 				^ transitions_list <= transitions /
 				<= up_row $apxu_samosbor_map_block_row
 					sub /

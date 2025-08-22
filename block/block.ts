@@ -89,7 +89,6 @@ namespace $ {
 			left: "LeftPassage"
 		}
 
-		@$mol_mem_key
 		static get_passage_type( transition: TransitionPosition, floor_data?: FloorData, next?: typeof PassageType.options[ number ] ) {
 			if( transition === "up_middle" || transition === "down_middle" ) {
 				return "noway"
@@ -298,31 +297,7 @@ namespace $ {
 		}
 
 		@$mol_mem_key
-		up_left_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( next )?.key( floor, next )?.UpLeftPassage( next )?.Type( next )?.val( next ) ?? "noway"
-		}
-		@$mol_mem_key
-		up_middle_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( next )?.key( floor, next )?.UpMiddlePassage( next )?.Type( next )?.val( next ) ?? "noway"
-		}
-		@$mol_mem_key
-		up_right_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( next )?.key( floor, next )?.UpRightPassage( next )?.Type( next )?.val( next ) ?? "noway"
-		}
-		@$mol_mem_key
-		down_left_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( next )?.key( floor, next )?.DownLeftPassage( next )?.Type( next )?.val( next ) ?? "noway"
-		}
-		@$mol_mem_key
-		down_middle_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( next )?.key( floor, next )?.DownMiddlePassage( next )?.Type( next )?.val( next ) ?? "noway"
-		}
-		@$mol_mem_key
-		down_right_passage_type( floor: number, next?: typeof PassageType.options[ number ] ) {
-			return this.FloorsData( next )?.key( floor, next )?.DownRightPassage( next )?.Type( next )?.val( next ) ?? "noway"
-		}
-		@$mol_mem_key
-		passage_type( { floor, what }: { floor: number, what: TransitionPosition }, next?: typeof PassageType.options[ number ] ) {
+		passage_type( [ floor, what ]: [ number, TransitionPosition ], next?: typeof PassageType.options[ number ] ) {
 			return FloorData.get_passage_type( what, this.FloorsData( next )?.key( floor, next ), next )
 		}
 
