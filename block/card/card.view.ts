@@ -510,5 +510,47 @@ namespace $.$$ {
 			} )
 			return link
 		}
+
+		@$mol_mem
+		transitions_visible(): readonly ( any )[] {
+			return this.is_editor() ? [ this.transitions_list() ] : []
+		}
+
+		@$mol_mem
+		transitions() {
+			const block_transitions = this.block().block_data().transitions()
+			return block_transitions.map( ( transition ) => {
+				return this.Transition( transition )
+			} )
+		}
+		@$mol_mem_key
+		transition_from_block_name( transition: TransitionData ): string {
+			return transition.From()?.Block()?.remote()?.name() ?? "<unnamed>"
+		}
+		@$mol_mem_key
+		transition_from_floor( transition: TransitionData ): number {
+			return Number( transition.From()?.Floor()?.val() )
+		}
+		@$mol_mem_key
+		transition_from_pos( transition: TransitionData ): string {
+			return transition.From()?.Position()?.val() ?? ""
+		}
+		@$mol_mem_key
+		transition_to_floor( transition: TransitionData ): number {
+			return Number( transition.To()?.Floor()?.val() )
+		}
+		@$mol_mem_key
+		transition_to_block_name( transition: TransitionData ): string {
+			return transition.To()?.Block()?.remote()?.name() ?? "<unnamed>"
+		}
+		@$mol_mem_key
+		transition_to_pos( transition: TransitionData ): string {
+			return transition.To()?.Position()?.val() ?? ""
+		}
+		@$mol_action
+		remove_transition( transition: TransitionData, next?: any ) {
+			transition.remove_transition()
+		}
+
 	}
 }
