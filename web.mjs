@@ -18892,6 +18892,50 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card_floor.prototype), "floor_value"));
 	($mol_mem(($.$apxu_samosbor_map_block_card_floor.prototype), "input"));
 	($.$apxu_samosbor_map_block_card_touch) = class $apxu_samosbor_map_block_card_touch extends ($.$mol_touch) {};
+	($.$apxu_samosbor_map_block_card_port) = class $apxu_samosbor_map_block_card_port extends ($.$mol_view) {
+		block_name(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		block_name_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.block_name())]);
+			return obj;
+		}
+		floor(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		floor_view(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.floor())]);
+			return obj;
+		}
+		coordinate(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.block_name_view()), (this.floor_view())]);
+			return obj;
+		}
+		pos(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		position(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.pos())]);
+			return obj;
+		}
+		sub(){
+			return [(this.coordinate()), (this.position())];
+		}
+	};
+	($mol_mem(($.$apxu_samosbor_map_block_card_port.prototype), "block_name"));
+	($mol_mem(($.$apxu_samosbor_map_block_card_port.prototype), "block_name_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card_port.prototype), "floor"));
+	($mol_mem(($.$apxu_samosbor_map_block_card_port.prototype), "floor_view"));
+	($mol_mem(($.$apxu_samosbor_map_block_card_port.prototype), "coordinate"));
+	($mol_mem(($.$apxu_samosbor_map_block_card_port.prototype), "pos"));
+	($mol_mem(($.$apxu_samosbor_map_block_card_port.prototype), "position"));
 	($.$apxu_samosbor_map_block_card) = class $apxu_samosbor_map_block_card extends ($.$mol_view) {
 		pan(next){
 			return (this.mover().pan(next));
@@ -19611,6 +19655,72 @@ var $;
 		features_visible(){
 			return [(this.features())];
 		}
+		transition_from_block_name(id){
+			return "";
+		}
+		transition_from_floor(id){
+			return 0;
+		}
+		transition_from_pos(id){
+			return "";
+		}
+		from_port(id){
+			const obj = new this.$.$apxu_samosbor_map_block_card_port();
+			(obj.block_name) = (next) => ((this.transition_from_block_name(id)));
+			(obj.floor) = (next) => ((this.transition_from_floor(id)));
+			(obj.pos) = (next) => ((this.transition_from_pos(id)));
+			return obj;
+		}
+		transition_to_block_name(id){
+			return "";
+		}
+		transition_to_floor(id){
+			return 0;
+		}
+		transition_to_pos(id){
+			return "";
+		}
+		to_port(id){
+			const obj = new this.$.$apxu_samosbor_map_block_card_port();
+			(obj.block_name) = (next) => ((this.transition_to_block_name(id)));
+			(obj.floor) = (next) => ((this.transition_to_floor(id)));
+			(obj.pos) = (next) => ((this.transition_to_pos(id)));
+			return obj;
+		}
+		remove_transition_icon(id){
+			const obj = new this.$.$mol_icon_close();
+			return obj;
+		}
+		remove_transition(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		remove_transition_button(id){
+			const obj = new this.$.$mol_button_minor();
+			(obj.sub) = () => ([(this.remove_transition_icon(id))]);
+			(obj.click) = (next) => ((this.remove_transition(id, next)));
+			return obj;
+		}
+		Transition(id){
+			const obj = new this.$.$mol_bar();
+			(obj.sub) = () => ([
+				(this.from_port(id)), 
+				(this.to_port(id)), 
+				(this.remove_transition_button(id))
+			]);
+			return obj;
+		}
+		transitions(){
+			return [(this.Transition("0"))];
+		}
+		transitions_list(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([...(this.transitions())]);
+			return obj;
+		}
+		transitions_visible(){
+			return [(this.transitions_list())];
+		}
 		content(){
 			const obj = new this.$.$mol_view();
 			(obj.sub) = () => ([
@@ -19621,7 +19731,8 @@ var $;
 				...(this.effects_info_visible()), 
 				...(this.professions_visible()), 
 				...(this.places_visible()), 
-				...(this.features_visible())
+				...(this.features_visible()), 
+				...(this.transitions_visible())
 			]);
 			return obj;
 		}
@@ -19908,6 +20019,13 @@ var $;
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "safes"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "places"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "features"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "from_port"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "to_port"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "remove_transition_icon"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "remove_transition"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "remove_transition_button"));
+	($mol_mem_key(($.$apxu_samosbor_map_block_card.prototype), "Transition"));
+	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "transitions_list"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "content"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "block_land"));
 	($mol_mem(($.$apxu_samosbor_map_block_card.prototype), "rights"));
@@ -20346,6 +20464,36 @@ var $;
                 });
                 return link;
             }
+            transitions_visible() {
+                return this.is_editor() ? [this.transitions_list()] : [];
+            }
+            transitions() {
+                const block_transitions = this.block().block_data().transitions();
+                return block_transitions.map((transition) => {
+                    return this.Transition(transition);
+                });
+            }
+            transition_from_block_name(transition) {
+                return transition.From()?.Block()?.remote()?.name() ?? "<unnamed>";
+            }
+            transition_from_floor(transition) {
+                return Number(transition.From()?.Floor()?.val());
+            }
+            transition_from_pos(transition) {
+                return transition.From()?.Position()?.val() ?? "";
+            }
+            transition_to_floor(transition) {
+                return Number(transition.To()?.Floor()?.val());
+            }
+            transition_to_block_name(transition) {
+                return transition.To()?.Block()?.remote()?.name() ?? "<unnamed>";
+            }
+            transition_to_pos(transition) {
+                return transition.To()?.Position()?.val() ?? "";
+            }
+            remove_transition(transition, next) {
+                transition.remove_transition();
+            }
         }
         __decorate([
             $mol_action
@@ -20470,6 +20618,33 @@ var $;
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_block_card.prototype, "block_link", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "transitions_visible", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_block_card.prototype, "transitions", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block_card.prototype, "transition_from_block_name", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block_card.prototype, "transition_from_floor", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block_card.prototype, "transition_from_pos", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block_card.prototype, "transition_to_floor", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block_card.prototype, "transition_to_block_name", null);
+        __decorate([
+            $mol_mem_key
+        ], $apxu_samosbor_map_block_card.prototype, "transition_to_pos", null);
+        __decorate([
+            $mol_action
+        ], $apxu_samosbor_map_block_card.prototype, "remove_transition", null);
         $$.$apxu_samosbor_map_block_card = $apxu_samosbor_map_block_card;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -20478,7 +20653,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("apxu/samosbor/map/block/card/card.view.css", "@import url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\n@font-face {\n\tfont-family: \"Space Mono\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n[apxu_samosbor_map_block_card] {\n\tposition: absolute;\n\twidth: 287px;\n\theight: 482px;\n\tbackground-color: #121212;\n\tborder-radius: 5px;\n\n\tuser-select: none;\n\n\n\t--main-color: #676767;\n\t--edit-color: #1e1e1e;\n\n\n\n\t[mol_icon] {\n\t\tfilter: unset;\n\t}\n\n\tz-index: 1000;\n\n\t[mol_number] {\n\t\t[mol_string] {\n\t\t\tpadding: 3px;\n\t\t\t/* text-align: right; */\n\t\t}\n\n\t}\n}\n\n[apxu_samosbor_map_block_card_content] {\n\ttouch-action: none;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: flex-start;\n\talign-items: center;\n\toverflow-y: auto;\n\toverflow-x: hidden;\n\tscrollbar-gutter: stable;\n\tpadding: 15px;\n\n\t&>* {\n\t\tborder-bottom: 3px solid var(--main-color);\n\t\tpadding-top: 5px;\n\t\tpadding-bottom: 5px;\n\t\twidth: 100%;\n\t\tjustify-content: center;\n\t}\n\n\twidth: 100%;\n\theight: 100%;\n}\n\n\n[apxu_samosbor_map_block_card_header] {\n\twidth: 100%;\n\tdisplay: flex;\n\tflex-direction: row;\n\n\n\tdisplay: flex;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_misc_buttons] {\n\tposition: absolute;\n\tright: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\twidth: unset;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n}\n\n[apxu_samosbor_map_block_card_control_buttons] {\n\tposition: absolute;\n\tleft: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n\n}\n\n[apxu_samosbor_map_block_card_edit_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_close_icon] {\n\twidth: 30px;\n\theight: 30px;\n}\n\n[apxu_samosbor_map_block_card_delete_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_block_name_input] {\n\twidth: 141px;\n\theight: 50px;\n\tpadding: 0px;\n\tflex: unset;\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: 48px;\n\tline-height: 12px;\n\tletter-spacing: 0;\n\ttext-align: center;\n\tcolor: var(--main-color) !important;\n}\n\n[apxu_samosbor_map_block_card_block_size] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tgap: 10px;\n\twidth: 55px;\n\theight: 46px;\n\n\t&>* {\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\theight: 16px;\n\n\n\n\t\tgap: 5px;\n\n\t\t[mol_string] {\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 18px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: var(--main-color) !important;\n\t\t}\n\n\t\t&>[mol_icon] {\n\t\t\twidth: 16px;\n\t\t\theight: 16px;\n\t\t\tfill: var(--main-color);\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_info] {\n\tborder-right: 2px solid var(--main-color);\n\tpadding: 5px;\n\tgap: 10px;\n\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_flights] {\n\twidth: 100%;\n\tjustify-content: space-between;\n\tgap: 10px;\n\talign-items: center;\n\n\t&>[mol_button]:not([edit-mode]) {\n\t\tvisibility: hidden;\n\t}\n}\n\n[apxu_samosbor_map_block_card_flight_view] {\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-between;\n\n\t&[middle] {\n\t\tjustify-content: center;\n\t}\n\n\tflex: 1;\n\n\t&>* {\n\t\tgap: 5px;\n\t}\n\n\t&>&>* {\n\t\twidth: 20px;\n\t\theight: 20px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_buttons] {\n\tpadding: 5px;\n\tflex-direction: column;\n\n\t&>* {\n\t\tbackground-color: unset;\n\t}\n}\n\n[apxu_samosbor_map_block_card_coordinates] {\n\tflex-direction: column;\n\twidth: 86px;\n\tgap: 10px;\n\n\t[mol_button_minor] {\n\t\twidth: 10px;\n\t\theight: 15px;\n\t\tpadding: 0px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_position_info] {\n\t&:not([edit-mode]) {\n\t\tdisplay: none;\n\t}\n}\n\n[apxu_samosbor_map_block_card_pos_controller] {\n\tdisplay: grid;\n\tgrid-template-columns: 30px 30px 30px;\n\tgrid-template-rows: 30px 30px 30px;\n\tgap: 10px;\n\n\t&>* {\n\t\tpadding: 0;\n\t\talign-self: center;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\twidth: 30px;\n\t\theight: 30px;\n\n\t\t&>* {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_up_button] {\n\tgrid-area: 1 / 2 / 2 / 3;\n}\n\n[apxu_samosbor_map_block_card_right_button] {\n\tgrid-area: 2 / 3 / 3 / 4;\n}\n\n[apxu_samosbor_map_block_card_down_button] {\n\tgrid-area: 3 / 2 / 4 / 3;\n}\n\n[apxu_samosbor_map_block_card_left_button] {\n\tgrid-area: 2 / 1 / 3 / 2;\n}\n\n[apxu_samosbor_map_block_card_rotate_button] {\n\tgrid-area: 2 / 2 / 3 / 3;\n}\n\n[apxu_samosbor_map_block_card_checkboxes] {\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_double_floor],\n[apxu_samosbor_map_block_card_pipe_block] {\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_double_floor_icon],\n[apxu_samosbor_map_block_card_pipe_block_icon] {\n\twidth: 30px;\n\theight: 30px;\n\tcolor: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_block_type_view] {\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_type_select_icon] {\n\t/* width: 7px; */\n\theight: 6px;\n\t/* margin-right: 7px; */\n}\n\n[apxu_samosbor_map_block_card_place] {\n\tflex-direction: column;\n\talign-items: center;\n\tgap: 5px;\n\n\twidth: 28px;\n\tmin-width: unset;\n\n\t[mol_icon] {\n\t\twidth: 24px;\n\t\theight: 24px;\n\t}\n\n\t[mol_string] {\n\t\ttext-align: center;\n\t}\n\n\t&:not([enabled]) {\n\t\t[apxu_samosbor_map_block_card_place_add_input] {\n\t\t\tdisplay: none;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_place_icon] {\n\twidth: 24px;\n\theight: 24px;\n}\n\n\n[apxu_samosbor_map_block_card_number_input],\n[apxu_samosbor_map_block_card_floor_input] {\n\twidth: 4ch;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_balcony_icon] {\n\tcolor: var(--main-color);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked])>[apxu_samosbor_map_block_card_balcony_icon] {\n\topacity: 0.5;\n}\n\n[apxu_samosbor_map_block_card_professions] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_places] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_features] {\n\tgap: 15px;\n\tflex-wrap: wrap;\n\tjustify-content: flex-start;\n}\n\n[apxu_samosbor_map_block_card_rights] {\n\tposition: absolute;\n\ttop: 100%;\n\tleft: auto;\n\tright: auto\n}\n\n[apxu_samosbor_map_block_card_flight_left_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_left_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_flight_right_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_right_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n");
+    $mol_style_attach("apxu/samosbor/map/block/card/card.view.css", "@import url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\n@font-face {\n\tfont-family: \"Space Mono\";\n\tsrc: url(\"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap\");\n\tfont-weight: 700;\n\tfont-style: normal;\n}\n\n[apxu_samosbor_map_block_card] {\n\tposition: absolute;\n\twidth: 287px;\n\theight: 482px;\n\tbackground-color: #121212;\n\tborder-radius: 5px;\n\n\tuser-select: none;\n\n\n\t--main-color: #676767;\n\t--edit-color: #1e1e1e;\n\n\n\n\t[mol_icon] {\n\t\tfilter: unset;\n\t}\n\n\tz-index: 1000;\n\n\t[mol_number] {\n\t\t[mol_string] {\n\t\t\tpadding: 3px;\n\t\t\t/* text-align: right; */\n\t\t}\n\n\t}\n}\n\n[apxu_samosbor_map_block_card_content] {\n\ttouch-action: none;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: flex-start;\n\talign-items: center;\n\toverflow-y: auto;\n\toverflow-x: hidden;\n\tscrollbar-gutter: stable;\n\tpadding: 15px;\n\n\t&>* {\n\t\tborder-bottom: 3px solid var(--main-color);\n\t\tpadding-top: 5px;\n\t\tpadding-bottom: 5px;\n\t\twidth: 100%;\n\t\tjustify-content: center;\n\t}\n\n\twidth: 100%;\n\theight: 100%;\n}\n\n\n[apxu_samosbor_map_block_card_header] {\n\twidth: 100%;\n\tdisplay: flex;\n\tflex-direction: row;\n\n\n\tdisplay: flex;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_misc_buttons] {\n\tposition: absolute;\n\tright: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\twidth: unset;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n}\n\n[apxu_samosbor_map_block_card_control_buttons] {\n\tposition: absolute;\n\tleft: 100%;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 5px;\n\tborder-bottom: none;\n\n\t&>* {\n\t\twidth: 44px;\n\t\theight: 44px;\n\t\tbackground-color: #121212;\n\t\tjustify-content: center;\n\t\tcolor: var(--main-color);\n\t}\n\n}\n\n[apxu_samosbor_map_block_card_edit_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_close_icon] {\n\twidth: 30px;\n\theight: 30px;\n}\n\n[apxu_samosbor_map_block_card_delete_icon] {\n\twidth: 20px;\n\theight: 20px;\n}\n\n[apxu_samosbor_map_block_card_block_name_input] {\n\twidth: 141px;\n\theight: 50px;\n\tpadding: 0px;\n\tflex: unset;\n\tfont-family: \"Roboto\";\n\tfont-weight: 700;\n\tfont-size: 48px;\n\tline-height: 12px;\n\tletter-spacing: 0;\n\ttext-align: center;\n\tcolor: var(--main-color) !important;\n}\n\n[apxu_samosbor_map_block_card_block_size] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n\tgap: 10px;\n\twidth: 55px;\n\theight: 46px;\n\n\t&>* {\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\theight: 16px;\n\n\n\n\t\tgap: 5px;\n\n\t\t[mol_string] {\n\t\t\tfont-family: \"Roboto\";\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 18px;\n\t\t\tline-height: 20px;\n\t\t\tletter-spacing: 0;\n\t\t\ttext-align: center;\n\t\t\tcolor: var(--main-color) !important;\n\t\t}\n\n\t\t&>[mol_icon] {\n\t\t\twidth: 16px;\n\t\t\theight: 16px;\n\t\t\tfill: var(--main-color);\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_info] {\n\tborder-right: 2px solid var(--main-color);\n\tpadding: 5px;\n\tgap: 10px;\n\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_flights] {\n\twidth: 100%;\n\tjustify-content: space-between;\n\tgap: 10px;\n\talign-items: center;\n\n\t&>[mol_button]:not([edit-mode]) {\n\t\tvisibility: hidden;\n\t}\n}\n\n[apxu_samosbor_map_block_card_flight_view] {\n\tdisplay: flex;\n\tflex-direction: row;\n\tjustify-content: space-between;\n\n\t&[middle] {\n\t\tjustify-content: center;\n\t}\n\n\tflex: 1;\n\n\t&>* {\n\t\tgap: 5px;\n\t}\n\n\t&>&>* {\n\t\twidth: 20px;\n\t\theight: 20px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_block_buttons] {\n\tpadding: 5px;\n\tflex-direction: column;\n\n\t&>* {\n\t\tbackground-color: unset;\n\t}\n}\n\n[apxu_samosbor_map_block_card_coordinates] {\n\tflex-direction: column;\n\twidth: 86px;\n\tgap: 10px;\n\n\t[mol_button_minor] {\n\t\twidth: 10px;\n\t\theight: 15px;\n\t\tpadding: 0px;\n\t}\n}\n\n[apxu_samosbor_map_block_card_position_info] {\n\t&:not([edit-mode]) {\n\t\tdisplay: none;\n\t}\n}\n\n[apxu_samosbor_map_block_card_pos_controller] {\n\tdisplay: grid;\n\tgrid-template-columns: 30px 30px 30px;\n\tgrid-template-rows: 30px 30px 30px;\n\tgap: 10px;\n\n\t&>* {\n\t\tpadding: 0;\n\t\talign-self: center;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\twidth: 30px;\n\t\theight: 30px;\n\n\t\t&>* {\n\t\t\twidth: 30px;\n\t\t\theight: 30px;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_up_button] {\n\tgrid-area: 1 / 2 / 2 / 3;\n}\n\n[apxu_samosbor_map_block_card_right_button] {\n\tgrid-area: 2 / 3 / 3 / 4;\n}\n\n[apxu_samosbor_map_block_card_down_button] {\n\tgrid-area: 3 / 2 / 4 / 3;\n}\n\n[apxu_samosbor_map_block_card_left_button] {\n\tgrid-area: 2 / 1 / 3 / 2;\n}\n\n[apxu_samosbor_map_block_card_rotate_button] {\n\tgrid-area: 2 / 2 / 3 / 3;\n}\n\n[apxu_samosbor_map_block_card_checkboxes] {\n\tflex-direction: column;\n}\n\n[apxu_samosbor_map_block_card_double_floor],\n[apxu_samosbor_map_block_card_pipe_block] {\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_double_floor_icon],\n[apxu_samosbor_map_block_card_pipe_block_icon] {\n\twidth: 30px;\n\theight: 30px;\n\tcolor: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_block_type_view] {\n\talign-items: center;\n}\n\n[apxu_samosbor_map_block_card_type_select_icon] {\n\t/* width: 7px; */\n\theight: 6px;\n\t/* margin-right: 7px; */\n}\n\n[apxu_samosbor_map_block_card_place] {\n\tflex-direction: column;\n\talign-items: center;\n\tgap: 5px;\n\n\twidth: 28px;\n\tmin-width: unset;\n\n\t[mol_icon] {\n\t\twidth: 24px;\n\t\theight: 24px;\n\t}\n\n\t[mol_string] {\n\t\ttext-align: center;\n\t}\n\n\t&:not([enabled]) {\n\t\t[apxu_samosbor_map_block_card_place_add_input] {\n\t\t\tdisplay: none;\n\t\t}\n\t}\n}\n\n[apxu_samosbor_map_block_card_place_icon] {\n\twidth: 24px;\n\theight: 24px;\n}\n\n\n[apxu_samosbor_map_block_card_number_input],\n[apxu_samosbor_map_block_card_floor_input] {\n\twidth: 4ch;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_balcony_icon] {\n\tcolor: var(--main-color);\n\theight: 1rem;\n\talign-self: center;\n}\n\n[mol_check]:not([mol_check_checked])>[apxu_samosbor_map_block_card_balcony_icon] {\n\topacity: 0.5;\n}\n\n[apxu_samosbor_map_block_card_professions] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_places] {\n\tgap: 30px;\n}\n\n[apxu_samosbor_map_block_card_features] {\n\tgap: 15px;\n\tflex-wrap: wrap;\n\tjustify-content: flex-start;\n}\n\n[apxu_samosbor_map_block_card_rights] {\n\tposition: absolute;\n\ttop: 100%;\n\tleft: auto;\n\tright: auto\n}\n\n[apxu_samosbor_map_block_card_flight_left_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_left_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_flight_right_button] {\n\twidth: 19px;\n\theight: 28px;\n\tbackground-color: var(--edit-color);\n\tjustify-content: center;\n\tpadding: unset;\n}\n\n[apxu_samosbor_map_block_card_flight_right_icon] {\n\twidth: 200%;\n\theight: 200%;\n\tfill: var(--main-color);\n}\n\n[apxu_samosbor_map_block_card_port] {\n\tflex-direction: column;\n\tpadding: 5px;\n}\n\n[apxu_samosbor_map_block_card_port_coordinate] {\n\tgap: 10px;\n}\n\n[apxu_samosbor_map_block_card_transitions_list] {\n\tflex-wrap: wrap;\n}\n");
 })($ || ($ = {}));
 
 ;

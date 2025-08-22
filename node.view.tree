@@ -1161,6 +1161,17 @@ $apxu_samosbor_map_block_card_floor $mol_view
 
 $apxu_samosbor_map_block_card_touch $mol_touch
 
+$apxu_samosbor_map_block_card_port $mol_view
+	sub /
+		<= coordinate $mol_view
+			sub /
+				<= block_name_view $mol_view
+					sub / <= block_name? \
+				<= floor_view $mol_view
+					sub / <= floor? 0
+		<= position $mol_view
+			sub / <= pos? \
+
 $apxu_samosbor_map_block_card $mol_view
 	plugins /
 		<= mover $apxu_samosbor_map_block_card_touch
@@ -1440,6 +1451,21 @@ $apxu_samosbor_map_block_card $mol_view
 				^ features_visible / <= features $mol_view
 					sub /
 						^ other_places /
+				^ transitions_visible / <= transitions_list $mol_view
+					sub /
+						^ transitions / <= Transition*0 $mol_bar
+							sub /
+								<= from_port* $apxu_samosbor_map_block_card_port
+									block_name? <= transition_from_block_name* \
+									floor? <= transition_from_floor* 0
+									pos? <= transition_from_pos* \
+								<= to_port* $apxu_samosbor_map_block_card_port
+									block_name? <= transition_to_block_name* \
+									floor? <= transition_to_floor* 0
+									pos? <= transition_to_pos* \
+								<= remove_transition_button* $mol_button_minor
+									sub / <= remove_transition_icon* $mol_icon_close
+									click? <=> remove_transition*? null
 		^ rights_visible / <= rights $hyoo_crus_land_rights
 			land <= block_land $hyoo_crus_land
 
