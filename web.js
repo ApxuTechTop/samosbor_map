@@ -11637,8 +11637,7 @@ var $;
                     const from_block_ref = transition.From()?.Block()?.val();
                     if (!from_block_ref)
                         continue;
-                    const block_data = $hyoo_crus_glob.Node(from_block_ref, $apxu_samosbor_map_block_data);
-                    if (this.block_data() === block_data) {
+                    if (this.block_data().ref() === from_block_ref) {
                         transition_views.push(this.Transition(transition));
                     }
                 }
