@@ -11984,7 +11984,9 @@ var $;
         }
         double_floors_count(floor) {
             const all_floors = this.FloorsData()?.keys()
-                .filter((num) => floor > 0 ? (Number(num) > 0 && Number(num) < floor) : (Number(num) < 0 && Number(num) > floor)) ?? [];
+                .filter((num) => floor > 0
+                ? (Number(num) > 0 && Number(num) < floor)
+                : (Number(num) < 0 && Number(num) > floor)) ?? [];
             const count = all_floors.reduce((count, floor_num) => {
                 if (this.is_double_floor(Number(floor_num))) {
                     return count + 1;
@@ -20986,8 +20988,11 @@ var $;
 			if(next !== undefined) return next;
 			return 1;
 		}
-		blocks_visible(){
+		blocks(){
 			return [];
+		}
+		blocks_visible(){
+			return (this.blocks());
 		}
 		Area(){
 			const obj = new this.$.$apxu_samosbor_map_area();
@@ -21445,15 +21450,20 @@ var $;
             }
             blocks() {
                 const blocks = [];
-                const block_nodes = this.current_map()?.blocks();
-                for (const block_data of block_nodes ?? []) {
+                const block_nodes = this.current_map()?.blocks() ?? [];
+                for (const block_data of block_nodes) {
                     const block_view = this.Block(block_data.land_ref());
                     blocks.push(block_view);
                 }
                 return blocks;
             }
+            block_views() {
+                const block_views = this.blocks();
+                console.log(block_views);
+                return block_views;
+            }
             blocks_visible() {
-                const blocks = this.blocks();
+                const blocks = this.block_views();
                 return blocks.filter((block_view) => {
                     return block_view.visible() || block_view.has_interfloor();
                 });
@@ -21633,6 +21643,9 @@ var $;
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_app.prototype, "blocks", null);
+        __decorate([
+            $mol_mem
+        ], $apxu_samosbor_map_app.prototype, "block_views", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_app.prototype, "blocks_visible", null);

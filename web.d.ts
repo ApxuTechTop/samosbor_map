@@ -11569,7 +11569,8 @@ declare namespace $ {
 		Searcher( ): $mol_view
 		canvas_pos( next?: $mol_vector_2d<number> ): $mol_vector_2d<number>
 		canvas_zoom( next?: number ): number
-		blocks_visible( ): readonly(any)[]
+		blocks( ): readonly(any)[]
+		blocks_visible( ): ReturnType< $apxu_samosbor_map_app['blocks'] >
 		Area( ): $apxu_samosbor_map_area
 		Canvas( ): $mol_view
 		title( ): string
@@ -11647,6 +11648,7 @@ declare namespace $.$$ {
         static absolute_direction(direction: DirectionType, position: TransitionPosition): DirectionType;
         block_view(ref: symbol): $.$apxu_samosbor_map_block;
         blocks(): $.$apxu_samosbor_map_block[];
+        block_views(): $.$apxu_samosbor_map_block[];
         blocks_visible(): $.$apxu_samosbor_map_block[];
         current_layer(next?: number): number;
         concentrated_block(): void;
