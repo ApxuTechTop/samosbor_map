@@ -6723,7 +6723,7 @@ declare namespace $ {
         delete_block(ref: any): void;
         create_block(): $apxu_samosbor_map_block_data;
         delete_all_blocks(): void;
-        blocks(): readonly $apxu_samosbor_map_block_data[] | undefined;
+        blocks(): readonly $apxu_samosbor_map_block_data[];
         block_by_name(block_name: string): $apxu_samosbor_map_block_data | undefined;
         transition(block: $apxu_samosbor_map_block_data, floor: number, position: TransitionPosition): TransitionData | undefined;
     }
@@ -11522,7 +11522,7 @@ declare namespace $ {
 		Searcher( ): $mol_view
 		canvas_pos( next?: $mol_vector_2d<number> ): $mol_vector_2d<number>
 		canvas_zoom( next?: number ): number
-		blocks( ): readonly(any)[]
+		blocks_visible( ): readonly(any)[]
 		Area( ): $apxu_samosbor_map_area
 		Canvas( ): $mol_view
 		title( ): string

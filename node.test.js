@@ -13028,7 +13028,7 @@ var $;
             this.blocks()?.map((node) => this.delete_block(node.ref()));
         }
         blocks() {
-            const blocks = this.Blocks(null)?.remote_list();
+            const blocks = this.Blocks()?.remote_list() ?? [];
             return blocks;
         }
         block_by_name(block_name) {
@@ -20988,7 +20988,7 @@ var $;
 			if(next !== undefined) return next;
 			return 1;
 		}
-		blocks(){
+		blocks_visible(){
 			return [];
 		}
 		Area(){
@@ -20996,7 +20996,7 @@ var $;
 			(obj.cur_pan) = (next) => ((this.canvas_pos(next)));
 			(obj.cur_zoom) = (next) => ((this.canvas_zoom(next)));
 			(obj.style) = () => ({"width": "100%", "height": "100%"});
-			(obj.items) = () => ([...(this.blocks())]);
+			(obj.items) = () => ([...(this.blocks_visible())]);
 			return obj;
 		}
 		Canvas(){
@@ -21452,6 +21452,7 @@ var $;
                     const block_view = this.Block(block_data.land_ref());
                     blocks.push(block_view);
                 }
+                console.log(blocks);
                 return blocks;
             }
             block_views() {
