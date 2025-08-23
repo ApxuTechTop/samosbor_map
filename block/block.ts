@@ -416,7 +416,9 @@ namespace $ {
 		@$mol_mem_key
 		double_floors_count( floor: number ) {
 			const all_floors = this.FloorsData()?.keys()
-				.filter( ( num ) => floor > 0 ? ( Number( num ) > 0 && Number( num ) < floor ) : ( Number( num ) < 0 && Number( num ) > floor ) ) ?? []
+				.filter( ( num ) => floor > 0
+					? ( Number( num ) > 0 && Number( num ) < floor )
+					: ( Number( num ) < 0 && Number( num ) > floor ) ) ?? []
 			const count = all_floors.reduce( ( count: number, floor_num ) => {
 				if( this.is_double_floor( Number( floor_num ) ) ) {
 					return count + 1

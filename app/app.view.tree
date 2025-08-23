@@ -141,7 +141,7 @@ $apxu_samosbor_map_app $mol_view
 						width \100%
 						height \100%
 					items /
-						^ blocks_visible /
+						^ blocks_visible <= blocks /
 						- ^ transitions /
 						- <= test_item $mol_button_minor
 							enabled false
