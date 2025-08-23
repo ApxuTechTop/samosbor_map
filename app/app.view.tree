@@ -142,13 +142,3 @@ $apxu_samosbor_map_app $mol_view
 						height \100%
 					items /
 						^ blocks_visible /
-						- ^ transitions /
-						- <= test_item $mol_button_minor
-							enabled false
-							plugins /
-								<= test_mover $mol_touch
-									allow_zoom false
-									allow_draw false
-									pan => test_pan
-							style *
-								translate <= test_translate \

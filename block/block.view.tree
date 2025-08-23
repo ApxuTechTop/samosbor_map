@@ -267,5 +267,5 @@ $apxu_samosbor_map_block $mol_view
 							down true
 							right true
 						<= down_right_angle_visible <= down_right_angle_part $apxu_samosbor_map_block_part
-				- ^ connections /
-				- ^ transitions_list <= transitions /
+				^ connections /
+				^ transitions_list <= transitions /

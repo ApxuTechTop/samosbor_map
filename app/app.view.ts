@@ -372,18 +372,11 @@ namespace $.$$ {
 				const block_view = this.Block( block_data.land_ref() )
 				blocks.push( block_view )
 			}
-			console.log( blocks )
 			return blocks
 		}
 		@$mol_mem
-		block_views() {
-			const block_views = this.blocks()
-			console.log( block_views )
-			return block_views
-		}
-		@$mol_mem
 		blocks_visible() {
-			const blocks = this.block_views()
+			const blocks = this.blocks()
 			return blocks.filter( ( block_view ) => {
 				return block_view.visible() || block_view.has_interfloor()
 			} )
