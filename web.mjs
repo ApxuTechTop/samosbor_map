@@ -10022,15 +10022,6 @@ var $;
 		has_interfloor(){
 			return false;
 		}
-		connections(){
-			return [];
-		}
-		transitions(){
-			return [];
-		}
-		transitions_list(){
-			return (this.transitions());
-		}
 		pipe_name(){
 			const obj = new this.$.$mol_view();
 			(obj.sub) = () => ([(this.block_name())]);
@@ -10247,8 +10238,6 @@ var $;
 			const obj = new this.$.$mol_view();
 			(obj.attr) = () => ({"interfloor": (this.has_interfloor())});
 			(obj.sub) = () => ([
-				...(this.connections()), 
-				...(this.transitions_list()), 
 				(this.up_row()), 
 				(this.middle_row()), 
 				(this.down_row())

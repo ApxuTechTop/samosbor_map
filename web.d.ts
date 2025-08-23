@@ -6325,9 +6325,6 @@ declare namespace $ {
 		min_floor_value( ): $mol_view
 		min_floor_view( ): $mol_view
 		has_interfloor( ): boolean
-		connections( ): readonly(any)[]
-		transitions( ): readonly(any)[]
-		transitions_list( ): ReturnType< $apxu_samosbor_map_block['transitions'] >
 		pipe_name( ): $mol_view
 		pipe_name_visible( ): readonly(any)[]
 		up_left_angle_part( ): $apxu_samosbor_map_block_part
