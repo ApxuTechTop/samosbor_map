@@ -6403,6 +6403,9 @@ declare namespace $ {
 		down_right_angle_part( ): $apxu_samosbor_map_block_part
 		down_right_angle_visible( ): ReturnType< $apxu_samosbor_map_block['down_right_angle_part'] >
 		down_row( ): $apxu_samosbor_map_block_row
+		connections( ): readonly(any)[]
+		transitions( ): readonly(any)[]
+		transitions_list( ): ReturnType< $apxu_samosbor_map_block['transitions'] >
 		content( ): $mol_view
 		plugins( ): readonly(any)[]
 		map( ): $apxu_samosbor_map
@@ -11597,7 +11600,6 @@ declare namespace $.$$ {
         static absolute_direction(direction: DirectionType, position: TransitionPosition): DirectionType;
         block_view(ref: symbol): $.$apxu_samosbor_map_block;
         blocks(): $.$apxu_samosbor_map_block[];
-        block_views(): $.$apxu_samosbor_map_block[];
         blocks_visible(): $.$apxu_samosbor_map_block[];
         current_layer(next?: number): number;
         concentrated_block(): void;

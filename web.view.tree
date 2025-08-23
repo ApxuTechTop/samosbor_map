@@ -273,8 +273,8 @@ $apxu_samosbor_map_block $mol_view
 							down true
 							right true
 						<= down_right_angle_visible <= down_right_angle_part $apxu_samosbor_map_block_part
-				- ^ connections /
-				- ^ transitions_list <= transitions /
+				^ connections /
+				^ transitions_list <= transitions /
 
 $mol_svg $mol_view
 	dom_name \svg
@@ -1612,13 +1612,3 @@ $apxu_samosbor_map_app $mol_view
 						height \100%
 					items /
 						^ blocks_visible /
-						- ^ transitions /
-						- <= test_item $mol_button_minor
-							enabled false
-							plugins /
-								<= test_mover $mol_touch
-									allow_zoom false
-									allow_draw false
-									pan => test_pan
-							style *
-								translate <= test_translate \

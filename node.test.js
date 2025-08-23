@@ -10914,13 +10914,24 @@ var $;
 			]);
 			return obj;
 		}
+		connections(){
+			return [];
+		}
+		transitions(){
+			return [];
+		}
+		transitions_list(){
+			return (this.transitions());
+		}
 		content(){
 			const obj = new this.$.$mol_view();
 			(obj.attr) = () => ({"interfloor": (this.has_interfloor())});
 			(obj.sub) = () => ([
 				(this.up_row()), 
 				(this.middle_row()), 
-				(this.down_row())
+				(this.down_row()), 
+				...(this.connections()), 
+				...(this.transitions_list())
 			]);
 			return obj;
 		}
@@ -21441,16 +21452,10 @@ var $;
                     const block_view = this.Block(block_data.land_ref());
                     blocks.push(block_view);
                 }
-                console.log(blocks);
                 return blocks;
             }
-            block_views() {
-                const block_views = this.blocks();
-                console.log(block_views);
-                return block_views;
-            }
             blocks_visible() {
-                const blocks = this.block_views();
+                const blocks = this.blocks();
                 return blocks.filter((block_view) => {
                     return block_view.visible() || block_view.has_interfloor();
                 });
@@ -21630,9 +21635,6 @@ var $;
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_app.prototype, "blocks", null);
-        __decorate([
-            $mol_mem
-        ], $apxu_samosbor_map_app.prototype, "block_views", null);
         __decorate([
             $mol_mem
         ], $apxu_samosbor_map_app.prototype, "blocks_visible", null);
