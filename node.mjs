@@ -21000,15 +21000,12 @@ var $;
 		blocks(){
 			return [];
 		}
-		blocks_visible(){
-			return (this.blocks());
-		}
 		Area(){
 			const obj = new this.$.$apxu_samosbor_map_area();
 			(obj.cur_pan) = (next) => ((this.canvas_pos(next)));
 			(obj.cur_zoom) = (next) => ((this.canvas_zoom(next)));
 			(obj.style) = () => ({"width": "100%", "height": "100%"});
-			(obj.items) = () => ([...(this.blocks_visible())]);
+			(obj.items) = () => ([...(this.blocks())]);
 			return obj;
 		}
 		Canvas(){

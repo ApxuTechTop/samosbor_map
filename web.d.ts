@@ -11570,7 +11570,6 @@ declare namespace $ {
 		canvas_pos( next?: $mol_vector_2d<number> ): $mol_vector_2d<number>
 		canvas_zoom( next?: number ): number
 		blocks( ): readonly(any)[]
-		blocks_visible( ): ReturnType< $apxu_samosbor_map_app['blocks'] >
 		Area( ): $apxu_samosbor_map_area
 		Canvas( ): $mol_view
 		title( ): string
