@@ -372,7 +372,7 @@ namespace $.$$ {
 				const block_view = this.Block( block_data.land_ref() )
 				blocks.push( block_view )
 			}
-
+			console.log( blocks )
 			return blocks
 		}
 		@$mol_mem

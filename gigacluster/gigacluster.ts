@@ -54,7 +54,7 @@ namespace $ {
 		}
 		@$mol_mem
 		blocks() {
-			const blocks = this.Blocks( null )?.remote_list()
+			const blocks = this.Blocks()?.remote_list() ?? []
 			return blocks
 		}
 		@$mol_mem_key
