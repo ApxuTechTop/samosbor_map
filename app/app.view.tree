@@ -43,10 +43,23 @@ $apxu_samosbor_map_app $mol_view
 					text <= person_key \
 				<= map_rights $hyoo_crus_land_rights
 					land <= map_land
+		<= Menu $apxu_samosbor_map_app_menu
+			map_inverted? <=> inverted?
+			search_value? <=> search_value? \
+			do_search? <=> do_search? null
+			public_key <= public_key \
+			land <= gigacluster_land $hyoo_crus_land
+			is_admin? <= is_admin
+			gigacluster <= gigacluster
+			search_item_click? <=> search_item_click? null
+			other /
+				<= search_items $mol_view
+				<= cards_holder $mol_view
+					sub / ^ block_cards /
 		^ role_controller_visible / <= RolesController $mol_expander
 			label / \Роли
 			content /
-				<= Right $hyoo_crus_land_rights
+				- <= Right $hyoo_crus_land_rights
 					land <= gigacluster_land null
 				<= key_input $mol_bar
 					sub /
@@ -95,11 +108,6 @@ $apxu_samosbor_map_app $mol_view
 											join @ \📢 Join
 											post @ \✍ Post
 											rule @ \👑 Rule
-		<= PubKey $mol_button_copy
-			text <= public_key \pub key
-		<= Invert $mol_check_box
-			checked? <=> inverted?
-			Icon <= invert_icon $mol_icon_repeat
 		^ control_panel_visible / <= Control_Panel $mol_card
 			sub /
 				<= Control_Switch $mol_switch
@@ -108,7 +116,7 @@ $apxu_samosbor_map_app $mol_view
 						create @ \Create Block
 						connect @ \Connect Blocks
 						configure @ \Configure Block
-		^ block_cards /
+		- ^ block_cards /
 		<= Layer_Bar $mol_number
 			value? <=> current_layer? 0
 		<= Slider_Container $mol_view
@@ -117,19 +125,6 @@ $apxu_samosbor_map_app $mol_view
 					min_value? -19
 					max_value? 19
 					value? <=> current_layer? 0
-		<= Searcher $mol_view
-			sub /
-				<= SearchLabel $mol_labeler
-					title @ \Search
-					content /
-						<= SearchBar $mol_bar
-							sub /
-								<= SearchInput $mol_string
-									value? <=> search_value? \
-									submit? <=> do_search? null
-								<= SearchSubmit $mol_button_minor
-									sub / <= search_icon $mol_icon_selection_search
-									click? <=> do_search? null
 		<= Canvas $mol_view
 			sub /
 				<= Area $apxu_samosbor_map_area
