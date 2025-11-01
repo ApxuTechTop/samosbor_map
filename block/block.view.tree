@@ -61,6 +61,7 @@ $apxu_samosbor_map_block $mol_view
 	inverted? false
 	pos_x? 0
 	pos_y? 0
+	has_interfloor? false
 	is_up_flight? false
 	on_connection_select? null
 	visible true
@@ -71,6 +72,7 @@ $apxu_samosbor_map_block $mol_view
 		editing <= edit_mode
 		color <= color_letter \b
 		block-type <= block_type? \destroyed
+		interfloor <= has_interfloor
 	style *
 		left <= left? 0
 		top <= top? 0
@@ -176,18 +178,6 @@ $apxu_samosbor_map_block $mol_view
 		sub /
 			<= flooded null
 			<= roof null
-	left_flight $apxu_samosbor_map_block_flight
-		event *
-			click? <=> left_flight_click? null
-		status <= flight_status*left \free
-		sub /
-			<= left_flight_icon
-	right_flight $apxu_samosbor_map_block_flight
-		event *
-			click? <=> right_flight_click? null
-		status <= flight_status*right \free
-		sub /
-			<= right_flight_icon
 	floor_part $apxu_samosbor_map_block_part
 		sub /
 			<= max_floor_view $mol_view
@@ -200,8 +190,25 @@ $apxu_samosbor_map_block $mol_view
 					<= min_floor_icon $apxu_samosbor_map_icon_min_floor
 					<= min_floor_value $mol_view
 						sub / <= min_floor 0
+	Floor* $apxu_samosbor_map_block_floor
+		block_data <= block_data
+		current_floor <= cur_floor* 0
+		is_pipe? <= is_pipe
+		edit_mode? <= edit_mode
+		up_flight <= up_flight
+		up_passage_or_flight <= up_passage_or_flight $mol_view
+		up_left_part <= up_left_part $apxu_samosbor_map_block_part
+		up_right_part <= up_right_part $apxu_samosbor_map_block_part
+		down_left_part <= down_left_part $apxu_samosbor_map_block_part
+		down_right_part <= down_right_part $apxu_samosbor_map_block_part
+		floor_part <= floor_part 
+		effects_part <= effects_part
+		down_middle_passage <= down_middle_passage
+		connections <= connections /
+		transitions <= transitions_list /
 	sub /
-		<= content $mol_view
+		<= CurrentFloorView $apxu_samosbor_map_block_floor
+		- <= content $mol_view
 			attr *
 				interfloor <= has_interfloor false
 			sub /

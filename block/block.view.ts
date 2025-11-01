@@ -580,7 +580,7 @@ namespace $.$$ {
 			this.block_data().next_flight_status( current_floor, "right" )
 		}
 
-		next_passage_type( current_passage_type: typeof PassageType.options[ number ] ) {
+		static next_passage_type( current_passage_type: typeof PassageType.options[ number ] ) {
 			const passage_type_map = {} as { [ key in typeof PassageType.options[ number ] ]: typeof PassageType.options[ number ] }
 			PassageType.options.forEach( ( t, i ) => {
 				const next_passage_type = PassageType.options[ ( i + 1 ) % PassageType.options.length ]
@@ -589,24 +589,24 @@ namespace $.$$ {
 			return passage_type_map[ current_passage_type ]
 		}
 
-		@$mol_mem_key
-		passage_type( what: TransitionPosition ) {
-			const floor = this.current_floor()
-			return this.block_data().passage_type( [ floor, what ] )
-		}
+		// @$mol_mem_key
+		// passage_type( what: TransitionPosition ) {
+		// 	const floor = this.current_floor()
+		// 	return this.block_data().passage_type( [ floor, what ] )
+		// }
 
-		@$mol_action
-		@$mol_mem_key
-		passage_click( what: TransitionPosition, event: PointerEvent ) {
-			console.log( what, event )
-			if( !this.edit_mode() ) return
-			event?.stopImmediatePropagation()
-			const floor = this.current_floor()
-			const current_passage_type = this.block_data().passage_type( [ floor, what ] )
-			console.log( current_passage_type )
-			const next_passage_type = this.next_passage_type( current_passage_type )
-			this.block_data().passage_type( [ floor, what ], next_passage_type )
-		}
+		// @$mol_action
+		// @$mol_mem_key
+		// passage_click( what: TransitionPosition, event: PointerEvent ) {
+		// 	console.log( what, event )
+		// 	if( !this.edit_mode() ) return
+		// 	event?.stopImmediatePropagation()
+		// 	const floor = this.current_floor()
+		// 	const current_passage_type = this.block_data().passage_type( [ floor, what ] )
+		// 	console.log( current_passage_type )
+		// 	const next_passage_type = this.next_passage_type( current_passage_type )
+		// 	this.block_data().passage_type( [ floor, what ], next_passage_type )
+		// }
 
 		@$mol_mem
 		is_up_flight( next?: boolean ): boolean {
@@ -732,41 +732,17 @@ namespace $.$$ {
 			return this.block_data().IsPipe( next )?.val( next ) ?? false
 		}
 
-		@$mol_mem
-		up_left_angle_visible() {
-			return this.is_pipe() ? this.up_left_angle_part() : this.left_flight()
+		
+		
+
+		@$mol_mem_key
+		cur_floor( floor: number ): number {
+			return floor
 		}
+
 		@$mol_mem
-		up_right_angle_visible() {
-			return this.is_pipe() ? this.up_right_angle_part() : this.right_flight()
-		}
-		@$mol_mem
-		down_left_angle_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_left_angle_part" ]> {
-			return this.is_pipe() ? this.down_left_angle_part() : this.floor_part()
-		}
-		@$mol_mem
-		down_right_angle_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_left_angle_part" ]> {
-			return this.is_pipe() ? this.down_right_angle_part() : this.effects_part()
-		}
-		@$mol_mem
-		up_left_part_visible() {
-			return this.is_pipe() ? this.up_left_part_empty() : this.up_left_part()
-		}
-		@$mol_mem
-		up_right_part_visible() {
-			return this.is_pipe() ? this.up_right_part_empty() : this.up_right_part()
-		}
-		@$mol_mem
-		down_left_part_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_left_part" ]> {
-			return this.is_pipe() ? this.down_left_part_empty() : this.down_left_part()
-		}
-		@$mol_mem
-		down_right_part_visible(): ReturnType<$.$apxu_samosbor_map_block[ "down_right_part" ]> {
-			return this.is_pipe() ? this.down_right_part_empty() : this.down_right_part()
-		}
-		@$mol_mem
-		pipe_name_visible(): readonly ( any )[] {
-			return this.is_pipe() ? [ this.pipe_name() ] : []
+		CurrentFloorView() {
+			return this.Floor(this.current_floor())
 		}
 	}
 }

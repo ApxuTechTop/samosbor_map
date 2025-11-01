@@ -1,0 +1,53 @@
+[apxu_samosbor_map_block_floor] {
+	--stroke-color: var(--block-type-stroke-color);
+
+	z-index: 501;
+	box-sizing: border-box;
+	background-color: white;
+	cursor: pointer;
+	user-select: none;
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	color: black;
+	font-size: 40px;
+	display: flex;
+	position: relative;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+[apxu_samosbor_map_block_floor]::after {
+	position: absolute;
+	inset: 0px;
+	content: "";
+	z-index: 100;
+	border-radius: 10px;
+
+	width: calc(100% - 0px);
+	height: calc(100% - 0px);
+
+	/* border: 10px solid var(--stroke-color); */
+	box-shadow: 0 0 20px 20px var(--stroke-color);
+	/* blur = 20px, spread = 5px */
+}
+
+[apxu_samosbor_map_block_floor_pipe_name] {
+	position: absolute !important;
+	z-index: 3000;
+	left: 50%;
+	top: 50%;
+	translate: -50% -50%;
+	white-space: nowrap;
+	color: white;
+	font-family: "Roboto";
+	font-weight: 700;
+	font-size: 34px;
+	line-height: 100%;
+	letter-spacing: 0;
+	text-align: center;
+
+	&::before {
+		content: unset;
+	}
+}
