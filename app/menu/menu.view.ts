@@ -118,5 +118,8 @@ namespace $.$$ {
 			this.search_item_click( this.search_results()[ id ] )
 		}
 
+		menu_items(): readonly ( any )[] {
+			return this.is_mobile() ? this.mobile_menu() : this.pc_menu()
+		}
 	}
 }

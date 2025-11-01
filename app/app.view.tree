@@ -1,5 +1,8 @@
 $apxu_samosbor_map_app $mol_view
 	title @ \Samosbor map
+	plugins /
+		<= IsMobilePlugin $apxu_plugins_mobile
+			is_mobile => is_mobile
 	inverted? true
 	Block* $apxu_samosbor_map_block
 		block_data? <= block* null
@@ -35,7 +38,8 @@ $apxu_samosbor_map_app $mol_view
 		<= trick $mol_view
 			style *
 				display \none
-			sub / <= concentrated_block null
+			sub /
+				<= concentrated_block null
 		- <= Access_Panel $mol_card
 			sub /
 				<= my_key $mol_text_code
@@ -50,6 +54,7 @@ $apxu_samosbor_map_app $mol_view
 			public_key <= public_key \
 			land <= gigacluster_land $hyoo_crus_land
 			is_admin? <= is_admin
+			is_mobile <= is_mobile
 			gigacluster <= gigacluster
 			search_item_click? <=> search_item_click? null
 			other /

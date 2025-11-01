@@ -31,11 +31,12 @@ $apxu_samosbor_map_app_menu $mol_view
 	map_inverted? false
 	hidden? false
 	is_admin? false
+	is_mobile? false
 	gigacluster $apxu_samosbor_map_gigacluster
 	attr *
 		hidden <= hidden
 	search_item_click? null
-	sub /
+	pc_menu /
 		<= Content $mol_view
 			sub /
 				<= Body $mol_view
@@ -105,3 +106,13 @@ $apxu_samosbor_map_app_menu $mol_view
 									<= search_item_text* \
 								click? <=> item_click*? null
 				^ other /
+	mobile_menu /
+		<= MobileContent $mol_view
+			sub /
+				<= MobileBody $mol_view
+					sub /
+						<= SearchBar $apxu_samosbor_map_app_menu_searchbar
+							do_search? <=> do_search? null
+							search_value? <=> search_value? \
+	sub /
+		^ menu_items /
