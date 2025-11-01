@@ -148,6 +148,14 @@
 	}
 }
 
+[apxu_samosbor_map_app] {
+	--bg-color: #121212;
+	--base-color: #252525;
+	--active-color: #60a7d640;
+	--interactable-color: #60a7d6;
+	--string-color: #808080;
+}
+
 [mol_view_root] {
 	overflow: hidden;
 }
@@ -318,20 +326,6 @@
 	}
 }
 
-[apxu_samosbor_map_app_pubkey] {
-	z-index: 10;
-	position: fixed;
-	left: 0px;
-	top: 0px;
-}
-
-[apxu_samosbor_map_app_invert] {
-	z-index: 10;
-	position: fixed;
-	left: 50px;
-	top: 0px;
-}
-
 [apxu_samosbor_map_app_rolescontroller] {
 	z-index: 10;
 	position: fixed;
@@ -339,13 +333,17 @@
 	top: 40px;
 }
 
-[apxu_samosbor_map_app_searcher] {
-	z-index: 10;
-	position: fixed;
-	left: 0px;
-	top: 80px;
-}
+[apxu_samosbor_map_app_cards_holder] {
+	gap: 10px;
+	/* padding: 10px; */
+	flex-direction: column;
+	flex: 1 1;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	/* position: relative; */
+	/* translate: -100px;
 
-[apxu_samosbor_map_app_searchinput] {
-	width: 100px;
+	& > [apxu_samosbor_map_block_card] {
+		translate: 100px;
+	} */
 }
