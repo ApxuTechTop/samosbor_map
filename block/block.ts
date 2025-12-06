@@ -58,7 +58,7 @@ namespace $ {
 		Status: PassageStatus,
 	} ) {}
 
-	const PassageDirections = {
+	export const PassageDirections = {
 		UpLeftPassage: PassageData,
 		UpMiddlePassage: PassageData,
 		UpRightPassage: PassageData,
