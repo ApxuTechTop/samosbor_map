@@ -11,7 +11,7 @@ jobs:
     environment: build
     steps:
     - name: Build app
-      uses: Dev-cmyser/mam_build@master2
+      uses: hyoo-ru/mam_build@master2
       with:
         package: 'apxu/samosbor/map'
         modules: 'app'
