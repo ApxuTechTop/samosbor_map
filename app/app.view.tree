@@ -1,5 +1,5 @@
 $apxu_samosbor_map_app $mol_view
-	title @ \Samosbor map
+	title @ \Samosbor map test
 	inverted? true
 	Block* $apxu_samosbor_map_block
 		block_data? <= block* null
