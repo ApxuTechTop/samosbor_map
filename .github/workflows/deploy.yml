@@ -5,28 +5,40 @@ on:
   push:
     branches: ["master_test"]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: build  # оставляем environment build для сборки
+    environment: build
     steps:
-    - name: Build app
-      uses: hyoo-ru/mam_build@master2
-      with:
-        package: 'apxu/samosbor/map'
-        modules: 'app'
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: 'apxu/samosbor/map/app/-'
+      - name: Build app
+        uses: hyoo-ru/mam_build@master2
+        with:
+          package: 'apxu/samosbor/map'
+          modules: 'app'
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/master_test'
+        with:
+          path: 'apxu/samosbor/map/app/-'
 
   deploy:
-    runs-on: ubuntu-latest
-    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
     if: github.ref == 'refs/heads/master_test'
+    
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
