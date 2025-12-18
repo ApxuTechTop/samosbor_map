@@ -3,7 +3,7 @@ name: Deploy
 on:
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: ["master_test"]
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
         package: 'apxu/samosbor/map'
         modules: 'app'
     - name: Deploy on GitHub Pages
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/master_test'
       uses: alex-page/blazing-fast-gh-pages-deploy@v1.1.0
       with:
         repo-token: ${{ secrets.GH_PAT }}
