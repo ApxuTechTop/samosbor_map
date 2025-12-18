@@ -429,6 +429,34 @@ namespace $ {
 		}
 
 		@$mol_mem_key
+		numerical_floor(floor_index: number): number {
+			const double_count = this.double_floors_count( floor_index )
+			const numerical_floor = floor_index - ( floor_index > 0 ? double_count : -double_count )
+			return numerical_floor
+		}
+
+		@$mol_mem_key
+		display_floor(floor_index: number) {
+			const numerical_floor = this.numerical_floor(floor_index)
+			const rounded_floor = Math.max( this.min_floor(), Math.min( numerical_floor, this.max_floor() ) )
+			const suffix = this.is_double_floor(floor_index)
+				? "/1" : this.is_double_floor( floor_index - Math.sign( floor_index ) )
+					? "/2" : ""
+			return `${ rounded_floor }${ suffix }`
+		}
+
+		@$mol_mem
+		min_floor_index() {
+			const min_floor = this.min_floor()
+			return min_floor - this.double_floors_count(min_floor)
+		}
+		@$mol_mem
+		max_floor_index() {
+			const max_floor = this.max_floor()
+			return max_floor + this.double_floors_count(max_floor)
+		}
+
+		@$mol_mem_key
 		is_double_floor( floor: number, next?: boolean ) {
 			return this.FloorsData( next )?.key( floor, next )?.is_double_floor( next ) ?? false
 		}

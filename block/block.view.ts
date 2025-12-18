@@ -125,19 +125,11 @@ namespace $.$$ {
 		 */
 		@$mol_mem
 		numerical_floor(): number {
-			const double_count = this.block_data().double_floors_count( this.current_floor() )
-			const numerical_floor = this.current_floor() - ( this.current_floor() > 0 ? double_count : -double_count )
-			return numerical_floor
+			return this.block_data().numerical_floor( this.current_floor() )
 		}
 		@$mol_mem
 		display_floor(): string {
-			const numerical_floor = this.numerical_floor()
-			const rounded_floor = Math.max( this.min_floor(), Math.min( numerical_floor, this.max_floor() ) )
-			const data = this.block_data()
-			const suffix = this.is_doubled()
-				? "/1" : data.is_double_floor( this.current_floor() - Math.sign( this.current_floor() ) )
-					? "/2" : ""
-			return `${ rounded_floor }${ suffix }`
+			return this.block_data().display_floor( this.current_floor() )
 		}
 		@$mol_mem
 		is_part_of_double_floor() {

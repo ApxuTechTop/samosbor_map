@@ -441,6 +441,19 @@ namespace $.$$ {
 			this.zoom_to_block( block )
 		}
 
+		@$mol_action
+		search_item_click( item: { location: { block: $apxu_samosbor_map_block_data, floor?: number } } ) {
+			console.log( item )
+			const block = item.location.block
+			this.selected_blocks( [ block.ref() ] )
+			this.canvas_zoom( 0.5 )
+			this.zoom_to_block( block )
+			const floor = item.location.floor
+			if( floor ) {
+				this.current_layer( block.layer() + floor )
+			}
+		}
+
 		// @$mol_mem
 		// test_translate() {
 		// 	return `${this.test_pan()[0]}px ${this.test_pan()[1]}px`
