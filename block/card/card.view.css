@@ -375,13 +375,6 @@
 }
 
 [apxu_samosbor_map_block_card_rights] {
-	/* position: absolute;
-	top: 100%;
-	left: auto;
-	right: auto */
-}
-
-[apxu_samosbor_map_block_card_rights] {
 	/* max-height: 200px; */
 	overflow-y: auto;
 }
