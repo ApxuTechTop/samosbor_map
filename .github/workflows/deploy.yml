@@ -22,7 +22,7 @@ jobs:
       - name: Build app
         uses: hyoo-ru/mam_build@master2
         with:
-          package: 'apxu/samosbor/map'
+          package: 'apxu/samosbor/map_test'
           modules: 'app'
       
       - name: Upload artifact
