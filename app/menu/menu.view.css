@@ -18,6 +18,7 @@
 [apxu_samosbor_map_app_menu_searchbar] {
 	border-radius: 10px;
 	background-color: var(--base-color);
+	height: 40px;
 }
 
 [apxu_samosbor_map_app_menu_searchbar_searchinput] {
@@ -83,6 +84,7 @@
 [apxu_samosbor_map_app_menu_otherbuttons] [mol_view] {
 	gap: 10px;
 	align-items: center;
+	justify-content: center;
 }
 
 [apxu_samosbor_map_app_menu_otherbuttons] [mol_icon] {
@@ -228,4 +230,92 @@
 	font-weight: 700;
 	font-size: 22px;
 	color: var(--string-color);
+}
+
+[apxu_samosbor_map_app_menu][mobile] {
+	width: 100%;
+	padding: unset;
+	pointer-events: none;
+}
+
+[apxu_samosbor_map_app_menu][mobile] * {
+	pointer-events: auto;
+}
+
+[apxu_samosbor_map_app_menu][mobile] [apxu_samosbor_map_app_menu_searches_container] {
+	flex-direction: row;
+}
+[apxu_samosbor_map_app_menu][mobile] [apxu_samosbor_map_app_menu_searchitem] {
+	height: min-content;
+}
+
+[apxu_samosbor_map_app_menu_mobilecontent] {
+	width: 100%;
+	height: 40px;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	background-color: var(--bg-color);
+}
+
+[apxu_samosbor_map_app_menu_mobilebody] [apxu_samosbor_map_app_menu_searchbar] {
+	width: 100%;
+}
+
+[apxu_samosbor_map_app_menu_mobilebody] {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	position: absolute;
+
+	background-color: var(--bg-color);
+	border-radius: 10px;
+	padding: 15px;
+}
+
+[apxu_samosbor_map_app_menu_mobilebody][state=folded] {
+	height: 70px;
+
+	bottom: 0px
+}
+
+[apxu_samosbor_map_app_menu_mobilebody][state=block] {
+	bottom: 0px;
+	height: min-content;
+}
+
+[apxu_samosbor_map_app_menu_mobilebody][state=opened] {
+	bottom: 0px;
+	height: 80%;
+}
+
+[apxu_samosbor_map_app_menu_searchitem] {
+	padding: 8px;
+	gap: 8px;
+	flex-direction: column;
+	border-radius: 10px;
+	background-color: var(--base-color);
+	font-family: "Roboto";
+	font-weight: 700;
+	font-size: 24px;
+	align-items: center;
+	color: var(--string-color);
+}
+
+[apxu_samosbor_map_app_menu_block_info] {
+	gap: 5px;
+	align-items: center;
+}
+
+[apxu_samosbor_map_app_menu_block_info] [mol_image],
+[apxu_samosbor_map_app_menu_block_info] [mol_svg] {
+	width: 20px;
+	height: 20px;
+}
+
+
+[apxu_samosbor_map_app_menu_block_info_icon] {
+	width: 20px;
+	height: 20px;
 }

@@ -1,8 +1,6 @@
 $apxu_samosbor_map_app $mol_view
 	title @ \Samosbor map test
-	plugins /
-		<= IsMobilePlugin $apxu_plugins_mobile
-			is_mobile => is_mobile
+	is_mobile true
 	inverted? true
 	Block* $apxu_samosbor_map_block
 		block_data? <= block* null
@@ -57,10 +55,17 @@ $apxu_samosbor_map_app $mol_view
 			is_mobile <= is_mobile
 			gigacluster <= gigacluster
 			search_item_click? <=> search_item_click? null
+			slider <= Slider_Container $mol_view
+				sub /
+					<= Layer_Slider $apxu_samosbor_map_slider
+						min_value? -19
+						max_value? 19
+						value? <=> current_layer? 0
 			other /
 				<= search_items $mol_view
 				<= cards_holder $mol_view
 					sub / ^ block_cards /
+			block_cards <= block_cards
 		^ role_controller_visible / <= RolesController $mol_expander
 			label / \Роли
 			content /
@@ -124,12 +129,6 @@ $apxu_samosbor_map_app $mol_view
 		- ^ block_cards /
 		<= Layer_Bar $mol_number
 			value? <=> current_layer? 0
-		<= Slider_Container $mol_view
-			sub /
-				<= Layer_Slider $apxu_samosbor_map_slider
-					min_value? -19
-					max_value? 19
-					value? <=> current_layer? 0
 		<= Canvas $mol_view
 			sub /
 				<= Area $apxu_samosbor_map_area

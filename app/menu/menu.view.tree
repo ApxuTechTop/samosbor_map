@@ -12,6 +12,7 @@ $apxu_samosbor_map_app_menu_searchbar $mol_bar
 			hint \Введите имя блока
 			value? <=> search_value? \
 			submit? <=> do_search? null
+			focused? => is_focused?
 		<= SearchButton $mol_button_minor
 			click? <=> do_search? null
 			sub / <= search_button_icon $apxu_samosbor_map_icon_find
@@ -35,7 +36,19 @@ $apxu_samosbor_map_app_menu $mol_view
 	gigacluster $apxu_samosbor_map_gigacluster
 	attr *
 		hidden <= hidden
+		mobile <= is_mobile?
 	search_item_click? null
+	SearchItem* $mol_button_minor
+		sub /
+			^ distance_info_visible* / <= DistanceInfo* $mol_view
+			<= block_info* $mol_view
+				sub /
+					<= block_info_icon* $mol_view
+					<= search_item_text* \
+			^ block_icons_visible* / <= block_icons_view* $mol_view
+				sub /
+					^ block_icons* /
+		click? <=> item_click*? null
 	pc_menu /
 		<= Content $mol_view
 			sub /
@@ -59,6 +72,7 @@ $apxu_samosbor_map_app_menu $mol_view
 						<= SearchBar $apxu_samosbor_map_app_menu_searchbar
 							do_search? <=> do_search? null
 							search_value? <=> search_value? \
+							is_focused? => is_searchbar_focused?
 						<= RoutingBlock $apxu_samosbor_map_app_menu_routingblock
 				<= Footer $mol_view
 					sub /
@@ -101,18 +115,22 @@ $apxu_samosbor_map_app_menu $mol_view
 				^ searches_container_visible / <= searches_container $mol_view
 					sub /
 						^ search_items /
-							<= SearchItem*0 $mol_button_minor
-								sub /
-									<= search_item_text* \
-								click? <=> item_click*? null
 				^ other /
 	mobile_menu /
 		<= MobileContent $mol_view
 			sub /
-				<= MobileBody $mol_view
+		<= MobileBody $mol_view
+			attr *
+				state <= menu_state \folded
+			sub /
+				^ block_cards /
+				<= SearchBar $apxu_samosbor_map_app_menu_searchbar
+					do_search? <=> do_search? null
+					search_value? <=> search_value? \
+					is_focused? => is_searchbar_focused?
+				<= RoutingBlock $apxu_samosbor_map_app_menu_routingblock
+				^ searches_container_visible / <= searches_container $mol_view
 					sub /
-						<= SearchBar $apxu_samosbor_map_app_menu_searchbar
-							do_search? <=> do_search? null
-							search_value? <=> search_value? \
+						^ search_items /
 	sub /
 		^ menu_items /

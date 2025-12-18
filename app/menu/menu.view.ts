@@ -115,11 +115,45 @@ namespace $.$$ {
 		}
 
 		item_click( id: number, next?: any ) {
+			// если это просто поиск
 			this.search_item_click( this.search_results()[ id ] )
+
+			// если это выбор блоков для маршрута
+			// то подставить текст в поле
 		}
 
 		menu_items(): readonly ( any )[] {
 			return this.is_mobile() ? this.mobile_menu() : this.pc_menu()
+		}
+
+		@$mol_mem
+		menu_state(): string {
+			if (this.is_searchbar_focused()) {
+				return "opened"
+			}
+			return this.block_cards().length > 0 ? "block" : "folded"
+		}
+
+		block_info_icon( id: number ) {
+			const block = this.search_results()[id].location.block
+			const block_type = block.block_type()
+			const is_pipe = block.IsPipe()?.val()
+			if (is_pipe) {
+				return $apxu_samosbor_map_icon_pipe.make({})
+			}
+			if (block_type === "residential") {
+				return $apxu_samosbor_map_icon_residential.make({})
+			}
+			if (block_type === "infected") {
+				return $apxu_samosbor_map_icon_infected.make({})
+			}
+			if (block_type === "destroyed") {
+				return $apxu_samosbor_map_icon_destroyed.make({})
+			}
+			if (block_type === "frozen") {
+				return $apxu_samosbor_map_icon_frozen.make({})
+			}
+			return undefined as any
 		}
 	}
 }

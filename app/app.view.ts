@@ -2,6 +2,12 @@ namespace $.$$ {
 
 	export class $apxu_samosbor_map_app extends $.$apxu_samosbor_map_app {
 
+		is_mobile(): boolean {
+			const rect = this.view_rect()
+			if (!rect) return false
+			return rect.width <= 480
+		}
+
 		@$mol_mem
 		current_map() {
 			return $apxu_samosbor_map_storage.current()

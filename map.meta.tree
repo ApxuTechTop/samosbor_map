@@ -1,1 +1,3 @@
-deploy \apxu/samosbor/map/icons/copy.svg
+deploy \apxu/samosbor/map/icons/
+-deploy \apxu/samosbor/map/icons/copy.svg
+-deploy \apxu/samosbor/map/icons/residential.svg

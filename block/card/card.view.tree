@@ -318,8 +318,8 @@ $apxu_samosbor_map_block_card $mol_view
 							dictionary *
 								residential \Жилой
 								destroyed \Разрушенный
-								frozen \Замороженный
-								infected \Зараженный
+								frozen \Ледяной
+								infected \Мясной
 							Trigger_icon <= current_type_select_icon null
 							Filter null
 				<= by_pipe_visible*floors_info
@@ -361,5 +361,5 @@ $apxu_samosbor_map_block_card $mol_view
 								<= remove_transition_button* $mol_button_minor
 									sub / <= remove_transition_icon* $mol_icon_close
 									click? <=> remove_transition*? null
-		^ rights_visible / <= rights $hyoo_crus_land_rights
-			land <= block_land $hyoo_crus_land
+				^ rights_visible / <= rights $hyoo_crus_land_rights
+					land <= block_land $hyoo_crus_land

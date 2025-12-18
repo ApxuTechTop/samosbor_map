@@ -67,7 +67,7 @@ namespace $ {
 		DownLeftPassage: PassageData,
 		DownMiddlePassage: PassageData,
 		DownRightPassage: PassageData,
-	}
+	} as const
 	const FenceTypes = [ "missing", "hole", "solid" ] as const
 	export class FenceData extends $hyoo_crus_atom_enum( FenceTypes ) {}
 
