@@ -2,16 +2,19 @@
 	width: 300px;
 	height: 300px;
 	overflow: hidden;
-	border: 2px solid seagreen;
+	/* border: 2px solid seagreen; */
 	cursor: grab;
+
 	&[dragging] {
 		cursor: grabbing;
 	}
+
 	display: block;
 }
+
 [apxu_samosbor_map_area_plane] {
 	position: relative;
 	width: 0px;
 	height: 0px;
-	/* transition: translate 0.2s ease, scale 0.2s ease-out; */
+	transition: none;
 }
