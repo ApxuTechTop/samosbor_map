@@ -6,7 +6,7 @@ namespace $ {
 	} ) {
 		@$mol_mem
 		static global() {
-			const storage_ref = $apxu_samosbor_map_app_storage_ref
+			const storage_ref = $apxu_samosbor_map_app_storage_ref()
 			//const storage_ref = null
 			const storage = storage_ref ? $hyoo_crus_glob.Node( $hyoo_crus_ref( storage_ref ), $apxu_samosbor_map_storage ) : $hyoo_crus_glob.home( $apxu_samosbor_map_storage )
 			console.log( "STORAGE REF: ", storage.ref() )

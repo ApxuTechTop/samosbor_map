@@ -86,7 +86,7 @@ namespace $ {
 		}
 		@$mol_mem
 		ruler_key() {
-			return this.Ruler( true )?.val() ?? $apxu_samosbor_map_app_my_public_key
+			return this.Ruler( true )?.val() ?? $apxu_samosbor_map_app_my_public_key()
 		}
 		@$mol_action
 		add_key( key: string ) {

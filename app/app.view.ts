@@ -4,7 +4,7 @@ namespace $.$$ {
 
 		is_mobile(): boolean {
 			const rect = this.view_rect()
-			if (!rect) return false
+			if( !rect ) return false
 			return rect.width <= 480
 		}
 
@@ -457,6 +457,13 @@ namespace $.$$ {
 			const floor = item.location.floor
 			if( floor ) {
 				this.current_layer( block.layer() + floor )
+			} else {
+				const min_floor_layer = block.layer() + block.min_floor()
+				const max_floor_layer = block.layer() + block.max_floor()
+				const current_layer = this.current_layer()
+				if( current_layer < min_floor_layer || current_layer > max_floor_layer ) {
+					this.current_layer( block.layer() )
+				}
 			}
 		}
 
