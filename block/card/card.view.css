@@ -18,8 +18,10 @@
 	user-select: none;
 
 
-	--main-color: #676767;
+	--main-color: #808080;
 	--edit-color: #1e1e1e;
+
+	color: var(--main-color);
 
 
 
