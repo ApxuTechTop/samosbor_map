@@ -61,8 +61,10 @@ $apxu_samosbor_map_app_menu $mol_view
 						<= Title $mol_view
 							sub / 
 								<= profile_button $apxu_samosbor_map_app_menu_button
+									enabled false
 									sub / <= profile_icon $apxu_samosbor_map_icon_profile
 								<= info_button $apxu_samosbor_map_app_menu_button
+									enabled false
 									sub / <= info_icon $apxu_samosbor_map_icon_info
 								<= menu_text $mol_view sub /
 									\Меню

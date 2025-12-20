@@ -215,6 +215,7 @@ $apxu_samosbor_map_block_card $mol_view
 				<= main_buttons $mol_view
 					sub /
 						<= shop_button $mol_button_minor
+							enabled false
 							sub / <= shop_icon $apxu_samosbor_map_icon_shop
 						^ edit_button_visible / <= edit_button $mol_check_icon
 							Icon <= edit_icon $mol_icon_pencil
