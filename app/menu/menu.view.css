@@ -15,6 +15,10 @@
 	/* translate: calc(-100% + 10px); */
 }
 
+[apxu_samosbor_map_app_menu][hidden] [apxu_samosbor_map_block_card] {
+	display: none;
+}
+
 [apxu_samosbor_map_app_menu_searchbar] {
 	border-radius: 10px;
 	background-color: var(--base-color);
