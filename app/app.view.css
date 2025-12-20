@@ -201,6 +201,9 @@
 	--transition-width: 50px;
 	--transition-height: 50px;
 	box-sizing: content-box;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	background: #FFFFFF80;
 
 	&[direction=vertical] {
 		height: var(--transition-width);
@@ -216,11 +219,6 @@
 		border-left: 10px solid white;
 		border-right: 10px solid white;
 	}
-
-	position: absolute;
-	transform: translate(-50%, -50%);
-	/* border: 5px solid white; */
-	background-color: #FFFFFF80;
 }
 
 [apxu_samosbor_map_app_name_setting] {
