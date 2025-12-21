@@ -332,8 +332,9 @@ $apxu_samosbor_map_block_card $mol_view
 							trigger_enabled <= edit_mode
 							enabled <= edit_mode
 							value? <=> can_create_block_value? \unknown
+							Filter null
 							dictionary *
-								unknown \?
+								unknown \null
 								yes \Да
 								no \Нет
 				<= by_pipe_visible*floors_info
