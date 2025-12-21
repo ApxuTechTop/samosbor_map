@@ -208,6 +208,8 @@ namespace $ {
 		Professions: $hyoo_crus_list_ref_to( () => ProfessionData ),
 		Places: $hyoo_crus_list_ref_to( () => PlaceData ),
 
+		CanCreateBlock: $hyoo_crus_atom_bool,
+
 	} ) ) {
 		@$mol_mem
 		name( next?: string ) {
@@ -230,6 +232,11 @@ namespace $ {
 			return this.transitions()?.find( ( transition ) => {
 				return ( transition.From( null )?.Block( null )?.val() === this.ref() && transition.From( null )?.is_correct( floor, position ) ) || transition.To( null )?.Block( null )?.val() === this.ref() && transition.To( null )?.is_correct( floor, position )
 			} )
+		}
+
+		@$mol_mem
+		can_create_block( next?: boolean | null ) {
+			return this.CanCreateBlock( next )?.val( next )
 		}
 
 		@$mol_action
@@ -429,17 +436,17 @@ namespace $ {
 		}
 
 		@$mol_mem_key
-		numerical_floor(floor_index: number): number {
+		numerical_floor( floor_index: number ): number {
 			const double_count = this.double_floors_count( floor_index )
 			const numerical_floor = floor_index - ( floor_index > 0 ? double_count : -double_count )
 			return numerical_floor
 		}
 
 		@$mol_mem_key
-		display_floor(floor_index: number) {
-			const numerical_floor = this.numerical_floor(floor_index)
+		display_floor( floor_index: number ) {
+			const numerical_floor = this.numerical_floor( floor_index )
 			const rounded_floor = Math.max( this.min_floor(), Math.min( numerical_floor, this.max_floor() ) )
-			const suffix = this.is_double_floor(floor_index)
+			const suffix = this.is_double_floor( floor_index )
 				? "/1" : this.is_double_floor( floor_index - Math.sign( floor_index ) )
 					? "/2" : ""
 			return `${ rounded_floor }${ suffix }`
@@ -448,12 +455,12 @@ namespace $ {
 		@$mol_mem
 		min_floor_index() {
 			const min_floor = this.min_floor()
-			return min_floor - this.double_floors_count(min_floor)
+			return min_floor - this.double_floors_count( min_floor )
 		}
 		@$mol_mem
 		max_floor_index() {
 			const max_floor = this.max_floor()
-			return max_floor + this.double_floors_count(max_floor)
+			return max_floor + this.double_floors_count( max_floor )
 		}
 
 		@$mol_mem_key

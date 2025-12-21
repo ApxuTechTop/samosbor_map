@@ -323,6 +323,19 @@ $apxu_samosbor_map_block_card $mol_view
 								infected \Мясной
 							Trigger_icon <= current_type_select_icon null
 							Filter null
+				<= can_create_block_view $mol_view
+					attr *
+						edit-mode <= is_editor?
+					sub /
+						\Можно создать блок:
+						<= can_create_block_select $mol_select
+							trigger_enabled <= edit_mode
+							enabled <= edit_mode
+							value? <=> can_create_block_value? \unknown
+							dictionary *
+								unknown \?
+								yes \Да
+								no \Нет
 				<= by_pipe_visible*floors_info
 				^ effects_info_visible / <= effects_info $mol_view
 					sub /

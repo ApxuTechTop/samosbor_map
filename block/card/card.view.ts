@@ -410,6 +410,28 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
+		can_create_block_value( next?: "unknown" | "yes" | "no" ) {
+			const map = {
+				unknown: null,
+				yes: true,
+				no: false,
+			}
+			if( next ) {
+				this.block().block_data().can_create_block( map[ next ] )
+				return next
+			}
+			const val = this.block().block_data().can_create_block()
+			if( val == undefined ) {
+				return "unknown"
+			}
+			if( val ) {
+				return "yes"
+			} else {
+				return "no"
+			}
+		}
+
+		@$mol_mem
 		other_places() {
 			const places: $mol_view[] = []
 			const other_place_types = [ "laundry", "shower", "toilet", "postal", "gym",

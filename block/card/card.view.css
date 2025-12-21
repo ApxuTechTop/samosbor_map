@@ -310,6 +310,14 @@
 	align-items: center;
 }
 
+[apxu_samosbor_map_block_card_can_create_block_view] {
+	align-items: center;
+
+	&:not([edit-mode]) {
+		display: none;
+	}
+}
+
 [apxu_samosbor_map_block_card_type_select_icon] {
 	/* width: 7px; */
 	height: 6px;
