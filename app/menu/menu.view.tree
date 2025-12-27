@@ -36,6 +36,7 @@ $apxu_samosbor_map_app_menu $mol_view
 	hidden? false
 	is_admin? false
 	is_mobile? false
+	is_editor? false
 	gigacluster $apxu_samosbor_map_gigacluster
 	attr *
 		hidden <= hidden
@@ -82,6 +83,9 @@ $apxu_samosbor_map_app_menu $mol_view
 						<= RoutingBlock $apxu_samosbor_map_app_menu_routingblock
 				<= Footer $mol_view
 					sub /
+						^ save_map_visible / <= save_map_button $mol_button_major
+							click? <=> save_map_click? null
+							sub / \Сохранить карту
 						^ rights_visible / <= Rights $hyoo_crus_land_rights
 							land <= land $hyoo_crus_land
 						<= OtherButtons $mol_bar

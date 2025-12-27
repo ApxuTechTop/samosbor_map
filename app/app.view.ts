@@ -467,6 +467,28 @@ namespace $.$$ {
 			}
 		}
 
+		@$mol_action
+		save_map_click() {
+			const map = $apxu_samosbor_map_storage.current()
+
+			if (map) {
+				const saved_refs = {}
+				const map_ref = $apxu_samosbor_map_storage.save(map, saved_refs)
+				const jsonString = JSON.stringify(saved_refs, null, 2)
+				const blob = new Blob([jsonString], { type: 'application/json' })
+				const url = URL.createObjectURL(blob)
+				
+				const a = document.createElement('a')
+				a.href = url
+				a.download = 'saved_refs.json'
+				document.body.appendChild(a)
+				a.click()
+				document.body.removeChild(a)
+				URL.revokeObjectURL(url)
+				console.log($apxu_samosbor_map_storage.saved_refs_to_obj(saved_refs)[map_ref])
+			}
+		}
+
 		// @$mol_mem
 		// test_translate() {
 		// 	return `${this.test_pan()[0]}px ${this.test_pan()[1]}px`

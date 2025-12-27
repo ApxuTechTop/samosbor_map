@@ -78,6 +78,7 @@
 
 [apxu_samosbor_map_app_menu_footer] {
 	flex-direction: column;
+	gap: 10px;
 }
 
 [apxu_samosbor_map_app_menu_otherbuttons] {
@@ -249,6 +250,7 @@
 [apxu_samosbor_map_app_menu][mobile] [apxu_samosbor_map_app_menu_searches_container] {
 	flex-direction: row;
 }
+
 [apxu_samosbor_map_app_menu][mobile] [apxu_samosbor_map_app_menu_searchitem] {
 	height: min-content;
 }

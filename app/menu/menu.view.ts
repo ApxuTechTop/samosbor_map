@@ -46,6 +46,11 @@ namespace $.$$ {
 			return []
 		}
 
+		save_map_visible() {
+			if( this.is_editor() ) return [ this.save_map_button() ]
+			return []
+		}
+
 		@$mol_mem
 		search_results() {
 			const search_input = this.search_value().toLocaleLowerCase()
@@ -128,30 +133,30 @@ namespace $.$$ {
 
 		@$mol_mem
 		menu_state(): string {
-			if (this.is_searchbar_focused()) {
+			if( this.is_searchbar_focused() ) {
 				return "opened"
 			}
 			return this.block_cards().length > 0 ? "block" : "folded"
 		}
 
 		block_info_icon( id: number ) {
-			const block = this.search_results()[id].location.block
+			const block = this.search_results()[ id ].location.block
 			const block_type = block.block_type()
 			const is_pipe = block.IsPipe()?.val()
-			if (is_pipe) {
-				return $apxu_samosbor_map_icon_pipe.make({})
+			if( is_pipe ) {
+				return $apxu_samosbor_map_icon_pipe.make( {} )
 			}
-			if (block_type === "residential") {
-				return $apxu_samosbor_map_icon_residential.make({})
+			if( block_type === "residential" ) {
+				return $apxu_samosbor_map_icon_residential.make( {} )
 			}
-			if (block_type === "infected") {
-				return $apxu_samosbor_map_icon_infected.make({})
+			if( block_type === "infected" ) {
+				return $apxu_samosbor_map_icon_infected.make( {} )
 			}
-			if (block_type === "destroyed") {
-				return $apxu_samosbor_map_icon_destroyed.make({})
+			if( block_type === "destroyed" ) {
+				return $apxu_samosbor_map_icon_destroyed.make( {} )
 			}
-			if (block_type === "frozen") {
-				return $apxu_samosbor_map_icon_frozen.make({})
+			if( block_type === "frozen" ) {
+				return $apxu_samosbor_map_icon_frozen.make( {} )
 			}
 			return undefined as any
 		}

@@ -1,6 +1,7 @@
 $apxu_samosbor_map_app $mol_view
 	title @ \Samosbor map test
 	is_mobile true
+	is_editor false
 	inverted? true
 	Block* $apxu_samosbor_map_block
 		block_data? <= block* null
@@ -24,7 +25,7 @@ $apxu_samosbor_map_app $mol_view
 		block_layer? <=> layer_value*? 0
 		block <= Block*
 		is_admin <= is_admin false
-		is_editor <= is_editor false
+		is_editor <= is_editor
 		gigacluster <= gigacluster $apxu_samosbor_map_gigacluster
 	Transition* $mol_view
 		attr *
@@ -52,9 +53,11 @@ $apxu_samosbor_map_app $mol_view
 			public_key <= public_key \
 			land <= gigacluster_land $hyoo_crus_land
 			is_admin? <= is_admin
+			is_editor <= is_editor
 			is_mobile <= is_mobile
 			gigacluster <= gigacluster
 			search_item_click? <=> search_item_click? null
+			save_map_click? <=> save_map_click? null
 			slider <= Slider_Container $mol_view
 				sub /
 					<= Layer_Slider $apxu_samosbor_map_slider

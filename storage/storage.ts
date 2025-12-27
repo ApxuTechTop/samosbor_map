@@ -20,11 +20,100 @@ namespace $ {
 		@$mol_mem
 		static current() {
 			const current_id = this.active_map()
-			const maps_field = this.global().Maps(true)
+			const maps_field = this.global().Maps( true )
 			// вот тут надо дождаться загрузки
 			const maps = maps_field?.remote_list() ?? []
 			const map = maps[ current_id ] ? maps[ current_id ] : maps_field?.make( { '': $hyoo_crus_rank_read } )
 			return map
+		}
+
+		static saved_refs_to_obj = (saved_refs: { [ ref: string ]: any } = {}) => {
+			const result: any = {}
+			for (const key of Object.keys(saved_refs)) {
+				const val = saved_refs[key as any]
+				result[key] = val
+
+				for (const [k, v] of Object.entries(val ?? [])) {
+					if (saved_refs[v as any]) {
+						result[key][k] = saved_refs[v as any];
+					}
+				}
+			}
+			return result
+		}
+
+		static save = ( object: any, saved_refs: { [ ref: string ]: any } = {} ): any => {
+			if( object === null ) {
+				return null
+			}
+			const object_ref = object.ref().description
+
+			if( saved_refs[ object_ref ] ) {
+				return object_ref
+			}
+
+			const prototype = Object.getPrototypeOf( object )
+
+			if( prototype instanceof $hyoo_crus_dict ) {
+				const saved_data = this.save_dict( object, saved_refs )
+				return saved_data
+			}
+			if( prototype instanceof $hyoo_crus_list_ref_base ) {
+				return this.save_list( object, saved_refs )
+			}
+			if( prototype instanceof $hyoo_crus_atom_ref_base ) {
+				const saved_data = this.save_ref( object, saved_refs )
+				return saved_data
+			}
+			if( object instanceof $hyoo_crus_atom_int ) {
+				const big_value = object.val()
+				const val = ( big_value != undefined ) ? Number( big_value ) : big_value
+				return val
+			}
+			if( object instanceof $hyoo_crus_atom_bool ) {
+				const val = object.val()
+				return val
+			}
+			if( object instanceof $hyoo_crus_atom_str ) {
+				const val = object.val()
+				return val
+			}
+			if( object instanceof $hyoo_crus_atom_enum_base ) {
+				const val = this.save_enum( object as any, saved_refs )
+				return val
+			}
+		}
+		static save_enum = ( object: any, saved_refs?: { [ ref: string ]: any } ) => {
+			return object.val()
+		}
+		static save_ref = ( ref_object: any, saved_refs?: { [ ref: string ]: any } ) => {
+			const object = ref_object?.remote()
+			return this.save( object, saved_refs )
+		}
+		static save_dict = ( object: any, saved_refs: { [ ref: string ]: any } ) => {
+			const result = {} as any
+			const prototype = Object.getPrototypeOf( object )
+			const schema = Object.getPrototypeOf( prototype ).constructor.schema
+			const keys = Object.keys( schema )
+			const object_ref: string = object.ref().description
+			saved_refs[ object_ref ] = result
+			for( const key of keys ) {
+				const typedKey = key as keyof typeof schema
+				const field = ( ( object as any )[ typedKey ] as any )()
+				result[ key ] = this.save( field, saved_refs )
+			}
+
+			return object_ref
+		}
+		static save_list = ( list: any, saved_refs: { [ ref: string ]: any } ) => {
+			const result: any[] = []
+			const object_ref = list.ref().description
+			saved_refs[ object_ref ] = result
+			for( const [ key, object ] of Object.entries( list.remote_list() ) ) {
+				result.push( this.save( object, saved_refs ) )
+			}
+
+			return object_ref
 		}
 	}
 }

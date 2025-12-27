@@ -1,8 +1,8 @@
 namespace $ {
 
-	export class $apxu_samosbor_map_gigacluster extends ( $hyoo_crus_dict.with( {
+	export class $apxu_samosbor_map_gigacluster extends $hyoo_crus_dict.with( {
 		Blocks: $hyoo_crus_list_ref_to( () => $apxu_samosbor_map_block_data ),
-	} ) ) {
+	} ) {
 		// @$mol_mem
 		// static is_admin() {
 		// 	return this.global().ref() === this.$.$hyoo_crus_auth.current().lord()
