@@ -27,22 +27,24 @@ namespace $ {
 			return map
 		}
 
-		static saved_refs_to_obj = (saved_refs: { [ ref: string ]: any } = {}) => {
+		@$mol_action
+		static saved_refs_to_obj( saved_refs: { [ ref: string ]: any } = {} ) {
 			const result: any = {}
-			for (const key of Object.keys(saved_refs)) {
-				const val = saved_refs[key as any]
-				result[key] = val
+			for( const key of Object.keys( saved_refs ) ) {
+				const val = saved_refs[ key as any ]
+				result[ key ] = val
 
-				for (const [k, v] of Object.entries(val ?? [])) {
-					if (saved_refs[v as any]) {
-						result[key][k] = saved_refs[v as any];
+				for( const [ k, v ] of Object.entries( val ?? [] ) ) {
+					if( saved_refs[ v as any ] ) {
+						result[ key ][ k ] = saved_refs[ v as any ]
 					}
 				}
 			}
 			return result
 		}
 
-		static save = ( object: any, saved_refs: { [ ref: string ]: any } = {} ): any => {
+		@$mol_action
+		static save( object: any, saved_refs: { [ ref: string ]: any } = {} ): any {
 			if( object === null ) {
 				return null
 			}
@@ -83,14 +85,17 @@ namespace $ {
 				return val
 			}
 		}
-		static save_enum = ( object: any, saved_refs?: { [ ref: string ]: any } ) => {
+		@$mol_action
+		static save_enum( object: any, saved_refs?: { [ ref: string ]: any } ) {
 			return object.val()
 		}
-		static save_ref = ( ref_object: any, saved_refs?: { [ ref: string ]: any } ) => {
+		@$mol_action
+		static save_ref( ref_object: any, saved_refs?: { [ ref: string ]: any } ) {
 			const object = ref_object?.remote()
 			return this.save( object, saved_refs )
 		}
-		static save_dict = ( object: any, saved_refs: { [ ref: string ]: any } ) => {
+		@$mol_action
+		static save_dict( object: any, saved_refs: { [ ref: string ]: any } ) {
 			const result = {} as any
 			const prototype = Object.getPrototypeOf( object )
 			const schema = Object.getPrototypeOf( prototype ).constructor.schema
@@ -105,7 +110,8 @@ namespace $ {
 
 			return object_ref
 		}
-		static save_list = ( list: any, saved_refs: { [ ref: string ]: any } ) => {
+		@$mol_action
+		static save_list( list: any, saved_refs: { [ ref: string ]: any } ) {
 			const result: any[] = []
 			const object_ref = list.ref().description
 			saved_refs[ object_ref ] = result
