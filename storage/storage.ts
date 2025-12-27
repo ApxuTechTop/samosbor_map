@@ -88,8 +88,8 @@ namespace $ {
 			return await object.val()
 		}
 		static async save_ref( async_ref_object: any, saved_refs?: { [ ref: string ]: any } ) {
-			const object = await async_ref_object?.remote()
-			return await this.save( $mol_wire_async( object ), saved_refs )
+			const object = await async_ref_object.remote()
+			return await this.save( object, saved_refs )
 		}
 
 		static async save_dict( object: any, saved_refs: { [ ref: string ]: any } ) {
