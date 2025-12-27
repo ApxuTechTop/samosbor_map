@@ -53,6 +53,9 @@ namespace $ {
 			if( saved_refs[ object_ref ] ) {
 				return object_ref
 			}
+			if( object instanceof $apxu_samosbor_map_block_data ) {
+				console.log( await async_object.name(), saved_refs )
+			}
 
 			const prototype = Object.getPrototypeOf( object )
 
