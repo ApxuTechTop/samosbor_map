@@ -1,5 +1,35 @@
 namespace $.$$ {
 
+	function removeNullFieldsMutate( obj: any ) {
+		if( obj === null || typeof obj !== 'object' ) {
+			return obj
+		}
+
+		if( Array.isArray( obj ) ) {
+			obj.forEach( ( item, index ) => {
+				obj[ index ] = removeNullFieldsMutate( item )
+			} )
+			return obj
+		}
+
+		for( const key in obj ) {
+			if( obj[ key ] === null ) {
+				delete obj[ key ]
+			} else if( typeof obj[ key ] === 'object' ) {
+				removeNullFieldsMutate( obj[ key ] )
+
+				// Удаляем пустые объекты после очистки
+				if( typeof obj[ key ] === 'object' &&
+					!Array.isArray( obj[ key ] ) &&
+					Object.keys( obj[ key ] ).length === 0 ) {
+					delete obj[ key ]
+				}
+			}
+		}
+
+		return obj
+	}
+
 	export class $apxu_samosbor_map_app extends $.$apxu_samosbor_map_app {
 
 		is_mobile(): boolean {
@@ -467,8 +497,11 @@ namespace $.$$ {
 			}
 		}
 
-		@$mol_action
-		async save_map_click() {
+		save_map_click( next?: any ) {
+			return $apxu_samosbor_map_app.save_map_click()
+		}
+
+		static async save_map_click() {
 			const map = $apxu_samosbor_map_storage.current()
 
 			if( map ) {
@@ -480,7 +513,12 @@ namespace $.$$ {
 
 				const a = document.createElement( 'a' )
 				a.href = url
-				a.download = 'saved_refs.json'
+				const now = new Date()
+
+				const dateStr = now.toISOString().split( 'T' )[ 0 ] // YYYY-MM-DD
+
+				const fileName = `map_backup_${ dateStr }.json`
+				a.download = fileName
 				document.body.appendChild( a )
 				a.click()
 				document.body.removeChild( a )
