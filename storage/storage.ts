@@ -43,12 +43,12 @@ namespace $ {
 			return result
 		}
 
-		@$mol_action
-		static save( object: any, saved_refs: { [ ref: string ]: any } = {} ): any {
+		static async save( object: any, saved_refs: { [ ref: string ]: any } = {} ): Promise<any> {
 			if( object === null ) {
 				return null
 			}
-			const object_ref = object.ref().description
+			const async_object = $mol_wire_async( object )
+			const object_ref = await object.ref().description
 
 			if( saved_refs[ object_ref ] ) {
 				return object_ref
@@ -57,66 +57,66 @@ namespace $ {
 			const prototype = Object.getPrototypeOf( object )
 
 			if( prototype instanceof $hyoo_crus_dict ) {
-				const saved_data = this.save_dict( object, saved_refs )
+				const saved_data = await this.save_dict( object, saved_refs )
 				return saved_data
 			}
 			if( prototype instanceof $hyoo_crus_list_ref_base ) {
-				return this.save_list( object, saved_refs )
+				return await this.save_list( object, saved_refs )
 			}
 			if( prototype instanceof $hyoo_crus_atom_ref_base ) {
-				const saved_data = this.save_ref( object, saved_refs )
+				const saved_data = await this.save_ref( async_object, saved_refs )
 				return saved_data
 			}
 			if( object instanceof $hyoo_crus_atom_int ) {
-				const big_value = object.val()
+				const big_value = await async_object.val()
 				const val = ( big_value != undefined ) ? Number( big_value ) : big_value
 				return val
 			}
 			if( object instanceof $hyoo_crus_atom_bool ) {
-				const val = object.val()
+				const val = await async_object.val()
 				return val
 			}
 			if( object instanceof $hyoo_crus_atom_str ) {
-				const val = object.val()
+				const val = await async_object.val()
 				return val
 			}
 			if( object instanceof $hyoo_crus_atom_enum_base ) {
-				const val = this.save_enum( object as any, saved_refs )
+				const val = await this.save_enum( async_object as any, saved_refs )
 				return val
 			}
 		}
-		@$mol_action
-		static save_enum( object: any, saved_refs?: { [ ref: string ]: any } ) {
-			return object.val()
+		static async save_enum( object: any, saved_refs?: { [ ref: string ]: any } ) {
+			return await object.val()
 		}
-		@$mol_action
-		static save_ref( ref_object: any, saved_refs?: { [ ref: string ]: any } ) {
-			const object = ref_object?.remote()
-			return this.save( object, saved_refs )
+		static async save_ref( async_ref_object: any, saved_refs?: { [ ref: string ]: any } ) {
+			const object = await async_ref_object?.remote()
+			return await this.save( object, saved_refs )
 		}
-		@$mol_action
-		static save_dict( object: any, saved_refs: { [ ref: string ]: any } ) {
+
+		static async save_dict( object: any, saved_refs: { [ ref: string ]: any } ) {
 			const result = {} as any
 			const prototype = Object.getPrototypeOf( object )
 			const schema = Object.getPrototypeOf( prototype ).constructor.schema
 			const keys = Object.keys( schema )
 			const object_ref: string = object.ref().description
+			const async_object = $mol_wire_async( object )
 			saved_refs[ object_ref ] = result
 			for( const key of keys ) {
 				const typedKey = key as keyof typeof schema
-				const field = ( ( object as any )[ typedKey ] as any )()
-				result[ key ] = this.save( field, saved_refs )
+				const field = await ( ( async_object as any )[ typedKey ] as any )()
+				result[ key ] = await this.save( field, saved_refs )
 			}
 
 			return object_ref
 		}
-		@$mol_action
-		static save_list( list: any, saved_refs: { [ ref: string ]: any } ) {
+
+		static async save_list( list: any, saved_refs: { [ ref: string ]: any } ) {
 			const result: any[] = []
 			const object_ref = list.ref().description
 			saved_refs[ object_ref ] = result
-			for( const [ key, object ] of Object.entries( list.remote_list() ) ) {
-				result.push( this.save( object, saved_refs ) )
+			const async_list = $mol_wire_async( list )
+			for( const [ key, object ] of Object.entries( await async_list.remote_list() ) ) {
+				result.push( await this.save( object, saved_refs ) )
 			}
 
 			return object_ref
