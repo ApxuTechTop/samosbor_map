@@ -452,3 +452,7 @@
 [apxu_samosbor_map_block_card_main_buttons] {
 	justify-content: space-between;
 }
+
+[apxu_samosbor_map_app_blockcard_description_view] {
+	justify-content: left;
+}
