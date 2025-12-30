@@ -62,7 +62,8 @@ namespace $.$$ {
 				location: {
 					block: $apxu_samosbor_map_block_data,
 					floor?: number
-				}
+				},
+				icons?: string[],
 			}[] = []
 			for( const block of blocks ) {
 				const block_text = block.name().toLocaleLowerCase()
@@ -85,6 +86,18 @@ namespace $.$$ {
 				}
 				return block_locations
 			} )
+			const liquidator_text = "ликвидаторы"
+			const liquidator_score = calculate_score( liquidator_text, search_input )
+			const is_liquidator = liquidator_score > 3
+			if( is_liquidator ) {
+				for( const block of blocks ) {
+					for( const prof_data of block.profession_floors( "liquidator" ) ) {
+						const floor = prof_data.floor()
+						const display_floor = floor != undefined ? block.display_floor( floor ) : ""
+						search_items.push( { text: `${ block.name() } ${ display_floor }`, score: liquidator_score, location: { block, floor: floor ?? undefined }, icons: [ "liquidator" ] } )
+					}
+				}
+			}
 			const result = search_items
 				.filter( ( { score } ) => score > 0.1 )
 				.sort( ( a, b ) => { return b.score - a.score } )

@@ -361,6 +361,9 @@ $apxu_samosbor_map_block_card $mol_view
 				^ features_visible / <= features $mol_view
 					sub /
 						^ other_places /
+				<= description_view $mol_string
+					value? <=> block_description? \
+					enabled <= edit_mode?
 				^ transitions_visible / <= transitions_list $mol_view
 					sub /
 						^ transitions / <= Transition*0 $mol_bar

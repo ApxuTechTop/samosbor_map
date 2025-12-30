@@ -32,6 +32,11 @@ namespace $ {
 			return this.From( null )?.Block( null )?.val()
 		}
 
+		@$mol_mem
+		from_block_ref() {
+			return this.From()?.Block()?.val()
+		}
+
 		@$mol_action
 		remove_transition() {
 			const from_block_ref = this.From( null )?.Block( null )?.val()
@@ -168,7 +173,12 @@ namespace $ {
 	export class ProfessionData extends $hyoo_crus_dict.with( {
 		Type: ProfessionType,
 		Floor: $hyoo_crus_atom_int,
-	} ) {}
+	} ) {
+		floor( next?: number ) {
+			const val = this.Floor( next )?.val( next != undefined ? BigInt( next ) : next )
+			return val != undefined ? Number( val ) : val
+		}
+	}
 
 	export class PlaceType extends $hyoo_crus_atom_enum( [
 		"theatre", "hospital", "party", "gym",
@@ -209,6 +219,7 @@ namespace $ {
 		Places: $hyoo_crus_list_ref_to( () => PlaceData ),
 
 		CanCreateBlock: $hyoo_crus_atom_bool,
+		Description: $hyoo_crus_text,
 
 	} ) ) {
 		@$mol_mem
@@ -466,6 +477,11 @@ namespace $ {
 		@$mol_mem_key
 		is_double_floor( floor: number, next?: boolean ) {
 			return this.FloorsData( next )?.key( floor, next )?.is_double_floor( next ) ?? false
+		}
+
+		@$mol_mem
+		description( next?: string ) {
+			return this.Description( next )?.text( next ) ?? ""
 		}
 
 	}

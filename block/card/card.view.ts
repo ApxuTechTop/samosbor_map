@@ -574,5 +574,10 @@ namespace $.$$ {
 			transition.remove_transition()
 		}
 
+		@$mol_mem
+		block_description( next?: string ) {
+			return this.block().block_data().description( next )
+		}
+
 	}
 }
