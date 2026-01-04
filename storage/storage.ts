@@ -54,9 +54,12 @@ namespace $ {
 			}
 
 			const prototype = Object.getPrototypeOf( object )
-
-			if( prototype instanceof $hyoo_crus_dict ) {
+			if( prototype instanceof $hyoo_crus_dict && ( object as any ).Value ) {
 				const saved_data = await this.save_dict( object, saved_refs )
+				return saved_data
+			}
+			if( prototype instanceof $hyoo_crus_dict ) {
+				const saved_data = await this.save_struct( object, saved_refs )
 				return saved_data
 			}
 			if( prototype instanceof $hyoo_crus_list_ref_base ) {
@@ -92,23 +95,38 @@ namespace $ {
 			return await this.save( object, saved_refs )
 		}
 
-		static async save_dict( object: any, saved_refs: { [ ref: string ]: any } ) {
+		static async save_struct( object: any, saved_refs: { [ ref: string ]: any } ) {
 			const result = {} as any
 			const prototype = Object.getPrototypeOf( object )
 			const schema = Object.getPrototypeOf( prototype ).constructor.schema
-			const keys = Object.keys( schema )
+			const keys = ( await object.keys() )
 			const object_ref: string = ( await object.ref() ).description
 			saved_refs[ object_ref ] = result
 			for( const key of keys ) {
 				const typedKey = key as keyof typeof schema
 				const field = await ( ( object as any )[ typedKey ] as any )()
 				const val = await this.save( field, saved_refs )
-				if (val !== null) {
+				if( val !== null ) {
 					result[ key ] = val
 				}
-				
+
 			}
 
+			return object_ref
+		}
+
+		static async save_dict( object: any, saved_refs: { [ ref: string ]: any } ) {
+			const result = {} as any
+			const object_ref: string = ( await object.ref() ).description
+			saved_refs[ object_ref ] = result
+			const keys = ( await object.keys() )
+			for( const key of keys ) {
+				const val = await object.key( key )
+				const saved_val = await this.save( val, saved_refs )
+				if( val !== null ) {
+					result[ key ] = saved_val
+				}
+			}
 			return object_ref
 		}
 
