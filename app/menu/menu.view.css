@@ -1,0 +1,231 @@
+[apxu_samosbor_map_app_menu] {
+	height: 100%;
+	width: 300px;
+
+	/* position: fixed; */
+	position: relative;
+	z-index: 100;
+	padding: 10px;
+	transition: translate 0.2s ease-in-out,
+		width 0.2s ease-in-out;
+}
+
+[apxu_samosbor_map_app_menu][hidden] {
+	width: 88px;
+	/* translate: calc(-100% + 10px); */
+}
+
+[apxu_samosbor_map_app_menu_searchbar] {
+	border-radius: 10px;
+	background-color: var(--base-color);
+}
+
+[apxu_samosbor_map_app_menu_searchbar_searchinput] {
+	background: unset;
+	box-shadow: unset;
+}
+
+[apxu_samosbor_map_app_menu_searchbar] [mol_button_minor] {
+	padding: unset;
+	justify-content: center;
+	align-items: center;
+}
+
+[apxu_samosbor_map_app_menu_searchbar] [mol_button_minor] [mol_icon] {
+	width: 24px;
+	height: 24px;
+}
+
+/* [apxu_samosbor_map_app_menu_searchbutton] {
+	
+} */
+
+[apxu_samosbor_map_app_menu_search_button_icon] {
+	width: 24px;
+}
+
+
+
+[apxu_samosbor_map_app_menu][hidden] [apxu_samosbor_map_app_menu_searchbar] {
+	display: none;
+}
+
+[apxu_samosbor_map_app_menu][hidden] [apxu_samosbor_map_app_menu_hide_button_icon] {
+	rotate: 180deg;
+}
+
+[apxu_samosbor_map_app_menu_content] {
+	background-color: var(--bg-color);
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+	padding: 10px;
+
+	flex-direction: column;
+	gap: 10px;
+}
+
+[apxu_samosbor_map_app_menu_body] {
+	flex: 1;
+	gap: 10px;
+	flex-direction: column;
+}
+
+[apxu_samosbor_map_app_menu_footer] {
+	flex-direction: column;
+}
+
+[apxu_samosbor_map_app_menu_otherbuttons] {
+	justify-content: space-between;
+	gap: 10px;
+}
+
+[apxu_samosbor_map_app_menu_otherbuttons] [mol_view] {
+	gap: 10px;
+	align-items: center;
+}
+
+[apxu_samosbor_map_app_menu_otherbuttons] [mol_icon] {
+	width: 24px;
+	height: 24px;
+}
+
+[apxu_samosbor_map_app_menu_otherbuttons] [mol_link] {
+	padding: 0;
+}
+
+[apxu_samosbor_map_app_menu][hidden] [apxu_samosbor_map_app_menu_otherbuttons] {
+	flex-direction: column;
+}
+
+[apxu_samosbor_map_app_menu][hidden] [apxu_samosbor_map_app_menu_functionalbuttons] {
+	flex-direction: column;
+}
+
+[apxu_samosbor_map_app_menu][hidden] [apxu_samosbor_map_app_menu_links] {
+	flex-direction: column;
+}
+
+[apxu_samosbor_map_app_menu_title] {
+	/* justify-content: space-between; */
+	gap: 10px;
+	font-family: "Roboto";
+	font-weight: 700;
+	font-size: 34px;
+	align-items: center;
+	color: var(--string-color);
+}
+
+[apxu_samosbor_map_app_menu][hidden] [apxu_samosbor_map_app_menu_title] {
+	flex-direction: column-reverse;
+}
+
+[apxu_samosbor_map_app_menu][hidden] [apxu_samosbor_map_app_menu_menu_text] {
+	display: none;
+}
+
+[apxu_samosbor_map_app_menu][hidden] [apxu_samosbor_map_app_menu_routingblock] {
+	display: none;
+}
+
+[apxu_samosbor_map_app_menu_hide_button] {
+	/* position: absolute;
+	left: 100%;
+	top: 15px; */
+	background-color: var(--bg-color);
+	width: 32px;
+	height: 22px;
+	padding: 0px;
+	align-items: center;
+	justify-content: center;
+	margin-left: auto;
+	/* position: relative;
+	left: 50px;
+	height: 42px; */
+	z-index: 1;
+}
+
+[apxu_samosbor_map_app_menu][hidden] [apxu_samosbor_map_app_menu_hide_button] {
+	margin-left: 0;
+}
+
+[apxu_samosbor_map_app_menu_hide_button_icon] {
+	width: 14px;
+	height: 24px;
+	transition: rotate 0.2s ease-in-out;
+}
+
+[apxu_samosbor_map_app_menu_rights] {
+	/* max-height: 200px; */
+	overflow-y: auto;
+}
+
+[apxu_samosbor_map_app_menu_rights_gift] {
+	min-width: 0;
+}
+
+[apxu_samosbor_map_app_menu_rights_gift_peer] {
+	min-width: 0;
+	flex-shrink: 1;
+}
+
+[apxu_samosbor_map_app_menu_rights_gift_name] {
+	overflow-x: scroll;
+	-ms-overflow-style: none;
+	/* IE 10+ */
+	scrollbar-width: none;
+	/* Firefox */
+	min-width: 0;
+	flex-shrink: 1;
+}
+
+[apxu_samosbor_map_app_menu_other] {
+	position: absolute;
+	left: 100%;
+	max-height: 100%;
+	top: 10px;
+	bottom: 10px;
+	gap: 5px;
+
+	pointer-events: none;
+}
+
+[apxu_samosbor_map_app_menu_other] [apxu_samosbor_map_block_card] {
+	pointer-events: auto;
+}
+
+[apxu_samosbor_map_app_menu_searches_container] {
+	flex-direction: column;
+	padding: 10px;
+	position: relative;
+	gap: 5px;
+	flex-wrap: wrap;
+	background-color: var(--bg-color);
+	border-radius: 10px;
+	height: 100%;
+	overflow-y: auto;
+	pointer-events: auto;
+}
+
+
+[apxu_samosbor_map_app_menu_button],
+[apxu_samosbor_map_app_menu_button_copy] {
+	width: 40px;
+	height: 38px;
+	background-color: var(--base-color);
+	border-radius: 10px;
+	padding: unset;
+	justify-content: center;
+	align-items: center;
+}
+
+[apxu_samosbor_map_app_menu_routingblock] {
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+
+	font-family: "Roboto";
+	font-weight: 700;
+	font-size: 22px;
+	color: var(--string-color);
+}

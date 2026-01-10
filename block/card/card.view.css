@@ -8,9 +8,10 @@
 }
 
 [apxu_samosbor_map_block_card] {
-	position: absolute;
+	/* position: absolute; */
 	width: 287px;
-	height: 482px;
+	/* height: 482px; */
+	max-height: 100%;
 	background-color: #121212;
 	border-radius: 5px;
 
@@ -54,6 +55,10 @@
 		padding-bottom: 5px;
 		width: 100%;
 		justify-content: center;
+	}
+
+	&> :last-child {
+		border-bottom: none;
 	}
 
 	width: 100%;
@@ -415,4 +420,8 @@
 
 [apxu_samosbor_map_block_card_transitions_list] {
 	flex-wrap: wrap;
+}
+
+[apxu_samosbor_map_block_card_main_buttons] {
+	justify-content: space-between;
 }
