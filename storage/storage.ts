@@ -102,16 +102,21 @@ namespace $ {
 			const keys = ( await object.keys() )
 			const object_ref: string = ( await object.ref() ).description
 			saved_refs[ object_ref ] = result
+			let has_data = false
 			for( const key of keys ) {
 				const typedKey = key as keyof typeof schema
 				const field = await ( ( object as any )[ typedKey ] as any )()
 				const val = await this.save( field, saved_refs )
-				if( val !== null ) {
+				if( val !== null && val ) {
+					has_data = true
 					result[ key ] = val
 				}
 
 			}
-
+			if( !has_data ) {
+				delete saved_refs[ object_ref ]
+				return undefined
+			}
 			return object_ref
 		}
 
@@ -120,12 +125,18 @@ namespace $ {
 			const object_ref: string = ( await object.ref() ).description
 			saved_refs[ object_ref ] = result
 			const keys = ( await object.keys() )
+			let has_data = false
 			for( const key of keys ) {
 				const val = await object.key( key )
 				const saved_val = await this.save( val, saved_refs )
-				if( val !== null ) {
+				if( val !== null && saved_val ) {
+					has_data = true
 					result[ key ] = saved_val
 				}
+			}
+			if( !has_data ) {
+				delete saved_refs[ object_ref ]
+				return undefined
 			}
 			return object_ref
 		}
