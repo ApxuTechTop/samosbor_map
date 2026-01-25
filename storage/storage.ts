@@ -107,7 +107,7 @@ namespace $ {
 				const typedKey = key as keyof typeof schema
 				const field = await ( ( object as any )[ typedKey ] as any )()
 				const val = await this.save( field, saved_refs )
-				if( val !== null && val ) {
+				if( val !== null ) {
 					has_data = true
 					result[ key ] = val
 				}
@@ -129,7 +129,7 @@ namespace $ {
 			for( const key of keys ) {
 				const val = await object.key( key )
 				const saved_val = await this.save( val, saved_refs )
-				if( val !== null && saved_val ) {
+				if( val !== null && saved_val != null ) {
 					has_data = true
 					result[ key ] = saved_val
 				}
