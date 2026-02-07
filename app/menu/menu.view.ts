@@ -1,5 +1,40 @@
 namespace $.$$ {
 
+	function isObject( value: unknown ): value is Record<string, unknown> {
+		return value !== null && typeof value === 'object' && !Array.isArray( value )
+	}
+
+	function isBigInt( value: unknown ): value is bigint {
+		return typeof value === 'bigint'
+	}
+
+	function deepConvertNumberToBigInt<T>( obj: T ): T {
+		if( typeof obj === "number" ) {
+			// Преобразуем BigInt в number
+			// Внимание: большие BigInt значения могут потерять точность при преобразовании
+			return BigInt( obj ) as unknown as T
+		}
+
+		if( Array.isArray( obj ) ) {
+			// Обрабатываем массивы рекурсивно
+			return obj.map( item => deepConvertNumberToBigInt( item ) ) as unknown as T
+		}
+
+		if( isObject( obj ) ) {
+			// Обрабатываем объекты рекурсивно
+			const result: Record<string, unknown> = {}
+
+			for( const [ key, value ] of Object.entries( obj ) ) {
+				result[ key ] = deepConvertNumberToBigInt( value )
+			}
+
+			return result as unknown as T
+		}
+
+		// Возвращаем примитивные значения без изменений
+		return obj
+	}
+
 	function calculate_score( ref: string, input: string ) {
 		let score = 0
 		const min_length = Math.min( ref.length, input.length )
@@ -46,10 +81,10 @@ namespace $.$$ {
 			return []
 		}
 
-		save_map_visible() {
-			if( this.is_editor() ) return [ this.save_map_button() ]
-			return []
-		}
+		// save_map_visible() {
+		// 	if( this.is_editor() ) return [ this.save_map_button() ]
+		// 	return []
+		// }
 
 		@$mol_mem
 		search_results() {
@@ -172,6 +207,71 @@ namespace $.$$ {
 				return $apxu_samosbor_map_icon_frozen.make( {} )
 			}
 			return undefined as any
+		}
+
+		@$mol_mem
+		map_items( next?: File[] ) {
+			console.log( next?.[ 0 ] )
+			const file = next?.[ 0 ]
+			if( file ) {
+				console.log( $mol_wire_sync( file ).text() )
+				//console.log($mol_wire_sync(this.$).$mol_blob_text( next[0] ))
+				// console.log($mol_fetch.success(URL.createObjectURL(file)).text())
+				// this.map_json_url(url)
+			}
+
+			return next ?? []
+		}
+
+		@$mol_mem
+		map_json_url( next?: string ) {
+			return next
+		}
+
+		@$mol_mem
+		loaded_file() {
+			return this.map_files()[ 0 ]
+		}
+
+		@$mol_mem
+		loaded_json() {
+			const file = this.loaded_file() as File | undefined
+			if( !file ) return undefined
+			return $mol_wire_sync( $ ).$mol_blob_json( file )
+		}
+
+		@$mol_action
+		async load_map_click( next?: any ) {
+			const file = this.map_files()[ 0 ] as File
+			console.log( file, this.map_files() )
+			if( !file ) return
+			const map_json = await $mol_blob_json( file )
+			const main_ref = "7cPY6æ0E_4RpGD3TQ" // TODO
+			const map_object = $apxu_samosbor_map_storage.current()
+			console.log( map_object )
+			if( !map_object ) return
+			// await $apxu_samosbor_map_storage.load(main_ref, map_object, map_json)
+		}
+
+		@$mol_action
+		save_map() {
+			const map = $apxu_samosbor_map_storage.current()
+			if( !map ) return
+			const data = $apxu_samosbor_map_storage.save_map( map )
+			const now = new Date()
+			const dateStr = now.toISOString().split( 'T' )[ 0 ] // YYYY-MM-DD
+			const fileName = `test_${ dateStr }.json`
+			$apxu_samosbor_map_app.download_data( data, fileName )
+		}
+
+		@$mol_action
+		load_map() {
+			const map = ( $apxu_samosbor_map_storage ).current()
+			if( !map ) return
+			const { result, saved_block_nodes, saved_transition_nodes } = ( this ).loaded_json()
+			$mol_wire_sync( $apxu_samosbor_map_storage ).load_map( map, result, saved_block_nodes, saved_transition_nodes )
+
+
 		}
 	}
 }

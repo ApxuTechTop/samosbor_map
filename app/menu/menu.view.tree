@@ -83,9 +83,18 @@ $apxu_samosbor_map_app_menu $mol_view
 						<= RoutingBlock $apxu_samosbor_map_app_menu_routingblock
 				<= Footer $mol_view
 					sub /
-						^ save_map_visible / <= save_map_button $mol_button_major
-							click? <=> save_map_click? null
-							sub / \Сохранить карту
+						^ save_map_visible <= save_map_elements / 
+							<= save_map_button $mol_button_major
+								click? <=> save_map null
+								sub / \Сохранить карту
+							<= attach_map $mol_button_open
+								files? <=> map_files? /
+								- attach_new? <=> map_items? /
+							<= load_map_button $mol_button_major
+								click? <=> load_map? null
+								sub / \Загрузить карту
+							<= map_text $mol_view
+								sub / <= map_json_text /
 						^ rights_visible / <= Rights $hyoo_crus_land_rights
 							land <= land $hyoo_crus_land
 						<= OtherButtons $mol_bar

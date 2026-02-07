@@ -75,14 +75,14 @@ namespace $ {
 	} as const
 	const FenceTypes = [ "missing", "hole", "solid" ] as const
 	export class FenceData extends $hyoo_crus_atom_enum( FenceTypes ) {}
-
-	export class FloorData extends $hyoo_crus_dict.with( {
+	export const FloorDataScheme = {
 		...PassageDirections,
 		Fence: FenceData,
 		LeftFlight: FlightStatus,
 		RightFlight: FlightStatus,
 		IsDouble: $hyoo_crus_atom_bool,
-	} ) {
+	} as const
+	export class FloorData extends $hyoo_crus_dict.with( FloorDataScheme ) {
 		static readonly positions_map: { [ pos in TransitionPosition ]: keyof typeof PassageDirections } = {
 			up_left: "UpLeftPassage",
 			up_middle: "UpMiddlePassage",

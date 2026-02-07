@@ -501,28 +501,32 @@ namespace $.$$ {
 			return $apxu_samosbor_map_app.save_map_click()
 		}
 
+		static download_data( data: any, fileName: string ) {
+			const jsonString = JSON.stringify( data, null, 2 )
+			const blob = new Blob( [ jsonString ], { type: 'application/json' } )
+			const url = URL.createObjectURL( blob )
+
+			const a = document.createElement( 'a' )
+			a.href = url
+			a.download = fileName
+			document.body.appendChild( a )
+			a.click()
+			document.body.removeChild( a )
+			URL.revokeObjectURL( url )
+		}
+
+
+
 		static async save_map_click() {
 			const map = $apxu_samosbor_map_storage.current()
 
 			if( map ) {
 				const saved_refs = {}
 				const map_ref = await $apxu_samosbor_map_storage.save( map, saved_refs )
-				const jsonString = JSON.stringify( saved_refs, null, 2 )
-				const blob = new Blob( [ jsonString ], { type: 'application/json' } )
-				const url = URL.createObjectURL( blob )
-
-				const a = document.createElement( 'a' )
-				a.href = url
 				const now = new Date()
-
 				const dateStr = now.toISOString().split( 'T' )[ 0 ] // YYYY-MM-DD
-
 				const fileName = `map_backup_${ dateStr }.json`
-				a.download = fileName
-				document.body.appendChild( a )
-				a.click()
-				document.body.removeChild( a )
-				URL.revokeObjectURL( url )
+				this.download_data( saved_refs, fileName )
 				console.log( $apxu_samosbor_map_storage.saved_refs_to_obj( saved_refs )[ map_ref ] )
 			}
 		}
