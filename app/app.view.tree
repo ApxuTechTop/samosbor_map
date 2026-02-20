@@ -57,7 +57,6 @@ $apxu_samosbor_map_app $mol_view
 			is_mobile <= is_mobile
 			gigacluster <= gigacluster
 			search_item_click? <=> search_item_click? null
-			save_map_click? <=> save_map_click? null
 			slider <= Slider_Container $mol_view
 				sub /
 					<= Layer_Slider $apxu_samosbor_map_slider
